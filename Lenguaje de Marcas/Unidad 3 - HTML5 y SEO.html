@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 3 - HTML5 y SEO</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#090909;
+      --panel:#131313;
+      --panel2:#191919;
+      --border:#2c2c2c;
+      --text:#e6e6e6;
+      --muted:#9f9f9f;
+      --red:#8f2b2b;
+      --red2:#ff7373;
+      --green:#57ffb0;
+      --shadow:0 0 20px rgba(255,70,70,.12);
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Segoe UI, sans-serif;
+      overflow-x:hidden;
+    }
+
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:320px;
+      position:fixed;
+      top:0;
+      bottom:0;
+      left:0;
+      overflow-y:auto;
+      background:#070707;
+      border-right:1px solid var(--border);
+      padding:25px;
+      z-index:999;
+    }
+
+    .logo{
+      color:var(--red2);
+      font-size:30px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .sub{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      margin-bottom:30px;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:#ddd;
+      background:#131313;
+      border:1px solid transparent;
+      padding:14px;
+      border-radius:10px;
+      transition:.25s;
+      font-size:14px;
+    }
+
+    .menu a:hover{
+      border-color:var(--red);
+      background:#1b1b1b;
+      transform:translateX(5px);
+      color:white;
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:320px;
+      width:calc(100% - 320px);
+      padding:40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#121212,#1c1010);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:45px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:42px;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      color:#d2d2d2;
+      line-height:1.9;
+      max-width:1000px;
+    }
+
+    .block{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:35px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .block h2{
+      color:var(--red2);
+      margin-bottom:20px;
+      font-size:32px;
+    }
+
+    .block h3{
+      margin-top:28px;
+      margin-bottom:14px;
+      color:white;
+    }
+
+    .block p{
+      line-height:1.9;
+      margin-bottom:16px;
+      color:#d8d8d8;
+    }
+
+    .block ul,
+    .block ol{
+      margin-left:25px;
+      margin-bottom:18px;
+    }
+
+    .block li{
+      margin-bottom:10px;
+      line-height:1.8;
+    }
+
+    .code{
+      background:#050505;
+      border-left:4px solid var(--red2);
+      padding:20px;
+      border-radius:12px;
+      margin:20px 0;
+      overflow-x:auto;
+      color:#5effad;
+      font-family:Consolas, monospace;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px 0;
+    }
+
+    th, td{
+      border:1px solid #2c2c2c;
+      padding:14px;
+      text-align:left;
+    }
+
+    th{
+      background:#1d1d1d;
+      color:#ff9f9f;
+    }
+
+    tr:nth-child(even){
+      background:#161616;
+    }
+
+    .tip{
+      background:#151010;
+      border:1px solid #603030;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    .warning{
+      background:#241212;
+      border:1px solid #8d3434;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:#2a1212;
+      border:1px solid #6d2929;
+      color:#ff9898;
+      margin-right:8px;
+      margin-bottom:10px;
+      font-size:13px;
+    }
+
+    .quiz{
+      margin-top:40px;
+      background:#0f0f0f;
+      border:1px solid #313131;
+      border-radius:18px;
+      padding:25px;
+    }
+
+    .quiz h3{
+      color:#ff8f8f;
+      margin-bottom:20px;
+    }
+
+    .question{
+      background:#151515;
+      border-radius:12px;
+      padding:18px;
+      margin-bottom:20px;
+    }
+
+    .question p{
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .question label{
+      display:block;
+      margin-bottom:10px;
+      cursor:pointer;
+    }
+
+    .question label:hover{
+      color:#ff8f8f;
+    }
+
+    button{
+      background:linear-gradient(135deg,var(--red),#5f1717);
+      color:white;
+      border:none;
+      padding:14px 22px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.25s;
+    }
+
+    button:hover{
+      transform:scale(1.03);
+    }
+
+    .result{
+      margin-top:18px;
+      font-size:18px;
+      font-weight:bold;
+    }
+
+    .footer{
+      text-align:center;
+      color:#666;
+      padding:40px 0;
+    }
+
+    @media(max-width:1000px){
+
+      .layout{
+        flex-direction:column;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">UNIDAD 3</div>
+
+    <div class="sub">
+      HTML5 · Multimedia · SEO · Accesibilidad<br><br>
+      Guía completa de estudio interactiva con teoría, ejemplos y mini-tests.
+    </div>
+
+    <nav class="menu">
+
+      <a href="#b1">3.1 Audio</a>
+      <a href="#b2">3.2 Video</a>
+      <a href="#b3">3.3 Barras de progreso</a>
+      <a href="#b4">3.4 Formularios HTML5</a>
+      <a href="#b5">3.5 Etiqueta ARIA</a>
+      <a href="#b6">3.6 Etiquetas SEO</a>
+
+    </nav>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <section class="hero">
+
+      <h1>Unidad 3 - HTML5 y SEO</h1>
+
+      <p>
+        HTML5 incorpora nuevas etiquetas semánticas, multimedia,
+        formularios avanzados y herramientas de accesibilidad y SEO.
+        En esta unidad aprenderás audio, vídeo, formularios modernos,
+        barras de progreso, atributos ARIA y etiquetas meta para
+        posicionamiento web.
+      </p>
+
+    </section>
+
+    <!-- BLOQUE 1 -->
+
+    <section class="block" id="b1">
+
+      <h2>3.1 Audio en HTML5</h2>
+
+      <span class="tag">audio</span>
+      <span class="tag">source</span>
+      <span class="tag">multimedia</span>
+
+      <p>
+        HTML5 permite insertar audio directamente en la web sin necesidad
+        de plugins externos.
+      </p>
+
+      <h3>Etiqueta &lt;audio&gt;</h3>
+
+      <div class="code">
+&lt;audio src="musica.mp3" controls&gt;
+&lt;/audio&gt;
+      </div>
+
+      <h3>Atributos importantes</h3>
+
+      <table>
+
+        <tr>
+          <th>Atributo</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>src</td>
+          <td>Ruta del audio</td>
+        </tr>
+
+        <tr>
+          <td>controls</td>
+          <td>Muestra controles del reproductor</td>
+        </tr>
+
+        <tr>
+          <td>autoplay</td>
+          <td>Reproduce automáticamente</td>
+        </tr>
+
+        <tr>
+          <td>loop</td>
+          <td>Reproduce en bucle</td>
+        </tr>
+
+      </table>
+
+      <h3>Uso de &lt;source&gt;</h3>
+
+      <div class="code">
+&lt;audio controls&gt;
+
+  &lt;source src="audio.mp3" type="audio/mp3"&gt;
+  &lt;source src="audio.ogg" type="audio/ogg"&gt;
+
+  Tu navegador no soporta audio HTML5
+
+&lt;/audio&gt;
+      </div>
+
+      <h3>Formatos compatibles</h3>
+
+      <ul>
+        <li>MP3</li>
+        <li>OGG</li>
+        <li>WAV</li>
+        <li>ACC</li>
+        <li>OPUS</li>
+      </ul>
+
+      <div class="warning">
+        Pregunta típica:
+        autoplay puede resultar invasivo para el usuario.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo muestra el reproductor?</p>
+
+          <label><input type="radio" name="q1"> src</label>
+          <label><input type="radio" name="q1" data-correct> controls</label>
+          <label><input type="radio" name="q1"> loop</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+        <div id="r1" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="block" id="b2">
+
+      <h2>3.2 Video en HTML5</h2>
+
+      <span class="tag">video</span>
+      <span class="tag">youtube</span>
+
+      <p>
+        HTML5 permite insertar vídeos de forma nativa mediante la etiqueta
+        &lt;video&gt;.
+      </p>
+
+      <h3>Vídeo básico</h3>
+
+      <div class="code">
+&lt;video src="video.mp4" controls&gt;
+&lt;/video&gt;
+      </div>
+
+      <h3>Varios formatos</h3>
+
+      <div class="code">
+&lt;video controls&gt;
+
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;
+
+  Tu navegador no soporta vídeo.
+
+&lt;/video&gt;
+      </div>
+
+      <h3>Atributos importantes</h3>
+
+      <table>
+
+        <tr>
+          <th>Atributo</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>controls</td>
+          <td>Controles multimedia</td>
+        </tr>
+
+        <tr>
+          <td>autoplay</td>
+          <td>Reproducción automática</td>
+        </tr>
+
+        <tr>
+          <td>loop</td>
+          <td>Repetición infinita</td>
+        </tr>
+
+        <tr>
+          <td>src</td>
+          <td>Archivo de vídeo</td>
+        </tr>
+
+      </table>
+
+      <h3>Insertar vídeo de YouTube</h3>
+
+      <div class="code">
+&lt;iframe 
+width="560"
+height="315"
+src="https://www.youtube.com/embed/VIDEO"
+allowfullscreen&gt;
+&lt;/iframe&gt;
+      </div>
+
+      <h3>Formatos compatibles</h3>
+
+      <ul>
+        <li>MP4</li>
+        <li>WEBM</li>
+        <li>OGG</li>
+      </ul>
+
+      <div class="tip">
+        MP4 es el formato más utilizado y compatible.
+      </div>
+
+      <div class="warning">
+        Pregunta frecuente:
+        controls NO reproduce automáticamente el vídeo.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta permite insertar vídeos externos como YouTube?</p>
+
+          <label><input type="radio" name="q2"> &lt;video&gt;</label>
+          <label><input type="radio" name="q2" data-correct> &lt;iframe&gt;</label>
+          <label><input type="radio" name="q2"> &lt;media&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+        <div id="r2" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="block" id="b3">
+
+      <h2>3.3 Barras de progreso</h2>
+
+      <span class="tag">progress</span>
+      <span class="tag">HTML5</span>
+
+      <p>
+        La etiqueta &lt;progress&gt; permite representar visualmente el progreso
+        de una tarea.
+      </p>
+
+      <h3>Ejemplo básico</h3>
+
+      <div class="code">
+&lt;label for="carga"&gt;Carga:&lt;/label&gt;
+
+&lt;progress
+id="carga"
+value="70"
+max="100"&gt;
+70%
+&lt;/progress&gt;
+      </div>
+
+      <h3>Atributos importantes</h3>
+
+      <table>
+
+        <tr>
+          <th>Atributo</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>value</td>
+          <td>Valor actual</td>
+        </tr>
+
+        <tr>
+          <td>max</td>
+          <td>Valor máximo</td>
+        </tr>
+
+        <tr>
+          <td>min</td>
+          <td>Valor mínimo</td>
+        </tr>
+
+      </table>
+
+      <h3>Ejemplo práctico</h3>
+
+      <div class="code">
+&lt;progress value="40" max="100"&gt;
+&lt;/progress&gt;
+      </div>
+
+      <div class="tip">
+        Muy usado para descargas, cargas de archivos y procesos.
+      </div>
+
+      <div class="warning">
+        value siempre debe estar entre min y max.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo indica el progreso actual?</p>
+
+          <label><input type="radio" name="q3"> max</label>
+          <label><input type="radio" name="q3" data-correct> value</label>
+          <label><input type="radio" name="q3"> src</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+        <div id="r3" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="block" id="b4">
+
+      <h2>3.4 Formularios HTML5</h2>
+
+      <span class="tag">input</span>
+      <span class="tag">required</span>
+      <span class="tag">placeholder</span>
+
+      <p>
+        HTML5 incorpora nuevos tipos de campos y atributos avanzados para
+        mejorar la experiencia del usuario.
+      </p>
+
+      <h3>Nuevos tipos de input</h3>
+
+      <table>
+
+        <tr>
+          <th>Tipo</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>email</td>
+          <td>Correo electrónico</td>
+        </tr>
+
+        <tr>
+          <td>date</td>
+          <td>Fecha</td>
+        </tr>
+
+        <tr>
+          <td>number</td>
+          <td>Números</td>
+        </tr>
+
+        <tr>
+          <td>range</td>
+          <td>Barra deslizante</td>
+        </tr>
+
+        <tr>
+          <td>color</td>
+          <td>Selector de color</td>
+        </tr>
+
+      </table>
+
+      <h3>Ejemplo completo</h3>
+
+      <div class="code">
+&lt;form&gt;
+
+Nombre:
+&lt;input 
+type="text"
+placeholder="Tu nombre"
+required
+&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+Correo:
+&lt;input 
+type="email"
+autocomplete="email"
+required
+&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+Edad:
+&lt;input 
+type="number"
+min="1"
+max="120"
+&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;input type="submit"&gt;
+
+&lt;/form&gt;
+      </div>
+
+      <h3>Atributos importantes</h3>
+
+      <ul>
+        <li><strong>required</strong> → campo obligatorio</li>
+        <li><strong>placeholder</strong> → texto de ayuda</li>
+        <li><strong>autocomplete</strong> → autocompletar</li>
+        <li><strong>autofocus</strong> → foco automático</li>
+        <li><strong>readonly</strong> → solo lectura</li>
+        <li><strong>disabled</strong> → desactivado</li>
+      </ul>
+
+      <h3>Textarea</h3>
+
+      <div class="code">
+&lt;textarea name="mensaje"&gt;
+&lt;/textarea&gt;
+      </div>
+
+      <h3>Select y option</h3>
+
+      <div class="code">
+&lt;select&gt;
+
+  &lt;option&gt;Rojo&lt;/option&gt;
+  &lt;option&gt;Azul&lt;/option&gt;
+
+&lt;/select&gt;
+      </div>
+
+      <div class="warning">
+        method="post" es más seguro que GET.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo hace obligatorio un campo?</p>
+
+          <label><input type="radio" name="q4"> autofocus</label>
+          <label><input type="radio" name="q4"> disabled</label>
+          <label><input type="radio" name="q4" data-correct> required</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+        <div id="r4" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="block" id="b5">
+
+      <h2>3.5 Etiqueta ARIA</h2>
+
+      <span class="tag">Accesibilidad</span>
+      <span class="tag">aria-label</span>
+
+      <p>
+        WAI-ARIA mejora la accesibilidad para personas con discapacidad visual.
+      </p>
+
+      <h3>¿Qué es aria-label?</h3>
+
+      <p>
+        aria-label proporciona una descripción accesible para lectores de pantalla.
+      </p>
+
+      <h3>Ejemplo en botón</h3>
+
+      <div class="code">
+&lt;button aria-label="Buscar"&gt;
+
+  🔍
+
+&lt;/button&gt;
+      </div>
+
+      <h3>Ejemplo en input</h3>
+
+      <div class="code">
+&lt;input
+type="search"
+aria-label="Buscar en el sitio"
+&gt;
+      </div>
+
+      <h3>Buenas prácticas</h3>
+
+      <ul>
+        <li>Usar descripciones claras.</li>
+        <li>No repetir texto visible.</li>
+        <li>Complementa la accesibilidad.</li>
+        <li>No sustituye completamente al contenido visual.</li>
+      </ul>
+
+      <div class="warning">
+        aria-label mejora accesibilidad,
+        pero NO influye directamente en SEO.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Para qué sirve aria-label?</p>
+
+          <label><input type="radio" name="q5"> Para cambiar colores</label>
+          <label><input type="radio" name="q5" data-correct> Para accesibilidad</label>
+          <label><input type="radio" name="q5"> Para reproducir audio</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+        <div id="r5" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="block" id="b6">
+
+      <h2>3.6 Etiquetas SEO</h2>
+
+      <span class="tag">meta</span>
+      <span class="tag">SEO</span>
+      <span class="tag">responsive</span>
+
+      <p>
+        Las etiquetas meta ayudan a los navegadores y motores de búsqueda
+        a comprender mejor una página web.
+      </p>
+
+      <h3>Meta charset</h3>
+
+      <div class="code">
+&lt;meta charset="UTF-8"&gt;
+      </div>
+
+      <p>
+        Permite usar caracteres especiales y distintos idiomas.
+      </p>
+
+      <h3>Viewport responsive</h3>
+
+      <div class="code">
+&lt;meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+&gt;
+      </div>
+
+      <h3>Descripción SEO</h3>
+
+      <div class="code">
+&lt;meta
+name="description"
+content="Curso completo HTML5"
+&gt;
+      </div>
+
+      <h3>Keywords</h3>
+
+      <div class="code">
+&lt;meta
+name="keywords"
+content="HTML5, SEO, formularios"
+&gt;
+      </div>
+
+      <h3>Robots</h3>
+
+      <div class="code">
+&lt;meta
+name="robots"
+content="index, follow"
+&gt;
+      </div>
+
+      <h3>Autor</h3>
+
+      <div class="code">
+&lt;meta
+name="author"
+content="Tu nombre"
+&gt;
+      </div>
+
+      <h3>Hreflang</h3>
+
+      <div class="code">
+&lt;link
+rel="alternate"
+href="https://ejemplo.com/es/"
+hreflang="es"
+&gt;
+      </div>
+
+      <table>
+
+        <tr>
+          <th>Etiqueta</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>description</td>
+          <td>Descripción SEO</td>
+        </tr>
+
+        <tr>
+          <td>viewport</td>
+          <td>Responsive móvil</td>
+        </tr>
+
+        <tr>
+          <td>robots</td>
+          <td>Indexación</td>
+        </tr>
+
+      </table>
+
+      <div class="warning">
+        keywords tiene poca importancia actualmente en SEO moderno.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué meta etiqueta hace responsive una web?</p>
+
+          <label><input type="radio" name="q6"> description</label>
+          <label><input type="radio" name="q6" data-correct> viewport</label>
+          <label><input type="radio" name="q6"> robots</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+        <div id="r6" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Unidad 3 completada · HTML5 y SEO dominados 🚀
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+
+function checkQuiz(groupName, resultId){
+
+  const options = document.getElementsByName(groupName);
+
+  let correct = false;
+
+  options.forEach(option => {
+
+    if(option.checked && option.dataset.correct !== undefined){
+      correct = true;
+    }
+
+  });
+
+  const result = document.getElementById(resultId);
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "#57ffb0";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "#ff7373";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

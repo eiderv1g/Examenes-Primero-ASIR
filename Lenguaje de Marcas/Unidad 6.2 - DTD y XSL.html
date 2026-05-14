@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 6.2 - DTD y XSL</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#090909;
+--panel:#141414;
+--panel2:#1d1d1d;
+--text:#ededed;
+--muted:#9f9f9f;
+--red:#912d2d;
+--red2:#ff9696;
+--border:#2f2f2f;
+--green:#6bffb3;
+--shadow:0 0 25px rgba(255,80,80,.15);
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Segoe UI,sans-serif;
+overflow-x:hidden;
+}
+
+/* LAYOUT */
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+width:320px;
+background:#050505;
+border-right:1px solid var(--border);
+padding:30px;
+overflow-y:auto;
+z-index:999;
+}
+
+.logo{
+font-size:34px;
+font-weight:900;
+color:var(--red2);
+margin-bottom:15px;
+}
+
+.sidebar p{
+line-height:1.8;
+color:var(--muted);
+margin-bottom:30px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu a{
+text-decoration:none;
+color:#ddd;
+background:#141414;
+padding:14px;
+border-radius:12px;
+border:1px solid transparent;
+transition:.25s;
+font-size:14px;
+}
+
+.menu a:hover{
+border-color:var(--red);
+background:#1c1c1c;
+transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+margin-left:320px;
+width:calc(100% - 320px);
+padding:40px;
+}
+
+.hero{
+background:linear-gradient(135deg,#141414,#2a1414);
+padding:45px;
+border-radius:24px;
+border:1px solid var(--border);
+margin-bottom:35px;
+box-shadow:var(--shadow);
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+.hero p{
+line-height:1.9;
+color:#ddd;
+}
+
+/* BLOCKS */
+
+.block{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:24px;
+padding:35px;
+margin-bottom:35px;
+box-shadow:var(--shadow);
+}
+
+.block h2{
+font-size:34px;
+color:var(--red2);
+margin-bottom:20px;
+}
+
+.block h3{
+margin-top:25px;
+margin-bottom:14px;
+}
+
+.block p{
+line-height:1.9;
+margin-bottom:18px;
+color:#ddd;
+}
+
+.block ul{
+margin-left:24px;
+margin-bottom:18px;
+}
+
+.block li{
+margin-bottom:10px;
+line-height:1.8;
+}
+
+.tag{
+display:inline-block;
+padding:6px 12px;
+background:#241212;
+border:1px solid #703434;
+color:#ffaaaa;
+border-radius:999px;
+font-size:13px;
+margin-right:8px;
+margin-bottom:18px;
+}
+
+.code{
+background:#050505;
+border-left:4px solid var(--red2);
+padding:20px;
+border-radius:14px;
+overflow-x:auto;
+margin:22px 0;
+white-space:pre-wrap;
+font-family:Consolas, monospace;
+color:var(--green);
+}
+
+.tip{
+background:#161010;
+border:1px solid #5d2f2f;
+padding:18px;
+border-radius:12px;
+margin:22px 0;
+}
+
+.warning{
+background:#251515;
+border:1px solid #8d3a3a;
+padding:18px;
+border-radius:12px;
+margin:22px 0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+
+th,td{
+border:1px solid #333;
+padding:14px;
+text-align:left;
+}
+
+th{
+background:#1d1d1d;
+color:#ff9c9c;
+}
+
+tr:nth-child(even){
+background:#161616;
+}
+
+/* QUIZ */
+
+.quiz{
+margin-top:40px;
+background:#101010;
+border:1px solid #333;
+padding:25px;
+border-radius:18px;
+}
+
+.quiz h3{
+color:#ff9f9f;
+margin-bottom:20px;
+}
+
+.question{
+background:#181818;
+padding:18px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.question p{
+font-weight:bold;
+margin-bottom:14px;
+}
+
+.question label{
+display:block;
+margin-bottom:10px;
+cursor:pointer;
+}
+
+.question label:hover{
+color:#ffb1b1;
+}
+
+button{
+background:linear-gradient(135deg,var(--red),#5f1a1a);
+border:none;
+padding:14px 22px;
+color:white;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+transition:.25s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+.footer{
+padding:40px;
+text-align:center;
+color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.layout{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 6.2</div>
+
+<p>
+Aprendizaje avanzado sobre DTD, XSL, XPath y XSLT para validar,
+transformar y representar documentos XML.
+</p>
+
+<nav class="menu">
+
+<a href="#b1">6.12 DTD</a>
+<a href="#b2">6.13 Ejemplos XML-DTD</a>
+<a href="#b3">6.14 Tipos de DTD</a>
+<a href="#b4">6.15 Cuantificadores DTD</a>
+<a href="#b5">6.16 DTD con atributos</a>
+<a href="#b6">6.17 ¿Qué es XSL?</a>
+<a href="#b7">6.18 XSLT</a>
+<a href="#b8">6.19 xsl:template</a>
+<a href="#b9">6.20 XPath</a>
+<a href="#b10">6.21 XPath ejemplos</a>
+<a href="#b11">6.22 xsl:for-each</a>
+<a href="#b12">6.23 Estructura XSLT</a>
+<a href="#b13">6.24 value-of y @</a>
+<a href="#b14">6.25 HTML + XSLT</a>
+<a href="#b15">6.26 apply-templates</a>
+<a href="#b16">6.27 Resumen</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 6.2 - DTD y XSL</h1>
+
+<p>
+DTD y XSL permiten validar, transformar y representar documentos XML.
+En esta unidad se estudian estructuras DTD, transformaciones XSLT,
+XPath y generación dinámica de HTML a partir de XML.
+</p>
+
+</section>
+
+<!-- 6.12 -->
+
+<section class="block" id="b1">
+
+<h2>6.12 DTD (Document Type Definition)</h2>
+
+<span class="tag">DTD</span>
+
+<p>
+DTD define las reglas que debe cumplir un documento XML.
+Permite validar estructura, orden y contenido.
+</p>
+
+<h3>¿Para qué sirve?</h3>
+
+<ul>
+<li>Validar XML.</li>
+<li>Definir elementos permitidos.</li>
+<li>Definir atributos.</li>
+<li>Controlar estructura.</li>
+</ul>
+
+<h3>Ejemplo básico</h3>
+
+<div class="code">
+&lt;!ELEMENT persona (nombre,edad)&gt;
+
+&lt;!ELEMENT nombre (#PCDATA)&gt;
+
+&lt;!ELEMENT edad (#PCDATA)&gt;
+</div>
+
+<div class="tip">
+DTD funciona como un conjunto de reglas para XML.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa DTD?</p>
+
+<label><input type="radio" name="q1"> Document Text Data</label>
+<label><input type="radio" name="q1" data-correct> Document Type Definition</label>
+<label><input type="radio" name="q1"> Data Type Document</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.13 -->
+
+<section class="block" id="b2">
+
+<h2>6.13 DTD - Ejemplos XML-DTD</h2>
+
+<span class="tag">XML</span>
+<span class="tag">DTD</span>
+
+<p>
+DTD valida la estructura definida dentro de un XML.
+</p>
+
+<h3>Documento XML</h3>
+
+<div class="code">
+&lt;persona&gt;
+
+   &lt;nombre&gt;Ana&lt;/nombre&gt;
+   &lt;edad&gt;32&lt;/edad&gt;
+
+&lt;/persona&gt;
+</div>
+
+<h3>DTD asociado</h3>
+
+<div class="code">
+&lt;!ELEMENT persona (nombre,edad)&gt;
+
+&lt;!ELEMENT nombre (#PCDATA)&gt;
+
+&lt;!ELEMENT edad (#PCDATA)&gt;
+</div>
+
+<div class="warning">
+El orden indicado en DTD es obligatorio.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa #PCDATA?</p>
+
+<label><input type="radio" name="q2"> Código HTML</label>
+<label><input type="radio" name="q2" data-correct> Texto plano</label>
+<label><input type="radio" name="q2"> Atributo obligatorio</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.14 -->
+
+<section class="block" id="b3">
+
+<h2>6.14 DTD - Tipos de DTD</h2>
+
+<span class="tag">interno</span>
+<span class="tag">externo</span>
+
+<p>
+Existen dos tipos principales de DTD.
+</p>
+
+<h3>DTD interno</h3>
+
+<div class="code">
+&lt;!DOCTYPE persona [
+
+   &lt;!ELEMENT persona (nombre)&gt;
+   &lt;!ELEMENT nombre (#PCDATA)&gt;
+
+]&gt;
+</div>
+
+<h3>DTD externo</h3>
+
+<div class="code">
+&lt;!DOCTYPE persona SYSTEM "persona.dtd"&gt;
+</div>
+
+<h3>Diferencias</h3>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>Interno</td>
+<td>Dentro del XML</td>
+</tr>
+
+<tr>
+<td>Externo</td>
+<td>Archivo .dtd separado</td>
+</tr>
+
+</table>
+
+<div class="tip">
+Los DTD externos permiten reutilizar reglas.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Dónde se guarda un DTD externo?</p>
+
+<label><input type="radio" name="q3"> Dentro del CSS</label>
+<label><input type="radio" name="q3" data-correct> En un archivo .dtd</label>
+<label><input type="radio" name="q3"> Dentro del navegador</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.15 -->
+
+<section class="block" id="b4">
+
+<h2>6.15 DTD - Cuantificadores DTD</h2>
+
+<span class="tag">?</span>
+<span class="tag">*</span>
+<span class="tag">+</span>
+
+<p>
+Los cuantificadores indican cuántas veces puede repetirse un elemento.
+</p>
+
+<table>
+
+<tr>
+<th>Símbolo</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>?</td>
+<td>0 o 1 vez</td>
+</tr>
+
+<tr>
+<td>*</td>
+<td>0 o muchas</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>1 o muchas</td>
+</tr>
+
+</table>
+
+<h3>Ejemplo</h3>
+
+<div class="code">
+&lt;!ELEMENT alumnos (alumno+)&gt;
+</div>
+
+<div class="warning">
++ obliga a que exista al menos un elemento.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué símbolo indica “1 o muchas”?</p>
+
+<label><input type="radio" name="q4"> *</label>
+<label><input type="radio" name="q4" data-correct> +</label>
+<label><input type="radio" name="q4"> ?</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.16 -->
+
+<section class="block" id="b5">
+
+<h2>6.16 DTD con atributos</h2>
+
+<span class="tag">ATTLIST</span>
+
+<p>
+Los atributos en DTD se definen mediante ATTLIST.
+</p>
+
+<div class="code">
+&lt;!ELEMENT alumno (nombre,edad)&gt;
+
+&lt;!ATTLIST alumno
+
+id ID #REQUIRED&gt;
+</div>
+
+<h3>Palabras importantes</h3>
+
+<ul>
+<li>ID → identificador único.</li>
+<li>#REQUIRED → obligatorio.</li>
+<li>#IMPLIED → opcional.</li>
+</ul>
+
+<div class="tip">
+Los atributos pueden validarse igual que elementos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa #REQUIRED?</p>
+
+<label><input type="radio" name="q5"> Opcional</label>
+<label><input type="radio" name="q5" data-correct> Obligatorio</label>
+<label><input type="radio" name="q5"> Texto</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.17 -->
+
+<section class="block" id="b6">
+
+<h2>6.17 ¿Qué es XSL?</h2>
+
+<span class="tag">XSL</span>
+
+<p>
+XSL es un conjunto de tecnologías para transformar y representar XML.
+</p>
+
+<h3>Componentes</h3>
+
+<ul>
+<li>XSLT → transforma XML.</li>
+<li>XPath → selecciona nodos.</li>
+<li>XSL-FO → formato impresión/PDF.</li>
+</ul>
+
+<div class="code">
+&lt;?xml-stylesheet
+type="text/xsl"
+href="estilos.xsl"?&gt;
+</div>
+
+<div class="warning">
+XSL no es lo mismo que XSLT.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente transforma XML?</p>
+
+<label><input type="radio" name="q6"> XPath</label>
+<label><input type="radio" name="q6" data-correct> XSLT</label>
+<label><input type="radio" name="q6"> XML</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.18 -->
+
+<section class="block" id="b7">
+
+<h2>6.18 XSLT</h2>
+
+<span class="tag">XSLT</span>
+
+<p>
+XSLT transforma documentos XML en otros formatos.
+</p>
+
+<h3>Transformaciones posibles</h3>
+
+<ul>
+<li>HTML</li>
+<li>Otro XML</li>
+<li>Texto plano</li>
+<li>JSON</li>
+</ul>
+
+<div class="code">
+&lt;xsl:stylesheet
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+version="1.0"&gt;
+</div>
+
+<div class="tip">
+XSLT trabaja mediante plantillas.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace XSLT?</p>
+
+<label><input type="radio" name="q7"> Valida HTML</label>
+<label><input type="radio" name="q7" data-correct> Transforma XML</label>
+<label><input type="radio" name="q7"> Reemplaza CSS</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.19 -->
+
+<section class="block" id="b8">
+
+<h2>6.19 Plantillas (xsl:template)</h2>
+
+<span class="tag">template</span>
+
+<p>
+Las plantillas indican qué hacer cuando se encuentra un nodo XML.
+</p>
+
+<div class="code">
+&lt;xsl:template match="/"&gt;
+
+   &lt;h1&gt;Hola&lt;/h1&gt;
+
+&lt;/xsl:template&gt;
+</div>
+
+<h3>match="/"</h3>
+
+<p>
+Selecciona la raíz del documento XML.
+</p>
+
+<div class="warning">
+Toda transformación suele comenzar desde la raíz.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace xsl:template?</p>
+
+<label><input type="radio" name="q8"> Define estilos CSS</label>
+<label><input type="radio" name="q8" data-correct> Define transformaciones</label>
+<label><input type="radio" name="q8"> Crea XML</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.20 -->
+
+<section class="block" id="b9">
+
+<h2>6.20 XPath: cómo seleccionamos datos</h2>
+
+<span class="tag">XPath</span>
+
+<p>
+XPath permite navegar por documentos XML.
+</p>
+
+<table>
+
+<tr>
+<th>Expresión</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>/</td>
+<td>Raíz</td>
+</tr>
+
+<tr>
+<td>.</td>
+<td>Nodo actual</td>
+</tr>
+
+<tr>
+<td>..</td>
+<td>Nodo padre</td>
+</tr>
+
+<tr>
+<td>@</td>
+<td>Atributos</td>
+</tr>
+
+</table>
+
+<div class="code">
+&lt;xsl:value-of select="persona/nombre"/&gt;
+</div>
+
+<div class="tip">
+XPath funciona como rutas dentro del XML.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué símbolo selecciona atributos?</p>
+
+<label><input type="radio" name="q9"> /</label>
+<label><input type="radio" name="q9" data-correct> @</label>
+<label><input type="radio" name="q9"> *</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.21 -->
+
+<section class="block" id="b10">
+
+<h2>6.21 Ejemplo XPath y uso</h2>
+
+<span class="tag">select</span>
+
+<p>
+XPath puede filtrar y buscar nodos específicos.
+</p>
+
+<div class="code">
+/tienda/producto
+
+/tienda/producto[1]
+
+/tienda/producto[@categoria='hogar']
+</div>
+
+<h3>Explicaciones</h3>
+
+<ul>
+<li>[1] selecciona el primero.</li>
+<li>@categoria selecciona atributo.</li>
+<li>// busca en cualquier parte.</li>
+</ul>
+
+<div class="warning">
+XPath es fundamental en XSLT.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace //producto?</p>
+
+<label><input type="radio" name="q10"> Borra producto</label>
+<label><input type="radio" name="q10" data-correct> Busca producto en cualquier parte</label>
+<label><input type="radio" name="q10"> Ordena XML</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.22 -->
+
+<section class="block" id="b11">
+
+<h2>6.22 Bucles: xsl:for-each</h2>
+
+<span class="tag">for-each</span>
+
+<p>
+Permite recorrer listas de elementos XML.
+</p>
+
+<div class="code">
+&lt;xsl:for-each select="alumnos/alumno"&gt;
+
+   &lt;p&gt;
+      &lt;xsl:value-of select="."/&gt;
+   &lt;/p&gt;
+
+&lt;/xsl:for-each&gt;
+</div>
+
+<div class="tip">
+Cada nodo seleccionado genera salida HTML.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace xsl:for-each?</p>
+
+<label><input type="radio" name="q11"> Crea CSS</label>
+<label><input type="radio" name="q11" data-correct> Recorre nodos XML</label>
+<label><input type="radio" name="q11"> Valida XML</label>
+
+</div>
+
+<button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+<div id="r11" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.23 -->
+
+<section class="block" id="b12">
+
+<h2>6.23 XSLT: estructura básica</h2>
+
+<span class="tag">stylesheet</span>
+
+<div class="code">
+&lt;?xml version="1.0"?&gt;
+
+&lt;xsl:stylesheet
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+version="1.0"&gt;
+
+   &lt;xsl:template match="/"&gt;
+
+   &lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;
+</div>
+
+<h3>Partes importantes</h3>
+
+<ul>
+<li>xsl:stylesheet → raíz XSLT.</li>
+<li>xsl:template → plantilla.</li>
+<li>match → nodo seleccionado.</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuál es el elemento raíz XSLT?</p>
+
+<label><input type="radio" name="q12"> template</label>
+<label><input type="radio" name="q12" data-correct> xsl:stylesheet</label>
+<label><input type="radio" name="q12"> xsl:html</label>
+
+</div>
+
+<button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+<div id="r12" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.24 -->
+
+<section class="block" id="b13">
+
+<h2>6.24 xsl:value-of y @</h2>
+
+<span class="tag">value-of</span>
+
+<p>
+xsl:value-of extrae contenido de nodos.
+</p>
+
+<div class="code">
+&lt;xsl:value-of select="autor"/&gt;
+</div>
+
+<h3>Seleccionar atributos</h3>
+
+<div class="code">
+&lt;xsl:value-of select="@año"/&gt;
+</div>
+
+<div class="tip">
+@ permite acceder directamente a atributos XML.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace xsl:value-of?</p>
+
+<label><input type="radio" name="q13"> Modifica XML</label>
+<label><input type="radio" name="q13" data-correct> Extrae datos</label>
+<label><input type="radio" name="q13"> Valida atributos</label>
+
+</div>
+
+<button onclick="checkQuiz('q13','r13')">Corregir</button>
+
+<div id="r13" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.25 -->
+
+<section class="block" id="b14">
+
+<h2>6.25 HTML + XSLT</h2>
+
+<span class="tag">HTML</span>
+
+<p>
+XSLT puede generar páginas HTML dinámicas desde XML.
+</p>
+
+<div class="code">
+&lt;xsl:template match="libro"&gt;
+
+&lt;html&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;
+&lt;xsl:value-of select="titulo"/&gt;
+&lt;/h1&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+&lt;/xsl:template&gt;
+</div>
+
+<div class="warning">
+XSLT puede construir HTML completo dinámicamente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Puede XSLT generar HTML?</p>
+
+<label><input type="radio" name="q14" data-correct> Sí</label>
+<label><input type="radio" name="q14"> No</label>
+
+</div>
+
+<button onclick="checkQuiz('q14','r14')">Corregir</button>
+
+<div id="r14" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.26 -->
+
+<section class="block" id="b15">
+
+<h2>6.26 xsl:apply-templates y xsl:attribute</h2>
+
+<span class="tag">apply-templates</span>
+
+<p>
+apply-templates aplica reglas automáticamente a subelementos.
+</p>
+
+<div class="code">
+&lt;xsl:apply-templates/&gt;
+</div>
+
+<h3>xsl:attribute</h3>
+
+<div class="code">
+&lt;xsl:attribute name="src"&gt;
+
+   &lt;xsl:value-of select="imagen"/&gt;
+
+&lt;/xsl:attribute&gt;
+</div>
+
+<h3>Ejemplo completo</h3>
+
+<div class="code">
+&lt;img&gt;
+
+&lt;xsl:attribute name="src"&gt;
+
+foto.jpg
+
+&lt;/xsl:attribute&gt;
+
+&lt;/img&gt;
+</div>
+
+<div class="tip">
+xsl:attribute genera atributos dinámicos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué hace xsl:apply-templates?</p>
+
+<label><input type="radio" name="q15"> Borra nodos</label>
+<label><input type="radio" name="q15" data-correct> Aplica plantillas</label>
+<label><input type="radio" name="q15"> Genera CSS</label>
+
+</div>
+
+<button onclick="checkQuiz('q15','r15')">Corregir</button>
+
+<div id="r15" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6.27 -->
+
+<section class="block" id="b16">
+
+<h2>6.27 Resumen y aspectos extra</h2>
+
+<span class="tag">Resumen</span>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>xsl:template</td>
+<td>Define transformaciones</td>
+</tr>
+
+<tr>
+<td>xsl:value-of</td>
+<td>Extrae valores</td>
+</tr>
+
+<tr>
+<td>xsl:for-each</td>
+<td>Recorre nodos</td>
+</tr>
+
+<tr>
+<td>XPath</td>
+<td>Selecciona elementos</td>
+</tr>
+
+<tr>
+<td>xsl:attribute</td>
+<td>Crea atributos dinámicos</td>
+</tr>
+
+</table>
+
+<h3>Aspectos importantes</h3>
+
+<ul>
+<li>XML fue muy usado en APIs antiguas.</li>
+<li>JSON ha reemplazado parte de XML.</li>
+<li>XSLT sigue siendo útil en sistemas empresariales.</li>
+<li>Android aún usa XML ampliamente.</li>
+</ul>
+
+<div class="warning">
+XPath y XSLT son preguntas frecuentes de examen.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué tecnología selecciona nodos XML?</p>
+
+<label><input type="radio" name="q16"> HTML</label>
+<label><input type="radio" name="q16" data-correct> XPath</label>
+<label><input type="radio" name="q16"> CSS</label>
+
+</div>
+
+<button onclick="checkQuiz('q16','r16')">Corregir</button>
+
+<div id="r16" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 6.2 completada 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+const options=document.getElementsByName(group);
+
+let correct=false;
+
+options.forEach(option=>{
+
+if(option.checked && option.dataset.correct !== undefined){
+
+correct=true;
+
+}
+
+});
+
+const resultBox=document.getElementById(result);
+
+if(correct){
+
+resultBox.innerHTML="✅ Correcto";
+resultBox.style.color="#6bffb3";
+
+}else{
+
+resultBox.innerHTML="❌ Incorrecto";
+resultBox.style.color="#ff7e7e";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

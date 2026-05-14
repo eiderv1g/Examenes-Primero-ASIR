@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 2 - HTML</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#090909;
+      --panel:#121212;
+      --panel2:#181818;
+      --border:#2c2c2c;
+      --text:#e7e7e7;
+      --muted:#9d9d9d;
+      --red:#a93232;
+      --red-soft:#ff6767;
+      --green:#45ff9c;
+      --shadow:0 0 20px rgba(255,70,70,.12);
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Segoe UI, sans-serif;
+      overflow-x:hidden;
+    }
+
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:320px;
+      background:#070707;
+      border-right:1px solid var(--border);
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      overflow-y:auto;
+      padding:25px;
+      z-index:999;
+    }
+
+    .logo{
+      font-size:30px;
+      font-weight:900;
+      color:var(--red-soft);
+      margin-bottom:10px;
+      letter-spacing:1px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      line-height:1.7;
+      margin-bottom:30px;
+      font-size:14px;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:#ddd;
+      background:#121212;
+      border:1px solid transparent;
+      padding:14px;
+      border-radius:10px;
+      transition:.25s;
+      font-size:14px;
+    }
+
+    .menu a:hover{
+      transform:translateX(5px);
+      border-color:var(--red);
+      background:#1a1a1a;
+      color:white;
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:320px;
+      width:calc(100% - 320px);
+      padding:40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#121212,#1b1010);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:45px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:42px;
+      color:white;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      color:#c8c8c8;
+      line-height:1.9;
+      max-width:950px;
+    }
+
+    .block{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:35px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .block h2{
+      color:var(--red-soft);
+      margin-bottom:20px;
+      font-size:32px;
+    }
+
+    .block h3{
+      margin-top:28px;
+      margin-bottom:14px;
+      color:white;
+    }
+
+    .block p{
+      line-height:1.9;
+      margin-bottom:16px;
+      color:#d6d6d6;
+    }
+
+    .block ul,
+    .block ol{
+      margin-left:25px;
+      margin-bottom:18px;
+    }
+
+    .block li{
+      margin-bottom:10px;
+      line-height:1.8;
+    }
+
+    .code{
+      background:#050505;
+      border-left:4px solid var(--red-soft);
+      padding:20px;
+      border-radius:12px;
+      margin:20px 0;
+      overflow-x:auto;
+      color:#61ffae;
+      font-family:Consolas, monospace;
+      white-space:pre-wrap;
+    }
+
+    .tip{
+      background:#181010;
+      border:1px solid #572727;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    .warning{
+      background:#241313;
+      border:1px solid #8f3434;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px 0;
+    }
+
+    th, td{
+      border:1px solid #2d2d2d;
+      padding:14px;
+      text-align:left;
+    }
+
+    th{
+      background:#1d1d1d;
+      color:#ff9b9b;
+    }
+
+    tr:nth-child(even){
+      background:#151515;
+    }
+
+    .quiz{
+      margin-top:40px;
+      background:#0e0e0e;
+      border:1px solid #303030;
+      border-radius:18px;
+      padding:25px;
+    }
+
+    .quiz h3{
+      color:#ff8d8d;
+      margin-bottom:20px;
+    }
+
+    .question{
+      background:#151515;
+      border-radius:12px;
+      padding:18px;
+      margin-bottom:22px;
+    }
+
+    .question p{
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .question label{
+      display:block;
+      margin-bottom:10px;
+      cursor:pointer;
+    }
+
+    .question label:hover{
+      color:#ff8d8d;
+    }
+
+    button{
+      background:linear-gradient(135deg,var(--red),#5e1616);
+      border:none;
+      color:white;
+      padding:14px 22px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.25s;
+    }
+
+    button:hover{
+      transform:scale(1.03);
+    }
+
+    .result{
+      margin-top:18px;
+      font-size:18px;
+      font-weight:bold;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#2a1212;
+      border:1px solid #682626;
+      color:#ff8d8d;
+      padding:6px 12px;
+      border-radius:999px;
+      margin-right:8px;
+      margin-bottom:10px;
+      font-size:13px;
+    }
+
+    .footer{
+      text-align:center;
+      color:#666;
+      padding:40px 0;
+    }
+
+    @media(max-width:1000px){
+
+      .layout{
+        flex-direction:column;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">UNIDAD 2</div>
+
+    <div class="subtitle">
+      HTML · Guía de estudio interactiva<br><br>
+      Teoría, ejemplos, código y mini-tests para preparar examen tipo test.
+    </div>
+
+    <nav class="menu">
+
+      <a href="#b1">2.1 Estructura básica HTML</a>
+      <a href="#b2">2.2 Elementos básicos</a>
+      <a href="#b3">2.3 Formatos y etiquetas</a>
+      <a href="#b4">2.4 Atributos</a>
+      <a href="#b5">2.5 Hipervínculos</a>
+      <a href="#b6">2.6 Imágenes</a>
+      <a href="#b7">2.7 Listas</a>
+      <a href="#b8">2.8 Tablas</a>
+      <a href="#b9">2.9 Formularios</a>
+      <a href="#b10">2.10 Bloques</a>
+
+    </nav>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <section class="hero">
+
+      <h1>Unidad 2 - HTML</h1>
+
+      <p>
+        HTML es el lenguaje de marcado utilizado para crear páginas web.
+        En esta unidad aprenderás estructura, etiquetas, atributos,
+        enlaces, imágenes, formularios, tablas y organización del contenido.
+        Cada bloque incluye teoría, ejemplos reales, posibles preguntas trampa
+        y mini-test interactivo.
+      </p>
+
+    </section>
+
+    <!-- BLOQUE 1 -->
+
+    <section class="block" id="b1">
+
+      <h2>2.1 Estructura básica HTML</h2>
+
+      <span class="tag">HTML5</span>
+      <span class="tag">DOCTYPE</span>
+      <span class="tag">HEAD</span>
+
+      <p>
+        Todo documento HTML necesita una estructura mínima para que el navegador
+        interprete correctamente el contenido.
+      </p>
+
+      <h3>Estructura principal</h3>
+
+      <div class="code">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi página web&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;h1&gt;Hola mundo&lt;/h1&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+      </div>
+
+      <h3>Explicación de cada parte</h3>
+
+      <table>
+
+        <tr>
+          <th>Etiqueta</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>&lt;!DOCTYPE html&gt;</td>
+          <td>Indica que usamos HTML5</td>
+        </tr>
+
+        <tr>
+          <td>&lt;html&gt;</td>
+          <td>Elemento raíz</td>
+        </tr>
+
+        <tr>
+          <td>&lt;head&gt;</td>
+          <td>Información técnica</td>
+        </tr>
+
+        <tr>
+          <td>&lt;body&gt;</td>
+          <td>Contenido visible</td>
+        </tr>
+
+      </table>
+
+      <div class="warning">
+        Pregunta trampa:
+        El contenido del &lt;title&gt; NO aparece dentro de la página,
+        aparece en la pestaña del navegador.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta contiene el contenido visible?</p>
+
+          <label><input type="radio" name="q1"> &lt;head&gt;</label>
+          <label><input type="radio" name="q1" data-correct> &lt;body&gt;</label>
+          <label><input type="radio" name="q1"> &lt;meta&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+        <div id="r1" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="block" id="b2">
+
+      <h2>2.2 Elementos básicos</h2>
+
+      <p>
+        HTML trabaja mediante etiquetas que delimitan contenido.
+      </p>
+
+      <h3>Encabezados</h3>
+
+      <div class="code">
+&lt;h1&gt;Título principal&lt;/h1&gt;
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;h3&gt;Otro título&lt;/h3&gt;
+      </div>
+
+      <p>
+        &lt;h1&gt; es el encabezado más importante y &lt;h6&gt; el menos importante.
+      </p>
+
+      <h3>Párrafos</h3>
+
+      <div class="code">
+&lt;p&gt;
+Este es un párrafo.
+&lt;/p&gt;
+      </div>
+
+      <h3>Saltos y líneas</h3>
+
+      <div class="code">
+&lt;br/&gt;
+&lt;hr/&gt;
+      </div>
+
+      <ul>
+        <li>&lt;br/&gt; → salto de línea</li>
+        <li>&lt;hr/&gt; → línea horizontal</li>
+      </ul>
+
+      <h3>Comentarios</h3>
+
+      <div class="code">
+&lt;!-- Esto es un comentario --&gt;
+      </div>
+
+      <div class="tip">
+        Los comentarios no son visibles para el usuario.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta crea una línea horizontal?</p>
+
+          <label><input type="radio" name="q2"> &lt;br/&gt;</label>
+          <label><input type="radio" name="q2" data-correct> &lt;hr/&gt;</label>
+          <label><input type="radio" name="q2"> &lt;line&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+        <div id="r2" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="block" id="b3">
+
+      <h2>2.3 Formatos y etiquetas de texto</h2>
+
+      <p>
+        HTML permite dar formato semántico y visual al texto.
+      </p>
+
+      <table>
+
+        <tr>
+          <th>Etiqueta</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>&lt;b&gt;</td>
+          <td>Negrita visual</td>
+        </tr>
+
+        <tr>
+          <td>&lt;strong&gt;</td>
+          <td>Importancia semántica</td>
+        </tr>
+
+        <tr>
+          <td>&lt;i&gt;</td>
+          <td>Cursiva visual</td>
+        </tr>
+
+        <tr>
+          <td>&lt;em&gt;</td>
+          <td>Énfasis semántico</td>
+        </tr>
+
+        <tr>
+          <td>&lt;mark&gt;</td>
+          <td>Texto resaltado</td>
+        </tr>
+
+      </table>
+
+      <h3>Ejemplo</h3>
+
+      <div class="code">
+&lt;p&gt;
+Texto &lt;strong&gt;importante&lt;/strong&gt;
+y texto &lt;em&gt;enfatizado&lt;/em&gt;
+&lt;/p&gt;
+      </div>
+
+      <div class="warning">
+        Pregunta típica:
+        &lt;b&gt; y &lt;strong&gt; se ven igual,
+        pero semanticamente NO son iguales.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta aporta importancia semántica?</p>
+
+          <label><input type="radio" name="q3"> &lt;b&gt;</label>
+          <label><input type="radio" name="q3" data-correct> &lt;strong&gt;</label>
+          <label><input type="radio" name="q3"> &lt;i&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+        <div id="r3" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="block" id="b4">
+
+      <h2>2.4 Atributos</h2>
+
+      <p>
+        Los atributos añaden información adicional a las etiquetas HTML.
+      </p>
+
+      <h3>Sintaxis</h3>
+
+      <div class="code">
+&lt;etiqueta atributo="valor"&gt;
+      </div>
+
+      <h3>Atributos comunes</h3>
+
+      <table>
+
+        <tr>
+          <th>Atributo</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>id</td>
+          <td>Identificador único</td>
+        </tr>
+
+        <tr>
+          <td>class</td>
+          <td>Clase reutilizable</td>
+        </tr>
+
+        <tr>
+          <td>href</td>
+          <td>Enlaces</td>
+        </tr>
+
+        <tr>
+          <td>src</td>
+          <td>Ruta imágenes</td>
+        </tr>
+
+      </table>
+
+      <h3>Ejemplo</h3>
+
+      <div class="code">
+&lt;p id="parrafo1" class="texto"&gt;
+Hola
+&lt;/p&gt;
+      </div>
+
+      <div class="tip">
+        Un id debe ser único.
+      </div>
+
+      <div class="warning">
+        class puede repetirse; id no.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo debe ser único?</p>
+
+          <label><input type="radio" name="q4"> class</label>
+          <label><input type="radio" name="q4" data-correct> id</label>
+          <label><input type="radio" name="q4"> href</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+        <div id="r4" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="block" id="b5">
+
+      <h2>2.5 Hipervínculos o enlaces</h2>
+
+      <p>
+        Los enlaces permiten navegar entre páginas.
+      </p>
+
+      <h3>Etiqueta &lt;a&gt;</h3>
+
+      <div class="code">
+&lt;a href="https://google.com"&gt;
+Ir a Google
+&lt;/a&gt;
+      </div>
+
+      <h3>Atributo target</h3>
+
+      <div class="code">
+&lt;a href="https://google.com" target="_blank"&gt;
+Abrir en nueva pestaña
+&lt;/a&gt;
+      </div>
+
+      <table>
+
+        <tr>
+          <th>Valor</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>_self</td>
+          <td>Misma pestaña</td>
+        </tr>
+
+        <tr>
+          <td>_blank</td>
+          <td>Nueva pestaña</td>
+        </tr>
+
+      </table>
+
+      <h3>Enlaces internos</h3>
+
+      <div class="code">
+&lt;h2 id="tema1"&gt;Tema 1&lt;/h2&gt;
+
+&lt;a href="#tema1"&gt;
+Ir al tema 1
+&lt;/a&gt;
+      </div>
+
+      <div class="warning">
+        href="#" apunta a un identificador interno.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo indica el destino del enlace?</p>
+
+          <label><input type="radio" name="q5"> src</label>
+          <label><input type="radio" name="q5" data-correct> href</label>
+          <label><input type="radio" name="q5"> action</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+        <div id="r5" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="block" id="b6">
+
+      <h2>2.6 Imágenes</h2>
+
+      <p>
+        La etiqueta &lt;img&gt; permite insertar imágenes.
+      </p>
+
+      <h3>Sintaxis</h3>
+
+      <div class="code">
+&lt;img src="foto.jpg" alt="Descripción"&gt;
+      </div>
+
+      <h3>Atributos importantes</h3>
+
+      <table>
+
+        <tr>
+          <th>Atributo</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>src</td>
+          <td>Ruta imagen</td>
+        </tr>
+
+        <tr>
+          <td>alt</td>
+          <td>Texto alternativo</td>
+        </tr>
+
+        <tr>
+          <td>width</td>
+          <td>Ancho</td>
+        </tr>
+
+        <tr>
+          <td>height</td>
+          <td>Alto</td>
+        </tr>
+
+      </table>
+
+      <h3>Ejemplo completo</h3>
+
+      <div class="code">
+&lt;img 
+src="montaña.jpg"
+alt="Paisaje de montaña"
+width="400"
+height="300"
+&gt;
+      </div>
+
+      <div class="warning">
+        alt es muy importante para accesibilidad.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo contiene la ruta de la imagen?</p>
+
+          <label><input type="radio" name="q6" data-correct> src</label>
+          <label><input type="radio" name="q6"> href</label>
+          <label><input type="radio" name="q6"> target</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+        <div id="r6" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 7 -->
+
+    <section class="block" id="b7">
+
+      <h2>2.7 Listas</h2>
+
+      <p>
+        HTML dispone de listas ordenadas y desordenadas.
+      </p>
+
+      <h3>Lista desordenada</h3>
+
+      <div class="code">
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+      </div>
+
+      <h3>Lista ordenada</h3>
+
+      <div class="code">
+&lt;ol&gt;
+  &lt;li&gt;Paso 1&lt;/li&gt;
+  &lt;li&gt;Paso 2&lt;/li&gt;
+&lt;/ol&gt;
+      </div>
+
+      <h3>Sublistas</h3>
+
+      <div class="code">
+&lt;ul&gt;
+  &lt;li&gt;Europa
+    &lt;ul&gt;
+      &lt;li&gt;España&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+      </div>
+
+      <div class="tip">
+        &lt;li&gt; representa cada elemento individual.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta crea listas ordenadas?</p>
+
+          <label><input type="radio" name="q7"> &lt;ul&gt;</label>
+          <label><input type="radio" name="q7" data-correct> &lt;ol&gt;</label>
+          <label><input type="radio" name="q7"> &lt;li&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+        <div id="r7" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 8 -->
+
+    <section class="block" id="b8">
+
+      <h2>2.8 Tablas</h2>
+
+      <p>
+        Las tablas organizan información en filas y columnas.
+      </p>
+
+      <h3>Estructura básica</h3>
+
+      <div class="code">
+&lt;table&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Dato 1&lt;/td&gt;
+    &lt;td&gt;Dato 2&lt;/td&gt;
+  &lt;/tr&gt;
+
+&lt;/table&gt;
+      </div>
+
+      <h3>Cabeceras</h3>
+
+      <div class="code">
+&lt;th&gt;Nombre&lt;/th&gt;
+      </div>
+
+      <h3>Combinar celdas</h3>
+
+      <div class="code">
+&lt;td colspan="2"&gt;Celda combinada&lt;/td&gt;
+
+&lt;td rowspan="2"&gt;Vertical&lt;/td&gt;
+      </div>
+
+      <h3>Ejemplo completo</h3>
+
+      <div class="code">
+&lt;table border="1"&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;Nombre&lt;/th&gt;
+  &lt;th&gt;Edad&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+  &lt;td&gt;Ana&lt;/td&gt;
+  &lt;td&gt;22&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+      </div>
+
+      <div class="warning">
+        Pregunta frecuente:
+        &lt;tr&gt; crea filas, NO columnas.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta crea una fila?</p>
+
+          <label><input type="radio" name="q8"> &lt;td&gt;</label>
+          <label><input type="radio" name="q8" data-correct> &lt;tr&gt;</label>
+          <label><input type="radio" name="q8"> &lt;table&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+        <div id="r8" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 9 -->
+
+    <section class="block" id="b9">
+
+      <h2>2.9 Formularios</h2>
+
+      <p>
+        Los formularios permiten recopilar información del usuario.
+      </p>
+
+      <h3>Estructura básica</h3>
+
+      <div class="code">
+&lt;form&gt;
+
+  Nombre:
+  &lt;input type="text"&gt;
+
+&lt;/form&gt;
+      </div>
+
+      <h3>Tipos importantes</h3>
+
+      <table>
+
+        <tr>
+          <th>Tipo</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>text</td>
+          <td>Texto</td>
+        </tr>
+
+        <tr>
+          <td>password</td>
+          <td>Contraseña</td>
+        </tr>
+
+        <tr>
+          <td>checkbox</td>
+          <td>Verificación</td>
+        </tr>
+
+        <tr>
+          <td>radio</td>
+          <td>Selección única</td>
+        </tr>
+
+      </table>
+
+      <h3>Select y opciones</h3>
+
+      <div class="code">
+&lt;select&gt;
+
+  &lt;option&gt;Rojo&lt;/option&gt;
+  &lt;option&gt;Azul&lt;/option&gt;
+
+&lt;/select&gt;
+      </div>
+
+      <h3>Textarea</h3>
+
+      <div class="code">
+&lt;textarea&gt;&lt;/textarea&gt;
+      </div>
+
+      <h3>Ejemplo completo</h3>
+
+      <div class="code">
+&lt;form action="enviar.php" method="post"&gt;
+
+Nombre:
+&lt;input type="text" name="nombre"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+Contraseña:
+&lt;input type="password" name="pass"&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;input type="submit" value="Enviar"&gt;
+
+&lt;/form&gt;
+      </div>
+
+      <div class="warning">
+        method="post" es más seguro que GET.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué atributo indica el método HTTP?</p>
+
+          <label><input type="radio" name="q9"> href</label>
+          <label><input type="radio" name="q9"> src</label>
+          <label><input type="radio" name="q9" data-correct> method</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+        <div id="r9" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 10 -->
+
+    <section class="block" id="b10">
+
+      <h2>2.10 Bloques: div y span</h2>
+
+      <p>
+        Las etiquetas &lt;div&gt; y &lt;span&gt; sirven para agrupar contenido.
+      </p>
+
+      <h3>&lt;div&gt;</h3>
+
+      <ul>
+        <li>Elemento en bloque.</li>
+        <li>Ocupa toda la línea.</li>
+        <li>Muy usado para estructurar páginas.</li>
+      </ul>
+
+      <div class="code">
+&lt;div class="contenedor"&gt;
+
+  &lt;h1&gt;Título&lt;/h1&gt;
+
+&lt;/div&gt;
+      </div>
+
+      <h3>&lt;span&gt;</h3>
+
+      <ul>
+        <li>Elemento en línea.</li>
+        <li>No rompe la línea.</li>
+        <li>Ideal para resaltar texto.</li>
+      </ul>
+
+      <div class="code">
+&lt;p&gt;
+Texto normal
+&lt;span style="color:red"&gt;
+texto resaltado
+&lt;/span&gt;
+&lt;/p&gt;
+      </div>
+
+      <div class="warning">
+        Pregunta típica:
+        &lt;div&gt; es bloque; &lt;span&gt; es línea.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+
+          <p>1. ¿Qué etiqueta es un elemento en línea?</p>
+
+          <label><input type="radio" name="q10"> &lt;div&gt;</label>
+          <label><input type="radio" name="q10" data-correct> &lt;span&gt;</label>
+          <label><input type="radio" name="q10"> &lt;table&gt;</label>
+
+        </div>
+
+        <button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+        <div id="r10" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Unidad 2 completada · HTML básico dominado 🚀
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+
+function checkQuiz(groupName, resultId){
+
+  const options = document.getElementsByName(groupName);
+
+  let correct = false;
+
+  options.forEach(option => {
+
+    if(option.checked && option.dataset.correct !== undefined){
+      correct = true;
+    }
+
+  });
+
+  const result = document.getElementById(resultId);
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "#45ff9c";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "#ff6f6f";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

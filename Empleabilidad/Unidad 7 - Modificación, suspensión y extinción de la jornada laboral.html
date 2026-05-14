@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 7 - Modificación, suspensión y extinción de la relación laboral</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#1f3d34;
+  --secondary:#eef5f1;
+  --accent:#dceee5;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --warning:#fff5dc;
+  --danger:#fff0f0;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(14px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.8rem;
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:24px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+  font-size:0.96rem;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3d34,#3d5d52);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:950px;
+  color:rgba(255,255,255,0.9);
+}
+
+/* BLOCK */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:#eef9f2;
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:#fff8e7;
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+button:hover{
+  opacity:0.92;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 7</h1>
+
+<p>Modificación, suspensión y extinción de la relación laboral</p>
+
+<a class="nav-link" href="#b1">7.1 Modificación sustancial</a>
+<a class="nav-link" href="#b2">7.2 Movilidad geográfica</a>
+<a class="nav-link" href="#b3">7.3 Suspensión del contrato</a>
+<a class="nav-link" href="#b4">7.4 Excedencia</a>
+<a class="nav-link" href="#b5">7.5 Consejos</a>
+<a class="nav-link" href="#b6">7.6 Extinción del contrato</a>
+<a class="nav-link" href="#b7">7.7 Tipos de despido</a>
+<a class="nav-link" href="#b8">7.8 Ford Almussafes (2023)</a>
+<a class="nav-link" href="#b9">7.9 Cómo calcular indemnización</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 7 · Relación laboral</h2>
+
+<p>
+Aprende cómo pueden modificarse, suspenderse o extinguirse las relaciones laborales.
+Esta unidad incluye movilidad geográfica, excedencias, despidos, ERE, finiquito e indemnizaciones.
+Cada bloque incluye explicaciones detalladas, ejemplos reales, preguntas trampa y mini-test tipo examen.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>7.1 Modificación sustancial, suspensión y excedencias</h2>
+
+<p>
+La relación laboral puede cambiar sin romperse.
+El Estatuto de los Trabajadores regula cómo pueden modificarse ciertas condiciones laborales para equilibrar los intereses de empresa y trabajador.
+</p>
+
+<h3>¿Qué es una modificación sustancial?</h3>
+
+<p>
+Es un cambio importante en condiciones esenciales del trabajo:
+</p>
+
+<ul>
+<li>Horario.</li>
+<li>Jornada.</li>
+<li>Sistema salarial.</li>
+<li>Funciones.</li>
+<li>Turnos.</li>
+</ul>
+
+<p>
+Estas modificaciones solo pueden realizarse por causas económicas,
+técnicas, organizativas o productivas.
+</p>
+
+<div class="tip-box">
+<strong>Idea clave:</strong>
+La empresa NO puede cambiar condiciones importantes sin justificar adecuadamente las causas.
+</div>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Cambiar una jornada continua por jornada partida afecta directamente a la conciliación.
+</div>
+
+<div class="trap-box">
+<strong>Pregunta trampa:</strong>
+No todos los cambios son modificaciones sustanciales.
+Cambios pequeños u organizativos pueden no considerarse así legalmente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué artículo regula la modificación sustancial?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Artículo 34 ET
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Artículo 41 ET
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Artículo 54 ET
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>7.2 Movilidad geográfica</h2>
+
+<p>
+La movilidad geográfica ocurre cuando cambia el lugar donde el trabajador debe prestar servicios.
+</p>
+
+<h3>Tipos</h3>
+
+<ul>
+<li><strong>Traslado:</strong> cambio definitivo de centro de trabajo.</li>
+<li><strong>Desplazamiento:</strong> cambio temporal.</li>
+</ul>
+
+<h3>Derechos del trabajador</h3>
+
+<ul>
+<li>Compensación de gastos.</li>
+<li>Posibilidad de impugnar.</li>
+<li>Indemnización si rescinde el contrato.</li>
+</ul>
+
+<div class="tip-box">
+El traslado puede dar derecho a extinguir voluntariamente el contrato con indemnización.
+</div>
+
+<div class="example-box">
+La empresa debe cubrir gastos de mudanza, viaje o alojamiento cuando corresponda.
+</div>
+
+<div class="trap-box">
+Traslado y desplazamiento NO significan lo mismo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué diferencia principal existe entre traslado y desplazamiento?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Uno afecta al salario
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+El traslado es definitivo y el desplazamiento temporal
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+No existe diferencia
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>7.3 Suspensión del contrato</h2>
+
+<p>
+La suspensión del contrato supone una pausa temporal de la relación laboral.
+</p>
+
+<h3>¿Qué ocurre durante la suspensión?</h3>
+
+<ul>
+<li>El trabajador deja de trabajar temporalmente.</li>
+<li>La empresa deja de pagar salario.</li>
+<li>La relación laboral NO se extingue.</li>
+</ul>
+
+<h3>Causas frecuentes</h3>
+
+<ul>
+<li>Incapacidad temporal.</li>
+<li>Maternidad o paternidad.</li>
+<li>Adopción.</li>
+<li>Cargo público.</li>
+<li>Sanción disciplinaria.</li>
+<li>Mutuo acuerdo.</li>
+</ul>
+
+<div class="tip-box">
+La suspensión es como “congelar” temporalmente el contrato.
+</div>
+
+<div class="trap-box">
+Suspensión NO significa despido.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué sucede durante la suspensión del contrato?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+La relación laboral desaparece
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Se paralizan temporalmente trabajo y salario
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+La empresa debe indemnizar
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>7.4 Excedencia</h2>
+
+<p>
+La excedencia permite apartarse temporalmente del trabajo sin extinguir el contrato.
+</p>
+
+<h3>Tipos</h3>
+
+<ul>
+<li><strong>Excedencia forzosa:</strong> reserva del puesto.</li>
+<li><strong>Excedencia voluntaria:</strong> derecho preferente a vacante.</li>
+</ul>
+
+<h3>Diferencia clave</h3>
+
+<p>
+En la excedencia voluntaria NO existe garantía de recuperar exactamente el mismo puesto.
+</p>
+
+<div class="tip-box">
+La excedencia voluntaria es útil para formación, proyectos personales o viajes.
+</div>
+
+<div class="trap-box">
+Muchos alumnos confunden “preferencia de vacante” con “reserva del puesto”.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué excedencia garantiza reserva del puesto?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Voluntaria
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Forzosa
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Ninguna
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>7.5 Consejos</h2>
+
+<h3>Consejos importantes</h3>
+
+<ul>
+<li>Pide siempre modificaciones por escrito.</li>
+<li>Comprueba si las causas están justificadas.</li>
+<li>Consulta el convenio colectivo.</li>
+<li>Infórmate antes de pedir excedencia voluntaria.</li>
+<li>Utiliza recursos oficiales: BOE, SEPE, sindicatos.</li>
+</ul>
+
+<div class="example-box">
+Guardar comunicaciones y documentos puede ser clave en una reclamación judicial.
+</div>
+
+<div class="tip-box">
+Ante cualquier duda laboral importante, conviene consultar asesoramiento jurídico o sindical.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es recomendable ante una modificación importante?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Aceptar sin preguntar
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Solicitar justificación escrita
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Dejar de trabajar inmediatamente
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>7.6 Extinción del contrato</h2>
+
+<p>
+La extinción supone el final definitivo de la relación laboral.
+</p>
+
+<h3>Causas frecuentes</h3>
+
+<ul>
+<li>Despido.</li>
+<li>Fin de contrato temporal.</li>
+<li>Dimisión.</li>
+<li>Jubilación.</li>
+<li>Incapacidad permanente.</li>
+</ul>
+
+<h3>Finiquito</h3>
+
+<p>
+La empresa debe entregar un documento con:
+</p>
+
+<ul>
+<li>Salarios pendientes.</li>
+<li>Vacaciones no disfrutadas.</li>
+<li>Pagas extra pendientes.</li>
+<li>Indemnización si corresponde.</li>
+</ul>
+
+<div class="tip-box">
+El finiquito debe revisarse cuidadosamente antes de firmarlo.
+</div>
+
+<div class="trap-box">
+Firmar “no conforme” permite reclamar posteriormente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué documento recoge cantidades pendientes al finalizar el contrato?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Convenio
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Nómina
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Finiquito
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="study-block" id="b7">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>7.7 Tipos de despido</h2>
+
+<h3>Despido objetivo</h3>
+
+<ul>
+<li>Causas económicas, técnicas u organizativas.</li>
+<li>Indemnización de 20 días por año.</li>
+<li>Máximo 12 mensualidades.</li>
+</ul>
+
+<h3>Despido disciplinario</h3>
+
+<ul>
+<li>Incumplimiento grave del trabajador.</li>
+<li>No tiene indemnización.</li>
+<li>Puede impugnarse judicialmente.</li>
+</ul>
+
+<h3>Despido colectivo (ERE)</h3>
+
+<ul>
+<li>Afecta a muchos trabajadores.</li>
+<li>Requiere negociación colectiva.</li>
+<li>Comunicación a autoridad laboral.</li>
+</ul>
+
+<div class="tip-box">
+El despido disciplinario puede declararse improcedente si no se prueba correctamente.
+</div>
+
+<div class="trap-box">
+“No tener indemnización” NO significa que el despido sea automáticamente válido.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué despido normalmente NO lleva indemnización?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Objetivo
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Disciplinario
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Colectivo
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="study-block" id="b8">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>7.8 Despido colectivo en Ford Almussafes (2023)</h2>
+
+<p>
+Ford España anunció un ERE debido a la transición hacia el vehículo eléctrico.
+</p>
+
+<h3>Motivos</h3>
+
+<ul>
+<li>Reducción de demanda de motores tradicionales.</li>
+<li>Reestructuración productiva.</li>
+<li>Cambios tecnológicos.</li>
+</ul>
+
+<h3>Negociación</h3>
+
+<ul>
+<li>Participaron sindicatos UGT y CCOO.</li>
+<li>Se negociaron indemnizaciones.</li>
+<li>Se acordaron prejubilaciones.</li>
+</ul>
+
+<div class="example-box">
+El acuerdo final mejoró considerablemente las indemnizaciones mínimas legales.
+</div>
+
+<div class="tip-box">
+Los ERE requieren un procedimiento formal estricto.
+</div>
+
+<div class="trap-box">
+Un ERE NO puede imponerse sin negociación colectiva.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué artículo regula el despido colectivo?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Artículo 41 ET
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Artículo 54 ET
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Artículo 51 ET
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="study-block" id="b9">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>7.9 Cómo calcular tu indemnización</h2>
+
+<h3>Elementos necesarios</h3>
+
+<ul>
+<li>Salario diario.</li>
+<li>Años trabajados.</li>
+<li>Tipo de despido.</li>
+</ul>
+
+<h3>Ejemplo básico</h3>
+
+<p>
+Si una persona cobra 60€ diarios y tiene derecho a 20 días por año trabajado tras 5 años:
+</p>
+
+<p>
+60 × 20 × 5 = 6.000€
+</p>
+
+<div class="example-box">
+Las indemnizaciones reales pueden incluir límites máximos y particularidades según convenio.
+</div>
+
+<div class="tip-box">
+Existen simuladores oficiales del SEPE y herramientas jurídicas online.
+</div>
+
+<div class="trap-box">
+La indemnización NO es igual al finiquito.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué se necesita para calcular una indemnización?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Solo antigüedad
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Solo salario
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Salario, antigüedad y tipo de despido
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

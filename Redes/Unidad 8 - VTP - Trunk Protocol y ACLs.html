@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 8 - VTP - Trunk Protocol y ACLs</title>
+
+<style>
+
+:root{
+  --bg:#071018;
+  --panel:#101b27;
+  --panel2:#162534;
+  --border:#22384d;
+  --text:#d8f6ee;
+  --muted:#8da7a0;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:350px;
+  background:#0c151f;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:350px;
+  width:calc(100% - 350px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  color:var(--accent);
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  padding:18px;
+  border-radius:12px;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+.quiz{
+  margin-top:30px;
+  background:#0c141c;
+  border:1px solid #203445;
+  border-radius:14px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#05110d;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#63ffd6;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:30px;
+}
+
+code{
+  background:#08131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>🛡 Unidad 8</h1>
+
+<p>
+VTP, Trunks y ACLs.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+<ul>
+<li><a href="#b1">8.1 VTP</a></li>
+<li><a href="#b2">8.2 Funcionamiento VTP</a></li>
+<li><a href="#b3">8.3 Modos VTP</a></li>
+<li><a href="#b4">8.4 Intercambios VTP</a></li>
+<li><a href="#b5">8.5 VTP Pruning</a></li>
+<li><a href="#b6">8.6 Configuración VTP</a></li>
+<li><a href="#b7">8.7 FAQ VTP</a></li>
+<li><a href="#b8">8.8 Troubleshooting VLANs</a></li>
+<li><a href="#b9">8.9 ACLs</a></li>
+<li><a href="#b10">8.10 ACLs paso a paso</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 8 - VTP - Trunk Protocol y ACLs</h1>
+
+<p>
+Resumen interactivo sobre VLAN Trunk Protocol,
+troubleshooting VLAN y ACLs.
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+</section>
+
+<!-- 1 -->
+
+<section class="block" id="b1">
+
+<h2>8.1 VTP - VLAN Trunk Protocol</h2>
+
+<p>
+VTP permite distribuir automáticamente información
+de VLANs entre switches Cisco.
+</p>
+
+<ul>
+<li>Reduce administración manual</li>
+<li>Sincroniza VLANs</li>
+<li>Usa enlaces trunk</li>
+</ul>
+
+<div class="card">
+🔄 VTP simplifica gestión en redes grandes.
+</div>
+
+<div class="card warning">
+⚠ Solo funciona entre switches Cisco compatibles.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué distribuye VTP?</p>
+
+<label><input type="radio" name="q1"> Direcciones IP</label><br>
+<label><input type="radio" name="q1" data-correct> VLANs</label><br>
+<label><input type="radio" name="q1"> DNS</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 2 -->
+
+<section class="block" id="b2">
+
+<h2>8.2 Cómo funciona VTP</h2>
+
+<ul>
+<li>Envía anuncios VTP</li>
+<li>Usa trunks 802.1Q</li>
+<li>Sincroniza base de VLANs</li>
+</ul>
+
+<h3>Requisitos</h3>
+
+<ul>
+<li>Mismo dominio VTP</li>
+<li>Misma contraseña</li>
+<li>Misma versión</li>
+</ul>
+
+<div class="card">
+📡 Los anuncios VTP usan multicast.
+</div>
+
+<div class="card danger">
+❌ Un switch mal configurado puede borrar VLANs.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué necesitan dos switches para sincronizar VTP?</p>
+
+<label><input type="radio" name="q2"> Distinta versión</label><br>
+<label><input type="radio" name="q2" data-correct> Mismo dominio</label><br>
+<label><input type="radio" name="q2"> Distinta contraseña</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 3 -->
+
+<section class="block" id="b3">
+
+<h2>8.3 Modos de Protocolo VTP</h2>
+
+<table class="table">
+
+<tr>
+<th>Modo</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Server</td>
+<td>Crea/modifica VLANs</td>
+</tr>
+
+<tr>
+<td>Client</td>
+<td>Recibe información</td>
+</tr>
+
+<tr>
+<td>Transparent</td>
+<td>No sincroniza VLANs</td>
+</tr>
+
+</table>
+
+<div class="card">
+⚙ Por defecto muchos switches están en modo Server.
+</div>
+
+<div class="card warning">
+⚠ Transparent sí reenvía anuncios VTP.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué modo puede crear VLANs?</p>
+
+<label><input type="radio" name="q3"> Client</label><br>
+<label><input type="radio" name="q3" data-correct> Server</label><br>
+<label><input type="radio" name="q3"> Disabled</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4 -->
+
+<section class="block" id="b4">
+
+<h2>8.4 Intercambios VTP</h2>
+
+<h3>Tipos de anuncios</h3>
+
+<ul>
+<li>Summary Advertisement</li>
+<li>Subset Advertisement</li>
+<li>Advertisement Request</li>
+</ul>
+
+<div class="card">
+📨 El número de revisión es crítico.
+</div>
+
+<div class="card danger">
+❌ Un número de revisión alto puede sobrescribir VLANs.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué parámetro es crítico en VTP?</p>
+
+<label><input type="radio" name="q4"> TTL</label><br>
+<label><input type="radio" name="q4" data-correct> Revision Number</label><br>
+<label><input type="radio" name="q4"> MTU</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5 -->
+
+<section class="block" id="b5">
+
+<h2>8.5 VTP Pruning</h2>
+
+<p>
+VTP Pruning evita enviar tráfico broadcast innecesario
+por trunks.
+</p>
+
+<ul>
+<li>Reduce tráfico</li>
+<li>Optimiza enlaces</li>
+<li>Mejora rendimiento</li>
+</ul>
+
+<div class="card">
+🚀 Solo se envían VLANs necesarias.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué reduce VTP Pruning?</p>
+
+<label><input type="radio" name="q5"> Direcciones MAC</label><br>
+<label><input type="radio" name="q5" data-correct> Broadcast innecesario</label><br>
+<label><input type="radio" name="q5"> DHCP</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6 -->
+
+<section class="block" id="b6">
+
+<h2>8.6 Configuración del Protocolo VTP</h2>
+
+<div class="card">
+<code>
+vtp domain EMPRESA<br>
+vtp mode server<br>
+vtp password cisco
+</code>
+</div>
+
+<h3>Pasos básicos</h3>
+
+<ul>
+<li>Definir dominio</li>
+<li>Elegir modo</li>
+<li>Configurar password</li>
+<li>Verificar trunks</li>
+</ul>
+
+<div class="card warning">
+⚠ Revisar siempre el revision number antes de conectar switches.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando define el dominio VTP?</p>
+
+<label><input type="radio" name="q6"> vlan domain</label><br>
+<label><input type="radio" name="q6" data-correct> vtp domain</label><br>
+<label><input type="radio" name="q6"> switch domain</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7 -->
+
+<section class="block" id="b7">
+
+<h2>8.7 Preguntas Frecuentes sobre VTP</h2>
+
+<ul>
+<li>¿VTP funciona entre fabricantes? → No</li>
+<li>¿Es obligatorio usar VTP? → No</li>
+<li>¿Es seguro? → Con cuidado</li>
+<li>¿Se usa mucho hoy? → Menos que antes</li>
+</ul>
+
+<div class="card">
+💡 Muchas empresas prefieren VLANs manuales por seguridad.
+</div>
+
+<div class="card danger">
+❌ VTP puede provocar fallos masivos si se configura mal.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿VTP es obligatorio?</p>
+
+<label><input type="radio" name="q7"> Sí</label><br>
+<label><input type="radio" name="q7" data-correct> No</label><br>
+<label><input type="radio" name="q7"> Solo en Wi-Fi</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8 -->
+
+<section class="block" id="b8">
+
+<h2>8.8 Diagnóstico y Resolución de Problemas con VLANs</h2>
+
+<h3>Problemas típicos</h3>
+
+<ul>
+<li>Trunk mal configurado</li>
+<li>VLAN inexistente</li>
+<li>Puertos mal asignados</li>
+<li>Mismatch de VTP</li>
+</ul>
+
+<h3>Comandos útiles</h3>
+
+<ul>
+<li><code>show vlan brief</code></li>
+<li><code>show interfaces trunk</code></li>
+<li><code>show vtp status</code></li>
+</ul>
+
+<div class="card">
+🛠 Troubleshooting VLAN = revisar trunks primero.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando muestra VLANs?</p>
+
+<label><input type="radio" name="q8"> show ip route</label><br>
+<label><input type="radio" name="q8" data-correct> show vlan brief</label><br>
+<label><input type="radio" name="q8"> ping</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 9 -->
+
+<section class="block" id="b9">
+
+<h2>8.9 ACLs – Listas de Control de Acceso</h2>
+
+<p>
+Las ACLs filtran tráfico según reglas.
+</p>
+
+<h3>Tipos</h3>
+
+<ul>
+<li>Standard ACL</li>
+<li>Extended ACL</li>
+</ul>
+
+<table class="table">
+
+<tr>
+<th>ACL estándar</th>
+<th>ACL extendida</th>
+</tr>
+
+<tr>
+<td>Filtra IP origen</td>
+<td>Filtra IP, puertos y protocolos</td>
+</tr>
+
+<tr>
+<td>Más simple</td>
+<td>Más precisa</td>
+</tr>
+
+</table>
+
+<div class="card">
+🛡 ACL = firewall básico en routers/switches.
+</div>
+
+<div class="card warning">
+⚠ Existe un “implicit deny” al final.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué ACL es más precisa?</p>
+
+<label><input type="radio" name="q9"> Standard</label><br>
+<label><input type="radio" name="q9" data-correct> Extended</label><br>
+<label><input type="radio" name="q9"> Dynamic</label>
+
+</div>
+
+<button onclick="checkQuiz('q9', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 10 -->
+
+<section class="block" id="b10">
+
+<h2>8.10 ACLs - Paso a paso</h2>
+
+<h3>Pasos básicos</h3>
+
+<ol style="margin-left:20px; line-height:1.8;">
+<li>Crear ACL</li>
+<li>Definir reglas</li>
+<li>Aplicar interfaz</li>
+<li>Elegir dirección IN/OUT</li>
+</ol>
+
+<div class="card">
+Ejemplo:
+<br><br>
+<code>
+access-list 10 permit 192.168.1.0 0.0.0.255
+</code>
+</div>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>ACL estándar → cerca destino</li>
+<li>ACL extendida → cerca origen</li>
+<li>Documentar reglas</li>
+</ul>
+
+<div class="card danger">
+❌ Error típico:
+olvidar aplicar ACL a interfaz.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué ocurre al final de toda ACL?</p>
+
+<label><input type="radio" name="q10"> Permit all</label><br>
+<label><input type="radio" name="q10" data-correct> Implicit deny</label><br>
+<label><input type="radio" name="q10"> Restart ACL</label>
+
+</div>
+
+<button onclick="checkQuiz('q10', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Contenido basado en que me duelen los ojos pero ya voy a dejar de quejarme.
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+  const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+
+  answers.forEach(answer=>{
+    if(answer.checked && answer.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  if(correct){
+    result.textContent = "✔ Correcto";
+    result.style.color = "#00ffc3";
+  }else{
+    result.textContent = "✘ Incorrecto";
+    result.style.color = "#ff5d7d";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

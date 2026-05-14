@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 4.3 - CSS III</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#090909;
+    --panel:#131313;
+    --panel2:#1a1a1a;
+    --border:#2e2e2e;
+    --text:#e7e7e7;
+    --muted:#9d9d9d;
+    --red:#8f2525;
+    --redSoft:#ff7979;
+    --green:#57ffb0;
+    --shadow:0 0 25px rgba(255,80,80,.12);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Segoe UI,sans-serif;
+    overflow-x:hidden;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:#060606;
+    border-right:1px solid var(--border);
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    overflow-y:auto;
+    padding:25px;
+    z-index:999;
+}
+
+.logo{
+    color:var(--redSoft);
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#ddd;
+    background:#151515;
+    border:1px solid transparent;
+    padding:14px;
+    border-radius:12px;
+    transition:.25s;
+    font-size:14px;
+}
+
+.menu a:hover{
+    border-color:var(--red);
+    background:#1c1c1c;
+    transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#151515,#1f1010);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:45px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#d0d0d0;
+    line-height:1.9;
+}
+
+/* BLOCK */
+
+.block{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:35px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.block h2{
+    color:var(--redSoft);
+    font-size:34px;
+    margin-bottom:20px;
+}
+
+.block h3{
+    margin-top:28px;
+    margin-bottom:14px;
+    color:white;
+}
+
+.block p{
+    line-height:1.9;
+    margin-bottom:16px;
+    color:#ddd;
+}
+
+.block ul,
+.block ol{
+    margin-left:24px;
+    margin-bottom:18px;
+}
+
+.block li{
+    margin-bottom:10px;
+    line-height:1.8;
+}
+
+.tag{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:999px;
+    background:#241111;
+    border:1px solid #6e2a2a;
+    color:#ff9c9c;
+    margin-right:8px;
+    margin-bottom:12px;
+    font-size:13px;
+}
+
+.code{
+    background:#050505;
+    border-left:4px solid var(--redSoft);
+    padding:20px;
+    border-radius:12px;
+    overflow-x:auto;
+    margin:20px 0;
+    white-space:pre-wrap;
+    color:#57ffb0;
+    font-family:Consolas, monospace;
+}
+
+.tip{
+    background:#161010;
+    border:1px solid #603232;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:#241212;
+    border:1px solid #8d3434;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid #303030;
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:#1d1d1d;
+    color:#ff9f9f;
+}
+
+tr:nth-child(even){
+    background:#151515;
+}
+
+/* QUIZ */
+
+.quiz{
+    margin-top:40px;
+    background:#101010;
+    border:1px solid #333;
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h3{
+    color:#ff8f8f;
+    margin-bottom:20px;
+}
+
+.question{
+    background:#161616;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.question p{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.question label{
+    display:block;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.question label:hover{
+    color:#ff8f8f;
+}
+
+button{
+    background:linear-gradient(135deg,var(--red),#591717);
+    color:white;
+    border:none;
+    padding:14px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.result{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    padding:40px;
+    color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .layout{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 4.3</div>
+
+<div class="subtitle">
+CSS avanzado: posicionamiento, display, transformaciones, transiciones, animaciones y responsive design.
+</div>
+
+<nav class="menu">
+
+<a href="#b1">4.23 Posicionamiento</a>
+<a href="#b2">4.24 Float</a>
+<a href="#b3">4.25 Clear</a>
+<a href="#b4">4.26 Z-index</a>
+<a href="#b5">4.27 Display</a>
+<a href="#b6">4.28 Visibility</a>
+<a href="#b7">4.29 Transformaciones</a>
+<a href="#b8">4.30 Transiciones</a>
+<a href="#b9">4.31 Animaciones</a>
+<a href="#b10">4.32 Diseño adaptativo</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 4.3 - CSS III</h1>
+
+<p>
+En esta unidad se estudian propiedades avanzadas de CSS relacionadas con
+posicionamiento, visibilidad, transformaciones visuales, animaciones y diseño responsive.
+Son conceptos fundamentales para crear interfaces modernas, dinámicas y adaptables.
+</p>
+
+</section>
+
+<!-- 4.23 -->
+
+<section class="block" id="b1">
+
+<h2>4.23 Posicionamientos: relativo, absoluto y fijo</h2>
+
+<span class="tag">position</span>
+<span class="tag">relative</span>
+<span class="tag">absolute</span>
+
+<p>
+La propiedad position controla cómo se coloca un elemento dentro de la página.
+</p>
+
+<h3>Position relative</h3>
+
+<div class="code">
+div{
+
+  position:relative;
+  top:20px;
+  left:30px;
+
+}
+</div>
+
+<p>
+El elemento mantiene su espacio original pero se desplaza visualmente.
+</p>
+
+<h3>Position absolute</h3>
+
+<div class="code">
+div{
+
+  position:absolute;
+  top:0;
+  right:0;
+
+}
+</div>
+
+<p>
+El elemento sale del flujo normal y se posiciona respecto a su contenedor padre.
+</p>
+
+<h3>Position fixed</h3>
+
+<div class="code">
+header{
+
+  position:fixed;
+  top:0;
+  width:100%;
+
+}
+</div>
+
+<p>
+El elemento permanece fijo aunque el usuario haga scroll.
+</p>
+
+<h3>Position sticky</h3>
+
+<div class="code">
+nav{
+
+  position:sticky;
+  top:0;
+
+}
+</div>
+
+<div class="warning">
+absolute busca el primer padre con position diferente de static.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor mantiene un elemento fijo al hacer scroll?</p>
+
+<label><input type="radio" name="q1"> relative</label>
+<label><input type="radio" name="q1" data-correct> fixed</label>
+<label><input type="radio" name="q1"> absolute</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.24 -->
+
+<section class="block" id="b2">
+
+<h2>4.24 La propiedad float</h2>
+
+<span class="tag">float</span>
+
+<p>
+Float permite colocar elementos a izquierda o derecha.
+</p>
+
+<div class="code">
+img{
+
+  float:left;
+
+}
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>left</li>
+<li>right</li>
+<li>none</li>
+</ul>
+
+<h3>Ejemplo práctico</h3>
+
+<div class="code">
+.card{
+
+  width:200px;
+  float:left;
+  margin:10px;
+
+}
+</div>
+
+<p>
+Muy usado antiguamente para layouts antes de Flexbox y Grid.
+</p>
+
+<div class="warning">
+Los elementos flotados salen parcialmente del flujo normal.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad coloca elementos a la izquierda?</p>
+
+<label><input type="radio" name="q2"> clear</label>
+<label><input type="radio" name="q2" data-correct> float:left</label>
+<label><input type="radio" name="q2"> display:block</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.25 -->
+
+<section class="block" id="b3">
+
+<h2>4.25 La propiedad clear</h2>
+
+<span class="tag">clear</span>
+
+<p>
+Clear controla el comportamiento respecto a elementos flotantes.
+</p>
+
+<div class="code">
+footer{
+
+  clear:both;
+
+}
+</div>
+
+<h3>Valores</h3>
+
+<table>
+
+<tr>
+<th>Valor</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>left</td>
+<td>Limpia flotantes izquierda</td>
+</tr>
+
+<tr>
+<td>right</td>
+<td>Limpia flotantes derecha</td>
+</tr>
+
+<tr>
+<td>both</td>
+<td>Limpia ambos lados</td>
+</tr>
+
+</table>
+
+<div class="tip">
+clear:both era muy usado en diseños clásicos con float.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor limpia ambos lados?</p>
+
+<label><input type="radio" name="q3"> left</label>
+<label><input type="radio" name="q3"> right</label>
+<label><input type="radio" name="q3" data-correct> both</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.26 -->
+
+<section class="block" id="b4">
+
+<h2>4.26 La propiedad z-index</h2>
+
+<span class="tag">z-index</span>
+
+<p>
+z-index controla qué elemento aparece por encima de otro.
+</p>
+
+<div class="code">
+.modal{
+
+  position:absolute;
+  z-index:999;
+
+}
+</div>
+
+<h3>Funcionamiento</h3>
+
+<ul>
+<li>Mayor valor = más arriba.</li>
+<li>Funciona con elementos posicionados.</li>
+<li>Muy usado en menús y modales.</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<div class="code">
+.box1{
+
+  z-index:1;
+
+}
+
+.box2{
+
+  z-index:10;
+
+}
+</div>
+
+<div class="warning">
+z-index no funciona correctamente sin position.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad controla profundidad visual?</p>
+
+<label><input type="radio" name="q4"> overflow</label>
+<label><input type="radio" name="q4" data-correct> z-index</label>
+<label><input type="radio" name="q4"> opacity</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.27 -->
+
+<section class="block" id="b5">
+
+<h2>4.27 La propiedad display</h2>
+
+<span class="tag">display</span>
+
+<p>
+Display controla cómo se comporta un elemento visualmente.
+</p>
+
+<h3>Valores comunes</h3>
+
+<table>
+
+<tr>
+<th>Valor</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>block</td>
+<td>Ocupa toda la línea</td>
+</tr>
+
+<tr>
+<td>inline</td>
+<td>No rompe línea</td>
+</tr>
+
+<tr>
+<td>inline-block</td>
+<td>Mixto</td>
+</tr>
+
+<tr>
+<td>none</td>
+<td>Oculta elemento</td>
+</tr>
+
+<tr>
+<td>flex</td>
+<td>Contenedor flexible</td>
+</tr>
+
+</table>
+
+<h3>Ejemplo</h3>
+
+<div class="code">
+nav{
+
+  display:flex;
+
+}
+</div>
+
+<div class="tip">
+display:none elimina completamente el elemento visualmente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor oculta completamente un elemento?</p>
+
+<label><input type="radio" name="q5"> hidden</label>
+<label><input type="radio" name="q5" data-correct> none</label>
+<label><input type="radio" name="q5"> invisible</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.28 -->
+
+<section class="block" id="b6">
+
+<h2>4.28 La propiedad visibility</h2>
+
+<span class="tag">visibility</span>
+
+<p>
+Visibility controla si un elemento es visible manteniendo su espacio.
+</p>
+
+<div class="code">
+div{
+
+  visibility:hidden;
+
+}
+</div>
+
+<h3>Diferencia con display:none</h3>
+
+<ul>
+<li>visibility:hidden mantiene espacio.</li>
+<li>display:none elimina espacio.</li>
+</ul>
+
+<h3>Valores</h3>
+
+<ul>
+<li>visible</li>
+<li>hidden</li>
+<li>collapse</li>
+</ul>
+
+<div class="warning">
+visibility:hidden sigue ocupando espacio en el layout.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad oculta pero mantiene espacio?</p>
+
+<label><input type="radio" name="q6"> display:none</label>
+<label><input type="radio" name="q6" data-correct> visibility:hidden</label>
+<label><input type="radio" name="q6"> opacity:0</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.29 -->
+
+<section class="block" id="b7">
+
+<h2>4.29 Transformaciones</h2>
+
+<span class="tag">transform</span>
+
+<p>
+Transform modifica visualmente elementos HTML.
+</p>
+
+<h3>Rotación</h3>
+
+<div class="code">
+transform:rotate(45deg);
+</div>
+
+<h3>Escala</h3>
+
+<div class="code">
+transform:scale(1.5);
+</div>
+
+<h3>Traslación</h3>
+
+<div class="code">
+transform:translateX(50px);
+</div>
+
+<h3>Múltiples transformaciones</h3>
+
+<div class="code">
+transform:
+rotate(20deg)
+scale(1.2);
+</div>
+
+<div class="tip">
+Transform funciona muy bien junto a transiciones.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué función rota elementos?</p>
+
+<label><input type="radio" name="q7"> scale()</label>
+<label><input type="radio" name="q7"> translate()</label>
+<label><input type="radio" name="q7" data-correct> rotate()</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.30 -->
+
+<section class="block" id="b8">
+
+<h2>4.30 Transiciones</h2>
+
+<span class="tag">transition</span>
+
+<p>
+Las transiciones suavizan cambios entre estados.
+</p>
+
+<div class="code">
+button{
+
+  transition:all .3s;
+
+}
+</div>
+
+<h3>Hover animado</h3>
+
+<div class="code">
+button:hover{
+
+  background:red;
+  transform:scale(1.1);
+
+}
+</div>
+
+<h3>Propiedades importantes</h3>
+
+<ul>
+<li>transition-property</li>
+<li>transition-duration</li>
+<li>transition-delay</li>
+<li>transition-timing-function</li>
+</ul>
+
+<h3>Timing functions</h3>
+
+<ul>
+<li>ease</li>
+<li>linear</li>
+<li>ease-in</li>
+<li>ease-out</li>
+</ul>
+
+<div class="warning">
+Sin duración no existe transición visible.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad controla duración?</p>
+
+<label><input type="radio" name="q8"> transition-color</label>
+<label><input type="radio" name="q8" data-correct> transition-duration</label>
+<label><input type="radio" name="q8"> transform-time</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.31 -->
+
+<section class="block" id="b9">
+
+<h2>4.31 Animaciones</h2>
+
+<span class="tag">animation</span>
+<span class="tag">@keyframes</span>
+
+<p>
+Las animaciones permiten crear movimientos complejos en CSS.
+</p>
+
+<h3>Definir animación</h3>
+
+<div class="code">
+@keyframes mover{
+
+  from{
+
+    left:0;
+
+  }
+
+  to{
+
+    left:300px;
+
+  }
+
+}
+</div>
+
+<h3>Aplicar animación</h3>
+
+<div class="code">
+div{
+
+  position:relative;
+
+  animation:mover 2s infinite;
+
+}
+</div>
+
+<h3>Propiedades</h3>
+
+<ul>
+<li>animation-name</li>
+<li>animation-duration</li>
+<li>animation-delay</li>
+<li>animation-iteration-count</li>
+</ul>
+
+<h3>Ejemplo rebote</h3>
+
+<div class="code">
+@keyframes bounce{
+
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-50px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+
+}
+</div>
+
+<div class="tip">
+Las animaciones CSS son más eficientes que muchas animaciones JS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué regla define animaciones?</p>
+
+<label><input type="radio" name="q9"> @media</label>
+<label><input type="radio" name="q9" data-correct> @keyframes</label>
+<label><input type="radio" name="q9"> @supports</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.32 -->
+
+<section class="block" id="b10">
+
+<h2>4.32 Diseño adaptativo</h2>
+
+<span class="tag">Responsive</span>
+<span class="tag">@media</span>
+
+<p>
+El diseño adaptativo permite que una web funcione correctamente
+en móviles, tablets y ordenadores.
+</p>
+
+<h3>Media queries</h3>
+
+<div class="code">
+@media(max-width:768px){
+
+  body{
+
+    background:black;
+
+  }
+
+}
+</div>
+
+<h3>Viewport</h3>
+
+<div class="code">
+&lt;meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+&gt;
+</div>
+
+<h3>Buenas prácticas responsive</h3>
+
+<ul>
+<li>Usar Flexbox y Grid.</li>
+<li>Evitar tamaños fijos.</li>
+<li>Usar unidades relativas.</li>
+<li>Optimizar imágenes.</li>
+<li>Diseñar mobile-first.</li>
+</ul>
+
+<h3>Ejemplo responsive</h3>
+
+<div class="code">
+.container{
+
+  display:flex;
+  gap:20px;
+
+}
+
+@media(max-width:700px){
+
+  .container{
+
+    flex-direction:column;
+
+  }
+
+}
+</div>
+
+<div class="warning">
+Responsive design es obligatorio en desarrollo web moderno.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué regla permite diseño responsive?</p>
+
+<label><input type="radio" name="q10"> @keyframes</label>
+<label><input type="radio" name="q10" data-correct> @media</label>
+<label><input type="radio" name="q10"> @font-face</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 4.3 completada 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+    const options=document.getElementsByName(group);
+
+    let correct=false;
+
+    options.forEach(option=>{
+
+        if(option.checked && option.dataset.correct !== undefined){
+
+            correct=true;
+
+        }
+
+    });
+
+    const resultBox=document.getElementById(result);
+
+    if(correct){
+
+        resultBox.innerHTML="✅ Correcto";
+        resultBox.style.color="#57ffb0";
+
+    }else{
+
+        resultBox.innerHTML="❌ Incorrecto";
+        resultBox.style.color="#ff7b7b";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

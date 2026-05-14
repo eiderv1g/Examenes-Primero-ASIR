@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 5 - Maquetación moderna</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#090909;
+    --panel:#141414;
+    --panel2:#1b1b1b;
+    --border:#2d2d2d;
+    --text:#ededed;
+    --muted:#9e9e9e;
+    --red:#892828;
+    --red2:#ff8787;
+    --green:#5cffb3;
+    --shadow:0 0 30px rgba(255,90,90,.12);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Segoe UI,sans-serif;
+    overflow-x:hidden;
+}
+
+.layout{
+    display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    background:#050505;
+    border-right:1px solid var(--border);
+    overflow-y:auto;
+    padding:30px;
+    z-index:999;
+}
+
+.logo{
+    font-size:34px;
+    font-weight:900;
+    color:var(--red2);
+    margin-bottom:12px;
+}
+
+.sidebar p{
+    color:var(--muted);
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#ddd;
+    background:#141414;
+    border:1px solid transparent;
+    padding:14px;
+    border-radius:12px;
+    transition:.25s;
+    font-size:14px;
+}
+
+.menu a:hover{
+    border-color:var(--red);
+    background:#1d1d1d;
+    transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#141414,#251313);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:45px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.hero h1{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#d4d4d4;
+    line-height:1.9;
+}
+
+/* BLOCKS */
+
+.block{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:35px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.block h2{
+    color:var(--red2);
+    margin-bottom:22px;
+    font-size:34px;
+}
+
+.block h3{
+    margin-top:26px;
+    margin-bottom:14px;
+    color:white;
+}
+
+.block p{
+    line-height:1.9;
+    margin-bottom:18px;
+    color:#ddd;
+}
+
+.block ul{
+    margin-left:24px;
+    margin-bottom:18px;
+}
+
+.block li{
+    margin-bottom:10px;
+    line-height:1.8;
+}
+
+.tag{
+    display:inline-block;
+    background:#261313;
+    border:1px solid #703434;
+    color:#ff9e9e;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:13px;
+    margin-right:8px;
+    margin-bottom:16px;
+}
+
+.code{
+    background:#050505;
+    border-left:4px solid var(--red2);
+    padding:20px;
+    border-radius:12px;
+    overflow-x:auto;
+    margin:20px 0;
+    color:var(--green);
+    white-space:pre-wrap;
+    font-family:Consolas, monospace;
+}
+
+.tip{
+    background:#161010;
+    border:1px solid #5e3030;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:#231212;
+    border:1px solid #8e3737;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid #333;
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:#1d1d1d;
+    color:#ff9d9d;
+}
+
+tr:nth-child(even){
+    background:#151515;
+}
+
+/* QUIZ */
+
+.quiz{
+    margin-top:40px;
+    background:#101010;
+    border:1px solid #333;
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h3{
+    color:#ff9797;
+    margin-bottom:20px;
+}
+
+.question{
+    background:#171717;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.question p{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.question label{
+    display:block;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.question label:hover{
+    color:#ff9d9d;
+}
+
+button{
+    background:linear-gradient(135deg,var(--red),#5f1919);
+    color:white;
+    border:none;
+    padding:14px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.result{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+    color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .layout{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        position:relative;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 5</div>
+
+<p>
+Maquetación moderna con CSS Grid y Flexbox para crear diseños adaptables,
+potentes y profesionales.
+</p>
+
+<nav class="menu">
+
+<a href="#b1">5.1 Grid Layout</a>
+<a href="#b2">5.2 Lines, Cells y Tracks</a>
+<a href="#b3">5.3 Template Columns & Rows</a>
+<a href="#b4">5.4 Gaps</a>
+<a href="#b5">5.5 Auto Flow</a>
+<a href="#b6">5.6 Template Areas</a>
+<a href="#b7">5.7 justify-content</a>
+<a href="#b8">5.8 Flexbox Layout</a>
+<a href="#b9">5.9 flex-direction</a>
+<a href="#b10">5.10 flex-wrap</a>
+<a href="#b11">5.11 flex-flow</a>
+<a href="#b12">5.12 justify-content</a>
+<a href="#b13">5.13 align-items</a>
+<a href="#b14">5.14 order y flex-grow</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 5 - Maquetación moderna</h1>
+
+<p>
+CSS moderno incorpora sistemas avanzados de maquetación capaces de construir
+interfaces complejas de forma sencilla. En esta unidad se estudian Grid Layout
+y Flexbox, dos herramientas esenciales del desarrollo web actual.
+</p>
+
+</section>
+
+<!-- 5.1 -->
+
+<section class="block" id="b1">
+
+<h2>5.1 El módulo Grid Layout – Diseño con rejillas</h2>
+
+<span class="tag">display:grid</span>
+<span class="tag">layout</span>
+
+<p>
+CSS Grid permite crear estructuras bidimensionales organizadas en filas y columnas.
+Es uno de los sistemas de maquetación más potentes del lenguaje CSS.
+</p>
+
+<h3>Activar Grid</h3>
+
+<div class="code">
+.container{
+
+  display:grid;
+
+}
+</div>
+
+<h3>Ventajas de Grid</h3>
+
+<ul>
+<li>Control total sobre filas y columnas.</li>
+<li>Diseños complejos fácilmente.</li>
+<li>Responsive sencillo.</li>
+<li>Mejor organización visual.</li>
+<li>Compatible con Flexbox.</li>
+</ul>
+
+<h3>Ejemplo básico</h3>
+
+<div class="code">
+.container{
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:20px;
+
+}
+</div>
+
+<div class="tip">
+Grid trabaja en dos dimensiones: horizontal y vertical.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad activa Grid Layout?</p>
+
+<label><input type="radio" name="q1"> display:flex</label>
+<label><input type="radio" name="q1" data-correct> display:grid</label>
+<label><input type="radio" name="q1"> position:grid</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.2 -->
+
+<section class="block" id="b2">
+
+<h2>5.2 Grid - Lines, Cell, Tracks, Area, Gaps</h2>
+
+<span class="tag">Grid Concepts</span>
+
+<p>
+Grid se basa en conceptos fundamentales que permiten entender su funcionamiento.
+</p>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Lines</td>
+<td>Líneas que separan filas y columnas.</td>
+</tr>
+
+<tr>
+<td>Cell</td>
+<td>Celda individual.</td>
+</tr>
+
+<tr>
+<td>Track</td>
+<td>Espacio entre líneas.</td>
+</tr>
+
+<tr>
+<td>Area</td>
+<td>Conjunto de celdas.</td>
+</tr>
+
+<tr>
+<td>Gap</td>
+<td>Separación entre elementos.</td>
+</tr>
+
+</table>
+
+<h3>Ejemplo visual</h3>
+
+<div class="code">
+.container{
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:100px 100px;
+
+}
+</div>
+
+<div class="warning">
+Comprender tracks y áreas es esencial para dominar Grid.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Cómo se llama una celda individual?</p>
+
+<label><input type="radio" name="q2"> line</label>
+<label><input type="radio" name="q2" data-correct> cell</label>
+<label><input type="radio" name="q2"> area</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.3 -->
+
+<section class="block" id="b3">
+
+<h2>5.3 grid-template-columns y grid-template-rows</h2>
+
+<span class="tag">columns</span>
+<span class="tag">rows</span>
+
+<p>
+Definen el tamaño y número de columnas y filas.
+</p>
+
+<h3>Columnas</h3>
+
+<div class="code">
+grid-template-columns:
+200px 1fr 2fr;
+</div>
+
+<h3>Filas</h3>
+
+<div class="code">
+grid-template-rows:
+100px auto 200px;
+</div>
+
+<h3>Unidad fr</h3>
+
+<p>
+fr significa fracción del espacio disponible.
+</p>
+
+<div class="code">
+grid-template-columns:
+1fr 1fr 1fr;
+</div>
+
+<div class="tip">
+La unidad fr facilita layouts responsive.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué unidad representa fracciones?</p>
+
+<label><input type="radio" name="q3"> px</label>
+<label><input type="radio" name="q3" data-correct> fr</label>
+<label><input type="radio" name="q3"> vh</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.4 -->
+
+<section class="block" id="b4">
+
+<h2>5.4 row-gap y column-gap</h2>
+
+<span class="tag">gap</span>
+
+<p>
+Permiten separar filas y columnas.
+</p>
+
+<div class="code">
+.container{
+
+  row-gap:20px;
+  column-gap:30px;
+
+}
+</div>
+
+<h3>Forma resumida</h3>
+
+<div class="code">
+gap:20px;
+</div>
+
+<div class="code">
+gap:20px 40px;
+</div>
+
+<div class="tip">
+gap también funciona con Flexbox moderno.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad separa columnas?</p>
+
+<label><input type="radio" name="q4"> row-gap</label>
+<label><input type="radio" name="q4" data-correct> column-gap</label>
+<label><input type="radio" name="q4"> margin-gap</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.5 -->
+
+<section class="block" id="b5">
+
+<h2>5.5 grid-auto-flow, grid-auto-columns y grid-auto-rows</h2>
+
+<span class="tag">auto-flow</span>
+
+<p>
+Estas propiedades controlan elementos generados automáticamente.
+</p>
+
+<h3>grid-auto-flow</h3>
+
+<div class="code">
+grid-auto-flow:row;
+</div>
+
+<h3>grid-auto-columns</h3>
+
+<div class="code">
+grid-auto-columns:150px;
+</div>
+
+<h3>grid-auto-rows</h3>
+
+<div class="code">
+grid-auto-rows:100px;
+</div>
+
+<h3>Valores comunes</h3>
+
+<ul>
+<li>row</li>
+<li>column</li>
+<li>dense</li>
+</ul>
+
+<div class="warning">
+dense intenta rellenar huecos automáticamente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad controla flujo automático?</p>
+
+<label><input type="radio" name="q5"> grid-gap</label>
+<label><input type="radio" name="q5" data-correct> grid-auto-flow</label>
+<label><input type="radio" name="q5"> grid-order</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.6 -->
+
+<section class="block" id="b6">
+
+<h2>5.6 grid-template-areas y grid-area</h2>
+
+<span class="tag">areas</span>
+
+<p>
+Permiten nombrar zonas completas del layout.
+</p>
+
+<div class="code">
+.container{
+
+display:grid;
+
+grid-template-areas:
+
+"header header"
+"menu content"
+"footer footer";
+
+}
+</div>
+
+<h3>Asignar áreas</h3>
+
+<div class="code">
+header{
+  grid-area:header;
+}
+
+main{
+  grid-area:content;
+}
+</div>
+
+<div class="tip">
+Las áreas hacen los layouts más legibles.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad asigna una zona?</p>
+
+<label><input type="radio" name="q6"> grid-column</label>
+<label><input type="radio" name="q6" data-correct> grid-area</label>
+<label><input type="radio" name="q6"> area-name</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.7 -->
+
+<section class="block" id="b7">
+
+<h2>5.7 justify-content</h2>
+
+<span class="tag">justify-content</span>
+
+<p>
+Alinea el contenido horizontalmente dentro del contenedor.
+</p>
+
+<div class="code">
+justify-content:center;
+</div>
+
+<h3>Valores comunes</h3>
+
+<ul>
+<li>center</li>
+<li>start</li>
+<li>end</li>
+<li>space-between</li>
+<li>space-around</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor centra contenido?</p>
+
+<label><input type="radio" name="q7" data-correct> center</label>
+<label><input type="radio" name="q7"> end</label>
+<label><input type="radio" name="q7"> left</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.8 -->
+
+<section class="block" id="b8">
+
+<h2>5.8 FlexBox Layout</h2>
+
+<span class="tag">flexbox</span>
+
+<p>
+Flexbox organiza elementos en una sola dimensión.
+</p>
+
+<div class="code">
+.container{
+
+  display:flex;
+
+}
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Alineación sencilla.</li>
+<li>Distribución automática.</li>
+<li>Responsive rápido.</li>
+<li>Ideal para componentes UI.</li>
+</ul>
+
+<div class="tip">
+Flexbox trabaja en un eje principal.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué activa Flexbox?</p>
+
+<label><input type="radio" name="q8"> display:grid</label>
+<label><input type="radio" name="q8" data-correct> display:flex</label>
+<label><input type="radio" name="q8"> flex:true</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.9 -->
+
+<section class="block" id="b9">
+
+<h2>5.9 Flexbox - flex-direction</h2>
+
+<span class="tag">flex-direction</span>
+
+<p>
+Define dirección principal de elementos flexibles.
+</p>
+
+<div class="code">
+flex-direction:row;
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>row</li>
+<li>row-reverse</li>
+<li>column</li>
+<li>column-reverse</li>
+</ul>
+
+<div class="code">
+.container{
+
+display:flex;
+flex-direction:column;
+
+}
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor organiza verticalmente?</p>
+
+<label><input type="radio" name="q9"> row</label>
+<label><input type="radio" name="q9" data-correct> column</label>
+<label><input type="radio" name="q9"> reverse</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.10 -->
+
+<section class="block" id="b10">
+
+<h2>5.10 Flexbox - flex-wrap</h2>
+
+<span class="tag">flex-wrap</span>
+
+<p>
+Permite que elementos pasen a otra línea.
+</p>
+
+<div class="code">
+flex-wrap:wrap;
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>nowrap</li>
+<li>wrap</li>
+<li>wrap-reverse</li>
+</ul>
+
+<div class="warning">
+nowrap es el valor por defecto.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor permite salto de línea?</p>
+
+<label><input type="radio" name="q10"> nowrap</label>
+<label><input type="radio" name="q10" data-correct> wrap</label>
+<label><input type="radio" name="q10"> inline</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.11 -->
+
+<section class="block" id="b11">
+
+<h2>5.11 Flexbox - flex-flow</h2>
+
+<span class="tag">flex-flow</span>
+
+<p>
+Combina flex-direction y flex-wrap.
+</p>
+
+<div class="code">
+flex-flow:row wrap;
+</div>
+
+<div class="tip">
+flex-flow simplifica código Flexbox.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué combina flex-flow?</p>
+
+<label><input type="radio" name="q11"> align y justify</label>
+<label><input type="radio" name="q11" data-correct> direction y wrap</label>
+<label><input type="radio" name="q11"> grow y shrink</label>
+
+</div>
+
+<button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+<div id="r11" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.12 -->
+
+<section class="block" id="b12">
+
+<h2>5.12 Flexbox - justify-content</h2>
+
+<span class="tag">justify-content</span>
+
+<p>
+Alinea elementos sobre el eje principal.
+</p>
+
+<div class="code">
+justify-content:space-between;
+</div>
+
+<h3>Valores importantes</h3>
+
+<ul>
+<li>center</li>
+<li>space-between</li>
+<li>space-around</li>
+<li>space-evenly</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor separa extremos?</p>
+
+<label><input type="radio" name="q12"> center</label>
+<label><input type="radio" name="q12" data-correct> space-between</label>
+<label><input type="radio" name="q12"> left</label>
+
+</div>
+
+<button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+<div id="r12" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.13 -->
+
+<section class="block" id="b13">
+
+<h2>5.13 Flexbox - align-items</h2>
+
+<span class="tag">align-items</span>
+
+<p>
+Alinea elementos sobre el eje secundario.
+</p>
+
+<div class="code">
+align-items:center;
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>stretch</li>
+<li>center</li>
+<li>flex-start</li>
+<li>flex-end</li>
+</ul>
+
+<div class="tip">
+stretch es el valor por defecto.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad alinea en eje secundario?</p>
+
+<label><input type="radio" name="q13"> justify-content</label>
+<label><input type="radio" name="q13" data-correct> align-items</label>
+<label><input type="radio" name="q13"> flex-wrap</label>
+
+</div>
+
+<button onclick="checkQuiz('q13','r13')">Corregir</button>
+
+<div id="r13" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5.14 -->
+
+<section class="block" id="b14">
+
+<h2>5.14 Flexbox - order, align-self, flex-grow y flex-shrink</h2>
+
+<span class="tag">flex-grow</span>
+<span class="tag">order</span>
+
+<p>
+Estas propiedades modifican comportamiento individual.
+</p>
+
+<h3>order</h3>
+
+<div class="code">
+.item{
+
+  order:2;
+
+}
+</div>
+
+<h3>align-self</h3>
+
+<div class="code">
+.item{
+
+  align-self:flex-end;
+
+}
+</div>
+
+<h3>flex-grow</h3>
+
+<div class="code">
+.item{
+
+  flex-grow:1;
+
+}
+</div>
+
+<h3>flex-shrink</h3>
+
+<div class="code">
+.item{
+
+  flex-shrink:0;
+
+}
+</div>
+
+<table>
+
+<tr>
+<th>Propiedad</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>order</td>
+<td>Cambia orden visual</td>
+</tr>
+
+<tr>
+<td>align-self</td>
+<td>Alineación individual</td>
+</tr>
+
+<tr>
+<td>flex-grow</td>
+<td>Expansión disponible</td>
+</tr>
+
+<tr>
+<td>flex-shrink</td>
+<td>Reducción disponible</td>
+</tr>
+
+</table>
+
+<div class="warning">
+flex-grow distribuye espacio sobrante proporcionalmente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad permite crecer?</p>
+
+<label><input type="radio" name="q14"> flex-wrap</label>
+<label><input type="radio" name="q14" data-correct> flex-grow</label>
+<label><input type="radio" name="q14"> align-self</label>
+
+</div>
+
+<button onclick="checkQuiz('q14','r14')">Corregir</button>
+
+<div id="r14" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 5 completada 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+const options=document.getElementsByName(group);
+
+let correct=false;
+
+options.forEach(option=>{
+
+if(option.checked && option.dataset.correct !== undefined){
+
+correct=true;
+
+}
+
+});
+
+const resultBox=document.getElementById(result);
+
+if(correct){
+
+resultBox.innerHTML="✅ Correcto";
+resultBox.style.color="#5cffb3";
+
+}else{
+
+resultBox.innerHTML="❌ Incorrecto";
+resultBox.style.color="#ff8080";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

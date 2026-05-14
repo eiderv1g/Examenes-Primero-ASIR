@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 - Salud laboral y cultura preventiva</title>
+
+  <style>
+    :root{
+      --bg:#f5f7f6;
+      --card:#ffffff;
+      --primary:#1f3d34;
+      --secondary:#6f8b81;
+      --accent:#dfe9e4;
+      --text:#1e1e1e;
+      --muted:#6b7280;
+      --success:#d1fae5;
+      --danger:#fee2e2;
+      --shadow:0 10px 30px rgba(0,0,0,0.06);
+      --radius:22px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:300px;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(12px);
+      border-right:1px solid #e5e7eb;
+      padding:30px 22px;
+      position:fixed;
+      height:100vh;
+      overflow-y:auto;
+    }
+
+    .sidebar h1{
+      font-size:1.6rem;
+      line-height:1.2;
+      color:var(--primary);
+      margin-bottom:12px;
+    }
+
+    .sidebar p{
+      color:var(--muted);
+      font-size:0.95rem;
+      margin-bottom:28px;
+    }
+
+    .nav-link{
+      display:block;
+      padding:14px 16px;
+      margin-bottom:10px;
+      border-radius:16px;
+      text-decoration:none;
+      color:var(--text);
+      transition:0.25s;
+      background:transparent;
+      font-size:0.96rem;
+    }
+
+    .nav-link:hover{
+      background:var(--accent);
+      transform:translateX(4px);
+    }
+
+    .main{
+      margin-left:300px;
+      width:calc(100% - 300px);
+      padding:40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#1f3d34,#314f45);
+      border-radius:32px;
+      padding:60px;
+      color:white;
+      box-shadow:var(--shadow);
+      margin-bottom:40px;
+    }
+
+    .hero h2{
+      font-size:3rem;
+      margin-bottom:14px;
+      font-weight:700;
+    }
+
+    .hero p{
+      max-width:800px;
+      line-height:1.8;
+      color:rgba(255,255,255,0.88);
+      font-size:1.05rem;
+    }
+
+    .study-block{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:38px;
+      margin-bottom:34px;
+      box-shadow:var(--shadow);
+    }
+
+    .study-block h2{
+      font-size:2rem;
+      margin-bottom:18px;
+      color:var(--primary);
+    }
+
+    .study-time{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:var(--accent);
+      color:var(--primary);
+      font-size:0.85rem;
+      margin-bottom:24px;
+      font-weight:600;
+    }
+
+    .study-block h3{
+      margin-top:26px;
+      margin-bottom:10px;
+      color:var(--primary);
+    }
+
+    .study-block p{
+      line-height:1.8;
+      margin-bottom:16px;
+      color:#2b2b2b;
+    }
+
+    ul{
+      padding-left:22px;
+      margin-bottom:20px;
+    }
+
+    li{
+      margin-bottom:10px;
+      line-height:1.7;
+    }
+
+    .tip-box{
+      background:#f4f8f6;
+      border-left:5px solid var(--primary);
+      padding:18px;
+      border-radius:14px;
+      margin:22px 0;
+    }
+
+    .trap{
+      background:#fff7ed;
+      border-left:5px solid #f59e0b;
+      padding:18px;
+      border-radius:14px;
+      margin:20px 0;
+    }
+
+    .example{
+      background:#eef7ff;
+      border-left:5px solid #3b82f6;
+      padding:18px;
+      border-radius:14px;
+      margin:20px 0;
+    }
+
+    .quiz{
+      margin-top:34px;
+      background:#f8fafc;
+      padding:24px;
+      border-radius:20px;
+      border:1px solid #e5e7eb;
+    }
+
+    .quiz h4{
+      margin-bottom:18px;
+      color:var(--primary);
+      font-size:1.2rem;
+    }
+
+    .question{
+      margin-bottom:20px;
+      padding:18px;
+      background:white;
+      border-radius:16px;
+    }
+
+    .question p{
+      font-weight:600;
+      margin-bottom:14px;
+    }
+
+    .option{
+      display:block;
+      margin-bottom:10px;
+      padding:12px;
+      border-radius:12px;
+      background:#f3f4f6;
+      cursor:pointer;
+      transition:0.2s;
+    }
+
+    .option:hover{
+      background:#e5e7eb;
+    }
+
+    button{
+      margin-top:12px;
+      padding:12px 22px;
+      border:none;
+      border-radius:14px;
+      background:var(--primary);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.25s;
+    }
+
+    button:hover{
+      opacity:0.9;
+      transform:translateY(-1px);
+    }
+
+    .result{
+      margin-top:14px;
+      font-weight:700;
+    }
+
+    .footer{
+      text-align:center;
+      padding:40px;
+      color:var(--muted);
+    }
+
+    @media(max-width:1000px){
+
+      body{
+        flex-direction:column;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+      }
+
+      .hero{
+        padding:34px;
+      }
+
+      .hero h2{
+        font-size:2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <h1>Unidad 1</h1>
+    <p>Salud laboral y cultura preventiva</p>
+
+    <a class="nav-link" href="#b1">1.1 Fundamentos</a>
+    <a class="nav-link" href="#b2">1.2 Ley 31/1995</a>
+    <a class="nav-link" href="#b3">1.3 Dimensiones</a>
+    <a class="nav-link" href="#b4">1.4 Amazon España</a>
+    <a class="nav-link" href="#b5">1.5 Compromiso empresarial</a>
+    <a class="nav-link" href="#b6">1.6 Dirección y trabajadores</a>
+    <a class="nav-link" href="#b7">1.7 Volkswagen Navarra</a>
+    <a class="nav-link" href="#b8">1.8 Organismos</a>
+    <a class="nav-link" href="#b9">1.9 Estándares globales</a>
+    <a class="nav-link" href="#b10">1.10 OIT y Convenio 155</a>
+  </aside>
+
+  <main class="main">
+
+    <section class="hero">
+      <h2>Unidad 1 · Salud laboral y cultura preventiva</h2>
+      <p>
+        Página interactiva diseñada para estudiar de forma cómoda, clara y visual.
+        Cada bloque incluye teoría resumida, ejemplos, curiosidades, preguntas trampa
+        y mini-tests para preparar el examen tipo test.
+      </p>
+    </section>
+
+    <!-- BLOQUE 1 -->
+
+    <section class="study-block" id="b1">
+      <span class="study-time">⏱️ 20 min</span>
+      <h2>1.1 Fundamentos de la Salud Laboral</h2>
+
+      <p>
+        La salud laboral no significa únicamente no tener accidentes.
+        Según la OMS, la salud es un estado completo de bienestar físico,
+        mental y social.
+      </p>
+
+      <div class="tip-box">
+        <strong>Idea clave:</strong>
+        Un trabajador puede no estar enfermo físicamente y aun así tener mala salud laboral
+        si sufre estrés, ansiedad o aislamiento.
+      </div>
+
+      <h3>Aspectos fundamentales</h3>
+
+      <ul>
+        <li>Bienestar físico → evitar lesiones y enfermedades.</li>
+        <li>Bienestar mental → reducir estrés y fatiga emocional.</li>
+        <li>Bienestar social → relaciones sanas y buen clima laboral.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Ejemplo:</strong>
+        Una empresa con mucha presión y objetivos imposibles puede generar ansiedad
+        aunque no existan accidentes físicos.
+      </div>
+
+      <div class="trap">
+        <strong>Pregunta trampa:</strong>
+        “Salud laboral = ausencia de accidentes”.
+        ❌ Incorrecto. También incluye bienestar mental y social.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>1. Según la OMS, la salud es:</p>
+
+          <label class="option">
+            <input type="radio" name="q1"> Solo ausencia de enfermedades
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q1" data-correct="true">
+            Bienestar físico, mental y social
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q1"> Solo bienestar físico
+          </label>
+
+          <button onclick="checkQuiz('q1', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="study-block" id="b2">
+      <span class="study-time">⏱️ 25 min</span>
+      <h2>1.2 Ley 31/1995 y cultura preventiva</h2>
+
+      <p>
+        La Ley 31/1995 de Prevención de Riesgos Laborales (LPRL)
+        cambió el enfoque de la seguridad laboral en España.
+      </p>
+
+      <h3>Objetivos principales</h3>
+
+      <ul>
+        <li>Proteger la salud de los trabajadores.</li>
+        <li>Integrar la prevención en toda la empresa.</li>
+        <li>Fomentar una cultura preventiva.</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Cultura preventiva:</strong>
+        La seguridad debe formar parte de todas las decisiones de la empresa.
+      </div>
+
+      <h3>Claves de la cultura preventiva</h3>
+
+      <ul>
+        <li>Liderazgo de la dirección.</li>
+        <li>Participación activa.</li>
+        <li>Formación continua.</li>
+        <li>Mejora constante.</li>
+      </ul>
+
+      <div class="trap">
+        <strong>Pregunta trampa:</strong>
+        Cumplir la ley NO es suficiente.
+        La mejora continua también es esencial.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>¿Qué establece la LPRL?</p>
+
+          <label class="option">
+            <input type="radio" name="q2">
+            Que la prevención es opcional
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" data-correct="true">
+            La protección integral de los trabajadores
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2">
+            Que solo importa la productividad
+          </label>
+
+          <button onclick="checkQuiz('q2', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="study-block" id="b3">
+      <span class="study-time">⏱️ 18 min</span>
+      <h2>1.3 Dimensiones de la Salud Laboral</h2>
+
+      <h3>Dimensión Física</h3>
+      <ul>
+        <li>Prevención de accidentes.</li>
+        <li>Ergonomía.</li>
+        <li>Equipos de protección.</li>
+      </ul>
+
+      <h3>Dimensión Mental</h3>
+      <ul>
+        <li>Gestión del estrés.</li>
+        <li>Equilibrio vida-trabajo.</li>
+        <li>Motivación.</li>
+      </ul>
+
+      <h3>Dimensión Social</h3>
+      <ul>
+        <li>Relaciones interpersonales.</li>
+        <li>Comunicación.</li>
+        <li>Integración.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Ejemplo:</strong>
+        Un trabajador puede tener buena ergonomía pero sufrir ansiedad por mal ambiente laboral.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>La gestión del estrés pertenece a:</p>
+
+          <label class="option">
+            <input type="radio" name="q3">
+            Dimensión física
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q3" data-correct="true">
+            Dimensión mental
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q3">
+            Dimensión social
+          </label>
+
+          <button onclick="checkQuiz('q3', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="study-block" id="b4">
+      <span class="study-time">⏱️ 20 min</span>
+      <h2>1.4 ¿Qué pasó con Amazon en España?</h2>
+
+      <p>
+        Amazon fue sancionada por problemas relacionados con ergonomía,
+        ritmos de trabajo y estrés laboral.
+      </p>
+
+      <h3>Problemas detectados</h3>
+
+      <ul>
+        <li>Posturas forzadas.</li>
+        <li>Ritmos excesivos.</li>
+        <li>Fatiga física y mental.</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Conclusión:</strong>
+        Tener normas escritas no significa tener una verdadera cultura preventiva.
+      </div>
+
+      <div class="trap">
+        <strong>Pregunta trampa:</strong>
+        El daño reputacional también es una consecuencia importante.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>¿Qué problema NO se mencionó en el caso Amazon?</p>
+
+          <label class="option">
+            <input type="radio" name="q4">
+            Ritmos excesivos
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q4">
+            Estrés laboral
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q4" data-correct="true">
+            Falta de salarios
+          </label>
+
+          <button onclick="checkQuiz('q4', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="study-block" id="b5">
+      <span class="study-time">⏱️ 20 min</span>
+      <h2>1.5 Compromiso Empresarial y Participación</h2>
+
+      <p>
+        La prevención solo funciona cuando dirección y trabajadores colaboran.
+      </p>
+
+      <ul>
+        <li>La empresa aporta recursos.</li>
+        <li>Los trabajadores participan activamente.</li>
+        <li>La comunicación es esencial.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Ejemplo:</strong>
+        Un empleado que informa de un riesgo ayuda a prevenir accidentes futuros.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>La prevención es responsabilidad de:</p>
+
+          <label class="option">
+            <input type="radio" name="q5">
+            Solo el técnico PRL
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q5" data-correct="true">
+            Dirección y trabajadores
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q5">
+            Solo los trabajadores
+          </label>
+
+          <button onclick="checkQuiz('q5', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="study-block" id="b6">
+      <span class="study-time">⏱️ 15 min</span>
+      <h2>1.6 Dirección y trabajadores</h2>
+
+      <h3>Dirección</h3>
+
+      <ul>
+        <li>Debe liderar la prevención.</li>
+        <li>Asignar recursos.</li>
+        <li>Dar ejemplo.</li>
+      </ul>
+
+      <h3>Trabajadores</h3>
+
+      <ul>
+        <li>Comunicar riesgos.</li>
+        <li>Participar en mejoras.</li>
+        <li>Aplicar medidas preventivas.</li>
+      </ul>
+
+      <div class="trap">
+        <strong>Pregunta trampa:</strong>
+        Los trabajadores NO son receptores pasivos.
+      </div>
+    </section>
+
+    <!-- BLOQUE 7 -->
+
+    <section class="study-block" id="b7">
+      <span class="study-time">⏱️ 18 min</span>
+      <h2>1.7 ¿Qué pasó con Volkswagen Navarra?</h2>
+
+      <p>
+        Volkswagen Navarra redujo bajas laborales gracias a la participación
+        activa de los trabajadores.
+      </p>
+
+      <h3>Estrategias aplicadas</h3>
+
+      <ul>
+        <li>Comités mixtos.</li>
+        <li>Mejoras ergonómicas.</li>
+        <li>Formaciones cortas.</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Idea clave:</strong>
+        La implicación directa de empleados mejora la confianza y los resultados.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>¿Qué logró Volkswagen Navarra?</p>
+
+          <label class="option">
+            <input type="radio" name="q7">
+            Aumentar accidentes
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q7" data-correct="true">
+            Reducir bajas médicas
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q7">
+            Eliminar formación
+          </label>
+
+          <button onclick="checkQuiz('q7', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 8 -->
+
+    <section class="study-block" id="b8">
+      <span class="study-time">⏱️ 25 min</span>
+      <h2>1.8 Organismos nacionales e internacionales</h2>
+
+      <h3>Nacionales</h3>
+      <ul>
+        <li>INSST</li>
+        <li>ITSS</li>
+      </ul>
+
+      <h3>Europeos</h3>
+      <ul>
+        <li>EU-OSHA</li>
+        <li>Eurofound</li>
+      </ul>
+
+      <h3>Internacionales</h3>
+      <ul>
+        <li>OIT</li>
+        <li>OMS</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Muy importante:</strong>
+        Los organismos internacionales sí influyen en España.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test</h4>
+
+        <div class="question">
+          <p>¿Qué organismo realiza inspecciones en España?</p>
+
+          <label class="option">
+            <input type="radio" name="q8">
+            OMS
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q8" data-correct="true">
+            ITSS
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q8">
+            OIT
+          </label>
+
+          <button onclick="checkQuiz('q8', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 9 -->
+
+    <section class="study-block" id="b9">
+      <span class="study-time">⏱️ 15 min</span>
+      <h2>1.9 Estándares globales</h2>
+
+      <p>
+        Los estándares globales sirven para unificar criterios de seguridad
+        y salud laboral entre países.
+      </p>
+
+      <ul>
+        <li>Promueven buenas prácticas.</li>
+        <li>Ayudan a crear normativas nacionales.</li>
+        <li>Mejoran la competitividad empresarial.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Curiosidad:</strong>
+        Muchas leyes españolas están inspiradas en convenios internacionales.
+      </div>
+    </section>
+
+    <!-- BLOQUE 10 -->
+
+    <section class="study-block" id="b10">
+      <span class="study-time">⏱️ 20 min</span>
+      <h2>1.10 OIT y el Convenio 155</h2>
+
+      <p>
+        El Convenio 155 de la OIT estableció principios básicos de seguridad
+        y salud laboral a nivel mundial.
+      </p>
+
+      <h3>Principios clave</h3>
+
+      <ul>
+        <li>Derecho a condiciones seguras.</li>
+        <li>Políticas preventivas coherentes.</li>
+        <li>Integración de la salud laboral.</li>
+      </ul>
+
+      <div class="tip-box">
+        España incorporó muchos principios del Convenio 155 en la LPRL.
+      </div>
+
+      <div class="quiz">
+        <h4>Mini-test final</h4>
+
+        <div class="question">
+          <p>¿Qué organismo aprobó el Convenio 155?</p>
+
+          <label class="option">
+            <input type="radio" name="q10">
+            OMS
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q10">
+            INSST
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q10" data-correct="true">
+            OIT
+          </label>
+
+          <button onclick="checkQuiz('q10', this)">Corregir</button>
+          <div class="result"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Basado en documentos y resúmenes personales. A darle caña.
+    </div>
+
+  </main>
+
+  <script>
+    function checkQuiz(questionName, button){
+
+      const options = document.getElementsByName(questionName);
+      const result = button.nextElementSibling;
+
+      let correct = false;
+      let selected = false;
+
+      options.forEach(option => {
+
+        if(option.checked){
+          selected = true;
+
+          if(option.dataset.correct === "true"){
+            correct = true;
+          }
+        }
+      });
+
+      if(!selected){
+        result.innerHTML = "⚠️ Selecciona una respuesta";
+        result.style.color = "#d97706";
+        return;
+      }
+
+      if(correct){
+        result.innerHTML = "✅ Correcto";
+        result.style.color = "green";
+      } else {
+        result.innerHTML = "❌ Incorrecto";
+        result.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>

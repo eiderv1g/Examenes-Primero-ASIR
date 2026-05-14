@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 4.1 - CSS I</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#090909;
+  --panel:#131313;
+  --panel2:#1b1b1b;
+  --border:#2f2f2f;
+  --text:#e6e6e6;
+  --muted:#9e9e9e;
+  --red:#9b2d2d;
+  --red2:#ff7d7d;
+  --green:#57ffb0;
+  --shadow:0 0 25px rgba(255,70,70,.15);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  overflow-x:hidden;
+}
+
+/* LAYOUT */
+
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:#070707;
+  border-right:1px solid var(--border);
+  padding:25px;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  overflow-y:auto;
+  z-index:999;
+}
+
+.logo{
+  color:var(--red2);
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.desc{
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:35px;
+  font-size:14px;
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.menu a{
+  text-decoration:none;
+  color:#ddd;
+  padding:14px;
+  border-radius:12px;
+  background:#141414;
+  transition:.25s;
+  border:1px solid transparent;
+  font-size:14px;
+}
+
+.menu a:hover{
+  background:#1b1b1b;
+  border-color:var(--red);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#141414,#1f1010);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:45px;
+  margin-bottom:35px;
+  box-shadow:var(--shadow);
+}
+
+.hero h1{
+  font-size:44px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  color:#d0d0d0;
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOQUES */
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:35px;
+  margin-bottom:35px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--red2);
+  font-size:34px;
+  margin-bottom:20px;
+}
+
+.block h3{
+  margin-top:30px;
+  margin-bottom:15px;
+  color:white;
+}
+
+.block p{
+  line-height:1.9;
+  color:#d8d8d8;
+  margin-bottom:16px;
+}
+
+.block ul,
+.block ol{
+  margin-left:25px;
+  margin-bottom:18px;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.8;
+}
+
+.tag{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#281414;
+  border:1px solid #6e2b2b;
+  color:#ff9f9f;
+  margin-right:8px;
+  margin-bottom:12px;
+  font-size:13px;
+}
+
+.code{
+  background:#050505;
+  border-left:4px solid var(--red2);
+  padding:20px;
+  border-radius:12px;
+  overflow-x:auto;
+  margin:20px 0;
+  color:#5effad;
+  font-family:Consolas, monospace;
+  white-space:pre-wrap;
+}
+
+.tip{
+  background:#161010;
+  border:1px solid #5f3131;
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.warning{
+  background:#241212;
+  border:1px solid #903535;
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:20px 0;
+}
+
+th,td{
+  border:1px solid #303030;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#1d1d1d;
+  color:#ff9f9f;
+}
+
+tr:nth-child(even){
+  background:#161616;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:40px;
+  background:#0f0f0f;
+  border:1px solid #313131;
+  border-radius:18px;
+  padding:25px;
+}
+
+.quiz h3{
+  color:#ff8e8e;
+  margin-bottom:20px;
+}
+
+.question{
+  background:#151515;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:20px;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:14px;
+}
+
+.question label{
+  display:block;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.question label:hover{
+  color:#ff8f8f;
+}
+
+button{
+  background:linear-gradient(135deg,var(--red),#5b1818);
+  color:white;
+  border:none;
+  padding:14px 22px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:.25s;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+.result{
+  margin-top:16px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  padding:50px 0;
+  color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  .layout{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero h1{
+    font-size:30px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 4.1</div>
+
+<div class="desc">
+Curso avanzado de CSS.<br><br>
+Introducción, selectores, reglas de cascada y aplicación de estilos.
+</div>
+
+<nav class="menu">
+
+<a href="#b1">4.1 Introducción a CSS</a>
+<a href="#b2">4.2 Etiqueta style</a>
+<a href="#b3">4.3 Cabecera HTML</a>
+<a href="#b4">4.4 Fichero Externo</a>
+<a href="#b5">4.5 Hojas en Cascada</a>
+<a href="#b6">4.6 Selectores</a>
+<a href="#b7">4.7 Selección por ID</a>
+<a href="#b8">4.8 Clases y grupos</a>
+<a href="#b9">4.9 Reglas CSS</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 4.1 - CSS I</h1>
+
+<p>
+CSS es el lenguaje encargado de dar estilo, diseño y apariencia visual a una página web.
+Con CSS podemos modificar colores, tamaños, tipografías, márgenes, animaciones y
+disposición de elementos. Esta unidad cubre las bases fundamentales del lenguaje,
+la separación entre estructura y diseño y las reglas de cascada.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>4.1 Introducción a CSS</h2>
+
+<span class="tag">CSS</span>
+<span class="tag">Diseño web</span>
+<span class="tag">Estilos</span>
+
+<p>
+CSS significa <strong>Cascading Style Sheets</strong> (Hojas de estilo en cascada).
+Su función principal es controlar la apariencia visual de los documentos HTML.
+</p>
+
+<p>
+HTML define la estructura del contenido mientras CSS controla el diseño:
+colores, márgenes, tipografías, fondos, posiciones y efectos visuales.
+</p>
+
+<h3>Ventajas de CSS</h3>
+
+<ul>
+<li>Separación entre contenido y diseño.</li>
+<li>Facilidad para mantener proyectos grandes.</li>
+<li>Diseños reutilizables.</li>
+<li>Webs responsive y adaptables.</li>
+<li>Mejor rendimiento y limpieza del código.</li>
+</ul>
+
+<h3>Sintaxis básica</h3>
+
+<div class="code">
+selector{
+
+  propiedad: valor;
+
+}
+</div>
+
+<h3>Ejemplo real</h3>
+
+<div class="code">
+p{
+
+  color: red;
+  font-size: 20px;
+  background-color: black;
+
+}
+</div>
+
+<p>
+En este ejemplo todos los párrafos tendrán letras rojas,
+tamaño de 20 píxeles y fondo negro.
+</p>
+
+<div class="tip">
+CSS funciona mediante reglas aplicadas a elementos HTML.
+</div>
+
+<div class="warning">
+Nunca mezclar demasiado estilo directamente dentro de HTML.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa CSS?</p>
+
+<label><input type="radio" name="q1"> Computer Style System</label>
+<label><input type="radio" name="q1" data-correct> Cascading Style Sheets</label>
+<label><input type="radio" name="q1"> Creative Style Syntax</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>4.2 Etiqueta style</h2>
+
+<span class="tag">style</span>
+<span class="tag">inline</span>
+
+<p>
+La etiqueta style permite aplicar CSS directamente dentro del documento HTML.
+</p>
+
+<h3>CSS inline</h3>
+
+<div class="code">
+&lt;p style="color:blue;"&gt;
+
+Hola mundo
+
+&lt;/p&gt;
+</div>
+
+<p>
+El estilo se aplica directamente sobre la etiqueta HTML.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Rápido para pruebas.</li>
+<li>Útil para depuración.</li>
+<li>Modificaciones inmediatas.</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Mezcla contenido y diseño.</li>
+<li>Difícil mantenimiento.</li>
+<li>No reutilizable.</li>
+<li>Rompe buenas prácticas.</li>
+</ul>
+
+<h3>Ejemplo múltiple</h3>
+
+<div class="code">
+&lt;h1 style="color:red;"&gt;Título&lt;/h1&gt;
+
+&lt;div style="background:black;color:white;padding:20px;"&gt;
+
+Contenido
+
+&lt;/div&gt;
+</div>
+
+<div class="warning">
+El estilo inline tiene máxima prioridad sobre otras reglas CSS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Dónde se escribe CSS inline?</p>
+
+<label><input type="radio" name="q2"> En un archivo .css</label>
+<label><input type="radio" name="q2" data-correct> Dentro del atributo style</label>
+<label><input type="radio" name="q2"> Dentro de script</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>4.3 CSS en la Cabecera HTML</h2>
+
+<span class="tag">head</span>
+<span class="tag">style</span>
+
+<p>
+Otra forma de aplicar estilos consiste en usar la etiqueta
+&lt;style&gt; dentro del elemento &lt;head&gt;.
+</p>
+
+<div class="code">
+&lt;head&gt;
+
+&lt;style&gt;
+
+body{
+
+  background:black;
+  color:white;
+
+}
+
+h1{
+
+  color:red;
+
+}
+
+&lt;/style&gt;
+
+&lt;/head&gt;
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Centraliza estilos dentro del documento.</li>
+<li>Más limpio que inline.</li>
+<li>Ideal para páginas pequeñas.</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Sigue mezclando estructura y estilo.</li>
+<li>No reutilizable entre páginas.</li>
+</ul>
+
+<div class="tip">
+La mejor práctica sigue siendo usar archivos externos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Dónde se coloca la etiqueta style?</p>
+
+<label><input type="radio" name="q3"> Dentro de body</label>
+<label><input type="radio" name="q3" data-correct> Dentro de head</label>
+<label><input type="radio" name="q3"> Dentro de footer</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>4.4 Fichero Externo CSS</h2>
+
+<span class="tag">link</span>
+<span class="tag">.css</span>
+
+<p>
+La mejor forma de trabajar CSS es mediante archivos externos.
+</p>
+
+<h3>Conectar CSS</h3>
+
+<div class="code">
+&lt;link
+rel="stylesheet"
+href="estilos.css"
+&gt;
+</div>
+
+<h3>Archivo estilos.css</h3>
+
+<div class="code">
+body{
+
+  background:#111;
+  color:white;
+
+}
+
+p{
+
+  color:orange;
+
+}
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Separación total entre HTML y CSS.</li>
+<li>Reutilizable.</li>
+<li>Más ordenado.</li>
+<li>Fácil mantenimiento.</li>
+<li>Mejor rendimiento.</li>
+</ul>
+
+<div class="warning">
+Los archivos CSS usan extensión .css
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué etiqueta conecta un CSS externo?</p>
+
+<label><input type="radio" name="q4"> script</label>
+<label><input type="radio" name="q4"> css</label>
+<label><input type="radio" name="q4" data-correct> link</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>4.5 Hojas de Estilo en Cascada</h2>
+
+<span class="tag">Cascade</span>
+<span class="tag">Prioridad</span>
+
+<p>
+CSS utiliza un sistema de cascada para decidir qué estilos se aplican.
+</p>
+
+<h3>Funcionamiento</h3>
+
+<p>
+Cuando varias reglas afectan al mismo elemento,
+CSS decide cuál tiene prioridad.
+</p>
+
+<div class="code">
+p{
+
+  color:blue;
+
+}
+
+p{
+
+  color:red;
+
+}
+</div>
+
+<p>
+El color final será rojo porque la última regla prevalece.
+</p>
+
+<h3>Conceptos importantes</h3>
+
+<ul>
+<li>Herencia.</li>
+<li>Especificidad.</li>
+<li>Prioridad.</li>
+<li>Cascada.</li>
+</ul>
+
+<h3>Herencia</h3>
+
+<div class="code">
+body{
+
+  color:white;
+
+}
+</div>
+
+<p>
+Los elementos internos heredarán el color blanco.
+</p>
+
+<div class="tip">
+La cascada permite combinar múltiples reglas CSS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué regla prevalece normalmente?</p>
+
+<label><input type="radio" name="q5"> La primera</label>
+<label><input type="radio" name="q5" data-correct> La última</label>
+<label><input type="radio" name="q5"> Ninguna</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>4.6 Selectores CSS</h2>
+
+<span class="tag">Selectores</span>
+
+<p>
+Los selectores permiten elegir qué elementos HTML recibirán estilos.
+</p>
+
+<h3>Selector por etiqueta</h3>
+
+<div class="code">
+p{
+
+  color:orange;
+
+}
+</div>
+
+<h3>Selector universal</h3>
+
+<div class="code">
+*{
+
+  margin:0;
+  padding:0;
+
+}
+</div>
+
+<h3>Selectores múltiples</h3>
+
+<div class="code">
+h1,h2,h3{
+
+  color:red;
+
+}
+</div>
+
+<h3>Pseudoclases</h3>
+
+<div class="code">
+a:hover{
+
+  color:yellow;
+
+}
+</div>
+
+<h3>Selectores descendientes</h3>
+
+<div class="code">
+div p{
+
+  color:green;
+
+}
+</div>
+
+<div class="warning">
+Los selectores son la base de todo CSS moderno.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué selector selecciona todos los elementos?</p>
+
+<label><input type="radio" name="q6"> #</label>
+<label><input type="radio" name="q6" data-correct> *</label>
+<label><input type="radio" name="q6"> .</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>4.7 Selección por ID</h2>
+
+<span class="tag">id</span>
+<span class="tag">#</span>
+
+<p>
+Los identificadores permiten aplicar estilos únicos a un elemento.
+</p>
+
+<h3>Sintaxis</h3>
+
+<div class="code">
+#especial{
+
+  color:white;
+  background:red;
+
+}
+</div>
+
+<h3>HTML asociado</h3>
+
+<div class="code">
+&lt;p id="especial"&gt;
+
+Texto especial
+
+&lt;/p&gt;
+</div>
+
+<h3>Características</h3>
+
+<ul>
+<li>Un id debe ser único.</li>
+<li>Se representa con #.</li>
+<li>Tiene alta prioridad.</li>
+</ul>
+
+<div class="warning">
+Nunca repetir el mismo id en múltiples elementos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué símbolo representa un id?</p>
+
+<label><input type="radio" name="q7"> .</label>
+<label><input type="radio" name="q7" data-correct> #</label>
+<label><input type="radio" name="q7"> *</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>4.8 Selección por grupo o clase</h2>
+
+<span class="tag">class</span>
+<span class="tag">.</span>
+
+<p>
+Las clases permiten reutilizar estilos en múltiples elementos.
+</p>
+
+<h3>CSS</h3>
+
+<div class="code">
+.destacado{
+
+  background:black;
+  color:orange;
+
+}
+</div>
+
+<h3>HTML</h3>
+
+<div class="code">
+&lt;p class="destacado"&gt;
+
+Hola
+
+&lt;/p&gt;
+
+&lt;h2 class="destacado"&gt;
+
+Título
+
+&lt;/h2&gt;
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Reutilización.</li>
+<li>Diseño modular.</li>
+<li>Mayor organización.</li>
+<li>Ideal para componentes.</li>
+</ul>
+
+<h3>Diferencias ID vs CLASS</h3>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>CLASS</th>
+</tr>
+
+<tr>
+<td>Único</td>
+<td>Reutilizable</td>
+</tr>
+
+<tr>
+<td>#</td>
+<td>.</td>
+</tr>
+
+<tr>
+<td>Alta prioridad</td>
+<td>Prioridad media</td>
+</tr>
+
+</table>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué símbolo representa una clase?</p>
+
+<label><input type="radio" name="q8" data-correct> .</label>
+<label><input type="radio" name="q8"> #</label>
+<label><input type="radio" name="q8"> *</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>4.9 Reglas de Aplicación de Estilo</h2>
+
+<span class="tag">Prioridad</span>
+<span class="tag">Herencia</span>
+
+<p>
+CSS sigue reglas específicas para decidir qué estilos aplicar.
+</p>
+
+<h3>1. El último prevalece</h3>
+
+<div class="code">
+p{
+
+  color:blue;
+
+}
+
+p{
+
+  color:red;
+
+}
+</div>
+
+<p>
+Resultado final: rojo.
+</p>
+
+<h3>2. Inline tiene máxima prioridad</h3>
+
+<div class="code">
+&lt;p style="color:green;"&gt;
+
+Texto
+
+&lt;/p&gt;
+</div>
+
+<h3>3. Herencia</h3>
+
+<div class="code">
+body{
+
+  color:white;
+
+}
+</div>
+
+<h3>4. Prioridad de selectores</h3>
+
+<table>
+
+<tr>
+<th>Selector</th>
+<th>Prioridad</th>
+</tr>
+
+<tr>
+<td>Inline</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>ID</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Clase</td>
+<td>Media</td>
+</tr>
+
+<tr>
+<td>Etiqueta</td>
+<td>Baja</td>
+</tr>
+
+</table>
+
+<h3>5. Pseudoclases</h3>
+
+<div class="code">
+a:hover{
+
+  color:red;
+
+}
+</div>
+
+<h3>6. Selector de atributo</h3>
+
+<div class="code">
+img[src]{
+
+  border:2px solid red;
+
+}
+</div>
+
+<div class="tip">
+Comprender la cascada es fundamental para dominar CSS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué tiene más prioridad?</p>
+
+<label><input type="radio" name="q9"> Clase</label>
+<label><input type="radio" name="q9"> Etiqueta</label>
+<label><input type="radio" name="q9" data-correct> Inline</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 4.1 completada · CSS I 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(groupName,resultId){
+
+  const options=document.getElementsByName(groupName);
+
+  let correct=false;
+
+  options.forEach(option=>{
+
+    if(option.checked && option.dataset.correct !== undefined){
+      correct=true;
+    }
+
+  });
+
+  const result=document.getElementById(resultId);
+
+  if(correct){
+
+    result.innerHTML="✅ Correcto";
+    result.style.color="#57ffb0";
+
+  }else{
+
+    result.innerHTML="❌ Incorrecto";
+    result.style.color="#ff7373";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>

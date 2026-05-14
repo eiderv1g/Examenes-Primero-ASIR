@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 4 - Relación laboral y convenio colectivo</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --success:#edf8f1;
+  --warning:#fff4e5;
+  --info:#eef6ff;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(14px);
+  border-right:1px solid #e5e7eb;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  font-size:1.7rem;
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:28px;
+}
+
+.nav-link{
+  display:block;
+  padding:14px 16px;
+  margin-bottom:10px;
+  border-radius:16px;
+  text-decoration:none;
+  color:var(--text);
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3b34,#345349);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  max-width:900px;
+  line-height:1.8;
+  opacity:0.92;
+}
+
+/* BLOCK */
+
+.block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:40px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--primary);
+  margin-bottom:14px;
+  font-size:2rem;
+}
+
+.study-time{
+  display:inline-block;
+  padding:8px 16px;
+  background:var(--accent);
+  border-radius:999px;
+  color:var(--primary);
+  font-weight:600;
+  margin-bottom:24px;
+  font-size:0.85rem;
+}
+
+.block h3{
+  margin-top:24px;
+  margin-bottom:14px;
+  color:var(--primary);
+}
+
+.block p{
+  line-height:1.9;
+  margin-bottom:18px;
+}
+
+ul{
+  padding-left:22px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th, td{
+  padding:14px;
+  border:1px solid #e5e7eb;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+.tip{
+  background:var(--success);
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.trap{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:35px;
+  background:#f8fafc;
+  padding:24px;
+  border-radius:22px;
+  border:1px solid #e5e7eb;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+}
+
+.question p{
+  font-weight:600;
+  margin-bottom:14px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:14px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 4</h1>
+<p>Relación laboral y convenio colectivo</p>
+
+<a class="nav-link" href="#b1">4.1 Marco jurídico</a>
+<a class="nav-link" href="#b2">4.2 Fuentes del derecho</a>
+<a class="nav-link" href="#b3">4.3 Jerarquía normativa</a>
+<a class="nav-link" href="#b4">4.4 Deliveroo</a>
+<a class="nav-link" href="#b5">4.5 Convenio colectivo</a>
+<a class="nav-link" href="#b6">4.6 Funciones del convenio</a>
+<a class="nav-link" href="#b7">4.7 Tipos de convenios</a>
+<a class="nav-link" href="#b8">4.8 Hostelería Baleares</a>
+<a class="nav-link" href="#b9">4.9 Consejos profesionales</a>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 4 · Relación laboral y convenio colectivo</h2>
+
+<p>
+Página interactiva de estudio sobre el Derecho Laboral español,
+las relaciones laborales y los convenios colectivos.
+Incluye contenido ampliado, explicaciones detalladas,
+tablas, preguntas trampa, ejemplos reales y mini-tests interactivos.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>4.1 El marco jurídico de la relación laboral en España</h2>
+
+<p>
+La relación laboral es el vínculo jurídico que une a trabajador y empresa.
+Está regulada principalmente por el Estatuto de los Trabajadores.
+</p>
+
+<h3>Elementos esenciales</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Prestación personal</td>
+<td>El trabajador realiza el trabajo personalmente</td>
+</tr>
+
+<tr>
+<td>Voluntariedad</td>
+<td>Nadie puede ser obligado a trabajar</td>
+</tr>
+
+<tr>
+<td>Retribución</td>
+<td>Existe salario</td>
+</tr>
+
+<tr>
+<td>Dependencia</td>
+<td>La empresa organiza y supervisa</td>
+</tr>
+
+<tr>
+<td>Ajenidad</td>
+<td>Los beneficios y riesgos son del empresario</td>
+</tr>
+
+</table>
+
+<div class="example">
+📌 Si existen dependencia y ajenidad,
+aunque el contrato diga “autónomo”,
+puede existir relación laboral real.
+</div>
+
+<div class="trap">
+⚠️ Pregunta trampa:
+“Si el contrato dice autónomo, no hay relación laboral”.
+→ FALSO.
+Importa la realidad, no el nombre del contrato.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa ajenidad?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Que el trabajador decide horarios
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Que riesgos y beneficios pertenecen a la empresa
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Que no existe salario
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>4.2 Las fuentes del derecho laboral</h2>
+
+<p>
+Las fuentes del Derecho Laboral son las normas que regulan las relaciones de trabajo.
+Se organizan jerárquicamente.
+</p>
+
+<table>
+
+<tr>
+<th>Fuente</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Constitución Española</td>
+<td>Norma suprema</td>
+</tr>
+
+<tr>
+<td>Estatuto de los Trabajadores</td>
+<td>Norma básica laboral</td>
+</tr>
+
+<tr>
+<td>Convenios colectivos</td>
+<td>Adaptan la ley a cada sector</td>
+</tr>
+
+<tr>
+<td>Contrato individual</td>
+<td>Concreta condiciones personales</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 El convenio colectivo puede mejorar lo que dice la ley.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es la norma suprema?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Convenio colectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Contrato individual
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Constitución Española
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<span class="study-time">⏱️ 26 min</span>
+
+<h2>4.3 Jerarquía normativa y principio de norma más favorable</h2>
+
+<p>
+La jerarquía normativa ordena las normas según su importancia jurídica.
+</p>
+
+<h3>Orden jerárquico</h3>
+
+<ul>
+<li>Constitución Española.</li>
+<li>Tratados internacionales.</li>
+<li>Leyes y reglamentos.</li>
+<li>Convenios colectivos.</li>
+<li>Contrato individual.</li>
+</ul>
+
+<div class="example">
+📌 Principio pro operario:
+si dos normas se contradicen,
+se aplica la más favorable al trabajador.
+</div>
+
+<div class="trap">
+⚠️ Pregunta típica de examen:
+Un convenio puede mejorar la ley,
+pero nunca empeorarla.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué principio protege al trabajador?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Principio mercantil
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Principio de norma más favorable
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Principio empresarial
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>4.4 Los falsos autónomos de Deliveroo</h2>
+
+<p>
+El caso Deliveroo se convirtió en uno de los ejemplos más importantes
+del Derecho Laboral moderno en España.
+</p>
+
+<h3>¿Por qué eran falsos autónomos?</h3>
+
+<ul>
+<li>La app controlaba horarios y pedidos.</li>
+<li>No podían fijar precios.</li>
+<li>Usaban medios de la empresa.</li>
+<li>Existía dependencia económica.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Aplicación en Deliveroo</th>
+</tr>
+
+<tr>
+<td>Dependencia</td>
+<td>La app organizaba el trabajo</td>
+</tr>
+
+<tr>
+<td>Ajenidad</td>
+<td>La empresa asumía riesgos y beneficios</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 La sentencia del Supremo dio origen a la “Ley Rider”.
+</div>
+
+<div class="trap">
+⚠️ Ser autónomo implica autonomía real.
+Si existe control empresarial constante,
+puede existir fraude laboral.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué analizó el Tribunal Supremo?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Solo el uniforme
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Dependencia y ajenidad
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Solo el salario
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>4.5 El convenio colectivo</h2>
+
+<p>
+El convenio colectivo es un acuerdo entre representantes de trabajadores
+y empresarios con fuerza jurídica obligatoria.
+</p>
+
+<h3>¿Qué regula?</h3>
+
+<ul>
+<li>Salarios.</li>
+<li>Vacaciones.</li>
+<li>Permisos.</li>
+<li>Horarios.</li>
+<li>Clasificación profesional.</li>
+<li>Pluses.</li>
+</ul>
+
+<div class="example">
+📌 Un convenio puede establecer salarios superiores al SMI.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es un convenio colectivo?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Una recomendación empresarial
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Un acuerdo con fuerza normativa
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Un contrato privado sin efectos
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>4.6 Funciones principales del convenio colectivo</h2>
+
+<table>
+
+<tr>
+<th>Función</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Adaptar la ley</td>
+<td>Personalizar normas al sector</td>
+</tr>
+
+<tr>
+<td>Mejorar derechos</td>
+<td>Elevar protección laboral</td>
+</tr>
+
+<tr>
+<td>Regular organización</td>
+<td>Horarios, turnos y categorías</td>
+</tr>
+
+<tr>
+<td>Prevenir conflictos</td>
+<td>Evitar huelgas y litigios</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Los convenios ayudan a reducir conflictos laborales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué función NO pertenece al convenio?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Regular horarios
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Mejorar condiciones
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Eliminar derechos legales
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>4.7 Tipos de convenios según su ámbito</h2>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Ámbito</th>
+</tr>
+
+<tr>
+<td>Empresa</td>
+<td>Una organización concreta</td>
+</tr>
+
+<tr>
+<td>Sectorial</td>
+<td>Todo un sector económico</td>
+</tr>
+
+<tr>
+<td>Territorial</td>
+<td>Ámbito autonómico o estatal</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ El convenio sectorial es el más habitual en España.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué convenio afecta a todo un sector?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Empresa
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Sectorial
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Individual
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>4.8 Convenio de la Hostelería en Baleares</h2>
+
+<p>
+Este convenio es uno de los ejemplos más importantes
+de negociación colectiva en España.
+</p>
+
+<h3>Medidas destacadas</h3>
+
+<ul>
+<li>Subidas salariales superiores al IPC.</li>
+<li>Limitación de jornadas.</li>
+<li>Pluses por nocturnidad y festivos.</li>
+<li>Planes de formación.</li>
+<li>Cláusulas de igualdad.</li>
+</ul>
+
+<div class="example">
+📌 El convenio ayudó a mejorar la calidad del empleo turístico.
+</div>
+
+<div class="tip">
+💡 Mejorar condiciones laborales también mejora productividad y calidad del servicio.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué consiguió el convenio balear?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Más conflictividad
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Mejorar salarios y estabilidad
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Eliminar vacaciones
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>4.9 Consejos para tu futuro profesional</h2>
+
+<ul>
+<li>Consulta siempre tu convenio.</li>
+<li>Verifica pluses y complementos.</li>
+<li>Comprueba vigencia del convenio.</li>
+<li>Conoce tus cotizaciones.</li>
+<li>Participa en representación sindical.</li>
+<li>Compara condiciones entre sectores.</li>
+</ul>
+
+<div class="tip">
+💡 Conocer tu convenio mejora tu capacidad de negociación laboral.
+</div>
+
+<div class="trap">
+⚠️ Muchas personas firman contratos sin leer el convenio aplicable.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué deberías consultar antes de firmar?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Solo el horario
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+El convenio colectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Nada
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 4 · Relación laboral y convenio colectivo
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

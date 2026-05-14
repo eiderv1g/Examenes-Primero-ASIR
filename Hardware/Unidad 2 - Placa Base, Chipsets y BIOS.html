@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unidad 2 - Placa Base. Chipsets y BIOS</title>
+
+<style>
+
+:root{
+  --bg:#0b1020;
+  --panel:#12192e;
+  --panel2:#1a2442;
+  --accent:#00e0ff;
+  --accent2:#7c3aed;
+  --text:#e7edf8;
+  --muted:#9ca8bf;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --border:#24304c;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Segoe UI, sans-serif;
+  background:
+  radial-gradient(circle at top right, rgba(0,224,255,.08), transparent 20%),
+  radial-gradient(circle at bottom left, rgba(124,58,237,.08), transparent 20%),
+  var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+  overflow:hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  height:100vh;
+  overflow-y:auto;
+  position:fixed;
+  background:rgba(9,14,28,.97);
+  border-right:1px solid var(--border);
+  padding:24px;
+}
+
+.logo{
+  font-size:1.8rem;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:10px;
+  text-shadow:0 0 10px rgba(0,224,255,.5);
+}
+
+.desc{
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:30px;
+}
+
+.nav-btn{
+  width:100%;
+  margin-bottom:12px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:14px;
+  border-radius:14px;
+  cursor:pointer;
+  text-align:left;
+  transition:.25s;
+  font-weight:600;
+}
+
+.nav-btn:hover{
+  transform:translateX(6px);
+  border-color:var(--accent);
+  background:var(--panel2);
+}
+
+.nav-btn small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-weight:400;
+}
+
+/* CONTENT */
+
+.content{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+  overflow-y:auto;
+  height:100vh;
+}
+
+.hero{
+  background:linear-gradient(135deg,#10192f,#18284a);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  margin-bottom:35px;
+}
+
+.hero h1{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.tag{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  border:1px solid rgba(0,224,255,.3);
+  background:rgba(0,224,255,.08);
+  color:var(--accent);
+  margin-bottom:15px;
+  font-size:.9rem;
+}
+
+/* BLOCKS */
+
+.block{
+  background:rgba(18,25,46,.95);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:35px;
+  margin-bottom:35px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:22px;
+  margin-bottom:12px;
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:14px;
+}
+
+.block ul{
+  padding-left:20px;
+  margin:15px 0;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.card{
+  background:var(--panel2);
+  padding:18px;
+  border-left:4px solid var(--accent);
+  border-radius:12px;
+  margin:18px 0;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.success{
+  border-left-color:var(--success);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+}
+
+th,td{
+  border:1px solid var(--border);
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#101827;
+  color:var(--accent);
+}
+
+td{
+  background:#1a2442;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#0f1729;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.quiz h3{
+  margin-bottom:20px;
+}
+
+.question{
+  margin-bottom:22px;
+}
+
+.question p{
+  font-weight:700;
+}
+
+.question button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  background:#1c2746;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text);
+  cursor:pointer;
+  transition:.2s;
+  text-align:left;
+}
+
+.question button:hover{
+  border-color:var(--accent);
+}
+
+.correct{
+  background:rgba(16,185,129,.2)!important;
+  border-color:var(--success)!important;
+}
+
+.wrong{
+  background:rgba(239,68,68,.2)!important;
+  border-color:var(--danger)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding-bottom:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+    overflow:auto;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .content{
+    width:100%;
+    margin-left:0;
+    height:auto;
+    padding:20px;
+  }
+
+  .hero h1{
+    font-size:2rem;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+  <div class="logo">⚡ BIOS LAB</div>
+
+  <div class="desc">
+    Unidad 2 — Placa Base, Chipsets y BIOS.<br>
+    Plataforma interactiva para estudiar teoría + práctica tipo test.
+  </div>
+
+  <button class="nav-btn" onclick="goTo('b1')">
+    1. Placa base
+    <small>Conceptos fundamentales</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b2')">
+    2. Componentes principales
+    <small>Socket, RAM y PCIe</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b3')">
+    3. Chipsets y buses
+    <small>Comunicación del sistema</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b4')">
+    4. ASUS ROG
+    <small>Gaming y overclocking</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b5')">
+    5. Compatibilidad
+    <small>Factores de forma y sockets</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b6')">
+    6. BIOS vs UEFI
+    <small>Firmware y arranque</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b7')">
+    7. POST y proceso boot
+    <small>Secuencia de arranque</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b8')">
+    8. Secure Boot y GPT
+    <small>Seguridad moderna</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b9')">
+    9. Configuración práctica
+    <small>Boot Order y monitorización</small>
+  </button>
+
+  <button class="nav-btn" onclick="goTo('b10')">
+    10. Herramientas y recuperación
+    <small>Clear CMOS y VirtualBox</small>
+  </button>
+
+</aside>
+
+<!-- CONTENT -->
+
+<main class="content">
+
+<section class="hero">
+
+  <div class="tag">Modo técnico avanzado</div>
+
+  <h1>Unidad 2 - Placa Base. Chipsets y BIOS</h1>
+
+  <p>
+    Plataforma de estudio interactiva.
+    Incluye teoría ampliada, curiosidades, tablas comparativas,
+    errores típicos de examen y mini-tests interactivos al final de cada bloque.
+  </p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>1. La placa base</h2>
+
+<p>
+La placa base (motherboard) es el componente central del ordenador.
+Actúa como sistema nervioso y esqueleto del PC.
+Todos los componentes dependen de ella para comunicarse.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Interconectar CPU, RAM y almacenamiento.</li>
+<li>Distribuir energía.</li>
+<li>Coordinar buses y señales.</li>
+<li>Permitir expansión mediante PCIe.</li>
+</ul>
+
+<div class="card success">
+<strong>Dato clave:</strong><br>
+Sin placa base, CPU, RAM y GPU serían componentes aislados incapaces de trabajar juntos.
+</div>
+
+<div class="card warning">
+<strong>Pregunta trampa:</strong><br>
+La placa base NO mejora directamente los FPS o velocidad del sistema.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Cuál es la función principal de la placa base?</p>
+
+<button onclick="correct(this)">Interconectar todos los componentes</button>
+<button onclick="wrong(this)">Aumentar automáticamente la velocidad de la CPU</button>
+<button onclick="wrong(this)">Guardar archivos permanentemente</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>2. Componentes principales</h2>
+
+<table>
+
+<tr>
+<th>Componente</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Socket CPU</td>
+<td>Conecta físicamente el procesador</td>
+</tr>
+
+<tr>
+<td>DIMM Slots</td>
+<td>Instalación de memoria RAM</td>
+</tr>
+
+<tr>
+<td>PCIe</td>
+<td>Tarjetas gráficas y expansión</td>
+</tr>
+
+<tr>
+<td>M.2</td>
+<td>SSD ultrarrápidos</td>
+</tr>
+
+<tr>
+<td>SATA</td>
+<td>Conexión HDD y SSD tradicionales</td>
+</tr>
+
+</table>
+
+<h3>Detalles importantes</h3>
+
+<p>
+Cada CPU necesita un socket específico.
+Intel y AMD utilizan plataformas incompatibles.
+</p>
+
+<div class="card danger">
+<strong>Error clásico:</strong><br>
+Comprar una CPU incompatible con el socket de la placa.
+</div>
+
+<div class="card">
+<strong>Curiosidad:</strong><br>
+La ranura PCIe x16 suele reservarse para la GPU porque tiene el mayor ancho de banda.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué conector ofrece más velocidad para SSD modernos?</p>
+
+<button onclick="wrong(this)">SATA II</button>
+<button onclick="correct(this)">M.2 NVMe</button>
+<button onclick="wrong(this)">PCI convencional</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>3. Chipsets y buses</h2>
+
+<p>
+El chipset controla el tráfico de datos entre CPU, RAM, PCIe y periféricos.
+</p>
+
+<h3>Buses principales</h3>
+
+<table>
+
+<tr>
+<th>Bus</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Bus de datos</td>
+<td>Transporta información</td>
+</tr>
+
+<tr>
+<td>Bus de direcciones</td>
+<td>Indica dónde leer/escribir</td>
+</tr>
+
+<tr>
+<td>Bus de control</td>
+<td>Coordina señales y sincronización</td>
+</tr>
+
+</table>
+
+<h3>Funciones del chipset</h3>
+
+<ul>
+<li>Gestionar USB.</li>
+<li>Controlar PCIe.</li>
+<li>Compatibilidad RAM.</li>
+<li>Permitir overclocking.</li>
+</ul>
+
+<div class="card success">
+Chipset = "controlador de tráfico" de la placa base.
+</div>
+
+<div class="card warning">
+No todos los chipsets permiten overclocking.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué componente gestiona el flujo de datos de la placa?</p>
+
+<button onclick="correct(this)">Chipset</button>
+<button onclick="wrong(this)">Fuente de alimentación</button>
+<button onclick="wrong(this)">SSD</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>4. ASUS ROG y overclocking</h2>
+
+<p>
+ASUS revolucionó el mercado gaming con la línea Republic of Gamers (ROG).
+</p>
+
+<h3>Características ROG</h3>
+
+<ul>
+<li>VRMs robustos.</li>
+<li>Más fases de potencia.</li>
+<li>Disipadores avanzados.</li>
+<li>Opciones avanzadas BIOS/UEFI.</li>
+<li>Audio y red premium.</li>
+</ul>
+
+<div class="card">
+<strong>Curiosidad:</strong><br>
+Las placas gaming premium están diseñadas para soportar overclocking estable.
+</div>
+
+<div class="card danger">
+<strong>Pregunta típica:</strong><br>
+Una placa cara NO aumenta rendimiento por sí sola.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué son los VRM?</p>
+
+<button onclick="correct(this)">Módulos reguladores de voltaje</button>
+<button onclick="wrong(this)">Memorias de vídeo</button>
+<button onclick="wrong(this)">Tipos de SSD</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>5. Compatibilidad y factores de forma</h2>
+
+<h3>Factores de forma</h3>
+
+<table>
+
+<tr>
+<th>Formato</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>ATX</td>
+<td>Estándar completo</td>
+</tr>
+
+<tr>
+<td>Micro-ATX</td>
+<td>Más compacto</td>
+</tr>
+
+<tr>
+<td>Mini-ITX</td>
+<td>Muy pequeño</td>
+</tr>
+
+</table>
+
+<h3>Compatibilidad crítica</h3>
+
+<ul>
+<li>CPU ↔ Socket.</li>
+<li>RAM ↔ DDR compatible.</li>
+<li>Tamaño placa ↔ Caja.</li>
+<li>BIOS ↔ Generación CPU.</li>
+</ul>
+
+<div class="card success">
+PCPartPicker es la herramienta estándar para comprobar compatibilidades.
+</div>
+
+<div class="card warning">
+A veces una CPU encaja físicamente pero necesita actualización BIOS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué ocurre si una CPU no coincide con el socket?</p>
+
+<button onclick="correct(this)">No funcionará</button>
+<button onclick="wrong(this)">Solo irá más lenta</button>
+<button onclick="wrong(this)">Se desactiva la RAM</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>6. BIOS vs UEFI</h2>
+
+<p>
+La BIOS/UEFI es el firmware encargado de iniciar el hardware antes de cargar el sistema operativo.
+</p>
+
+<table>
+
+<tr>
+<th>BIOS</th>
+<th>UEFI</th>
+</tr>
+
+<tr>
+<td>Interfaz texto</td>
+<td>Interfaz gráfica</td>
+</tr>
+
+<tr>
+<td>16 bits</td>
+<td>32/64 bits</td>
+</tr>
+
+<tr>
+<td>Límite 2.2 TB</td>
+<td>Compatible discos enormes</td>
+</tr>
+
+<tr>
+<td>Sin Secure Boot</td>
+<td>Secure Boot integrado</td>
+</tr>
+
+</table>
+
+<div class="card success">
+UEFI reemplazó prácticamente por completo a la BIOS tradicional.
+</div>
+
+<div class="card danger">
+UEFI NO es solo una BIOS con gráficos bonitos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué ventaja importante aporta UEFI?</p>
+
+<button onclick="correct(this)">Secure Boot</button>
+<button onclick="wrong(this)">Eliminar la RAM</button>
+<button onclick="wrong(this)">No necesitar CPU</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>7. POST y proceso de arranque</h2>
+
+<h3>Secuencia de arranque</h3>
+
+<ol style="padding-left:20px; line-height:1.9;">
+
+<li>Se pulsa el botón de encendido.</li>
+<li>La fuente envía señal Power Good.</li>
+<li>CPU ejecuta BIOS/UEFI.</li>
+<li>POST comprueba hardware.</li>
+<li>Se busca dispositivo de arranque.</li>
+<li>Se carga bootloader del SO.</li>
+
+</ol>
+
+<div class="card success">
+POST significa Power-On Self-Test.
+</div>
+
+<div class="card warning">
+Pitidos o códigos LED durante POST indican errores hardware.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué hace el POST?</p>
+
+<button onclick="correct(this)">Comprueba hardware esencial</button>
+<button onclick="wrong(this)">Instala Windows</button>
+<button onclick="wrong(this)">Aumenta la frecuencia CPU</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>8. Secure Boot y GPT</h2>
+
+<p>
+UEFI introdujo importantes mejoras de seguridad y almacenamiento.
+</p>
+
+<h3>GPT</h3>
+
+<ul>
+<li>Reemplaza MBR.</li>
+<li>Permite discos superiores a 2.2 TB.</li>
+<li>Más particiones.</li>
+</ul>
+
+<h3>Secure Boot</h3>
+
+<ul>
+<li>Impide malware en arranque.</li>
+<li>Verifica firmas digitales.</li>
+<li>Protege bootloader.</li>
+</ul>
+
+<div class="card success">
+GPT y Secure Boot son dos pilares de los PCs modernos.
+</div>
+
+<div class="card danger">
+MBR tiene limitaciones importantes frente a GPT.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué sistema reemplazó a MBR?</p>
+
+<button onclick="wrong(this)">FAT32</button>
+<button onclick="correct(this)">GPT</button>
+<button onclick="wrong(this)">PCIe</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>9. Configuración práctica BIOS/UEFI</h2>
+
+<h3>Tareas habituales</h3>
+
+<ul>
+<li>Cambiar Boot Order.</li>
+<li>Activar virtualización.</li>
+<li>Monitorizar temperaturas.</li>
+<li>Configurar ventiladores.</li>
+<li>Establecer contraseñas.</li>
+</ul>
+
+<h3>Boot Order</h3>
+
+<p>
+Para instalar un sistema operativo desde USB, el pendrive debe estar como primera opción de arranque.
+</p>
+
+<div class="card warning">
+El técnico cambia constantemente el Boot Order en instalaciones.
+</div>
+
+<div class="card success">
+VirtualBox y VMware permiten practicar sin riesgos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué configuración permite arrancar desde USB?</p>
+
+<button onclick="correct(this)">Modificar Boot Priority</button>
+<button onclick="wrong(this)">Cambiar frecuencia RAM</button>
+<button onclick="wrong(this)">Desactivar Secure Boot siempre</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<h2>10. Recuperación y herramientas</h2>
+
+<h3>Herramientas esenciales</h3>
+
+<table>
+
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>VirtualBox</td>
+<td>Prácticas seguras BIOS/UEFI</td>
+</tr>
+
+<tr>
+<td>Load Optimized Defaults</td>
+<td>Restaurar configuración segura</td>
+</tr>
+
+<tr>
+<td>Clear CMOS</td>
+<td>Reset físico total BIOS</td>
+</tr>
+
+</table>
+
+<h3>Clear CMOS</h3>
+
+<p>
+Permite borrar configuraciones incorrectas o contraseñas olvidadas.
+</p>
+
+<div class="card danger">
+Actualizar BIOS innecesariamente puede brickear la placa.
+</div>
+
+<div class="card success">
+"Load Optimized Defaults" suele solucionar la mayoría de errores de configuración.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test final</h3>
+
+<div class="question">
+<p>¿Qué hace el jumper Clear CMOS?</p>
+
+<button onclick="correct(this)">Restablece la BIOS a fábrica</button>
+<button onclick="wrong(this)">Aumenta la RAM</button>
+<button onclick="wrong(this)">Actualiza automáticamente Windows</button>
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 2 · Plataforma interactiva de estudio · Fundamentos de Hardware
+</div>
+
+</main>
+
+<script>
+
+function goTo(id){
+  document.getElementById(id).scrollIntoView({
+    behavior:'smooth'
+  });
+}
+
+function correct(btn){
+
+  reset(btn.parentElement);
+
+  btn.classList.add('correct');
+}
+
+function wrong(btn){
+
+  reset(btn.parentElement);
+
+  btn.classList.add('wrong');
+}
+
+function reset(parent){
+
+  let buttons = parent.querySelectorAll('button');
+
+  buttons.forEach(b=>{
+    b.classList.remove('correct');
+    b.classList.remove('wrong');
+  });
+}
+
+</script>
+
+</body>
+</html>

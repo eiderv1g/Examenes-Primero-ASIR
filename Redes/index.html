@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>REDES</title>
+
+<style>
+
+:root{
+  --bg:#081018;
+  --panel:#101a25;
+  --panel2:#172433;
+  --border:#21384c;
+  --text:#d8f7ee;
+  --muted:#8ea8a1;
+  --accent:#00ffc3;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  min-height:100vh;
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:50px;
+  margin-bottom:40px;
+}
+
+.hero h1{
+  font-size:4rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:1.1rem;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:28px;
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:4px;
+  height:100%;
+  background:var(--accent);
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--accent);
+  box-shadow:0 0 20px rgba(0,255,195,.08);
+}
+
+.card h2{
+  color:var(--accent);
+  margin-bottom:12px;
+  font-size:1.4rem;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.card a{
+  display:inline-block;
+  text-decoration:none;
+  background:var(--accent);
+  color:#04100c;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.card a:hover{
+  background:#70ffdc;
+}
+
+.footer{
+  text-align:center;
+  margin-top:50px;
+  color:var(--muted);
+  padding-bottom:20px;
+}
+
+@media(max-width:700px){
+
+.hero h1{
+  font-size:2.5rem;
+}
+
+body{
+  padding:20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>🌐 REDES</h1>
+
+<p>
+Portal principal de estudio de redes.<br>
+Accede rápidamente a todas las unidades interactivas.
+</p>
+
+</section>
+
+<section class="grid">
+
+<div class="card">
+<h2>Unidad 1</h2>
+<p>Conceptos básicos de redes, IP, subnetting y modelos OSI/TCP-IP.</p>
+<a href="Unidad 1 - Conceptos básicos de Redes.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 2</h2>
+<p>Ethernet, CSMA/CD, switches, LAN y medios físicos.</p>
+<a href="Unidad 2 - Ethernet y medios físicos.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 3</h2>
+<p>Wi-Fi, redes inalámbricas, seguridad y Ethernet vs Wi-Fi.</p>
+<a href="Unidad 3 - Redes inalámbricas. Ethernet vs Wi-Fi.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 4</h2>
+<p>Implantación de LAN I, cableado estructurado y fibra óptica.</p>
+<a href="Unidad 4 - Implantación de LAN I.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 5</h2>
+<p>Implantación de LAN II, racks, CPD y diseño jerárquico.</p>
+<a href="Unidad 5 - Implantación de LAN II.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 6</h2>
+<p>VLANs, switches capa 3, routing inter-VLAN y SVIs.</p>
+<a href="Unidad 6 - VLANs.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 7</h2>
+<p>Protocolos de red: TCP, UDP, DHCP, ARP, STP y más.</p>
+<a href="Unidad 7 - Protocolos.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 8</h2>
+<p>VTP, trunking, troubleshooting VLAN y ACLs.</p>
+<a href="Unidad 8 - VTP - Trunk Protocol y ACLs.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 9</h2>
+<p>Routers Cisco, IOS y configuración básica.</p>
+<a href="Unidad 9 - Routers.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 10</h2>
+<p>NAT, ACLs, routing y routers en LAN/WAN.</p>
+<a href="Unidad 10 - Los routers en las LAN y en las WAN.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 11</h2>
+<p>DNS, resolución de nombres y registros DNS.</p>
+<a href="Unidad 11 - DNS.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 12</h2>
+<p>Acceso remoto seguro con SSH y Cisco IOS.</p>
+<a href="Unidad 12 - Acceso remoto.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 13</h2>
+<p>Enrutamiento dinámico, RIP y tablas de routing.</p>
+<a href="Unidad 13 - Enrutamiento. Protocolos I.html"target="_blank">Entrar</a>
+</div>
+
+<div class="card">
+<h2>Unidad 14</h2>
+<p>OSPF, EIGRP, BGP y comparativa de protocolos.</p>
+<a href="Unidad 14 - Protocolos II.html"target="_blank">Entrar</a>
+</div>
+
+</section>
+
+<div class="footer">
+REDES · Portal interactivo de estudio
+</div>
+
+</body>
+</html>

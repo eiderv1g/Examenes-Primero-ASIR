@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 7 - Bootstrap</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#090909;
+--panel:#141414;
+--panel2:#1d1d1d;
+--text:#ededed;
+--muted:#a1a1a1;
+--red:#8f2f2f;
+--red2:#ff8d8d;
+--border:#2d2d2d;
+--green:#72ffb7;
+--shadow:0 0 25px rgba(255,80,80,.12);
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Segoe UI,sans-serif;
+overflow-x:hidden;
+}
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+width:320px;
+background:#050505;
+border-right:1px solid var(--border);
+padding:30px;
+overflow-y:auto;
+z-index:999;
+}
+
+.logo{
+font-size:34px;
+font-weight:900;
+color:var(--red2);
+margin-bottom:15px;
+}
+
+.sidebar p{
+line-height:1.8;
+color:var(--muted);
+margin-bottom:30px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu a{
+text-decoration:none;
+color:#ddd;
+background:#141414;
+padding:14px;
+border-radius:12px;
+border:1px solid transparent;
+transition:.25s;
+font-size:14px;
+}
+
+.menu a:hover{
+background:#1d1d1d;
+border-color:var(--red);
+transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+margin-left:320px;
+width:calc(100% - 320px);
+padding:40px;
+}
+
+.hero{
+background:linear-gradient(135deg,#141414,#2b1414);
+padding:45px;
+border-radius:24px;
+border:1px solid var(--border);
+margin-bottom:35px;
+box-shadow:var(--shadow);
+}
+
+.hero h1{
+font-size:54px;
+margin-bottom:20px;
+}
+
+.hero p{
+line-height:1.9;
+color:#ddd;
+}
+
+/* BLOCKS */
+
+.block{
+background:var(--panel);
+padding:35px;
+border-radius:24px;
+border:1px solid var(--border);
+margin-bottom:35px;
+box-shadow:var(--shadow);
+}
+
+.block h2{
+font-size:34px;
+color:var(--red2);
+margin-bottom:20px;
+}
+
+.block h3{
+margin-top:24px;
+margin-bottom:14px;
+}
+
+.block p{
+line-height:1.9;
+margin-bottom:18px;
+color:#ddd;
+}
+
+.block ul{
+margin-left:24px;
+margin-bottom:20px;
+}
+
+.block li{
+margin-bottom:10px;
+line-height:1.8;
+}
+
+.tag{
+display:inline-block;
+padding:6px 12px;
+background:#241212;
+border:1px solid #703636;
+color:#ffb2b2;
+border-radius:999px;
+font-size:13px;
+margin-right:8px;
+margin-bottom:18px;
+}
+
+.code{
+background:#050505;
+border-left:4px solid var(--red2);
+padding:20px;
+border-radius:14px;
+overflow-x:auto;
+margin:22px 0;
+white-space:pre-wrap;
+font-family:Consolas, monospace;
+color:var(--green);
+}
+
+.tip{
+background:#151010;
+padding:18px;
+border-radius:12px;
+border:1px solid #5a2d2d;
+margin:22px 0;
+}
+
+.warning{
+background:#261515;
+padding:18px;
+border-radius:12px;
+border:1px solid #893939;
+margin:22px 0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+
+th,td{
+border:1px solid #333;
+padding:14px;
+text-align:left;
+}
+
+th{
+background:#1d1d1d;
+color:#ff9e9e;
+}
+
+tr:nth-child(even){
+background:#171717;
+}
+
+/* QUIZ */
+
+.quiz{
+margin-top:40px;
+background:#101010;
+padding:25px;
+border-radius:18px;
+border:1px solid #333;
+}
+
+.quiz h3{
+color:#ff9e9e;
+margin-bottom:20px;
+}
+
+.question{
+background:#181818;
+padding:18px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.question p{
+font-weight:bold;
+margin-bottom:14px;
+}
+
+.question label{
+display:block;
+margin-bottom:10px;
+cursor:pointer;
+}
+
+.question label:hover{
+color:#ffb1b1;
+}
+
+button{
+background:linear-gradient(135deg,var(--red),#5d1818);
+color:white;
+padding:14px 22px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+transition:.25s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+.footer{
+padding:40px;
+text-align:center;
+color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.layout{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+.hero h1{
+font-size:38px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 7</div>
+
+<p>
+Aprendizaje completo sobre Bootstrap 5, sistema Grid, formularios,
+componentes, diseño responsive y utilidades modernas.
+</p>
+
+<nav class="menu">
+
+<a href="#b1">7.1 ¿Qué es Bootstrap?</a>
+<a href="#b2">7.2 Containers y Breakpoints</a>
+<a href="#b3">7.3 Grid y Gutters</a>
+<a href="#b4">7.4 Typography y Text Utilities</a>
+<a href="#b5">7.5 Images y Tables</a>
+<a href="#b6">7.6 Forms y Validación</a>
+<a href="#b7">7.7 Components I</a>
+<a href="#b8">7.8 Components II</a>
+<a href="#b9">7.9 Components III</a>
+<a href="#b10">7.10 Components IV</a>
+<a href="#b11">7.11 Components V</a>
+<a href="#b12">7.12 Iconos</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 7 - Bootstrap</h1>
+
+<p>
+Bootstrap es uno de los frameworks CSS más utilizados del mundo para crear
+interfaces responsive modernas, rápidas y visualmente atractivas.
+Incluye sistema Grid, componentes, formularios, utilidades y JavaScript integrado.
+</p>
+
+</section>
+
+<!-- 7.1 -->
+
+<section class="block" id="b1">
+
+<h2>7.1 ¿Qué es Bootstrap?</h2>
+
+<span class="tag">framework</span>
+<span class="tag">responsive</span>
+
+<p>
+Bootstrap es un framework frontend creado inicialmente por Twitter.
+Permite desarrollar páginas web responsive utilizando clases CSS ya preparadas.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Desarrollo rápido.</li>
+<li>Diseño responsive automático.</li>
+<li>Componentes reutilizables.</li>
+<li>Compatible con móviles.</li>
+<li>Gran comunidad.</li>
+</ul>
+
+<h3>CDN Bootstrap</h3>
+
+<div class="code">
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+</div>
+
+<h3>¿Qué es Popper?</h3>
+
+<p>
+Bootstrap usa Popper.js para posicionar tooltips, dropdowns y popovers.
+</p>
+
+<div class="warning">
+Es recomendable descargar Bootstrap localmente y no depender solo de CDNs externos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué es Bootstrap?</p>
+
+<label><input type="radio" name="q1"> Un sistema operativo</label>
+<label><input type="radio" name="q1" data-correct> Un framework frontend</label>
+<label><input type="radio" name="q1"> Un compilador</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.2 -->
+
+<section class="block" id="b2">
+
+<h2>7.2 Layout - Containers y Break Points</h2>
+
+<span class="tag">container</span>
+<span class="tag">responsive</span>
+
+<p>
+Bootstrap utiliza containers para estructurar el contenido.
+</p>
+
+<h3>Tipos de containers</h3>
+
+<table>
+
+<tr>
+<th>Clase</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>container</td>
+<td>Ancho adaptable centrado</td>
+</tr>
+
+<tr>
+<td>container-fluid</td>
+<td>Ocupa 100%</td>
+</tr>
+
+</table>
+
+<div class="code">
+&lt;div class="container text-center py-5"&gt;
+
+   &lt;h1 class="display-1"&gt;Bootstrap&lt;/h1&gt;
+
+&lt;/div&gt;
+</div>
+
+<h3>Breakpoints</h3>
+
+<table>
+
+<tr>
+<th>Breakpoint</th>
+<th>Tamaño</th>
+</tr>
+
+<tr>
+<td>sm</td>
+<td>≥576px</td>
+</tr>
+
+<tr>
+<td>md</td>
+<td>≥768px</td>
+</tr>
+
+<tr>
+<td>lg</td>
+<td>≥992px</td>
+</tr>
+
+<tr>
+<td>xl</td>
+<td>≥1200px</td>
+</tr>
+
+</table>
+
+<div class="tip">
+Bootstrap sigue filosofía mobile-first.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué clase ocupa el 100% del ancho?</p>
+
+<label><input type="radio" name="q2"> container</label>
+<label><input type="radio" name="q2" data-correct> container-fluid</label>
+<label><input type="radio" name="q2"> row</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.3 -->
+
+<section class="block" id="b3">
+
+<h2>7.3 Layout - Grid y Gutters</h2>
+
+<span class="tag">grid</span>
+<span class="tag">gutters</span>
+
+<p>
+Bootstrap usa un sistema Grid de 12 columnas.
+</p>
+
+<h3>Ejemplo Grid</h3>
+
+<div class="code">
+&lt;div class="row"&gt;
+
+   &lt;div class="col-4 bg-danger"&gt;col-4&lt;/div&gt;
+   &lt;div class="col-4 bg-primary"&gt;col-4&lt;/div&gt;
+   &lt;div class="col-4 bg-success"&gt;col-4&lt;/div&gt;
+
+&lt;/div&gt;
+</div>
+
+<h3>Grid responsive</h3>
+
+<div class="code">
+&lt;div class="col-12 col-md-6 col-lg-4"&gt;
+Contenido
+&lt;/div&gt;
+</div>
+
+<h3>Gutters</h3>
+
+<p>
+Los gutters son espacios entre columnas.
+</p>
+
+<div class="code">
+&lt;div class="row gx-5 gy-3"&gt;
+</div>
+
+<ul>
+<li>gx-* → espacio horizontal.</li>
+<li>gy-* → espacio vertical.</li>
+<li>g-* → ambos.</li>
+</ul>
+
+<div class="warning">
+La suma de columnas debe respetar 12.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuántas columnas tiene el Grid Bootstrap?</p>
+
+<label><input type="radio" name="q3"> 10</label>
+<label><input type="radio" name="q3" data-correct> 12</label>
+<label><input type="radio" name="q3"> 16</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.4 -->
+
+<section class="block" id="b4">
+
+<h2>7.4 Content - Typography y Text Utilities</h2>
+
+<span class="tag">typography</span>
+
+<p>
+Bootstrap ofrece estilos tipográficos preparados.
+</p>
+
+<h3>Displays</h3>
+
+<div class="code">
+&lt;h1 class="display-1"&gt;Título&lt;/h1&gt;
+</div>
+
+<h3>Párrafo elegante</h3>
+
+<div class="code">
+&lt;p class="lead"&gt;
+Texto destacado
+&lt;/p&gt;
+</div>
+
+<h3>Alineaciones</h3>
+
+<div class="code">
+text-start
+text-center
+text-end
+</div>
+
+<h3>Transformación de texto</h3>
+
+<div class="code">
+text-uppercase
+text-lowercase
+text-capitalize
+</div>
+
+<h3>Citas</h3>
+
+<div class="code">
+&lt;figure&gt;
+
+&lt;blockquote class="blockquote"&gt;
+&lt;p&gt;Texto cita&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figcaption class="blockquote-footer"&gt;
+Autor
+&lt;/figcaption&gt;
+
+&lt;/figure&gt;
+</div>
+
+<div class="tip">
+Bootstrap incluye cientos de utilidades CSS listas para usar.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué clase centra texto?</p>
+
+<label><input type="radio" name="q4"> align-center</label>
+<label><input type="radio" name="q4" data-correct> text-center</label>
+<label><input type="radio" name="q4"> center-text</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.5 -->
+
+<section class="block" id="b5">
+
+<h2>7.5 Content - Images y Tables</h2>
+
+<span class="tag">images</span>
+<span class="tag">tables</span>
+
+<h3>Imágenes fluidas</h3>
+
+<div class="code">
+&lt;img src="foto.jpg" class="img-fluid"&gt;
+</div>
+
+<p>
+.img-fluid aplica:
+</p>
+
+<div class="code">
+max-width:100%;
+height:auto;
+</div>
+
+<h3>Miniaturas</h3>
+
+<div class="code">
+&lt;img src="foto.jpg" class="img-thumbnail"&gt;
+</div>
+
+<h3>Tablas Bootstrap</h3>
+
+<div class="code">
+&lt;table class="table table-dark table-striped"&gt;
+</div>
+
+<h3>Responsive tables</h3>
+
+<div class="code">
+&lt;div class="table-responsive"&gt;
+&lt;/div&gt;
+</div>
+
+<table>
+
+<tr>
+<th>Clase</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>table-striped</td>
+<td>Filas alternas</td>
+</tr>
+
+<tr>
+<td>table-hover</td>
+<td>Efecto hover</td>
+</tr>
+
+<tr>
+<td>table-bordered</td>
+<td>Bordes</td>
+</tr>
+
+</table>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué clase hace responsive una tabla?</p>
+
+<label><input type="radio" name="q5"> table-fluid</label>
+<label><input type="radio" name="q5" data-correct> table-responsive</label>
+<label><input type="radio" name="q5"> responsive-table</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.6 -->
+
+<section class="block" id="b6">
+
+<h2>7.6 Forms - Inputs y Validación</h2>
+
+<span class="tag">forms</span>
+
+<h3>Input Bootstrap</h3>
+
+<div class="code">
+&lt;input type="text"
+class="form-control"&gt;
+</div>
+
+<h3>Formulario completo</h3>
+
+<div class="code">
+&lt;form class="row g-3"&gt;
+
+&lt;div class="col-md-6"&gt;
+
+&lt;label class="form-label"&gt;
+Nombre
+&lt;/label&gt;
+
+&lt;input type="text"
+class="form-control"&gt;
+
+&lt;/div&gt;
+
+&lt;/form&gt;
+</div>
+
+<h3>Validación</h3>
+
+<div class="code">
+&lt;form class="was-validated"&gt;
+</div>
+
+<h3>Etiquetas flotantes</h3>
+
+<div class="code">
+&lt;div class="form-floating"&gt;
+
+&lt;input type="email"
+class="form-control"
+placeholder="correo"&gt;
+
+&lt;label&gt;Correo&lt;/label&gt;
+
+&lt;/div&gt;
+</div>
+
+<div class="warning">
+Los placeholders son obligatorios para form-floating.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué clase se usa para inputs Bootstrap?</p>
+
+<label><input type="radio" name="q6"> input-control</label>
+<label><input type="radio" name="q6" data-correct> form-control</label>
+<label><input type="radio" name="q6"> bootstrap-input</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.7 -->
+
+<section class="block" id="b7">
+
+<h2>7.7 Components I</h2>
+
+<span class="tag">accordion</span>
+<span class="tag">alerts</span>
+
+<h3>Accordion</h3>
+
+<div class="code">
+&lt;div class="accordion"&gt;
+&lt;/div&gt;
+</div>
+
+<h3>Alertas</h3>
+
+<div class="code">
+&lt;div class="alert alert-warning"&gt;
+Mensaje
+&lt;/div&gt;
+</div>
+
+<h3>Badges</h3>
+
+<div class="code">
+&lt;span class="badge bg-danger"&gt;
+NEW
+&lt;/span&gt;
+</div>
+
+<h3>Breadcrumbs</h3>
+
+<div class="code">
+&lt;nav&gt;
+
+&lt;ol class="breadcrumb"&gt;
+
+&lt;li class="breadcrumb-item"&gt;
+Inicio
+&lt;/li&gt;
+
+&lt;/ol&gt;
+
+&lt;/nav&gt;
+</div>
+
+<div class="tip">
+Los components son reutilizables y muy rápidos de implementar.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente crea rutas de navegación?</p>
+
+<label><input type="radio" name="q7"> Badge</label>
+<label><input type="radio" name="q7" data-correct> Breadcrumb</label>
+<label><input type="radio" name="q7"> Toast</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.8 -->
+
+<section class="block" id="b8">
+
+<h2>7.8 Components II</h2>
+
+<span class="tag">buttons</span>
+<span class="tag">cards</span>
+
+<h3>Botones</h3>
+
+<div class="code">
+&lt;button class="btn btn-danger"&gt;
+Eliminar
+&lt;/button&gt;
+</div>
+
+<h3>Cards</h3>
+
+<div class="code">
+&lt;div class="card"&gt;
+
+&lt;img src="foto.jpg"
+class="card-img-top"&gt;
+
+&lt;div class="card-body"&gt;
+
+&lt;h5 class="card-title"&gt;
+Título
+&lt;/h5&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+</div>
+
+<h3>Carousel</h3>
+
+<div class="code">
+&lt;div class="carousel slide"&gt;
+&lt;/div&gt;
+</div>
+
+<h3>Dropdown</h3>
+
+<div class="code">
+&lt;div class="dropdown"&gt;
+&lt;/div&gt;
+</div>
+
+<div class="warning">
+Las imágenes del carousel deben tener igual tamaño.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente muestra diapositivas?</p>
+
+<label><input type="radio" name="q8"> Card</label>
+<label><input type="radio" name="q8" data-correct> Carousel</label>
+<label><input type="radio" name="q8"> Badge</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.9 -->
+
+<section class="block" id="b9">
+
+<h2>7.9 Components III</h2>
+
+<span class="tag">modals</span>
+<span class="tag">navbar</span>
+
+<h3>List Groups</h3>
+
+<div class="code">
+&lt;ul class="list-group"&gt;
+
+&lt;li class="list-group-item"&gt;
+Elemento
+&lt;/li&gt;
+
+&lt;/ul&gt;
+</div>
+
+<h3>Modal</h3>
+
+<div class="code">
+&lt;div class="modal fade"&gt;
+&lt;/div&gt;
+</div>
+
+<h3>Navs & Tabs</h3>
+
+<div class="code">
+&lt;ul class="nav nav-tabs"&gt;
+&lt;/ul&gt;
+</div>
+
+<h3>Navbar</h3>
+
+<div class="code">
+&lt;nav class="navbar navbar-dark bg-dark"&gt;
+&lt;/nav&gt;
+</div>
+
+<div class="tip">
+Los modales son muy usados para confirmaciones y formularios rápidos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente crea ventanas emergentes?</p>
+
+<label><input type="radio" name="q9"> Toast</label>
+<label><input type="radio" name="q9" data-correct> Modal</label>
+<label><input type="radio" name="q9"> Pagination</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.10 -->
+
+<section class="block" id="b10">
+
+<h2>7.10 Components IV</h2>
+
+<span class="tag">pagination</span>
+
+<h3>Pagination</h3>
+
+<div class="code">
+&lt;ul class="pagination"&gt;
+&lt;/ul&gt;
+</div>
+
+<h3>Popovers</h3>
+
+<div class="code">
+&lt;button
+data-bs-toggle="popover"&gt;
+Info
+&lt;/button&gt;
+</div>
+
+<h3>Progress</h3>
+
+<div class="code">
+&lt;div class="progress"&gt;
+
+&lt;div class="progress-bar"
+style="width:75%"&gt;
+
+75%
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+</div>
+
+<div class="warning">
+Los popovers necesitan Popper.js.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente muestra barras de progreso?</p>
+
+<label><input type="radio" name="q10"> Badge</label>
+<label><input type="radio" name="q10" data-correct> Progress</label>
+<label><input type="radio" name="q10"> Navbar</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.11 -->
+
+<section class="block" id="b11">
+
+<h2>7.11 Components V</h2>
+
+<span class="tag">scrollspy</span>
+
+<h3>Scrollspy</h3>
+
+<div class="code">
+data-bs-spy="scroll"
+</div>
+
+<p>
+Actualiza automáticamente navegación según scroll.
+</p>
+
+<h3>Spinners</h3>
+
+<div class="code">
+&lt;div class="spinner-border"&gt;
+&lt;/div&gt;
+</div>
+
+<h3>Toasts</h3>
+
+<div class="code">
+&lt;div class="toast show"&gt;
+&lt;/div&gt;
+</div>
+
+<div class="tip">
+Los spinners indican procesos de carga.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente muestra animaciones de carga?</p>
+
+<label><input type="radio" name="q11"> Modal</label>
+<label><input type="radio" name="q11" data-correct> Spinner</label>
+<label><input type="radio" name="q11"> Accordion</label>
+
+</div>
+
+<button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+<div id="r11" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7.12 -->
+
+<section class="block" id="b12">
+
+<h2>7.12 Iconos</h2>
+
+<span class="tag">icons</span>
+
+<p>
+Bootstrap Icons es la librería oficial de iconos Bootstrap.
+</p>
+
+<h3>CDN</h3>
+
+<div class="code">
+&lt;link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"&gt;
+</div>
+
+<h3>Uso</h3>
+
+<div class="code">
+&lt;i class="bi bi-alarm"&gt;&lt;/i&gt;
+</div>
+
+<h3>Ejemplos</h3>
+
+<table>
+
+<tr>
+<th>Icono</th>
+<th>Clase</th>
+</tr>
+
+<tr>
+<td>🔍</td>
+<td>bi-search</td>
+</tr>
+
+<tr>
+<td>🏠</td>
+<td>bi-house</td>
+</tr>
+
+<tr>
+<td>❤️</td>
+<td>bi-heart</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Bootstrap Icons es independiente del framework principal.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué prefijo usan Bootstrap Icons?</p>
+
+<label><input type="radio" name="q12"> icon-</label>
+<label><input type="radio" name="q12" data-correct> bi-</label>
+<label><input type="radio" name="q12"> bs-</label>
+
+</div>
+
+<button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+<div id="r12" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 7 completada 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+const options=document.getElementsByName(group);
+
+let correct=false;
+
+options.forEach(option=>{
+
+if(option.checked && option.dataset.correct !== undefined){
+
+correct=true;
+
+}
+
+});
+
+const resultBox=document.getElementById(result);
+
+if(correct){
+
+resultBox.innerHTML="✅ Correcto";
+resultBox.style.color="#72ffb7";
+
+}else{
+
+resultBox.innerHTML="❌ Incorrecto";
+resultBox.style.color="#ff8080";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

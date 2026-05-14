@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 14 - Protocolos II</title>
+
+<style>
+
+:root{
+  --bg:#081018;
+  --panel:#101a25;
+  --panel2:#172433;
+  --border:#21384c;
+  --text:#d8f7ee;
+  --muted:#8ea8a1;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:360px;
+  background:#0c141d;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:360px;
+  width:calc(100% - 360px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul,
+.block ol{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.quiz{
+  margin-top:30px;
+  padding:25px;
+  background:#0c141d;
+  border:1px solid #223748;
+  border-radius:14px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#04100c;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#6dffdb;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+pre{
+  background:#07131c;
+  color:#7effd8;
+  padding:18px;
+  border-radius:12px;
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+code{
+  background:#07131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  width:100%;
+  margin-left:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>🛰 Unidad 14</h1>
+
+<p>
+OSPF, EIGRP y BGP.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes. ¡El último!
+</p>
+
+<ul>
+<li><a href="#b1">14.1 OSPF</a></li>
+<li><a href="#b2">14.2 OSPF paso a paso</a></li>
+<li><a href="#b3">14.3 OSPF configuración</a></li>
+<li><a href="#b4">14.4 OSPF troubleshooting</a></li>
+<li><a href="#b5">14.5 EIGRP</a></li>
+<li><a href="#b6">14.6 Paquetes EIGRP</a></li>
+<li><a href="#b7">14.7 Algoritmo DUAL</a></li>
+<li><a href="#b8">14.8 DUAL paso a paso</a></li>
+<li><a href="#b9">14.9 Configuración EIGRP</a></li>
+<li><a href="#b10">14.10 EGP y BGP</a></li>
+<li><a href="#b11">14.11 BGP</a></li>
+<li><a href="#b12">14.12 BGP paso a paso</a></li>
+<li><a href="#b13">14.13 Ciclo BGP</a></li>
+<li><a href="#b14">14.14 Configuración BGP</a></li>
+<li><a href="#b15">14.15 Comparativa</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 14 - Protocolos II</h1>
+
+<p>
+Resumen interactivo sobre OSPF,
+EIGRP y BGP.
+</p>
+
+</section>
+
+<!-- 1 -->
+
+<section class="block" id="b1">
+
+<h2>14.1 Open Shortest Path First (OSPF)</h2>
+
+<p>
+OSPF es un protocolo IGP de estado de enlace.
+
+</p>
+
+<ul>
+<li>Link-State</li>
+<li>Usa algoritmo SPF</li>
+<li>Muy escalable</li>
+<li>Convergencia rápida</li>
+</ul>
+
+<div class="card">
+🛣 OSPF calcula la mejor ruta usando coste.
+</div>
+
+<div class="card warning">
+⚠ OSPF usa áreas para escalar.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué tipo de protocolo es OSPF?</p>
+
+<label><input type="radio" name="q1"> Distance Vector</label><br>
+<label><input type="radio" name="q1" data-correct> Link-State</label><br>
+<label><input type="radio" name="q1"> EGP</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 2 -->
+
+<section class="block" id="b2">
+
+<h2>14.2 OSPF - Paso a paso</h2>
+
+<h3>Proceso OSPF</h3>
+
+<ol>
+<li>Descubrir vecinos</li>
+<li>Intercambiar LSAs</li>
+<li>Crear LSDB</li>
+<li>Calcular SPF</li>
+<li>Actualizar tabla routing</li>
+</ol>
+
+<div class="card">
+📡 Hello Packets descubren vecinos.
+</div>
+
+<div class="card danger">
+❌ Temporizadores diferentes impiden adyacencia.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué paquetes descubren vecinos?</p>
+
+<label><input type="radio" name="q2"> RIP Updates</label><br>
+<label><input type="radio" name="q2" data-correct> Hello Packets</label><br>
+<label><input type="radio" name="q2"> DHCP</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 3 -->
+
+<section class="block" id="b3">
+
+<h2>14.3 OSPF - Configuración y administración</h2>
+
+<pre>
+router ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+</pre>
+
+<h3>Comandos útiles</h3>
+
+<ul>
+<li><code>show ip ospf neighbor</code></li>
+<li><code>show ip route</code></li>
+<li><code>show ip ospf interface</code></li>
+</ul>
+
+<div class="card">
+⚙ Area 0 = backbone OSPF.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué área es el backbone?</p>
+
+<label><input type="radio" name="q3"> Área 1</label><br>
+<label><input type="radio" name="q3" data-correct> Área 0</label><br>
+<label><input type="radio" name="q3"> Área 255</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4 -->
+
+<section class="block" id="b4">
+
+<h2>14.4 OSPF - Diagnóstico de incidencias</h2>
+
+<h3>Problemas comunes</h3>
+
+<ul>
+<li>Área incorrecta</li>
+<li>Timers distintos</li>
+<li>Autenticación diferente</li>
+<li>Wildcard errónea</li>
+</ul>
+
+<div class="card">
+🛠 El estado FULL indica adyacencia correcta.
+</div>
+
+<div class="card warning">
+⚠ EXSTART puede indicar problemas MTU.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué estado indica vecindad correcta?</p>
+
+<label><input type="radio" name="q4"> INIT</label><br>
+<label><input type="radio" name="q4" data-correct> FULL</label><br>
+<label><input type="radio" name="q4"> DOWN</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5 -->
+
+<section class="block" id="b5">
+
+<h2>14.5 EIGRP</h2>
+
+<p>
+EIGRP es un protocolo avanzado Cisco.
+ 
+</p>
+
+<ul>
+<li>Híbrido</li>
+<li>Muy rápido</li>
+<li>Bajo consumo CPU</li>
+<li>Usa DUAL</li>
+</ul>
+
+<div class="card">
+🚀 EIGRP converge muy rápido.
+</div>
+
+<div class="card warning">
+⚠ Originalmente propietario Cisco.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué algoritmo usa EIGRP?</p>
+
+<label><input type="radio" name="q5"> SPF</label><br>
+<label><input type="radio" name="q5" data-correct> DUAL</label><br>
+<label><input type="radio" name="q5"> Bellman-Ford</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6 -->
+
+<section class="block" id="b6">
+
+<h2>14.6 EIGRP - Tipo de paquete</h2>
+
+<table class="table">
+
+<tr>
+<th>Paquete</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Hello</td>
+<td>Vecinos</td>
+</tr>
+
+<tr>
+<td>Update</td>
+<td>Rutas</td>
+</tr>
+
+<tr>
+<td>Query</td>
+<td>Buscar rutas</td>
+</tr>
+
+<tr>
+<td>Reply</td>
+<td>Responder consultas</td>
+</tr>
+
+<tr>
+<td>ACK</td>
+<td>Confirmación</td>
+</tr>
+
+</table>
+
+<div class="card">
+📨 Hello mantiene adyacencias.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué paquete confirma recepción?</p>
+
+<label><input type="radio" name="q6"> Query</label><br>
+<label><input type="radio" name="q6" data-correct> ACK</label><br>
+<label><input type="radio" name="q6"> Hello</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7 -->
+
+<section class="block" id="b7">
+
+<h2>14.7 EIGRP - El algoritmo DUAL</h2>
+
+<p>
+DUAL garantiza rutas libres de bucles.
+ 
+</p>
+
+<h3>Conceptos</h3>
+
+<ul>
+<li>Successor</li>
+<li>Feasible Successor</li>
+<li>Feasible Distance</li>
+</ul>
+
+<div class="card">
+🛣 Successor = mejor ruta.
+</div>
+
+<div class="card warning">
+⚠ Feasible Successor = backup inmediata.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué es un Feasible Successor?</p>
+
+<label><input type="radio" name="q7"> Mejor ruta</label><br>
+<label><input type="radio" name="q7" data-correct> Ruta respaldo</label><br>
+<label><input type="radio" name="q7"> ACL</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8 -->
+
+<section class="block" id="b8">
+
+<h2>14.8 EIGRP - DUAL paso a paso</h2>
+
+<ol>
+<li>Aprender rutas</li>
+<li>Seleccionar Successor</li>
+<li>Buscar Feasible Successor</li>
+<li>Actualizar rutas</li>
+</ol>
+
+<div class="card">
+⚡ DUAL evita recalcular toda la red.
+</div>
+
+<div class="card danger">
+❌ Si no hay FS → Active State.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué ocurre si no existe FS?</p>
+
+<label><input type="radio" name="q8"> Shutdown</label><br>
+<label><input type="radio" name="q8" data-correct> Active State</label><br>
+<label><input type="radio" name="q8"> NAT</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 9 -->
+
+<section class="block" id="b9">
+
+<h2>14.9 EIGRP - Configuración básica</h2>
+
+<pre>
+router eigrp 10
+network 192.168.1.0
+no auto-summary
+</pre>
+
+<div class="card">
+⚙ El número AS debe coincidir.
+</div>
+
+<div class="card warning">
+⚠ EIGRP usa multicast 224.0.0.10.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué debe coincidir en EIGRP?</p>
+
+<label><input type="radio" name="q9"> DNS</label><br>
+<label><input type="radio" name="q9" data-correct> AS Number</label><br>
+<label><input type="radio" name="q9"> VLAN</label>
+
+</div>
+
+<button onclick="checkQuiz('q9', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 10 -->
+
+<section class="block" id="b10">
+
+<h2>14.10 Protocolos Externos (EGP) - BGP</h2>
+
+<p>
+BGP conecta Sistemas Autónomos.
+ 
+</p>
+
+<ul>
+<li>EGP</li>
+<li>Path Vector</li>
+<li>Usado en Internet</li>
+</ul>
+
+<div class="card">
+🌍 BGP mueve tráfico global Internet.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué tipo de protocolo es BGP?</p>
+
+<label><input type="radio" name="q10"> IGP</label><br>
+<label><input type="radio" name="q10" data-correct> EGP</label><br>
+<label><input type="radio" name="q10"> Link-State</label>
+
+</div>
+
+<button onclick="checkQuiz('q10', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 11 -->
+
+<section class="block" id="b11">
+
+<h2>14.11 BGP - Border Gateway Protocol</h2>
+
+<h3>Características</h3>
+
+<ul>
+<li>Muy escalable</li>
+<li>Basado en políticas</li>
+<li>TCP puerto 179</li>
+</ul>
+
+<div class="card">
+📡 BGP usa TCP para fiabilidad.
+</div>
+
+<div class="card warning">
+⚠ BGP converge más lento que OSPF.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué puerto usa BGP?</p>
+
+<label><input type="radio" name="q11"> 80</label><br>
+<label><input type="radio" name="q11" data-correct> 179</label><br>
+<label><input type="radio" name="q11"> 443</label>
+
+</div>
+
+<button onclick="checkQuiz('q11', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 12 -->
+
+<section class="block" id="b12">
+
+<h2>14.12 BGP - Paso a paso</h2>
+
+<ol>
+<li>Establecer TCP</li>
+<li>Intercambiar OPEN</li>
+<li>Enviar UPDATE</li>
+<li>Mantener KEEPALIVE</li>
+</ol>
+
+<div class="card">
+🔄 KEEPALIVE mantiene sesión BGP.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué paquete mantiene BGP?</p>
+
+<label><input type="radio" name="q12"> HELLO</label><br>
+<label><input type="radio" name="q12" data-correct> KEEPALIVE</label><br>
+<label><input type="radio" name="q12"> ACK</label>
+
+</div>
+
+<button onclick="checkQuiz('q12', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 13 -->
+
+<section class="block" id="b13">
+
+<h2>14.13 BGP - Ciclo de mantenimiento</h2>
+
+<h3>Estados BGP</h3>
+
+<ul>
+<li>Idle</li>
+<li>Connect</li>
+<li>OpenSent</li>
+<li>OpenConfirm</li>
+<li>Established</li>
+</ul>
+
+<div class="card">
+✅ Established = sesión operativa.
+</div>
+
+<div class="card danger">
+❌ Idle constante = problema configuración.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué estado indica funcionamiento correcto?</p>
+
+<label><input type="radio" name="q13"> Idle</label><br>
+<label><input type="radio" name="q13" data-correct> Established</label><br>
+<label><input type="radio" name="q13"> Active</label>
+
+</div>
+
+<button onclick="checkQuiz('q13', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 14 -->
+
+<section class="block" id="b14">
+
+<h2>14.14 BGP - Configuración y administración</h2>
+
+<pre>
+router bgp 65001
+neighbor 10.0.0.2 remote-as 65002
+</pre>
+
+<h3>Comandos útiles</h3>
+
+<ul>
+<li><code>show ip bgp</code></li>
+<li><code>show ip bgp summary</code></li>
+<li><code>show ip route</code></li>
+</ul>
+
+<div class="card">
+⚙ Cada AS tiene un número único.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué define remote-as?</p>
+
+<label><input type="radio" name="q14"> VLAN</label><br>
+<label><input type="radio" name="q14" data-correct> Sistema Autónomo vecino</label><br>
+<label><input type="radio" name="q14"> Dirección MAC</label>
+
+</div>
+
+<button onclick="checkQuiz('q14', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 15 -->
+
+<section class="block" id="b15">
+
+<h2>14.15 Comparativa final protocolos</h2>
+
+<table class="table">
+
+<tr>
+<th>Protocolo</th>
+<th>Tipo</th>
+<th>Escalabilidad</th>
+</tr>
+
+<tr>
+<td>RIP</td>
+<td>Distance Vector</td>
+<td>Baja</td>
+</tr>
+
+<tr>
+<td>OSPF</td>
+<td>Link-State</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>EIGRP</td>
+<td>Híbrido</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>BGP</td>
+<td>Path Vector</td>
+<td>Muy alta</td>
+</tr>
+
+</table>
+
+<div class="card">
+🧠 RIP = simple.<br>
+OSPF = estándar empresarial.<br>
+EIGRP = rápido Cisco.<br>
+BGP = Internet.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+<p>¿Qué protocolo domina Internet?</p>
+
+<label><input type="radio" name="q15"> OSPF</label><br>
+<label><input type="radio" name="q15" data-correct> BGP</label><br>
+<label><input type="radio" name="q15"> RIP</label>
+
+</div>
+
+<button onclick="checkQuiz('q15', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes. SACABÓ.
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+const result = button.nextElementSibling;
+
+let correct = false;
+
+answers.forEach(answer=>{
+  if(answer.checked && answer.dataset.correct !== undefined){
+    correct = true;
+  }
+});
+
+if(correct){
+  result.textContent = "✔ Correcto";
+  result.style.color = "#00ffc3";
+}else{
+  result.textContent = "✘ Incorrecto";
+  result.style.color = "#ff5d7d";
+}
+
+}
+
+</script>
+
+</body>
+</html>

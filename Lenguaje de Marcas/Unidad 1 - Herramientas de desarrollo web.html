@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 - Herramientas de desarrollo web</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#0b0b0b;
+      --panel:#121212;
+      --panel2:#181818;
+      --border:#2a2a2a;
+      --red:#b63b3b;
+      --red2:#ff5c5c;
+      --text:#e6e6e6;
+      --muted:#9b9b9b;
+      --green:#4cff9a;
+      --shadow:0 0 15px rgba(255,70,70,.15);
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Segoe UI, sans-serif;
+      overflow-x:hidden;
+    }
+
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:320px;
+      background:#090909;
+      border-right:1px solid var(--border);
+      position:fixed;
+      left:0;
+      top:0;
+      bottom:0;
+      overflow-y:auto;
+      padding:25px;
+      z-index:999;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:900;
+      color:var(--red2);
+      margin-bottom:10px;
+      letter-spacing:1px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      margin-bottom:25px;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:#ddd;
+      background:var(--panel);
+      padding:14px;
+      border-radius:10px;
+      border:1px solid transparent;
+      transition:.25s;
+      font-size:14px;
+    }
+
+    .menu a:hover{
+      background:#1c1c1c;
+      border-color:var(--red);
+      transform:translateX(5px);
+      color:#fff;
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:320px;
+      width:calc(100% - 320px);
+      padding:40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#141414,#1d0f0f);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:40px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:42px;
+      margin-bottom:15px;
+      color:#fff;
+    }
+
+    .hero p{
+      color:#bcbcbc;
+      line-height:1.8;
+      max-width:900px;
+    }
+
+    .block{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:30px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .block h2{
+      color:var(--red2);
+      margin-bottom:18px;
+      font-size:30px;
+    }
+
+    .block h3{
+      margin-top:30px;
+      margin-bottom:12px;
+      color:#ffffff;
+    }
+
+    .block p{
+      line-height:1.8;
+      color:#d0d0d0;
+      margin-bottom:14px;
+    }
+
+    .block ul{
+      margin-left:20px;
+      margin-bottom:18px;
+    }
+
+    .block li{
+      margin-bottom:10px;
+      line-height:1.7;
+    }
+
+    .code{
+      background:#070707;
+      border-left:4px solid var(--red);
+      padding:18px;
+      border-radius:10px;
+      overflow-x:auto;
+      margin:18px 0;
+      font-family:Consolas, monospace;
+      color:#7dffb3;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px 0;
+    }
+
+    th, td{
+      border:1px solid #2e2e2e;
+      padding:14px;
+      text-align:left;
+    }
+
+    th{
+      background:#1d1d1d;
+      color:#ff8b8b;
+    }
+
+    tr:nth-child(even){
+      background:#141414;
+    }
+
+    .tip{
+      background:#1a1111;
+      border:1px solid #552222;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    .warning{
+      background:#231313;
+      border:1px solid #8f3030;
+      padding:18px;
+      border-radius:12px;
+      margin:20px 0;
+    }
+
+    .quiz{
+      margin-top:35px;
+      background:#0f0f0f;
+      border:1px solid #2f2f2f;
+      padding:25px;
+      border-radius:16px;
+    }
+
+    .quiz h3{
+      color:#ff8b8b;
+      margin-bottom:20px;
+    }
+
+    .question{
+      margin-bottom:25px;
+      padding:18px;
+      background:#141414;
+      border-radius:12px;
+    }
+
+    .question p{
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .question label{
+      display:block;
+      margin-bottom:10px;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .question label:hover{
+      color:#ff9090;
+    }
+
+    button{
+      background:linear-gradient(135deg,var(--red),#6b1515);
+      border:none;
+      color:white;
+      padding:14px 24px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.25s;
+    }
+
+    button:hover{
+      transform:scale(1.04);
+    }
+
+    .result{
+      margin-top:20px;
+      font-size:18px;
+      font-weight:bold;
+      color:var(--green);
+    }
+
+    .tag{
+      display:inline-block;
+      background:#2b1111;
+      color:#ff8d8d;
+      border:1px solid #702222;
+      padding:6px 12px;
+      border-radius:999px;
+      margin-right:8px;
+      margin-bottom:10px;
+      font-size:13px;
+    }
+
+    .footer{
+      text-align:center;
+      padding:40px 0;
+      color:#777;
+    }
+
+    @media(max-width:1000px){
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+      }
+
+      .layout{
+        flex-direction:column;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+
+    <div class="logo">UNIDAD 1</div>
+
+    <div class="subtitle">
+      Herramientas de desarrollo web<br><br>
+      Guía interactiva para preparar examen tipo test.
+    </div>
+
+    <nav class="menu">
+      <a href="#b1">1. Visual Studio Code</a>
+      <a href="#b2">2. Live Server y extensiones</a>
+      <a href="#b3">3. Emmet y productividad</a>
+      <a href="#b4">4. Atajos de teclado</a>
+      <a href="#b5">5. Git</a>
+      <a href="#b6">6. Instalación y configuración Git</a>
+      <a href="#b7">7. GitHub</a>
+      <a href="#b8">8. SSH y autenticación</a>
+      <a href="#b9">9. Comandos básicos Git</a>
+      <a href="#b10">10. Staging y commits</a>
+      <a href="#b11">11. Historial y diferencias</a>
+      <a href="#b12">12. Branches</a>
+      <a href="#b13">13. Merge y conflictos</a>
+      <a href="#b14">14. Repositorios remotos</a>
+      <a href="#b15">15. Pull, push y fetch</a>
+      <a href="#b16">16. Etiquetas y versiones</a>
+    </nav>
+
+  </aside>
+
+  <main class="main">
+
+    <section class="hero">
+      <h1>Unidad 1 - Herramientas de desarrollo web</h1>
+
+      <p>
+        Esta web resume los conceptos más importantes sobre Visual Studio Code,
+        Git, GitHub, SSH, ramas, trabajo en remoto y control de versiones.
+        Cada bloque contiene teoría, ejemplos, curiosidades, errores típicos
+        y mini-test para practicar antes del examen.
+      </p>
+    </section>
+
+    <!-- BLOQUE 1 -->
+
+    <section class="block" id="b1">
+
+      <h2>1. Visual Studio Code</h2>
+
+      <span class="tag">Editor</span>
+      <span class="tag">VS Code</span>
+      <span class="tag">HTML</span>
+
+      <p>
+        Visual Studio Code es uno de los editores de código más utilizados del mundo.
+        Es gratuito, ligero y compatible con HTML, CSS, JavaScript, Python, Java y muchos más.
+      </p>
+
+      <h3>Características importantes</h3>
+
+      <ul>
+        <li>Interfaz sencilla y rápida.</li>
+        <li>Compatible con extensiones.</li>
+        <li>Incluye resaltado de sintaxis.</li>
+        <li>Integración con Git.</li>
+        <li>Terminal integrada.</li>
+      </ul>
+
+      <h3>Primeros pasos</h3>
+
+      <ol>
+        <li>Instalar Visual Studio Code.</li>
+        <li>Abrir una carpeta de proyecto.</li>
+        <li>Crear archivos .html, .css o .js.</li>
+        <li>Guardar el proyecto.</li>
+      </ol>
+
+      <div class="tip">
+        Consejo: trabaja siempre dentro de carpetas organizadas.
+      </div>
+
+      <h3>Ejemplo HTML básico</h3>
+
+      <div class="code">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Mi web&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola mundo&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué lenguaje viene soportado por defecto en VS Code?</p>
+
+          <label><input type="radio" name="q1"> COBOL</label>
+          <label><input type="radio" name="q1" data-correct> HTML</label>
+          <label><input type="radio" name="q1"> Pascal</label>
+        </div>
+
+        <button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+        <div id="r1" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="block" id="b2">
+
+      <h2>2. Live Server y extensiones</h2>
+
+      <p>
+        Live Server permite actualizar automáticamente el navegador cada vez
+        que guardamos cambios.
+      </p>
+
+      <h3>Ventajas</h3>
+
+      <ul>
+        <li>No necesitas refrescar manualmente.</li>
+        <li>Aumenta la velocidad de desarrollo.</li>
+        <li>Ideal para HTML y CSS.</li>
+      </ul>
+
+      <h3>Cómo usarlo</h3>
+
+      <ol>
+        <li>Instalar extensión Live Server.</li>
+        <li>Abrir archivo HTML.</li>
+        <li>Pulsar "Go Live".</li>
+      </ol>
+
+      <div class="warning">
+        Pregunta trampa:
+        Live Server NO es un hosting real, solo un servidor local.
+      </div>
+
+      <h3>Extensiones recomendadas</h3>
+
+      <table>
+        <tr>
+          <th>Extensión</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>Live Server</td>
+          <td>Recarga automática</td>
+        </tr>
+
+        <tr>
+          <td>Auto Rename Tag</td>
+          <td>Renombra etiquetas automáticamente</td>
+        </tr>
+
+        <tr>
+          <td>GitLens</td>
+          <td>Información avanzada de Git</td>
+        </tr>
+
+      </table>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace Live Server?</p>
+
+          <label><input type="radio" name="q2"> Compila Java</label>
+          <label><input type="radio" name="q2" data-correct> Actualiza automáticamente el navegador</label>
+          <label><input type="radio" name="q2"> Borra archivos</label>
+        </div>
+
+        <button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+        <div id="r2" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="block" id="b3">
+
+      <h2>3. Emmet y productividad</h2>
+
+      <p>
+        Emmet acelera la escritura de HTML usando abreviaturas.
+      </p>
+
+      <h3>Ejemplo</h3>
+
+      <div class="code">
+ul&gt;li*3
+      </div>
+
+      <p>Se convierte en:</p>
+
+      <div class="code">
+&lt;ul&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+      </div>
+
+      <h3>Abreviaturas útiles</h3>
+
+      <table>
+        <tr>
+          <th>Abreviatura</th>
+          <th>Resultado</th>
+        </tr>
+
+        <tr>
+          <td>html:5</td>
+          <td>Estructura HTML completa</td>
+        </tr>
+
+        <tr>
+          <td>link:css</td>
+          <td>Enlace CSS</td>
+        </tr>
+
+        <tr>
+          <td>meta:vp</td>
+          <td>Meta viewport</td>
+        </tr>
+      </table>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace html:5?</p>
+
+          <label><input type="radio" name="q3"> Inserta Bootstrap</label>
+          <label><input type="radio" name="q3" data-correct> Genera estructura HTML</label>
+          <label><input type="radio" name="q3"> Crea un servidor</label>
+        </div>
+
+        <button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+        <div id="r3" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="block" id="b4">
+
+      <h2>4. Atajos de teclado útiles</h2>
+
+      <table>
+
+        <tr>
+          <th>Atajo</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>Ctrl + S</td>
+          <td>Guardar archivo</td>
+        </tr>
+
+        <tr>
+          <td>Ctrl + Shift + P</td>
+          <td>Paleta de comandos</td>
+        </tr>
+
+        <tr>
+          <td>Shift + Alt + F</td>
+          <td>Formatear documento</td>
+        </tr>
+
+        <tr>
+          <td>Ctrl + N</td>
+          <td>Nuevo archivo</td>
+        </tr>
+
+      </table>
+
+      <div class="tip">
+        Truco: aprender atajos ahorra muchísimo tiempo en proyectos grandes.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace Shift + Alt + F?</p>
+
+          <label><input type="radio" name="q4"> Cierra el editor</label>
+          <label><input type="radio" name="q4" data-correct> Formatea el documento</label>
+          <label><input type="radio" name="q4"> Borra el proyecto</label>
+        </div>
+
+        <button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+        <div id="r4" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="block" id="b5">
+
+      <h2>5. Git</h2>
+
+      <p>
+        Git es un sistema de control de versiones distribuido.
+      </p>
+
+      <h3>¿Para qué sirve?</h3>
+
+      <ul>
+        <li>Guardar versiones del proyecto.</li>
+        <li>Volver atrás si algo falla.</li>
+        <li>Trabajar en equipo.</li>
+        <li>Crear ramas independientes.</li>
+      </ul>
+
+      <div class="warning">
+        Git y GitHub NO son lo mismo.
+      </div>
+
+      <h3>Concepto importante</h3>
+
+      <p>
+        Git trabaja con snapshots (fotografías del proyecto).
+      </p>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. Git es...</p>
+
+          <label><input type="radio" name="q5"> Un editor de texto</label>
+          <label><input type="radio" name="q5" data-correct> Un sistema de control de versiones</label>
+          <label><input type="radio" name="q5"> Un navegador</label>
+        </div>
+
+        <button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+        <div id="r5" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="block" id="b6">
+
+      <h2>6. Instalación y configuración Git</h2>
+
+      <h3>Instalar Git</h3>
+
+      <div class="code">
+sudo apt install git
+      </div>
+
+      <h3>Verificar versión</h3>
+
+      <div class="code">
+git --version
+      </div>
+
+      <h3>Configuración inicial</h3>
+
+      <div class="code">
+git config --global user.name "Tu Nombre"
+
+git config --global user.email "correo@email.com"
+      </div>
+
+      <div class="tip">
+        Usa siempre el mismo email que tu cuenta GitHub.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué comando configura el nombre?</p>
+
+          <label><input type="radio" name="q6" data-correct> git config --global user.name</label>
+          <label><input type="radio" name="q6"> git set name</label>
+          <label><input type="radio" name="q6"> git username</label>
+        </div>
+
+        <button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+        <div id="r6" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 7 -->
+
+    <section class="block" id="b7">
+
+      <h2>7. GitHub</h2>
+
+      <p>
+        GitHub es una plataforma online para alojar repositorios Git.
+      </p>
+
+      <h3>Funciones principales</h3>
+
+      <ul>
+        <li>Guardar proyectos en la nube.</li>
+        <li>Trabajo colaborativo.</li>
+        <li>Control de versiones.</li>
+        <li>Publicar proyectos.</li>
+      </ul>
+
+      <div class="warning">
+        Pregunta trampa:
+        Git funciona sin GitHub.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. GitHub sirve para...</p>
+
+          <label><input type="radio" name="q7"> Diseñar webs</label>
+          <label><input type="radio" name="q7" data-correct> Alojar repositorios Git</label>
+          <label><input type="radio" name="q7"> Crear bases de datos</label>
+        </div>
+
+        <button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+        <div id="r7" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 8 -->
+
+    <section class="block" id="b8">
+
+      <h2>8. SSH y autenticación</h2>
+
+      <h3>Generar clave SSH</h3>
+
+      <div class="code">
+ssh-keygen -t rsa -b 4096 -C "correo@email.com"
+      </div>
+
+      <h3>Comprobar autenticación</h3>
+
+      <div class="code">
+ssh -T git@github.com
+      </div>
+
+      <div class="warning">
+        Nunca compartas tu clave privada.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué archivo es público?</p>
+
+          <label><input type="radio" name="q8"> id_rsa</label>
+          <label><input type="radio" name="q8" data-correct> id_rsa.pub</label>
+          <label><input type="radio" name="q8"> config.sys</label>
+        </div>
+
+        <button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+        <div id="r8" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 9 -->
+
+    <section class="block" id="b9">
+
+      <h2>9. Comandos básicos Git</h2>
+
+      <table>
+
+        <tr>
+          <th>Comando</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>git init</td>
+          <td>Inicializa repositorio</td>
+        </tr>
+
+        <tr>
+          <td>git status</td>
+          <td>Estado del repositorio</td>
+        </tr>
+
+        <tr>
+          <td>git help -a</td>
+          <td>Lista comandos</td>
+        </tr>
+
+      </table>
+
+      <div class="tip">
+        git status es uno de los comandos más usados.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace git init?</p>
+
+          <label><input type="radio" name="q9"> Elimina Git</label>
+          <label><input type="radio" name="q9" data-correct> Inicializa repositorio</label>
+          <label><input type="radio" name="q9"> Publica cambios</label>
+        </div>
+
+        <button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+        <div id="r9" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 10 -->
+
+    <section class="block" id="b10">
+
+      <h2>10. Staging y commits</h2>
+
+      <h3>Las 3 zonas Git</h3>
+
+      <ul>
+        <li>Working copy</li>
+        <li>Staging area</li>
+        <li>Repository</li>
+      </ul>
+
+      <h3>Comandos importantes</h3>
+
+      <div class="code">
+git add .
+git commit -m "Primer commit"
+      </div>
+
+      <div class="warning">
+        Solo se guarda en el commit lo añadido al staging area.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace git add?</p>
+
+          <label><input type="radio" name="q10"> Borra archivos</label>
+          <label><input type="radio" name="q10" data-correct> Añade cambios al staging area</label>
+          <label><input type="radio" name="q10"> Cierra Git</label>
+        </div>
+
+        <button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+        <div id="r10" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 11 -->
+
+    <section class="block" id="b11">
+
+      <h2>11. Historial y diferencias</h2>
+
+      <h3>Ver historial</h3>
+
+      <div class="code">
+git log --graph --decorate --pretty=oneline
+      </div>
+
+      <h3>Ver diferencias</h3>
+
+      <div class="code">
+git diff
+git diff --staged
+      </div>
+
+      <div class="tip">
+        git reflog ayuda muchísimo para recuperar commits perdidos.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué muestra git diff?</p>
+
+          <label><input type="radio" name="q11"> Usuarios GitHub</label>
+          <label><input type="radio" name="q11" data-correct> Diferencias entre cambios</label>
+          <label><input type="radio" name="q11"> Servidores remotos</label>
+        </div>
+
+        <button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+        <div id="r11" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 12 -->
+
+    <section class="block" id="b12">
+
+      <h2>12. Branches</h2>
+
+      <p>
+        Las ramas permiten desarrollar funcionalidades en paralelo.
+      </p>
+
+      <h3>Comandos</h3>
+
+      <div class="code">
+git branch nueva-rama
+git checkout nueva-rama
+git branch
+      </div>
+
+      <div class="warning">
+        No puedes borrar la rama donde estás situado.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué comando cambia de rama?</p>
+
+          <label><input type="radio" name="q12"> git merge</label>
+          <label><input type="radio" name="q12" data-correct> git checkout</label>
+          <label><input type="radio" name="q12"> git remote</label>
+        </div>
+
+        <button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+        <div id="r12" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 13 -->
+
+    <section class="block" id="b13">
+
+      <h2>13. Merge y conflictos</h2>
+
+      <h3>Unir ramas</h3>
+
+      <div class="code">
+git merge rama-secundaria
+      </div>
+
+      <h3>Resolver conflictos</h3>
+
+      <ol>
+        <li>Editar archivos.</li>
+        <li>Hacer git add.</li>
+        <li>Hacer commit.</li>
+      </ol>
+
+      <div class="code">
+git merge --abort
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace git merge?</p>
+
+          <label><input type="radio" name="q13"> Crea usuarios</label>
+          <label><input type="radio" name="q13" data-correct> Une ramas</label>
+          <label><input type="radio" name="q13"> Borra commits</label>
+        </div>
+
+        <button onclick="checkQuiz('q13','r13')">Corregir</button>
+
+        <div id="r13" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 14 -->
+
+    <section class="block" id="b14">
+
+      <h2>14. Repositorios remotos</h2>
+
+      <h3>Clonar repositorio</h3>
+
+      <div class="code">
+git clone URL
+      </div>
+
+      <h3>Añadir remoto</h3>
+
+      <div class="code">
+git remote add origin URL
+      </div>
+
+      <div class="tip">
+        origin es el nombre remoto más habitual.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace git clone?</p>
+
+          <label><input type="radio" name="q14" data-correct> Copia un repositorio remoto</label>
+          <label><input type="radio" name="q14"> Elimina ramas</label>
+          <label><input type="radio" name="q14"> Reinicia Git</label>
+        </div>
+
+        <button onclick="checkQuiz('q14','r14')">Corregir</button>
+
+        <div id="r14" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 15 -->
+
+    <section class="block" id="b15">
+
+      <h2>15. Pull, push y fetch</h2>
+
+      <table>
+
+        <tr>
+          <th>Comando</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>git push</td>
+          <td>Sube cambios</td>
+        </tr>
+
+        <tr>
+          <td>git pull</td>
+          <td>Descarga y fusiona</td>
+        </tr>
+
+        <tr>
+          <td>git fetch</td>
+          <td>Descarga cambios sin fusionar</td>
+        </tr>
+
+      </table>
+
+      <div class="warning">
+        git pull = git fetch + git merge
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Qué hace git push?</p>
+
+          <label><input type="radio" name="q15"> Descarga cambios</label>
+          <label><input type="radio" name="q15" data-correct> Sube cambios al remoto</label>
+          <label><input type="radio" name="q15"> Elimina etiquetas</label>
+        </div>
+
+        <button onclick="checkQuiz('q15','r15')">Corregir</button>
+
+        <div id="r15" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 16 -->
+
+    <section class="block" id="b16">
+
+      <h2>16. Etiquetas: Tags y versiones</h2>
+
+      <p>
+        Las etiquetas sirven para marcar versiones importantes.
+      </p>
+
+      <h3>Crear tag</h3>
+
+      <div class="code">
+git tag -a v1.0 -m "Versión 1.0"
+      </div>
+
+      <h3>Eliminar tag</h3>
+
+      <div class="code">
+git tag --delete v1.0
+      </div>
+
+      <div class="tip">
+        Muy usado para versiones estables y lanzamientos.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>1. ¿Para qué sirve un tag?</p>
+
+          <label><input type="radio" name="q16"> Crear usuarios</label>
+          <label><input type="radio" name="q16" data-correct> Marcar versiones importantes</label>
+          <label><input type="radio" name="q16"> Reiniciar ramas</label>
+        </div>
+
+        <button onclick="checkQuiz('q16','r16')">Corregir</button>
+
+        <div id="r16" class="result"></div>
+
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Fin de la Unidad 1 · Sigue practicando cada día 🚀
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+
+function checkQuiz(groupName, resultId){
+
+  const options = document.getElementsByName(groupName);
+  let correct = false;
+
+  options.forEach(option => {
+    if(option.checked && option.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  const result = document.getElementById(resultId);
+
+  if(correct){
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "#4cff9a";
+  }else{
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "#ff6b6b";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

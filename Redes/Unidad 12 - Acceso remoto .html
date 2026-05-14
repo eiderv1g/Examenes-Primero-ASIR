@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 12 - Acceso remoto</title>
+
+<style>
+
+:root{
+  --bg:#081018;
+  --panel:#101a25;
+  --panel2:#172433;
+  --border:#21384c;
+  --text:#d8f7ee;
+  --muted:#8ea8a1;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:330px;
+  background:#0c141d;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul,
+.block ol{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.quiz{
+  margin-top:30px;
+  padding:25px;
+  background:#0c141d;
+  border:1px solid #223748;
+  border-radius:14px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#04100c;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#6dffdb;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+pre{
+  background:#07131c;
+  color:#7effd8;
+  padding:18px;
+  border-radius:12px;
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+code{
+  background:#07131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  width:100%;
+  margin-left:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 12</h1>
+
+<p>
+Acceso remoto seguro con SSH en Cisco.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+<ul>
+<li><a href="#b1">12.1 Acceso remoto Cisco</a></li>
+<li><a href="#b2">12.2 Soporte SSH</a></li>
+<li><a href="#b3">12.3 Claves RSA</a></li>
+<li><a href="#b4">12.4 Activar SSH</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 12 - Acceso remoto</h1>
+
+<p>
+Resumen interactivo sobre acceso remoto,
+SSH y seguridad Cisco IOS.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>12.1 Acceso remoto en Cisco</h2>
+
+<p>
+Los dispositivos Cisco pueden administrarse
+de forma remota mediante Telnet o SSH.
+ 
+</p>
+
+<h3>Protocolos principales</h3>
+
+<table class="table">
+
+<tr>
+<th>Protocolo</th>
+<th>Seguridad</th>
+<th>Puerto</th>
+</tr>
+
+<tr>
+<td>Telnet</td>
+<td>No cifrado</td>
+<td>23</td>
+</tr>
+
+<tr>
+<td>SSH</td>
+<td>Cifrado</td>
+<td>22</td>
+</tr>
+
+</table>
+
+<div class="card">
+🔐 SSH es el estándar actual para administración remota.
+</div>
+
+<div class="card danger">
+❌ Telnet transmite contraseñas en texto plano.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué protocolo es seguro?</p>
+
+<label><input type="radio" name="q1"> Telnet</label><br>
+<label><input type="radio" name="q1" data-correct> SSH</label><br>
+<label><input type="radio" name="q1"> FTP</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>12.2 ¿Mi equipo soporta SSH?</h2>
+
+<p>
+No todos los dispositivos Cisco soportan SSH.
+Es necesario verificar versión IOS y capacidades.
+ 
+</p>
+
+<h3>Comandos útiles</h3>
+
+<pre>
+show version
+show ip ssh
+</pre>
+
+<h3>Requisitos comunes</h3>
+
+<ul>
+<li>IOS con soporte criptográfico</li>
+<li>Hostname configurado</li>
+<li>Dominio configurado</li>
+<li>Usuario local</li>
+</ul>
+
+<div class="card">
+🛠 SSH requiere capacidades criptográficas en IOS.
+</div>
+
+<div class="card warning">
+⚠ Algunos Packet Tracer antiguos no soportan SSH correctamente.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando muestra información SSH?</p>
+
+<label><input type="radio" name="q2"> show vlan</label><br>
+<label><input type="radio" name="q2" data-correct> show ip ssh</label><br>
+<label><input type="radio" name="q2"> show spanning-tree</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>12.3 Generar claves RSA</h2>
+
+<p>
+SSH necesita claves RSA para cifrado.
+ 
+</p>
+
+<h3>Pasos básicos</h3>
+
+<ol>
+<li>Configurar hostname</li>
+<li>Configurar dominio</li>
+<li>Generar claves RSA</li>
+</ol>
+
+<h3>Ejemplo</h3>
+
+<pre>
+hostname Router1
+
+ip domain-name empresa.local
+
+crypto key generate rsa
+</pre>
+
+<div class="card">
+🔑 Cuanto mayor sea la clave RSA,
+mayor seguridad.
+</div>
+
+<div class="card warning">
+⚠ Claves de 1024 o 2048 bits son comunes.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando genera claves RSA?</p>
+
+<label><input type="radio" name="q3"> rsa enable</label><br>
+<label><input type="radio" name="q3" data-correct> crypto key generate rsa</label><br>
+<label><input type="radio" name="q3"> ip ssh enable</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>12.4 Activar SSH y desactivar Telnet</h2>
+
+<p>
+Buenas prácticas Cisco recomiendan usar solo SSH.
+ 
+</p>
+
+<h3>Configuración típica</h3>
+
+<pre>
+username admin secret Cisco123
+
+line vty 0 4
+transport input ssh
+login local
+
+ip ssh version 2
+</pre>
+
+<h3>Explicación</h3>
+
+<ul>
+<li><code>transport input ssh</code> → bloquea Telnet</li>
+<li><code>login local</code> → usa usuarios locales</li>
+<li><code>ip ssh version 2</code> → versión segura</li>
+</ul>
+
+<div class="card">
+🛡 SSHv2 es más seguro que SSHv1.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+olvidar crear usuario local.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando desactiva Telnet?</p>
+
+<label><input type="radio" name="q4"> transport output ssh</label><br>
+<label><input type="radio" name="q4" data-correct> transport input ssh</label><br>
+<label><input type="radio" name="q4"> disable telnet</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes.
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+const result = button.nextElementSibling;
+
+let correct = false;
+
+answers.forEach(answer=>{
+  if(answer.checked && answer.dataset.correct !== undefined){
+    correct = true;
+  }
+});
+
+if(correct){
+  result.textContent = "✔ Correcto";
+  result.style.color = "#00ffc3";
+}else{
+  result.textContent = "✘ Incorrecto";
+  result.style.color = "#ff5d7d";
+}
+
+}
+
+</script>
+
+</body>
+</html>

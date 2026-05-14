@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 4.2 - Sistemas de archivos y almacenamiento II</title>
+
+<style>
+
+:root{
+  --bg:#09090f;
+  --panel:#141421;
+  --panel2:#1c1c2d;
+  --purple:#7c3aed;
+  --purple2:#5b21b6;
+  --orange:#ff8c42;
+  --text:#ececf1;
+  --muted:#a1a1aa;
+  --border:#2a2a40;
+  --green:#10b981;
+  --red:#ef4444;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(255,140,66,0.08), transparent 30%),
+  var(--bg);
+
+  color:var(--text);
+  font-family:Segoe UI, sans-serif;
+  display:flex;
+}
+
+.sidebar{
+  width:320px;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  background:rgba(10,10,18,0.97);
+  border-right:1px solid var(--border);
+  padding:30px 20px;
+}
+
+.logo{
+  margin-bottom:30px;
+}
+
+.logo h1{
+  font-size:1.8rem;
+  line-height:1.2;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.nav-title{
+  color:var(--orange);
+  text-transform:uppercase;
+  font-size:0.9rem;
+  margin-bottom:15px;
+  letter-spacing:1px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,0.03);
+  border:1px solid transparent;
+  padding:12px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  background:rgba(124,58,237,0.16);
+  border-color:var(--purple);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg, rgba(124,58,237,0.2), rgba(255,140,66,0.08));
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:40px;
+  margin-bottom:35px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:900px;
+}
+
+.time{
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,140,66,0.12);
+  border:1px solid rgba(255,140,66,0.3);
+  color:var(--orange);
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.block h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.block h3{
+  margin-top:25px;
+  margin-bottom:12px;
+  color:var(--orange);
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:16px;
+  color:#d7d7e2;
+}
+
+.block ul{
+  padding-left:20px;
+  margin-bottom:20px;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.note{
+  background:rgba(124,58,237,0.12);
+  border-left:4px solid var(--purple);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.warning{
+  background:rgba(239,68,68,0.08);
+  border-left:4px solid var(--red);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.tip{
+  background:rgba(16,185,129,0.08);
+  border-left:4px solid var(--green);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+th{
+  background:var(--purple2);
+  padding:14px;
+  text-align:left;
+}
+
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+}
+
+.code{
+  background:#0f0f17;
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+  overflow-x:auto;
+  font-family:Consolas, monospace;
+  margin:15px 0;
+  color:#9ef5c5;
+}
+
+.mini-test{
+  margin-top:35px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+  padding:18px;
+  background:rgba(0,0,0,0.25);
+  border-radius:14px;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.options button{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  transition:0.25s;
+  text-align:left;
+}
+
+.options button:hover{
+  background:rgba(124,58,237,0.15);
+  border-color:var(--purple);
+}
+
+.correct{
+  background:rgba(16,185,129,0.2)!important;
+  border-color:var(--green)!important;
+}
+
+.incorrect{
+  background:rgba(239,68,68,0.15)!important;
+  border-color:var(--red)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  position:relative;
+  width:100%;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
+
+.hero h2{
+  font-size:2rem;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+<h1>Unidad 4.2<br><span>Sistemas de archivos y almacenamiento II</span></h1>
+</div>
+
+<div class="nav-title">Bloques de estudio</div>
+
+<nav class="nav">
+
+<a href="#b1">4.16 Backups</a>
+<a href="#b2">4.17 Backup Completo</a>
+<a href="#b3">4.18 Backup Incremental</a>
+<a href="#b4">4.19 Backup Diferencial</a>
+<a href="#b5">4.20 Estrategia GFS</a>
+<a href="#b6">4.21 Caso de Estudio: Veeam</a>
+<a href="#b7">4.22 Consejos de backup</a>
+<a href="#b8">4.23 DRP</a>
+<a href="#b9">4.24 RPO y RTO</a>
+<a href="#b10">4.25 Alta Disponibilidad</a>
+<a href="#b11">4.26 Backup en la nube</a>
+<a href="#b12">4.27 Interconexión DRP, HA y Backup</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 4.2 - Sistemas de archivos y almacenamiento II</h2>
+
+<p>
+Estudio completo sobre estrategias de backup,
+planes de recuperación ante desastres,
+alta disponibilidad, continuidad de negocio,
+replicación, almacenamiento cloud y resiliencia
+empresarial moderna.
+</p>
+
+<div class="time">
+⏱ Tiempo estimado por bloque: 20-35 minutos
+</div>
+
+</section>
+
+<section class="block" id="b1">
+
+<h2>4.16 Backups</h2>
+
+<p>
+Un backup es una copia de seguridad
+creada para restaurar información
+tras pérdidas, fallos o ataques.
+</p>
+
+<h3>Objetivos principales</h3>
+
+<ul>
+<li>Recuperar datos borrados</li>
+<li>Proteger frente a ransomware</li>
+<li>Recuperación ante fallos físicos</li>
+<li>Garantizar continuidad operativa</li>
+<li>Cumplir normativas</li>
+</ul>
+
+<h3>Qué puede destruir datos</h3>
+
+<table>
+
+<tr>
+<th>Problema</th>
+<th>Consecuencia</th>
+</tr>
+
+<tr>
+<td>Ransomware</td>
+<td>Cifrado masivo</td>
+</tr>
+
+<tr>
+<td>Error humano</td>
+<td>Borrados accidentales</td>
+</tr>
+
+<tr>
+<td>Fallos hardware</td>
+<td>Pérdida física</td>
+</tr>
+
+<tr>
+<td>Desastres</td>
+<td>Caída total</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ RAID NO sustituye backups.
+</div>
+
+<div class="tip">
+💡 Un backup sin pruebas de restauración no es fiable.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuál es el objetivo principal de un backup?</p>
+
+<div class="options">
+<button onclick="correct(this)">Recuperar datos</button>
+<button onclick="incorrect(this)">Aumentar FPS</button>
+<button onclick="incorrect(this)">Mejorar CPU</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b2">
+
+<h2>4.17 Backup Completo</h2>
+
+<p>
+El backup completo copia absolutamente
+todos los datos seleccionados.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Restauración sencilla</li>
+<li>Alta fiabilidad</li>
+<li>Menor complejidad</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Consume mucho espacio</li>
+<li>Mayor tiempo de ejecución</li>
+<li>Mayor tráfico de red</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>Backup Completo</th>
+</tr>
+
+<tr>
+<td>Velocidad backup</td>
+<td>Lenta</td>
+</tr>
+
+<tr>
+<td>Velocidad restauración</td>
+<td>Muy rápida</td>
+</tr>
+
+<tr>
+<td>Espacio requerido</td>
+<td>Muy alto</td>
+</tr>
+
+</table>
+
+<h3>Uso típico</h3>
+
+<ul>
+<li>Copias semanales</li>
+<li>Servidores críticos</li>
+<li>Puntos de referencia</li>
+</ul>
+
+<div class="note">
+💡 Todo sistema incremental o diferencial parte de un full backup.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué copia todos los datos?</p>
+
+<div class="options">
+<button onclick="correct(this)">Backup completo</button>
+<button onclick="incorrect(this)">Backup incremental</button>
+<button onclick="incorrect(this)">RAID</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b3">
+
+<h2>4.18 Backup Incremental</h2>
+
+<p>
+El backup incremental solo guarda
+cambios desde el último backup realizado.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Muy rápido</li>
+<li>Ahorro de espacio</li>
+<li>Menor tráfico</li>
+</ul>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Restauración más compleja</li>
+<li>Dependencia de múltiples backups</li>
+<li>Mayor riesgo si un incremental falla</li>
+</ul>
+
+<h3>Proceso de restauración</h3>
+
+<ol style="padding-left:20px; line-height:2;">
+
+<li>Restaurar full backup</li>
+<li>Aplicar TODOS los incrementales</li>
+
+</ol>
+
+<div class="warning">
+⚠ Si falta un incremental, la cadena puede romperse.
+</div>
+
+<div class="tip">
+💡 Muy usado en backups diarios empresariales.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué necesita un incremental para restaurar?</p>
+
+<div class="options">
+<button onclick="correct(this)">Full backup + incrementales</button>
+<button onclick="incorrect(this)">Solo el incremental</button>
+<button onclick="incorrect(this)">RAID 1</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b4">
+
+<h2>4.19 Backup Diferencial</h2>
+
+<p>
+El backup diferencial guarda todos
+los cambios desde el último backup completo.
+</p>
+
+<h3>Diferencia frente a incremental</h3>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Comportamiento</th>
+</tr>
+
+<tr>
+<td>Incremental</td>
+<td>Cambios desde el último backup</td>
+</tr>
+
+<tr>
+<td>Diferencial</td>
+<td>Cambios desde el último full</td>
+</tr>
+
+</table>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Restauración más simple</li>
+<li>Menor dependencia</li>
+<li>Buen equilibrio</li>
+</ul>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Crecen rápidamente</li>
+<li>Consumen más espacio con los días</li>
+</ul>
+
+<div class="note">
+💡 Restaurar requiere solo el full y el último diferencial.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué backup crece cada día desde el último full?</p>
+
+<div class="options">
+<button onclick="correct(this)">Diferencial</button>
+<button onclick="incorrect(this)">Incremental puro</button>
+<button onclick="incorrect(this)">RAID</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b5">
+
+<h2>4.20 Estrategia GFS (Grandfather-Father-Son)</h2>
+
+<p>
+GFS es una estrategia híbrida muy usada
+en empresas.
+</p>
+
+<h3>Estructura</h3>
+
+<table>
+
+<tr>
+<th>Nivel</th>
+<th>Frecuencia</th>
+</tr>
+
+<tr>
+<td>Son</td>
+<td>Diario</td>
+</tr>
+
+<tr>
+<td>Father</td>
+<td>Semanal</td>
+</tr>
+
+<tr>
+<td>Grandfather</td>
+<td>Mensual</td>
+</tr>
+
+</table>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Gran equilibrio</li>
+<li>Histórico amplio</li>
+<li>Buena recuperación</li>
+<li>Optimización de espacio</li>
+</ul>
+
+<h3>Uso profesional</h3>
+
+<ul>
+<li>Empresas medianas</li>
+<li>Servidores críticos</li>
+<li>Entornos virtualizados</li>
+</ul>
+
+<div class="tip">
+💡 GFS es muy preguntado en exámenes.
+</div>
+
+<div class="warning">
+⚠ GFS necesita buena planificación de retención.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué representa “Father”?</p>
+
+<div class="options">
+<button onclick="correct(this)">Backup semanal</button>
+<button onclick="incorrect(this)">Backup horario</button>
+<button onclick="incorrect(this)">Backup RAID</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b6">
+
+<h2>4.21 Caso de Estudio: Veeam Backup & Replication</h2>
+
+<p>
+Veeam es uno de los líderes mundiales
+en backup empresarial.
+</p>
+
+<h3>Características principales</h3>
+
+<table>
+
+<tr>
+<th>Función</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Instant VM Recovery</td>
+<td>Arranque inmediato de VMs</td>
+</tr>
+
+<tr>
+<td>SureBackup</td>
+<td>Verificación automática</td>
+</tr>
+
+<tr>
+<td>Replicación</td>
+<td>Alta disponibilidad</td>
+</tr>
+
+<tr>
+<td>Cloud Backup</td>
+<td>Integración cloud</td>
+</tr>
+
+</table>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Automatización avanzada</li>
+<li>Muy usado en VMware y Hyper-V</li>
+<li>Recuperación rápida</li>
+<li>Backups híbridos</li>
+</ul>
+
+<div class="note">
+💡 SureBackup prueba automáticamente que los backups funcionan.
+</div>
+
+<div class="tip">
+💡 Instant Recovery es una de las funciones estrella de Veeam.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué permite arrancar VMs desde backup?</p>
+
+<div class="options">
+<button onclick="correct(this)">Instant VM Recovery</button>
+<button onclick="incorrect(this)">CHKDSK</button>
+<button onclick="incorrect(this)">GRUB</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b7">
+
+<h2>4.22 Consejos de backup</h2>
+
+<h3>Regla 3-2-1</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Tres copias</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Dos soportes distintos</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Una copia externa</td>
+</tr>
+
+</table>
+
+<h3>Herramientas importantes</h3>
+
+<ul>
+<li>rsync</li>
+<li>Veeam</li>
+<li>Bacula</li>
+<li>Bareos</li>
+<li>Acronis</li>
+</ul>
+
+<h3>Ejemplo rsync</h3>
+
+<div class="code">
+rsync -avh --delete /home/usuario/ /mnt/backup/
+</div>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Automatizar copias</li>
+<li>Monitorizar errores</li>
+<li>Verificar integridad</li>
+<li>Probar restauraciones</li>
+</ul>
+
+<div class="warning">
+⚠ Google Drive o Dropbox NO son backups completos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué regla define backups sólidos?</p>
+
+<div class="options">
+<button onclick="correct(this)">3-2-1</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">GPT</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b8">
+
+<h2>4.23 DRP (Disaster Recovery Plan)</h2>
+
+<p>
+Un DRP define procedimientos
+para recuperar sistemas tras un desastre.
+</p>
+
+<h3>Objetivos</h3>
+
+<ul>
+<li>Reducir downtime</li>
+<li>Recuperar servicios</li>
+<li>Minimizar pérdidas</li>
+<li>Garantizar continuidad</li>
+</ul>
+
+<h3>Desastres típicos</h3>
+
+<table>
+
+<tr>
+<th>Evento</th>
+<th>Impacto</th>
+</tr>
+
+<tr>
+<td>Incendio</td>
+<td>Pérdida física</td>
+</tr>
+
+<tr>
+<td>Ransomware</td>
+<td>Cifrado masivo</td>
+</tr>
+
+<tr>
+<td>Apagón</td>
+<td>Caída total</td>
+</tr>
+
+<tr>
+<td>Error humano</td>
+<td>Borrados críticos</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Un DRP debe estar documentado y probado.
+</div>
+
+<div class="warning">
+⚠ Un DRP no probado puede fallar en producción.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa DRP?</p>
+
+<div class="options">
+<button onclick="correct(this)">Disaster Recovery Plan</button>
+<button onclick="incorrect(this)">Disk Repair Protocol</button>
+<button onclick="incorrect(this)">Data RAID Partition</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b9">
+
+<h2>4.24 Objetivos Clave del DRP: RPO y RTO</h2>
+
+<h3>RPO</h3>
+
+<p>
+Define cuántos datos se pueden perder.
+</p>
+
+<div class="note">
+Ejemplo:
+RPO = 4 horas
+</div>
+
+<p>
+La empresa acepta perder hasta
+4 horas de información.
+</p>
+
+<h3>RTO</h3>
+
+<p>
+Define cuánto tiempo puede estar
+caído un servicio.
+</p>
+
+<div class="note">
+Ejemplo:
+RTO = 2 horas
+</div>
+
+<p>
+El sistema debe volver antes de 2 horas.
+</p>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Pregunta</th>
+</tr>
+
+<tr>
+<td>RPO</td>
+<td>¿Cuántos datos puedo perder?</td>
+</tr>
+
+<tr>
+<td>RTO</td>
+<td>¿Cuánto tiempo puedo estar caído?</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ Cuanto menores sean RPO y RTO, mayor coste.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué mide el tiempo máximo de caída?</p>
+
+<div class="options">
+<button onclick="correct(this)">RTO</button>
+<button onclick="incorrect(this)">RPO</button>
+<button onclick="incorrect(this)">GPT</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b10">
+
+<h2>4.25 Alta Disponibilidad (HA)</h2>
+
+<p>
+La Alta Disponibilidad busca minimizar
+interrupciones mediante redundancia.
+</p>
+
+<h3>Elementos HA</h3>
+
+<ul>
+<li>Clústeres</li>
+<li>Failover automático</li>
+<li>Balanceadores</li>
+<li>Redes redundantes</li>
+<li>Fuentes duplicadas</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Menor downtime</li>
+<li>Continuidad operativa</li>
+<li>Failover rápido</li>
+</ul>
+
+<h3>Conceptos importantes</h3>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>HA</td>
+<td>Minimiza interrupciones</td>
+</tr>
+
+<tr>
+<td>FT</td>
+<td>Tolerancia total a fallos</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ HA NO es lo mismo que Fault Tolerance.
+</div>
+
+<div class="tip">
+💡 HA suele reducir RTO a segundos o minutos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué busca minimizar caídas?</p>
+
+<div class="options">
+<button onclick="correct(this)">Alta Disponibilidad</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">DHCP</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b11">
+
+<h2>4.26 Backup en la Nube: La Nueva Norma</h2>
+
+<p>
+El cloud backup se ha convertido
+en estándar empresarial moderno.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Resiliencia geográfica</li>
+<li>Escalabilidad</li>
+<li>Automatización</li>
+<li>Acceso remoto</li>
+<li>Alta disponibilidad</li>
+</ul>
+
+<h3>Servicios habituales</h3>
+
+<table>
+
+<tr>
+<th>Proveedor</th>
+<th>Servicio</th>
+</tr>
+
+<tr>
+<td>AWS</td>
+<td>S3 / AWS Backup</td>
+</tr>
+
+<tr>
+<td>Microsoft</td>
+<td>Azure Backup</td>
+</tr>
+
+<tr>
+<td>Google</td>
+<td>Cloud Storage</td>
+</tr>
+
+</table>
+
+<h3>BaaS</h3>
+
+<p>
+Backup as a Service permite
+externalizar copias y recuperación.
+</p>
+
+<div class="tip">
+💡 La nube facilita cumplir la regla 3-2-1.
+</div>
+
+<div class="warning">
+⚠ Cloud backup también necesita control de costes y seguridad.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué significa BaaS?</p>
+
+<div class="options">
+<button onclick="correct(this)">Backup as a Service</button>
+<button onclick="incorrect(this)">Binary as a Storage</button>
+<button onclick="incorrect(this)">Boot as a System</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b12">
+
+<h2>4.27 Interconexión: DRP, HA y Backup</h2>
+
+<p>
+Estos tres pilares forman la base
+de la continuidad empresarial moderna.
+</p>
+
+<table>
+
+<tr>
+<th>Tecnología</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Backup</td>
+<td>Recuperar datos</td>
+</tr>
+
+<tr>
+<td>DRP</td>
+<td>Recuperar operaciones</td>
+</tr>
+
+<tr>
+<td>HA</td>
+<td>Evitar interrupciones</td>
+</tr>
+
+</table>
+
+<h3>Relación entre ellos</h3>
+
+<ul>
+<li>HA reduce interrupciones</li>
+<li>Backup protege información</li>
+<li>DRP coordina recuperación</li>
+</ul>
+
+<h3>Escenario real</h3>
+
+<ul>
+<li>HA mantiene servicios activos</li>
+<li>Backup restaura archivos dañados</li>
+<li>DRP organiza recuperación total</li>
+</ul>
+
+<div class="note">
+💡 Las empresas modernas combinan las tres estrategias.
+</div>
+
+<div class="warning">
+⚠ Tener solo backups NO garantiza continuidad empresarial.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test Final</h3>
+
+<div class="question">
+
+<p>1. ¿Qué protege frente a pérdida de datos?</p>
+
+<div class="options">
+<button onclick="correct(this)">Backup</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">GPU</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>2. ¿Qué reduce interrupciones automáticamente?</p>
+
+<div class="options">
+<button onclick="correct(this)">HA</button>
+<button onclick="incorrect(this)">BIOS</button>
+<button onclick="incorrect(this)">DNS</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>3. ¿Qué define recuperación tras desastre?</p>
+
+<div class="options">
+<button onclick="correct(this)">DRP</button>
+<button onclick="incorrect(this)">FAT32</button>
+<button onclick="incorrect(this)">EXT2</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 4.2 — Sistemas de archivos y almacenamiento II
+</div>
+
+</main>
+
+<script>
+
+function correct(btn){
+btn.classList.add("correct");
+}
+
+function incorrect(btn){
+btn.classList.add("incorrect");
+}
+
+</script>
+
+</body>
+</html>

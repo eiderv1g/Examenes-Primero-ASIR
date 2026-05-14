@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 13 - Enrutamiento. Protocolos I</title>
+
+<style>
+
+:root{
+  --bg:#081018;
+  --panel:#101a25;
+  --panel2:#172433;
+  --border:#21384c;
+  --text:#d8f7ee;
+  --muted:#8ea8a1;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:340px;
+  background:#0c141d;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:340px;
+  width:calc(100% - 340px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul,
+.block ol{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.quiz{
+  margin-top:30px;
+  padding:25px;
+  background:#0c141d;
+  border:1px solid #223748;
+  border-radius:14px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#04100c;
+  padding:12px 20px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#6dffdb;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+pre{
+  background:#07131c;
+  color:#7effd8;
+  padding:18px;
+  border-radius:12px;
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+code{
+  background:#07131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  width:100%;
+  margin-left:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 13</h1>
+
+<p>
+Enrutamiento dinámico y RIP.<br>
+Página interactiva de estudio basada en algunos resúmenes personales
+</p>
+
+<ul>
+<li><a href="#b1">13.1 Protocolos routing</a></li>
+<li><a href="#b2">13.2 Tabla routing</a></li>
+<li><a href="#b3">13.3 Métodos routing</a></li>
+<li><a href="#b4">13.4 Tabla Cisco</a></li>
+<li><a href="#b5">13.5 Resumen rutas</a></li>
+<li><a href="#b6">13.6 IGP y EGP</a></li>
+<li><a href="#b7">13.7 RIP</a></li>
+<li><a href="#b8">13.8 RIPv1</a></li>
+<li><a href="#b9">13.9 RIPv2</a></li>
+<li><a href="#b10">13.10 No auto-summary</a></li>
+<li><a href="#b11">13.11 Passive-interface</a></li>
+<li><a href="#b12">13.12 Ruta por defecto</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 13 - Enrutamiento. Protocolos I</h1>
+
+<p>
+Resumen interactivo sobre protocolos de enrutamiento,
+tablas de routing y RIP.
+</p>
+
+</section>
+
+<!-- 1 -->
+
+<section class="block" id="b1">
+
+<h2>13.1 Protocolo de enrutamiento</h2>
+
+<p>
+Los protocolos de enrutamiento permiten que los routers
+intercambien rutas automáticamente.
+ 
+</p>
+
+<h3>Objetivos</h3>
+
+<ul>
+<li>Encontrar mejor ruta</li>
+<li>Adaptarse a fallos</li>
+<li>Reducir administración manual</li>
+</ul>
+
+<div class="card">
+🛰 Los routers comparten información de redes conocidas.
+</div>
+
+<div class="card warning">
+⚠ Los protocolos dinámicos consumen CPU y ancho de banda.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué hacen los protocolos de routing?</p>
+
+<label><input type="radio" name="q1"> Asignar MACs</label><br>
+<label><input type="radio" name="q1" data-correct> Intercambiar rutas</label><br>
+<label><input type="radio" name="q1"> Configurar DNS</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 2 -->
+
+<section class="block" id="b2">
+
+<h2>13.2 Tabla de enrutamiento</h2>
+
+<p>
+La tabla de routing contiene las rutas conocidas.
+ 
+</p>
+
+<table class="table">
+
+<tr>
+<th>Campo</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Red destino</td>
+<td>Red objetivo</td>
+</tr>
+
+<tr>
+<td>Métrica</td>
+<td>Coste de ruta</td>
+</tr>
+
+<tr>
+<td>Next-hop</td>
+<td>Siguiente router</td>
+</tr>
+
+<tr>
+<td>Interfaz</td>
+<td>Salida local</td>
+</tr>
+
+</table>
+
+<div class="card">
+El router consulta esta tabla para reenviar paquetes.
+</div>
+
+<div class="card warning">
+⚠ Si no existe ruta → paquete descartado.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué indica el next-hop?</p>
+
+<label><input type="radio" name="q2"> DNS</label><br>
+<label><input type="radio" name="q2" data-correct> Siguiente router</label><br>
+<label><input type="radio" name="q2"> Puerto físico</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 3 -->
+
+<section class="block" id="b3">
+
+<h2>13.3 Métodos de enrutamiento</h2>
+
+<h3>Tipos</h3>
+
+<ul>
+<li>Conectadas directamente</li>
+<li>Estáticas</li>
+<li>Dinámicas</li>
+</ul>
+
+<table class="table">
+
+<tr>
+<th>Tipo</th>
+<th>Ventaja</th>
+</tr>
+
+<tr>
+<td>Estático</td>
+<td>Control total</td>
+</tr>
+
+<tr>
+<td>Dinámico</td>
+<td>Escalable</td>
+</tr>
+
+</table>
+
+<div class="card">
+⚙ Routing estático = configuración manual.
+</div>
+
+<div class="card danger">
+❌ El routing estático no escala bien.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué routing es más escalable?</p>
+
+<label><input type="radio" name="q3"> Estático</label><br>
+<label><input type="radio" name="q3" data-correct> Dinámico</label><br>
+<label><input type="radio" name="q3"> Manual</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4 -->
+
+<section class="block" id="b4">
+
+<h2>13.4 Tabla de enrutamiento con Cisco</h2>
+
+<p>
+Cisco IOS usa el comando:
+</p>
+
+<pre>
+show ip route
+</pre>
+
+<h3>Códigos comunes</h3>
+
+<table class="table">
+
+<tr>
+<th>Código</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>C</td>
+<td>Connected</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>Static</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>RIP</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td>EIGRP</td>
+</tr>
+
+<tr>
+<td>O</td>
+<td>OSPF</td>
+</tr>
+
+</table>
+
+<div class="card">
+🔍 “Gateway of last resort” = ruta por defecto.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué código representa rutas RIP?</p>
+
+<label><input type="radio" name="q4"> C</label><br>
+<label><input type="radio" name="q4" data-correct> R</label><br>
+<label><input type="radio" name="q4"> S</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5 -->
+
+<section class="block" id="b5">
+
+<h2>13.5 Resumen de rutas</h2>
+
+<p>
+El route summarization agrupa redes
+para reducir tamaño de tablas.
+ 
+</p>
+
+<div class="card">
+📦 Varias rutas → una sola superred.
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Menos CPU</li>
+<li>Menos memoria</li>
+<li>Convergencia más rápida</li>
+</ul>
+
+<div class="card warning">
+⚠ Un resumen incorrecto puede ocultar redes.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué reduce el resumen de rutas?</p>
+
+<label><input type="radio" name="q5"> VLANs</label><br>
+<label><input type="radio" name="q5" data-correct> Tamaño tabla routing</label><br>
+<label><input type="radio" name="q5"> Puertos</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6 -->
+
+<section class="block" id="b6">
+
+<h2>13.6 Protocolos interiores y exteriores</h2>
+
+<table class="table">
+
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>IGP</td>
+<td>Dentro AS</td>
+</tr>
+
+<tr>
+<td>EGP</td>
+<td>Entre AS</td>
+</tr>
+
+</table>
+
+<h3>Ejemplos</h3>
+
+<ul>
+<li>IGP → RIP, OSPF, EIGRP</li>
+<li>EGP → BGP</li>
+</ul>
+
+<div class="card">
+🌐 BGP controla gran parte de Internet.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué protocolo es EGP?</p>
+
+<label><input type="radio" name="q6"> RIP</label><br>
+<label><input type="radio" name="q6" data-correct> BGP</label><br>
+<label><input type="radio" name="q6"> OSPF</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7 -->
+
+<section class="block" id="b7">
+
+<h2>13.7 IGP - RIP</h2>
+
+<p>
+RIP usa número de saltos como métrica.
+ 
+</p>
+
+<ul>
+<li>Máximo 15 hops</li>
+<li>Distance Vector</li>
+<li>Muy simple</li>
+</ul>
+
+<div class="card">
+🛣 16 saltos = red inalcanzable.
+</div>
+
+<div class="card danger">
+❌ RIP converge lentamente.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Cuál es la métrica de RIP?</p>
+
+<label><input type="radio" name="q7"> Ancho banda</label><br>
+<label><input type="radio" name="q7" data-correct> Número de saltos</label><br>
+<label><input type="radio" name="q7"> Latencia</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8 -->
+
+<section class="block" id="b8">
+
+<h2>13.8 IGP - RIPv1</h2>
+
+<ul>
+<li>Classful</li>
+<li>No soporta VLSM</li>
+<li>Broadcast</li>
+</ul>
+
+<div class="card">
+📡 RIPv1 envía actualizaciones cada 30 segundos.
+</div>
+
+<div class="card warning">
+⚠ No transmite máscara de red.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿RIPv1 soporta VLSM?</p>
+
+<label><input type="radio" name="q8"> Sí</label><br>
+<label><input type="radio" name="q8" data-correct> No</label><br>
+<label><input type="radio" name="q8"> Solo IPv6</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 9 -->
+
+<section class="block" id="b9">
+
+<h2>13.9 IGP - RIPv2</h2>
+
+<ul>
+<li>Classless</li>
+<li>Soporta VLSM</li>
+<li>Multicast 224.0.0.9</li>
+<li>Autenticación</li>
+</ul>
+
+<div class="card">
+🚀 RIPv2 mejora mucho respecto a RIPv1.
+</div>
+
+<div class="card warning">
+⚠ Sigue limitado a 15 hops.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué versión soporta VLSM?</p>
+
+<label><input type="radio" name="q9"> RIPv1</label><br>
+<label><input type="radio" name="q9" data-correct> RIPv2</label><br>
+<label><input type="radio" name="q9"> Ninguna</label>
+
+</div>
+
+<button onclick="checkQuiz('q9', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 10 -->
+
+<section class="block" id="b10">
+
+<h2>13.10 RIP - Deshabilitar el resumen automático</h2>
+
+<p>
+Cisco activa auto-summary por defecto en RIP.
+</p>
+
+<pre>
+router rip
+version 2
+no auto-summary
+</pre>
+
+<div class="card">
+🛠 Necesario en redes discontinuas.
+</div>
+
+<div class="card danger">
+❌ El resumen automático puede provocar errores de routing.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando desactiva auto-summary?</p>
+
+<label><input type="radio" name="q10"> disable summary</label><br>
+<label><input type="radio" name="q10" data-correct> no auto-summary</label><br>
+<label><input type="radio" name="q10"> no rip summary</label>
+
+</div>
+
+<button onclick="checkQuiz('q10', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 11 -->
+
+<section class="block" id="b11">
+
+<h2>13.11 RIP - Configuración de interfaces pasivas</h2>
+
+<p>
+Passive-interface evita enviar updates RIP
+por ciertas interfaces.
+</p>
+
+<pre>
+router rip
+passive-interface g0/0
+</pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Más seguridad</li>
+<li>Menos tráfico</li>
+<li>Evita routers falsos</li>
+</ul>
+
+<div class="card">
+🔐 Muy útil en interfaces LAN de usuarios.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué evita passive-interface?</p>
+
+<label><input type="radio" name="q11"> NAT</label><br>
+<label><input type="radio" name="q11" data-correct> Enviar updates RIP</label><br>
+<label><input type="radio" name="q11"> ACLs</label>
+
+</div>
+
+<button onclick="checkQuiz('q11', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 12 -->
+
+<section class="block" id="b12">
+
+<h2>13.12 RIP - Propagar una ruta predeterminada</h2>
+
+<p>
+RIP puede anunciar la ruta por defecto.
+</p>
+
+<pre>
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+
+router rip
+default-information originate
+</pre>
+
+<div class="card">
+🌍 Los routers aprenderán salida a Internet.
+</div>
+
+<div class="card warning">
+⚠ Requiere existencia de ruta por defecto.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando anuncia la ruta por defecto?</p>
+
+<label><input type="radio" name="q12"> ip default-route</label><br>
+<label><input type="radio" name="q12" data-correct> default-information originate</label><br>
+<label><input type="radio" name="q12"> route default</label>
+
+</div>
+
+<button onclick="checkQuiz('q12', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+const result = button.nextElementSibling;
+
+let correct = false;
+
+answers.forEach(answer=>{
+  if(answer.checked && answer.dataset.correct !== undefined){
+    correct = true;
+  }
+});
+
+if(correct){
+  result.textContent = "✔ Correcto";
+  result.style.color = "#00ffc3";
+}else{
+  result.textContent = "✘ Incorrecto";
+  result.style.color = "#ff5d7d";
+}
+
+}
+
+</script>
+
+</body>
+</html>

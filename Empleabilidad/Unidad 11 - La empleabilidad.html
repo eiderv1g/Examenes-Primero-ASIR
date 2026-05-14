@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 11 - La empleabilidad</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#1f4d4f;
+  --secondary:#eef7f7;
+  --accent:#d7ecec;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --success:#eefaf1;
+  --warning:#fff7e8;
+  --shadow:0 12px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.8rem;
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f4d4f,#3c7a7d);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  background:#fafafa;
+  padding:16px;
+  border-bottom:1px solid #ececec;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:var(--success);
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 11</h1>
+
+<p>La empleabilidad</p>
+
+<a class="nav-link" href="#b1">11.1 Lifelong Learning</a>
+<a class="nav-link" href="#b2">11.2 Upskilling y Reskilling</a>
+<a class="nav-link" href="#b3">11.3 Programadores junior</a>
+<a class="nav-link" href="#b4">11.4 Mejorar empleabilidad</a>
+<a class="nav-link" href="#b5">11.5 Fuentes de empleo</a>
+<a class="nav-link" href="#b6">11.6 LinkedIn</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 11 · La empleabilidad</h2>
+
+<p>
+La empleabilidad es la capacidad de mantenerse atractivo en el mercado laboral.
+En esta unidad aprenderás cómo el aprendizaje continuo,
+las competencias digitales,
+el networking y las herramientas modernas de búsqueda de empleo
+influyen directamente en tus oportunidades profesionales.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>11.1 Lifelong Learning</h2>
+
+<p>
+El concepto de <strong>lifelong learning</strong>
+significa aprendizaje permanente o aprendizaje a lo largo de toda la vida.
+</p>
+
+<p>
+Actualmente el mercado laboral cambia constantemente debido a:
+</p>
+
+<ul>
+<li>Digitalización.</li>
+<li>Globalización.</li>
+<li>Nuevas tecnologías.</li>
+<li>Automatización.</li>
+<li>Nuevas profesiones.</li>
+</ul>
+
+<h3>¿Por qué es importante?</h3>
+
+<p>
+Muchas profesiones evolucionan rápidamente.
+Competencias útiles hace unos años pueden quedarse obsoletas.
+</p>
+
+<p>
+Por eso las empresas valoran personas capaces de:
+</p>
+
+<ul>
+<li>Actualizarse.</li>
+<li>Aprender nuevas herramientas.</li>
+<li>Adaptarse al cambio.</li>
+<li>Mejorar continuamente.</li>
+</ul>
+
+<h3>Tipos de aprendizaje</h3>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Ejemplos</th>
+</tr>
+
+<tr>
+<td>Formación formal</td>
+<td>FP, universidad, másteres</td>
+</tr>
+
+<tr>
+<td>Formación no formal</td>
+<td>MOOCs, bootcamps, talleres</td>
+</tr>
+
+<tr>
+<td>Aprendizaje informal</td>
+<td>Experiencia práctica y autoformación</td>
+</tr>
+
+</table>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Una persona puede aprender programación mediante FP,
+cursos online y proyectos personales al mismo tiempo.
+</div>
+
+<div class="tip-box">
+El aprendizaje continuo mejora la capacidad de adaptación profesional.
+</div>
+
+<div class="trap-box">
+La formación NO termina al conseguir un título académico.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa lifelong learning?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Aprender solo en la universidad
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Aprendizaje permanente durante toda la vida
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Formación únicamente online
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>11.2 Upskilling y Reskilling</h2>
+
+<h3>Upskilling</h3>
+
+<p>
+Consiste en mejorar habilidades que ya posees
+para aumentar tu nivel profesional.
+</p>
+
+<ul>
+<li>Especializarse.</li>
+<li>Actualizar conocimientos.</li>
+<li>Mejorar productividad.</li>
+</ul>
+
+<h3>Reskilling</h3>
+
+<p>
+Consiste en adquirir nuevas competencias
+para cambiar de sector o profesión.
+</p>
+
+<ul>
+<li>Cambio profesional.</li>
+<li>Adaptación tecnológica.</li>
+<li>Nuevas oportunidades laborales.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Upskilling</td>
+<td>Mejorar habilidades existentes</td>
+</tr>
+
+<tr>
+<td>Reskilling</td>
+<td>Aprender habilidades nuevas</td>
+</tr>
+
+</table>
+
+<h3>Importancia actual</h3>
+
+<p>
+Las empresas buscan perfiles flexibles,
+capaces de evolucionar y aprender rápidamente.
+</p>
+
+<div class="example-box">
+Un administrativo que aprende análisis de datos realiza upskilling.
+</div>
+
+<div class="example-box">
+Un camarero que estudia programación realiza reskilling.
+</div>
+
+<div class="tip-box">
+La capacidad de aprendizaje es una de las competencias más valoradas.
+</div>
+
+<div class="trap-box">
+Upskilling y reskilling NO significan lo mismo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es reskilling?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Mejorar habilidades ya existentes
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Aprender nuevas competencias para cambiar o adaptarse
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Realizar únicamente formación universitaria
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 32 min</span>
+
+<h2>11.3 Programadores junior: cuando el aprendizaje supera al título</h2>
+
+<p>
+El sector tecnológico demuestra que la empleabilidad
+depende cada vez más de las competencias prácticas
+y del aprendizaje continuo.
+</p>
+
+<h3>Qué valoran las empresas</h3>
+
+<ul>
+<li>Capacidad de aprendizaje rápido.</li>
+<li>Portafolio profesional.</li>
+<li>Adaptación tecnológica.</li>
+<li>Trabajo en equipo.</li>
+<li>Curiosidad y motivación.</li>
+</ul>
+
+<h3>Importancia del portfolio</h3>
+
+<p>
+Muchas empresas revisan:
+</p>
+
+<ul>
+<li>GitHub.</li>
+<li>Proyectos personales.</li>
+<li>Aplicaciones creadas.</li>
+<li>Ejercicios prácticos.</li>
+</ul>
+
+<h3>Fuentes habituales de aprendizaje</h3>
+
+<table>
+
+<tr>
+<th>Recurso</th>
+<th>Utilidad</th>
+</tr>
+
+<tr>
+<td>Udemy</td>
+<td>Cursos técnicos</td>
+</tr>
+
+<tr>
+<td>Coursera</td>
+<td>Especializaciones</td>
+</tr>
+
+<tr>
+<td>FreeCodeCamp</td>
+<td>Práctica de programación</td>
+</tr>
+
+<tr>
+<td>Bootcamps</td>
+<td>Formación intensiva</td>
+</tr>
+
+</table>
+
+<h3>Conclusión</h3>
+
+<p>
+Las empresas tecnológicas valoran más:
+</p>
+
+<ul>
+<li>Resultados prácticos.</li>
+<li>Aprendizaje constante.</li>
+<li>Experiencia demostrable.</li>
+</ul>
+
+<div class="example-box">
+Muchos programadores consiguen empleo gracias a proyectos propios y portfolios online.
+</div>
+
+<div class="tip-box">
+GitHub puede funcionar como carta de presentación profesional.
+</div>
+
+<div class="trap-box">
+En tecnología, un título NO siempre garantiza empleabilidad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué revisan muchas empresas tecnológicas antes que el currículum?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Notas escolares
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+GitHub y proyectos reales
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Redes sociales personales
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>11.4 Ideas para mejorar tu empleabilidad</h2>
+
+<h3>Acciones recomendadas</h3>
+
+<ul>
+<li>Aprender idiomas.</li>
+<li>Actualizar competencias digitales.</li>
+<li>Crear portfolio profesional.</li>
+<li>Participar en networking.</li>
+<li>Realizar cursos online.</li>
+<li>Practicar habilidades blandas.</li>
+</ul>
+
+<h3>Herramientas útiles</h3>
+
+<table>
+
+<tr>
+<th>Herramienta</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>LinkedIn</td>
+<td>Visibilidad profesional</td>
+</tr>
+
+<tr>
+<td>Google Actívate</td>
+<td>Formación gratuita</td>
+</tr>
+
+<tr>
+<td>Meetup</td>
+<td>Networking</td>
+</tr>
+
+<tr>
+<td>Portfolio online</td>
+<td>Mostrar proyectos</td>
+</tr>
+
+</table>
+
+<h3>Actitudes importantes</h3>
+
+<ul>
+<li>Proactividad.</li>
+<li>Responsabilidad.</li>
+<li>Capacidad de aprendizaje.</li>
+<li>Motivación.</li>
+<li>Adaptabilidad.</li>
+</ul>
+
+<div class="example-box">
+Dedicar una hora semanal al aprendizaje continuo ya mejora la empleabilidad.
+</div>
+
+<div class="tip-box">
+Las empresas valoran perfiles activos y actualizados.
+</div>
+
+<div class="trap-box">
+La empleabilidad NO depende solo de acumular títulos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué mejora especialmente la empleabilidad?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Esperar oportunidades sin actualizarse
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Aprendizaje continuo y actitud proactiva
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Evitar herramientas digitales
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 32 min</span>
+
+<h2>11.5 Principales fuentes de empleo</h2>
+
+<p>
+Buscar empleo es una competencia profesional.
+Actualmente existen múltiples vías para acceder al mercado laboral.
+</p>
+
+<h3>Servicios públicos</h3>
+
+<ul>
+<li>SEPE.</li>
+<li>Servicios autonómicos.</li>
+<li>Programas europeos como EURES.</li>
+</ul>
+
+<h3>Portales de empleo</h3>
+
+<ul>
+<li>InfoJobs.</li>
+<li>Indeed.</li>
+<li>Infoempleo.</li>
+<li>LinkedIn Jobs.</li>
+</ul>
+
+<h3>Otras vías importantes</h3>
+
+<ul>
+<li>Networking.</li>
+<li>Ferias de empleo.</li>
+<li>Autocandidatura.</li>
+<li>ETT.</li>
+<li>Consultoras de selección.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Canal</th>
+<th>Ventaja</th>
+</tr>
+
+<tr>
+<td>Portales online</td>
+<td>Gran cantidad de ofertas</td>
+</tr>
+
+<tr>
+<td>Networking</td>
+<td>Acceso al mercado oculto</td>
+</tr>
+
+<tr>
+<td>ETT</td>
+<td>Entrada rápida al mercado laboral</td>
+</tr>
+
+<tr>
+<td>Autocandidatura</td>
+<td>Diferenciación y proactividad</td>
+</tr>
+
+</table>
+
+<h3>Mercado oculto</h3>
+
+<p>
+Muchas ofertas nunca se publican.
+Se cubren mediante contactos y bases de datos internas.
+</p>
+
+<div class="example-box">
+Enviar candidaturas espontáneas puede abrir oportunidades laborales ocultas.
+</div>
+
+<div class="tip-box">
+Combinar varios canales aumenta posibilidades de empleo.
+</div>
+
+<div class="trap-box">
+Buscar trabajo NO consiste únicamente en enviar currículums.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es una ETT?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Una universidad online
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Una empresa de trabajo temporal
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Un sindicato
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>11.6 LinkedIn</h2>
+
+<p>
+LinkedIn es la principal red social profesional del mundo.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Buscar empleo.</li>
+<li>Conectar con profesionales.</li>
+<li>Mostrar experiencia.</li>
+<li>Publicar proyectos.</li>
+<li>Crear networking.</li>
+</ul>
+
+<h3>Cómo utilizan LinkedIn las empresas</h3>
+
+<ul>
+<li>Búsqueda de candidatos.</li>
+<li>Publicación de ofertas.</li>
+<li>Filtrado por palabras clave.</li>
+<li>Revisión de actividad profesional.</li>
+</ul>
+
+<h3>Elementos importantes del perfil</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Importancia</th>
+</tr>
+
+<tr>
+<td>Foto profesional</td>
+<td>Primera impresión</td>
+</tr>
+
+<tr>
+<td>Extracto</td>
+<td>Resumen profesional</td>
+</tr>
+
+<tr>
+<td>Palabras clave</td>
+<td>Mejoran búsquedas</td>
+</tr>
+
+<tr>
+<td>Certificaciones</td>
+<td>Demuestran aprendizaje</td>
+</tr>
+
+</table>
+
+<h3>Consejos prácticos</h3>
+
+<ul>
+<li>Mantener perfil actualizado.</li>
+<li>Publicar proyectos.</li>
+<li>Interactuar con contenido.</li>
+<li>Crear red de contactos.</li>
+<li>Usar palabras clave del sector.</li>
+</ul>
+
+<div class="example-box">
+Muchos reclutadores contactan candidatos directamente mediante LinkedIn.
+</div>
+
+<div class="tip-box">
+Un perfil activo aumenta la visibilidad ante empresas.
+</div>
+
+<div class="trap-box">
+LinkedIn NO es solo una red social; es una herramienta de empleabilidad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué valoran los reclutadores en LinkedIn?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Perfiles desactualizados
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Falta de actividad
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Perfiles activos y actualizados
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

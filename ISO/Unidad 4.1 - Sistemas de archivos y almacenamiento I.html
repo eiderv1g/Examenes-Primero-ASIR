@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 4.1 - Sistemas de archivos y almacenamiento I</title>
+
+<style>
+
+:root{
+  --bg:#09090f;
+  --panel:#141421;
+  --panel2:#1c1c2d;
+  --purple:#7c3aed;
+  --purple2:#5b21b6;
+  --orange:#ff8c42;
+  --text:#ececf1;
+  --muted:#a1a1aa;
+  --border:#2a2a40;
+  --green:#10b981;
+  --red:#ef4444;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(255,140,66,0.08), transparent 30%),
+  var(--bg);
+
+  color:var(--text);
+  font-family:Segoe UI, sans-serif;
+  display:flex;
+}
+
+.sidebar{
+  width:320px;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  background:rgba(10,10,18,0.97);
+  border-right:1px solid var(--border);
+  padding:30px 20px;
+}
+
+.logo{
+  margin-bottom:30px;
+}
+
+.logo h1{
+  font-size:1.8rem;
+  line-height:1.2;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.nav-title{
+  color:var(--orange);
+  text-transform:uppercase;
+  font-size:0.9rem;
+  margin-bottom:15px;
+  letter-spacing:1px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,0.03);
+  border:1px solid transparent;
+  padding:12px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  background:rgba(124,58,237,0.16);
+  border-color:var(--purple);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg, rgba(124,58,237,0.2), rgba(255,140,66,0.08));
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:40px;
+  margin-bottom:35px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:900px;
+}
+
+.time{
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,140,66,0.12);
+  border:1px solid rgba(255,140,66,0.3);
+  color:var(--orange);
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.block h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.block h3{
+  margin-top:25px;
+  margin-bottom:12px;
+  color:var(--orange);
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:16px;
+  color:#d7d7e2;
+}
+
+.block ul{
+  padding-left:20px;
+  margin-bottom:20px;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.note{
+  background:rgba(124,58,237,0.12);
+  border-left:4px solid var(--purple);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.warning{
+  background:rgba(239,68,68,0.08);
+  border-left:4px solid var(--red);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.tip{
+  background:rgba(16,185,129,0.08);
+  border-left:4px solid var(--green);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+th{
+  background:var(--purple2);
+  padding:14px;
+  text-align:left;
+}
+
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+}
+
+.code{
+  background:#0f0f17;
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+  overflow-x:auto;
+  font-family:Consolas, monospace;
+  margin:15px 0;
+  color:#9ef5c5;
+}
+
+.mini-test{
+  margin-top:35px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+  padding:18px;
+  background:rgba(0,0,0,0.25);
+  border-radius:14px;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.options button{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  transition:0.25s;
+  text-align:left;
+}
+
+.options button:hover{
+  background:rgba(124,58,237,0.15);
+  border-color:var(--purple);
+}
+
+.correct{
+  background:rgba(16,185,129,0.2)!important;
+  border-color:var(--green)!important;
+}
+
+.incorrect{
+  background:rgba(239,68,68,0.15)!important;
+  border-color:var(--red)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  position:relative;
+  width:100%;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
+
+.hero h2{
+  font-size:2rem;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+<h1>Unidad 4.1<br><span>Sistemas de archivos y almacenamiento I</span></h1>
+</div>
+
+<div class="nav-title">Bloques de estudio</div>
+
+<nav class="nav">
+
+<a href="#b1">4.1 Sistemas de archivos</a>
+<a href="#b2">4.2 NTFS, EXT4 y ZFS</a>
+<a href="#b3">4.3 Estructura de directorios</a>
+<a href="#b4">4.4 TrueNAS CORE</a>
+<a href="#b5">4.5 Herramientas y comandos</a>
+<a href="#b6">4.6 LVM</a>
+<a href="#b7">4.7 Expansión de almacenamiento</a>
+<a href="#b8">4.8 Comandos esenciales LVM</a>
+<a href="#b9">4.9 RAID</a>
+<a href="#b10">4.10 RAID 0</a>
+<a href="#b11">4.11 RAID 1</a>
+<a href="#b12">4.12 RAID 5</a>
+<a href="#b13">4.13 RAID 6</a>
+<a href="#b14">4.14 NAS doméstico RAID 5</a>
+<a href="#b15">4.15 Herramientas y consejos</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 4.1 - Sistemas de archivos y almacenamiento I</h2>
+
+<p>
+Estudio avanzado sobre sistemas de archivos modernos,
+gestión lógica del almacenamiento, LVM, RAID,
+estructuras de directorios, NAS corporativos y administración
+profesional del almacenamiento en entornos Linux y Windows.
+</p>
+
+<div class="time">
+⏱ Tiempo estimado por bloque: 20-35 minutos
+</div>
+
+</section>
+
+<section class="block" id="b1">
+
+<h2>4.1 Sistemas de archivos (Filesystem)</h2>
+
+<p>
+Un sistema de archivos es el componente encargado
+de organizar, almacenar y recuperar datos en un
+dispositivo de almacenamiento.
+</p>
+
+<p>
+Sin un filesystem, un sistema operativo no podría
+guardar información de manera estructurada.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Guardar archivos y carpetas</li>
+<li>Gestionar nombres y rutas</li>
+<li>Controlar permisos</li>
+<li>Optimizar acceso a datos</li>
+<li>Recuperar información tras fallos</li>
+<li>Gestionar espacio libre</li>
+</ul>
+
+<h3>Elementos internos</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Bloques</td>
+<td>Unidad mínima de almacenamiento</td>
+</tr>
+
+<tr>
+<td>Inodos</td>
+<td>Metadatos de archivos en Linux</td>
+</tr>
+
+<tr>
+<td>Journaling</td>
+<td>Registro de operaciones</td>
+</tr>
+
+<tr>
+<td>ACLs</td>
+<td>Permisos avanzados</td>
+</tr>
+
+</table>
+
+<h3>Tipos comunes</h3>
+
+<ul>
+<li>NTFS</li>
+<li>EXT4</li>
+<li>ZFS</li>
+<li>XFS</li>
+<li>FAT32</li>
+<li>exFAT</li>
+</ul>
+
+<div class="note">
+💡 El sistema de archivos afecta directamente a rendimiento, seguridad e integridad.
+</div>
+
+<div class="warning">
+⚠ Formatear una unidad elimina el sistema de archivos anterior.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué componente organiza archivos y carpetas?</p>
+
+<div class="options">
+<button onclick="correct(this)">Sistema de archivos</button>
+<button onclick="incorrect(this)">BIOS</button>
+<button onclick="incorrect(this)">CPU</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b2">
+
+<h2>4.2 NTFS, EXT4 y ZFS</h2>
+
+<h3>NTFS</h3>
+
+<p>
+NTFS es el sistema de archivos moderno de Windows.
+Incluye permisos avanzados, cifrado, journaling,
+compresión y cuotas de usuario.
+</p>
+
+<h3>Características de NTFS</h3>
+
+<ul>
+<li>ACLs avanzadas</li>
+<li>EFS (Encrypting File System)</li>
+<li>Compresión transparente</li>
+<li>Journaling</li>
+<li>Cuotas de disco</li>
+</ul>
+
+<h3>EXT4</h3>
+
+<p>
+EXT4 es el estándar más usado en Linux.
+Es conocido por estabilidad, rendimiento
+y compatibilidad.
+</p>
+
+<ul>
+<li>Muy robusto</li>
+<li>Buen rendimiento</li>
+<li>Journaling eficiente</li>
+<li>Bajo consumo de recursos</li>
+</ul>
+
+<h3>ZFS</h3>
+
+<p>
+ZFS combina gestor de volúmenes y sistema
+de archivos en una sola arquitectura.
+</p>
+
+<table>
+
+<tr>
+<th>Función</th>
+<th>ZFS</th>
+</tr>
+
+<tr>
+<td>Snapshots</td>
+<td>Sí</td>
+</tr>
+
+<tr>
+<td>Checksums</td>
+<td>Sí</td>
+</tr>
+
+<tr>
+<td>RAID integrado</td>
+<td>RAID-Z</td>
+</tr>
+
+<tr>
+<td>Copy-on-Write</td>
+<td>Sí</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 ZFS es extremadamente popular en NAS empresariales.
+</div>
+
+<div class="warning">
+⚠ ZFS consume bastante RAM comparado con EXT4.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué filesystem integra snapshots y RAID-Z?</p>
+
+<div class="options">
+<button onclick="correct(this)">ZFS</button>
+<button onclick="incorrect(this)">FAT32</button>
+<button onclick="incorrect(this)">EXT2</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b3">
+
+<h2>4.3 Estructura de directorios</h2>
+
+<h3>Windows</h3>
+
+<p>
+Windows organiza el almacenamiento mediante
+letras de unidad.
+</p>
+
+<div class="code">
+C:\
+D:\
+E:\
+</div>
+
+<h3>Directorios importantes</h3>
+
+<table>
+
+<tr>
+<th>Ruta</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>C:\Windows</td>
+<td>Sistema operativo</td>
+</tr>
+
+<tr>
+<td>C:\Users</td>
+<td>Usuarios</td>
+</tr>
+
+<tr>
+<td>C:\Program Files</td>
+<td>Aplicaciones</td>
+</tr>
+
+</table>
+
+<h3>Linux y FHS</h3>
+
+<p>
+Linux utiliza un único árbol jerárquico
+que comienza desde la raíz:
+</p>
+
+<div class="code">
+/
+</div>
+
+<table>
+
+<tr>
+<th>Directorio</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>/etc</td>
+<td>Configuraciones</td>
+</tr>
+
+<tr>
+<td>/home</td>
+<td>Usuarios</td>
+</tr>
+
+<tr>
+<td>/var</td>
+<td>Datos variables</td>
+</tr>
+
+<tr>
+<td>/bin</td>
+<td>Binarios esenciales</td>
+</tr>
+
+<tr>
+<td>/mnt</td>
+<td>Puntos de montaje</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 Linux monta discos como carpetas dentro del árbol.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué directorio almacena configuraciones en Linux?</p>
+
+<div class="options">
+<button onclick="correct(this)">/etc</button>
+<button onclick="incorrect(this)">/bootmgr</button>
+<button onclick="incorrect(this)">/gpu</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b4">
+
+<h2>4.4 Empresa/Proyecto: FreeNAS → TrueNAS CORE</h2>
+
+<p>
+TrueNAS CORE es una solución NAS basada en ZFS
+desarrollada por iXsystems.
+</p>
+
+<h3>Objetivos principales</h3>
+
+<ul>
+<li>Compartición de archivos</li>
+<li>Snapshots automáticos</li>
+<li>Alta integridad</li>
+<li>Virtualización ligera</li>
+<li>Backups empresariales</li>
+</ul>
+
+<h3>Características clave</h3>
+
+<table>
+
+<tr>
+<th>Tecnología</th>
+<th>Ventaja</th>
+</tr>
+
+<tr>
+<td>Copy-on-Write</td>
+<td>Evita corrupción</td>
+</tr>
+
+<tr>
+<td>Scrubs</td>
+<td>Detecta errores ocultos</td>
+</tr>
+
+<tr>
+<td>Checksums</td>
+<td>Verificación de integridad</td>
+</tr>
+
+<tr>
+<td>Snapshots</td>
+<td>Recuperación rápida</td>
+</tr>
+
+</table>
+
+<h3>RAID-Z</h3>
+
+<p>
+RAID-Z es la implementación RAID nativa de ZFS.
+Protege frente a corrupción y fallos de disco.
+</p>
+
+<div class="tip">
+💡 TrueNAS es extremadamente usado en laboratorios y pymes.
+</div>
+
+<div class="warning">
+⚠ ZFS necesita memoria RAM suficiente para rendir correctamente.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué sistema usa TrueNAS CORE?</p>
+
+<div class="options">
+<button onclick="correct(this)">ZFS</button>
+<button onclick="incorrect(this)">FAT16</button>
+<button onclick="incorrect(this)">ISO9660</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b5">
+
+<h2>4.5 Herramientas y comandos</h2>
+
+<h3>Windows</h3>
+
+<div class="code">
+fsutil fsinfo ntfsinfo C:
+chkdsk C: /scan
+Get-Volume
+</div>
+
+<h3>Linux</h3>
+
+<div class="code">
+lsblk -f
+df -h
+tune2fs -l /dev/sda1
+</div>
+
+<h3>ZFS</h3>
+
+<div class="code">
+zpool status
+zfs list
+zpool scrub poolname
+</div>
+
+<h3>Herramientas GUI</h3>
+
+<ul>
+<li>Administrador de discos</li>
+<li>GParted</li>
+<li>TreeSize</li>
+<li>Baobab</li>
+<li>ncdu</li>
+</ul>
+
+<div class="tip">
+💡 lsblk es uno de los comandos más importantes en Linux.
+</div>
+
+<div class="warning">
+⚠ tune2fs y e2fsck pueden requerir desmontar el volumen.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué comando muestra espacio usado en Linux?</p>
+
+<div class="options">
+<button onclick="correct(this)">df -h</button>
+<button onclick="incorrect(this)">ping</button>
+<button onclick="incorrect(this)">mkdir</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b6">
+
+<h2>4.6 LVM (Logical Volume Manager)</h2>
+
+<p>
+LVM añade una capa lógica entre el hardware
+y el sistema de archivos.
+</p>
+
+<h3>Arquitectura</h3>
+
+<table>
+
+<tr>
+<th>Capa</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>PV</td>
+<td>Physical Volume</td>
+</tr>
+
+<tr>
+<td>VG</td>
+<td>Volume Group</td>
+</tr>
+
+<tr>
+<td>LV</td>
+<td>Logical Volume</td>
+</tr>
+
+</table>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Redimensionado dinámico</li>
+<li>Snapshots</li>
+<li>Flexibilidad</li>
+<li>Escalabilidad</li>
+<li>Gestión centralizada</li>
+</ul>
+
+<div class="note">
+💡 LVM permite ampliar almacenamiento sin reinstalar.
+</div>
+
+<div class="warning">
+⚠ LVM NO es un sistema de archivos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué capa agrupa discos físicos?</p>
+
+<div class="options">
+<button onclick="correct(this)">VG</button>
+<button onclick="incorrect(this)">CPU</button>
+<button onclick="incorrect(this)">ACL</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b7">
+
+<h2>4.7 Expansión de almacenamiento en un servidor</h2>
+
+<p>
+Uno de los puntos fuertes de LVM es ampliar
+volúmenes en caliente.
+</p>
+
+<h3>Proceso típico</h3>
+
+<ol style="padding-left:20px; line-height:2;">
+
+<li>Instalar nuevo disco</li>
+<li>Crear PV</li>
+<li>Agregar al VG</li>
+<li>Ampliar LV</li>
+<li>Expandir filesystem</li>
+
+</ol>
+
+<h3>Ejemplo real</h3>
+
+<div class="code">
+pvcreate /dev/sdb
+vgextend datosVG /dev/sdb
+lvextend -l +100%FREE /dev/datosVG/datosLV
+resize2fs /dev/datosVG/datosLV
+</div>
+
+<h3>Beneficios</h3>
+
+<ul>
+<li>Cero downtime</li>
+<li>Escalabilidad</li>
+<li>Mayor flexibilidad</li>
+<li>Menor riesgo</li>
+</ul>
+
+<div class="tip">
+💡 LVM es ideal para servidores de archivos corporativos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué comando añade discos al VG?</p>
+
+<div class="options">
+<button onclick="correct(this)">vgextend</button>
+<button onclick="incorrect(this)">mkfs</button>
+<button onclick="incorrect(this)">passwd</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b8">
+
+<h2>4.8 Comandos esenciales de LVM y equivalencias</h2>
+
+<table>
+
+<tr>
+<th>Acción</th>
+<th>Comando</th>
+</tr>
+
+<tr>
+<td>Crear PV</td>
+<td>pvcreate</td>
+</tr>
+
+<tr>
+<td>Crear VG</td>
+<td>vgcreate</td>
+</tr>
+
+<tr>
+<td>Crear LV</td>
+<td>lvcreate</td>
+</tr>
+
+<tr>
+<td>Ampliar VG</td>
+<td>vgextend</td>
+</tr>
+
+<tr>
+<td>Ampliar LV</td>
+<td>lvextend</td>
+</tr>
+
+<tr>
+<td>Mostrar estado</td>
+<td>pvs, vgs, lvs</td>
+</tr>
+
+</table>
+
+<h3>Equivalencias</h3>
+
+<ul>
+<li>Windows Storage Spaces</li>
+<li>APFS Containers</li>
+<li>CoreStorage</li>
+</ul>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Usar nombres descriptivos</li>
+<li>Dejar espacio libre</li>
+<li>Documentar volúmenes</li>
+<li>Automatizar con scripts</li>
+</ul>
+
+<div class="warning">
+⚠ Usar todo el espacio del VG limita snapshots futuros.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué comando crea un LV?</p>
+
+<div class="options">
+<button onclick="correct(this)">lvcreate</button>
+<button onclick="incorrect(this)">chmod</button>
+<button onclick="incorrect(this)">fdisk</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b9">
+
+<h2>4.9 RAID</h2>
+
+<p>
+RAID combina varios discos físicos
+para mejorar rendimiento, redundancia
+o ambas cosas.
+</p>
+
+<h3>Objetivos</h3>
+
+<ul>
+<li>Mayor velocidad</li>
+<li>Alta disponibilidad</li>
+<li>Tolerancia a fallos</li>
+<li>Escalabilidad</li>
+</ul>
+
+<h3>Conceptos clave</h3>
+
+<table>
+
+<tr>
+<th>Término</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Striping</td>
+<td>División de datos</td>
+</tr>
+
+<tr>
+<td>Mirroring</td>
+<td>Espejado</td>
+</tr>
+
+<tr>
+<td>Parity</td>
+<td>Paridad</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 RAID mejora disponibilidad, pero NO sustituye backups.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué tecnología combina varios discos?</p>
+
+<div class="options">
+<button onclick="correct(this)">RAID</button>
+<button onclick="incorrect(this)">DHCP</button>
+<button onclick="incorrect(this)">BIOS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b10">
+
+<h2>4.10 RAID 0</h2>
+
+<h3>Funcionamiento</h3>
+
+<p>
+RAID 0 divide datos entre discos para
+maximizar velocidad.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Máximo rendimiento</li>
+<li>Alta velocidad de lectura/escritura</li>
+<li>Aprovecha 100% del espacio</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Sin redundancia</li>
+<li>Muy peligroso para datos importantes</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>RAID 0</th>
+</tr>
+
+<tr>
+<td>Velocidad</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Nula</td>
+</tr>
+
+<tr>
+<td>Espacio útil</td>
+<td>100%</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ Si falla un disco, se pierde TODO.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué RAID prioriza velocidad?</p>
+
+<div class="options">
+<button onclick="correct(this)">RAID 0</button>
+<button onclick="incorrect(this)">RAID 1</button>
+<button onclick="incorrect(this)">RAID 6</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b11">
+
+<h2>4.11 RAID 1</h2>
+
+<h3>Mirroring</h3>
+
+<p>
+RAID 1 replica exactamente los datos
+en dos o más discos.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Alta seguridad</li>
+<li>Tolerancia a fallos</li>
+<li>Recuperación rápida</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>50% de espacio útil</li>
+<li>Mayor coste</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>RAID 1</th>
+</tr>
+
+<tr>
+<td>Velocidad</td>
+<td>Media</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>Espacio útil</td>
+<td>50%</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Muy usado en servidores críticos y bases de datos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué RAID usa espejado?</p>
+
+<div class="options">
+<button onclick="correct(this)">RAID 1</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">JBOD</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b12">
+
+<h2>4.12 RAID 5</h2>
+
+<p>
+RAID 5 combina rendimiento,
+redundancia y eficiencia.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Striping + paridad distribuida</li>
+<li>Tolera un fallo de disco</li>
+<li>Buen equilibrio general</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Buen rendimiento</li>
+<li>Más espacio útil</li>
+<li>Protección razonable</li>
+</ul>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Reconstrucciones lentas</li>
+<li>Estrés sobre discos restantes</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>RAID 5</th>
+</tr>
+
+<tr>
+<td>Velocidad</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>Espacio útil</td>
+<td>(N-1)</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ Durante rebuild aumenta riesgo de fallo adicional.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuántos discos puede perder RAID 5?</p>
+
+<div class="options">
+<button onclick="correct(this)">1</button>
+<button onclick="incorrect(this)">2</button>
+<button onclick="incorrect(this)">0</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b13">
+
+<h2>4.13 RAID 6</h2>
+
+<p>
+RAID 6 añade doble paridad
+para soportar dos fallos simultáneos.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Muy alta seguridad</li>
+<li>Ideal para grandes arrays</li>
+<li>Tolerancia a dos fallos</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Menor rendimiento de escritura</li>
+<li>Más cálculos de paridad</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>RAID 6</th>
+</tr>
+
+<tr>
+<td>Velocidad</td>
+<td>Media-Alta</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>Espacio útil</td>
+<td>(N-2)</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Muy usado en cabinas empresariales y backup servers.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué RAID soporta dos fallos?</p>
+
+<div class="options">
+<button onclick="correct(this)">RAID 6</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">RAID 1 simple</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b14">
+
+<h2>4.14 NAS doméstico con RAID 5</h2>
+
+<p>
+Un NAS doméstico permite compartir
+almacenamiento en red con redundancia.
+</p>
+
+<h3>Caso práctico</h3>
+
+<ul>
+<li>4 discos de 4 TB</li>
+<li>RAID 5</li>
+<li>12 TB útiles</li>
+<li>Tolerancia a un fallo</li>
+</ul>
+
+<h3>Opciones comparadas</h3>
+
+<table>
+
+<tr>
+<th>RAID</th>
+<th>Capacidad útil</th>
+<th>Seguridad</th>
+</tr>
+
+<tr>
+<td>RAID 0</td>
+<td>16 TB</td>
+<td>Nula</td>
+</tr>
+
+<tr>
+<td>RAID 1</td>
+<td>8 TB</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>RAID 5</td>
+<td>12 TB</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>RAID 6</td>
+<td>8 TB</td>
+<td>Muy alta</td>
+</tr>
+
+</table>
+
+<h3>mdadm</h3>
+
+<div class="code">
+sudo mdadm --create /dev/md0 --level=5 --raid-devices=3 /dev/sda1 /dev/sdb1 /dev/sdc1
+</div>
+
+<div class="note">
+💡 mdadm es la herramienta estándar RAID en Linux.
+</div>
+
+<div class="warning">
+⚠ RAID no protege frente a ransomware ni borrados accidentales.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué herramienta crea RAID software en Linux?</p>
+
+<div class="options">
+<button onclick="correct(this)">mdadm</button>
+<button onclick="incorrect(this)">Paint</button>
+<button onclick="incorrect(this)">WordPad</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b15">
+
+<h2>4.15 Herramientas y consejos</h2>
+
+<h3>Monitorización RAID</h3>
+
+<div class="code">
+cat /proc/mdstat
+mdadm --detail /dev/md0
+</div>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Separar SO y datos</li>
+<li>Usar snapshots</li>
+<li>Aplicar backups 3-2-1</li>
+<li>Monitorizar discos SMART</li>
+<li>Automatizar alertas</li>
+</ul>
+
+<h3>Herramientas profesionales</h3>
+
+<table>
+
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>GParted</td>
+<td>Particionado</td>
+</tr>
+
+<tr>
+<td>TrueNAS</td>
+<td>NAS empresarial</td>
+</tr>
+
+<tr>
+<td>mdadm</td>
+<td>RAID Linux</td>
+</tr>
+
+<tr>
+<td>ZFS</td>
+<td>Integridad avanzada</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Un buen almacenamiento combina RAID + backups + monitorización.
+</div>
+
+<div class="warning">
+⚠ RAID NO sustituye una estrategia de backup.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test Final</h3>
+
+<div class="question">
+
+<p>1. ¿Qué tecnología permite volúmenes dinámicos en Linux?</p>
+
+<div class="options">
+<button onclick="correct(this)">LVM</button>
+<button onclick="incorrect(this)">FAT16</button>
+<button onclick="incorrect(this)">DHCP</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>2. ¿Qué filesystem usa snapshots y checksums?</p>
+
+<div class="options">
+<button onclick="correct(this)">ZFS</button>
+<button onclick="incorrect(this)">FAT32</button>
+<button onclick="incorrect(this)">EXT2</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>3. ¿Qué RAID ofrece equilibrio entre espacio y seguridad?</p>
+
+<div class="options">
+<button onclick="correct(this)">RAID 5</button>
+<button onclick="incorrect(this)">RAID 0</button>
+<button onclick="incorrect(this)">JBOD</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 4.1 — Sistemas de archivos y almacenamiento I
+</div>
+
+</main>
+
+<script>
+
+function correct(btn){
+btn.classList.add("correct");
+}
+
+function incorrect(btn){
+btn.classList.add("incorrect");
+}
+
+</script>
+
+</body>
+</html>

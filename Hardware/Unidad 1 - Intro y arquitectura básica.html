@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 - Intro y arquitectura básica</title>
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#131a2e;
+      --panel2:#18213b;
+      --accent:#00d9ff;
+      --accent2:#8b5cf6;
+      --text:#e6edf7;
+      --muted:#9aa7bd;
+      --success:#10b981;
+      --danger:#ef4444;
+      --warning:#f59e0b;
+      --border:#24304d;
+      --shadow:0 0 25px rgba(0,217,255,.08);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(0,217,255,.08), transparent 20%),
+        radial-gradient(circle at bottom left, rgba(139,92,246,.08), transparent 20%),
+        var(--bg);
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
+      overflow:hidden;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:300px;
+      background:rgba(10,15,30,.95);
+      border-right:1px solid var(--border);
+      padding:25px 20px;
+      overflow-y:auto;
+      position:fixed;
+      height:100vh;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo{
+      font-size:1.7rem;
+      font-weight:800;
+      margin-bottom:10px;
+      color:var(--accent);
+      text-shadow:0 0 12px rgba(0,217,255,.5);
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:.95rem;
+      margin-bottom:30px;
+      line-height:1.4;
+    }
+
+    .nav-section{
+      margin-bottom:14px;
+    }
+
+    .nav-btn{
+      width:100%;
+      background:var(--panel);
+      color:var(--text);
+      border:1px solid var(--border);
+      padding:14px;
+      border-radius:12px;
+      cursor:pointer;
+      text-align:left;
+      transition:.25s;
+      font-weight:600;
+    }
+
+    .nav-btn:hover{
+      transform:translateX(5px);
+      border-color:var(--accent);
+      background:var(--panel2);
+      box-shadow:var(--shadow);
+    }
+
+    .nav-btn small{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-weight:400;
+    }
+
+    /* CONTENT */
+
+    .content{
+      margin-left:300px;
+      width:calc(100% - 300px);
+      padding:40px;
+      overflow-y:auto;
+      height:100vh;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#121c36,#1b2a4d);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:40px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:3rem;
+      margin-bottom:15px;
+      color:white;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:900px;
+      line-height:1.8;
+    }
+
+    .block{
+      background:rgba(19,26,46,.95);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:35px;
+      margin-bottom:35px;
+      box-shadow:var(--shadow);
+    }
+
+    .block h2{
+      color:var(--accent);
+      margin-bottom:18px;
+      font-size:2rem;
+    }
+
+    .block h3{
+      margin-top:25px;
+      margin-bottom:10px;
+      color:#fff;
+    }
+
+    .block p{
+      color:#d7e1f0;
+      line-height:1.8;
+      margin-bottom:15px;
+    }
+
+    .block ul{
+      padding-left:20px;
+      margin:15px 0;
+    }
+
+    .block li{
+      margin-bottom:10px;
+      line-height:1.7;
+    }
+
+    .card{
+      background:var(--panel2);
+      border-left:4px solid var(--accent);
+      padding:18px;
+      border-radius:12px;
+      margin:18px 0;
+    }
+
+    .warning{
+      border-left-color:var(--warning);
+    }
+
+    .success{
+      border-left-color:var(--success);
+    }
+
+    .danger{
+      border-left-color:var(--danger);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:18px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+
+    th,td{
+      padding:14px;
+      border:1px solid var(--border);
+      text-align:left;
+    }
+
+    th{
+      background:#111827;
+      color:var(--accent);
+    }
+
+    td{
+      background:#18213b;
+    }
+
+    /* TEST */
+
+    .quiz{
+      margin-top:30px;
+      padding:25px;
+      border-radius:18px;
+      background:#101827;
+      border:1px solid var(--border);
+    }
+
+    .quiz h3{
+      color:#fff;
+      margin-bottom:20px;
+    }
+
+    .question{
+      margin-bottom:20px;
+    }
+
+    .question p{
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .question button{
+      display:block;
+      width:100%;
+      margin:8px 0;
+      background:#1b2742;
+      border:1px solid var(--border);
+      color:var(--text);
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      transition:.2s;
+      text-align:left;
+    }
+
+    .question button:hover{
+      border-color:var(--accent);
+      background:#223154;
+    }
+
+    .correct{
+      background:rgba(16,185,129,.2)!important;
+      border-color:var(--success)!important;
+    }
+
+    .wrong{
+      background:rgba(239,68,68,.2)!important;
+      border-color:var(--danger)!important;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      margin:40px 0;
+      padding-bottom:30px;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(0,217,255,.1);
+      border:1px solid rgba(0,217,255,.3);
+      color:var(--accent);
+      font-size:.85rem;
+      margin-bottom:12px;
+    }
+
+    @media(max-width:1000px){
+
+      body{
+        flex-direction:column;
+        overflow:auto;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .content{
+        margin-left:0;
+        width:100%;
+        height:auto;
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:2rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">⚡ HARDWARE CORE</div>
+
+    <div class="subtitle">
+      Unidad 1 — Introducción y arquitectura básica<br>
+      Plataforma interactiva de estudio tipo test.
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque1')">
+        1. Arquitectura Von Neumann
+        <small>Fundamentos básicos</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque2')">
+        2. CPU y componentes
+        <small>CU, ALU y registros</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque3')">
+        3. Memoria RAM
+        <small>Volatilidad y funcionamiento</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque4')">
+        4. Entrada/Salida y buses
+        <small>Comunicación del sistema</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque5')">
+        5. Caso iPhone
+        <small>SoC y revolución móvil</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque6')">
+        6. Herramientas Hardware
+        <small>CPU-Z, HWiNFO y Speccy</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque7')">
+        7. Software y Hardware
+        <small>Relación HW/SW</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque8')">
+        8. Licencias de software
+        <small>FOSS, freeware y shareware</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque9')">
+        9. LibreOffice vs Office
+        <small>Código abierto</small>
+      </button>
+    </div>
+
+    <div class="nav-section">
+      <button class="nav-btn" onclick="goTo('bloque10')">
+        10. Mitos y resumen
+        <small>Preguntas trampa</small>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- CONTENT -->
+
+  <main class="content">
+
+    <section class="hero">
+      <div class="tag">Modo estudio activado</div>
+      <h1>Unidad 1 - Intro y arquitectura básica</h1>
+
+      <p>
+        Página interactiva diseñada para preparar un examen tipo test de Fundamentos de Hardware.
+        Basada en el documento proporcionado :contentReference[oaicite:0]{index=0}.
+        Incluye bloques resumidos, explicaciones ampliadas, curiosidades,
+        preguntas trampa y mini-tests interactivos.
+      </p>
+    </section>
+
+    <!-- BLOQUE 1 -->
+
+    <section class="block" id="bloque1">
+
+      <h2>1. Arquitectura Von Neumann</h2>
+
+      <p>
+        La arquitectura Von Neumann es la base conceptual de prácticamente todos los ordenadores modernos.
+        Fue propuesta en 1945 por John von Neumann y revolucionó la informática.
+      </p>
+
+      <h3>Idea principal</h3>
+
+      <p>
+        Tanto los datos como las instrucciones se almacenan en la misma memoria principal.
+        Gracias a esto, el ordenador puede ejecutar distintos programas sin cambiar físicamente el hardware.
+      </p>
+
+      <div class="card success">
+        <strong>Dato importante de examen:</strong><br>
+        La unificación de datos e instrucciones en la RAM es la característica más importante de Von Neumann.
+      </div>
+
+      <h3>Ventajas</h3>
+
+      <ul>
+        <li>Flexibilidad para ejecutar diferentes programas.</li>
+        <li>Diseño más simple que arquitecturas anteriores.</li>
+        <li>Escalable a cualquier dispositivo.</li>
+      </ul>
+
+      <div class="card warning">
+        <strong>Pregunta trampa:</strong><br>
+        Muchos tests preguntan si CPU y RAM son lo mismo. NO lo son:
+        la CPU procesa y la RAM almacena temporalmente.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué caracteriza a la arquitectura Von Neumann?</p>
+
+          <button onclick="correct(this)">Datos e instrucciones en la misma memoria</button>
+          <button onclick="wrong(this)">Cada programa requiere hardware distinto</button>
+          <button onclick="wrong(this)">No utiliza memoria RAM</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="block" id="bloque2">
+
+      <h2>2. CPU y componentes internos</h2>
+
+      <p>
+        La CPU (Unidad Central de Procesamiento) es el cerebro del ordenador.
+        Interpreta y ejecuta instrucciones.
+      </p>
+
+      <table>
+        <tr>
+          <th>Componente</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>CU (Unidad de Control)</td>
+          <td>Coordina todas las operaciones del sistema.</td>
+        </tr>
+
+        <tr>
+          <td>ALU</td>
+          <td>Realiza operaciones matemáticas y lógicas.</td>
+        </tr>
+
+        <tr>
+          <td>Registros</td>
+          <td>Memoria ultrarrápida interna.</td>
+        </tr>
+
+      </table>
+
+      <div class="card">
+        <strong>Curiosidad:</strong><br>
+        Los procesadores actuales contienen miles de millones de transistores.
+      </div>
+
+      <div class="card danger">
+        <strong>Error típico:</strong><br>
+        Más GHz NO siempre significa más rendimiento.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué componente realiza cálculos matemáticos?</p>
+
+          <button onclick="wrong(this)">Unidad de Control</button>
+          <button onclick="correct(this)">ALU</button>
+          <button onclick="wrong(this)">Bus de control</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="block" id="bloque3">
+
+      <h2>3. Memoria RAM</h2>
+
+      <p>
+        La memoria RAM es el espacio de trabajo temporal del ordenador.
+      </p>
+
+      <h3>Características</h3>
+
+      <ul>
+        <li>Almacena instrucciones y datos temporales.</li>
+        <li>Es volátil: se borra al apagar el equipo.</li>
+        <li>Cuanta más RAM, mejor multitarea.</li>
+      </ul>
+
+      <div class="card warning">
+        <strong>Pregunta frecuente:</strong><br>
+        La RAM NO guarda datos permanentemente.
+      </div>
+
+      <h3>Ejemplo</h3>
+
+      <p>
+        Cuando abres Chrome o un videojuego, el programa se carga desde el SSD/HDD hacia la RAM.
+      </p>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué significa que la RAM sea volátil?</p>
+
+          <button onclick="correct(this)">Pierde los datos al apagarse</button>
+          <button onclick="wrong(this)">Es muy rápida</button>
+          <button onclick="wrong(this)">No puede almacenar programas</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="block" id="bloque4">
+
+      <h2>4. Entrada/Salida y buses</h2>
+
+      <p>
+        El subsistema E/S conecta el ordenador con el mundo exterior.
+      </p>
+
+      <h3>Periféricos de entrada</h3>
+
+      <ul>
+        <li>Teclado</li>
+        <li>Ratón</li>
+        <li>Micrófono</li>
+      </ul>
+
+      <h3>Periféricos de salida</h3>
+
+      <ul>
+        <li>Monitor</li>
+        <li>Impresora</li>
+        <li>Altavoces</li>
+      </ul>
+
+      <h3>Buses</h3>
+
+      <table>
+        <tr>
+          <th>Bus</th>
+          <th>Función</th>
+        </tr>
+
+        <tr>
+          <td>Datos</td>
+          <td>Transporta información</td>
+        </tr>
+
+        <tr>
+          <td>Direcciones</td>
+          <td>Indica dónde leer/escribir</td>
+        </tr>
+
+        <tr>
+          <td>Control</td>
+          <td>Coordina señales</td>
+        </tr>
+
+      </table>
+
+      <div class="card success">
+        Los buses son las "autopistas" internas del ordenador.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué bus indica dónde encontrar información?</p>
+
+          <button onclick="wrong(this)">Bus de datos</button>
+          <button onclick="correct(this)">Bus de direcciones</button>
+          <button onclick="wrong(this)">Bus lógico</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="block" id="bloque5">
+
+      <h2>5. Caso de estudio: iPhone 2007</h2>
+
+      <p>
+        Apple revolucionó la informática móvil integrando múltiples componentes en un SoC (System on a Chip).
+      </p>
+
+      <h3>Claves del éxito</h3>
+
+      <ul>
+        <li>CPU, GPU y RAM integradas.</li>
+        <li>Memoria flash NAND.</li>
+        <li>Pantalla multitáctil.</li>
+        <li>iOS derivado de macOS.</li>
+      </ul>
+
+      <div class="card">
+        <strong>Curiosidad:</strong><br>
+        Los smartphones actuales siguen usando el mismo principio de arquitectura Von Neumann.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué significa SoC?</p>
+
+          <button onclick="correct(this)">System on a Chip</button>
+          <button onclick="wrong(this)">Software of Computer</button>
+          <button onclick="wrong(this)">System of Cache</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="block" id="bloque6">
+
+      <h2>6. Herramientas profesionales</h2>
+
+      <table>
+
+        <tr>
+          <th>Herramienta</th>
+          <th>Uso</th>
+        </tr>
+
+        <tr>
+          <td>CPU-Z</td>
+          <td>Información del hardware</td>
+        </tr>
+
+        <tr>
+          <td>HWiNFO</td>
+          <td>Monitorización en tiempo real</td>
+        </tr>
+
+        <tr>
+          <td>Speccy</td>
+          <td>Resumen general del sistema</td>
+        </tr>
+
+      </table>
+
+      <div class="card success">
+        HWiNFO es clave para detectar sobrecalentamiento.
+      </div>
+
+      <div class="card warning">
+        CPU-Z suele ser la primera herramienta usada en diagnóstico.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué herramienta monitoriza temperaturas?</p>
+
+          <button onclick="wrong(this)">Speccy</button>
+          <button onclick="correct(this)">HWiNFO</button>
+          <button onclick="wrong(this)">Word</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 7 -->
+
+    <section class="block" id="bloque7">
+
+      <h2>7. Relación Hardware y Software</h2>
+
+      <p>
+        Hardware y software dependen completamente uno del otro.
+      </p>
+
+      <table>
+        <tr>
+          <th>Tipo</th>
+          <th>Ejemplos</th>
+        </tr>
+
+        <tr>
+          <td>Software de sistema</td>
+          <td>Windows, Linux, drivers</td>
+        </tr>
+
+        <tr>
+          <td>Software de aplicación</td>
+          <td>Chrome, Excel, Photoshop</td>
+        </tr>
+
+      </table>
+
+      <div class="card danger">
+        Sin software, el hardware es inútil.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué es un driver?</p>
+
+          <button onclick="correct(this)">Un traductor entre SO y hardware</button>
+          <button onclick="wrong(this)">Un antivirus</button>
+          <button onclick="wrong(this)">Una memoria RAM</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 8 -->
+
+    <section class="block" id="bloque8">
+
+      <h2>8. Licencias de software</h2>
+
+      <table>
+        <tr>
+          <th>Licencia</th>
+          <th>Características</th>
+        </tr>
+
+        <tr>
+          <td>Propietario</td>
+          <td>Restrictivo y cerrado</td>
+        </tr>
+
+        <tr>
+          <td>Freeware</td>
+          <td>Gratis pero no libre</td>
+        </tr>
+
+        <tr>
+          <td>Shareware</td>
+          <td>Prueba temporal</td>
+        </tr>
+
+        <tr>
+          <td>FOSS</td>
+          <td>Código abierto y libertades</td>
+        </tr>
+
+      </table>
+
+      <h3>Las 4 libertades</h3>
+
+      <ul>
+        <li>Usar el software.</li>
+        <li>Estudiarlo.</li>
+        <li>Modificarlo.</li>
+        <li>Redistribuirlo.</li>
+      </ul>
+
+      <div class="card warning">
+        Freeware NO significa software libre.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuál permite modificar el código?</p>
+
+          <button onclick="wrong(this)">Shareware</button>
+          <button onclick="correct(this)">Software libre</button>
+          <button onclick="wrong(this)">Freeware</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 9 -->
+
+    <section class="block" id="bloque9">
+
+      <h2>9. LibreOffice vs Microsoft Office</h2>
+
+      <p>
+        LibreOffice demostró que el software libre puede competir con soluciones propietarias.
+      </p>
+
+      <h3>Ventajas de LibreOffice</h3>
+
+      <ul>
+        <li>Gratuito.</li>
+        <li>Código abierto.</li>
+        <li>Compatible con formatos Office.</li>
+        <li>Comunidad global.</li>
+      </ul>
+
+      <div class="card success">
+        Muchas administraciones europeas lo usan para reducir costes.
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué licencia utiliza LibreOffice?</p>
+
+          <button onclick="wrong(this)">Privativa</button>
+          <button onclick="correct(this)">Software libre</button>
+          <button onclick="wrong(this)">Shareware</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 10 -->
+
+    <section class="block" id="bloque10">
+
+      <h2>10. Mitos y preguntas trampa</h2>
+
+      <div class="card danger">
+        <strong>Mito:</strong> "Solo importan los GHz"
+      </div>
+
+      <p>
+        El rendimiento depende también de:
+      </p>
+
+      <ul>
+        <li>Número de núcleos.</li>
+        <li>Caché.</li>
+        <li>Arquitectura.</li>
+        <li>Velocidad del almacenamiento.</li>
+      </ul>
+
+      <div class="card danger">
+        <strong>Mito:</strong> "Software libre = mala calidad"
+      </div>
+
+      <p>
+        Linux, Apache y PostgreSQL son ejemplos de software libre extremadamente robusto.
+      </p>
+
+      <div class="card warning">
+        Pregunta típica de examen:
+        <br><br>
+        ¿Qué diferencia hay entre freeware y software libre?
+      </div>
+
+      <div class="quiz">
+
+        <h3>Mini-test final</h3>
+
+        <div class="question">
+          <p>¿Qué afirmación es correcta?</p>
+
+          <button onclick="correct(this)">Freeware puede ser gratuito y seguir siendo propietario</button>
+          <button onclick="wrong(this)">Software libre siempre es de pago</button>
+          <button onclick="wrong(this)">RAM y SSD son lo mismo</button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Plataforma de estudio interactiva · Fundamentos de Hardware
+    </div>
+
+  </main>
+
+  <script>
+
+    function goTo(id){
+      document.getElementById(id).scrollIntoView({
+        behavior:'smooth'
+      });
+    }
+
+    function correct(btn){
+
+      reset(btn.parentElement);
+
+      btn.classList.add('correct');
+    }
+
+    function wrong(btn){
+
+      reset(btn.parentElement);
+
+      btn.classList.add('wrong');
+    }
+
+    function reset(parent){
+
+      let buttons = parent.querySelectorAll('button');
+
+      buttons.forEach(b=>{
+        b.classList.remove('correct');
+        b.classList.remove('wrong');
+      });
+    }
+
+  </script>
+
+</body>
+</html>

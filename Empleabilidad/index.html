@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>EMPLEABILIDAD</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(135deg,#1f3b34,#345349);
+  color:white;
+  padding:80px 50px;
+  border-radius:0 0 40px 40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h1{
+  font-size:3.5rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.hero p{
+  max-width:850px;
+  line-height:1.9;
+  font-size:1.05rem;
+  opacity:0.92;
+}
+
+/* MAIN */
+
+.main{
+  width:100%;
+  max-width:1250px;
+  margin:auto;
+  padding:50px 30px 70px;
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:24px;
+}
+
+/* CARD */
+
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:28px;
+  text-decoration:none;
+  color:var(--text);
+  box-shadow:var(--shadow);
+  transition:0.28s;
+  border:1px solid rgba(255,255,255,0.5);
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  background:var(--accent);
+}
+
+.card h2{
+  color:var(--primary);
+  font-size:1.25rem;
+  margin-bottom:14px;
+  line-height:1.4;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:0.96rem;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .hero{
+    padding:60px 28px;
+  }
+
+  .hero h1{
+    font-size:2.4rem;
+  }
+
+  .main{
+    padding:35px 18px 50px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <h1>📘 EMPLEABILIDAD</h1>
+
+  <p>
+    Plataforma interactiva de estudio con acceso a todas las unidades
+    de Empleabilidad. Cada unidad incluye teoría detallada,
+    ejemplos, tablas y mini-tests interactivos para preparar exámenes tipo test.
+  </p>
+
+</section>
+
+<!-- MAIN -->
+
+<main class="main">
+
+  <div class="grid">
+
+    <a class="card" href="Unidad 1 - Salud laboral y cultura preventiva.html" target="_blank">
+      <h2>Unidad 1</h2>
+      <p>Salud laboral y cultura preventiva.</p>
+    </a>
+
+    <a class="card" href="Unidad 2 - Riesgos laborales y principios de prevención.html" target="_blank">
+      <h2>Unidad 2</h2>
+      <p>Riesgos laborales y principios de prevención.</p>
+    </a>
+
+    <a class="card" href="Unidad 3 - Primeros auxilios y planes de emergencia.html" target="_blank">
+      <h2>Unidad 3</h2>
+      <p>Primeros auxilios y planes de emergencia.</p>
+    </a>
+
+    <a class="card" href="Unidad 4 - Relación laboral y convenio colectivo.html" target="_blank">
+      <h2>Unidad 4</h2>
+      <p>Relación laboral y convenio colectivo.</p>
+    </a>
+
+    <a class="card" href="Unidad 5 - El contrato de trabajo y modalidades.html" target="_blank">
+      <h2>Unidad 5</h2>
+      <p>El contrato de trabajo y modalidades.</p>
+    </a>
+
+    <a class="card" href="Unidad 6 - Jornada laboral, salario y nómina.html" target="_blank">
+      <h2>Unidad 6</h2>
+      <p>Jornada laboral, salario y nómina.</p>
+    </a>
+
+    <a class="card" href="Unidad 7 - Modificación, suspensión y extinción de la jornada laboral.html" target="_blank">
+      <h2>Unidad 7</h2>
+      <p>Modificación, suspensión y extinción de la jornada laboral.</p>
+    </a>
+
+    <a class="card" href="Unidad 7.1 - Inspección de trabajo y representación de los trabajadores.html" target="_blank">
+      <h2>Unidad 7.1</h2>
+      <p>Inspección de trabajo y representación de los trabajadores.</p>
+    </a>
+
+    <a class="card" href="Unidad 8 - La Seguridad Social.html" target="_blank">
+      <h2>Unidad 8</h2>
+      <p>La Seguridad Social.</p>
+    </a>
+
+    <a class="card" href="Unidad 9 - Mundo laboral y potencial profesional.html" target="_blank">
+      <h2>Unidad 9</h2>
+      <p>Mundo laboral y potencial profesional.</p>
+    </a>
+
+    <a class="card" href="Unidad 10 - El sector profesional.html" target="_blank">
+      <h2>Unidad 10</h2>
+      <p>El sector profesional.</p>
+    </a>
+
+    <a class="card" href="Unidad 11 - La empleabilidad.html" target="_blank">
+      <h2>Unidad 11</h2>
+      <p>La empleabilidad.</p>
+    </a>
+
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  EMPLEABILIDAD · Plataforma interactiva de estudio
+
+</footer>
+
+</body>
+</html>

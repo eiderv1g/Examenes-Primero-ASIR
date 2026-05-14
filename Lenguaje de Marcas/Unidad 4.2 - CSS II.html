@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 4.2 - CSS</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#090909;
+    --panel:#121212;
+    --panel2:#1b1b1b;
+    --border:#2e2e2e;
+    --text:#ececec;
+    --muted:#9b9b9b;
+    --red:#8d2323;
+    --redSoft:#ff7b7b;
+    --green:#57ffb0;
+    --shadow:0 0 25px rgba(255,80,80,.12);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Segoe UI,sans-serif;
+    overflow-x:hidden;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:#050505;
+    border-right:1px solid var(--border);
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    overflow-y:auto;
+    padding:25px;
+    z-index:999;
+}
+
+.logo{
+    font-size:34px;
+    font-weight:900;
+    color:var(--redSoft);
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#ddd;
+    background:#151515;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid transparent;
+    transition:.25s;
+    font-size:14px;
+}
+
+.menu a:hover{
+    border-color:var(--red);
+    background:#1d1d1d;
+    transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#161616,#1d0f0f);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:45px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    color:#d3d3d3;
+    line-height:1.9;
+}
+
+/* BLOCK */
+
+.block{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:35px;
+    margin-bottom:35px;
+    box-shadow:var(--shadow);
+}
+
+.block h2{
+    color:var(--redSoft);
+    font-size:34px;
+    margin-bottom:20px;
+}
+
+.block h3{
+    margin-top:28px;
+    margin-bottom:14px;
+    color:white;
+}
+
+.block p{
+    line-height:1.9;
+    margin-bottom:16px;
+    color:#ddd;
+}
+
+.block ul,
+.block ol{
+    margin-left:24px;
+    margin-bottom:18px;
+}
+
+.block li{
+    margin-bottom:10px;
+    line-height:1.8;
+}
+
+.tag{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:999px;
+    background:#241111;
+    border:1px solid #6d2b2b;
+    color:#ff9f9f;
+    margin-right:8px;
+    margin-bottom:15px;
+    font-size:13px;
+}
+
+.code{
+    background:#050505;
+    border-left:4px solid var(--redSoft);
+    padding:20px;
+    border-radius:12px;
+    overflow-x:auto;
+    margin:20px 0;
+    color:#57ffb0;
+    white-space:pre-wrap;
+    font-family:Consolas, monospace;
+}
+
+.tip{
+    background:#161010;
+    border:1px solid #5e3131;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:#241212;
+    border:1px solid #8d3535;
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid #2f2f2f;
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:#1c1c1c;
+    color:#ff9f9f;
+}
+
+tr:nth-child(even){
+    background:#151515;
+}
+
+/* QUIZ */
+
+.quiz{
+    margin-top:40px;
+    background:#0f0f0f;
+    border:1px solid #333;
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h3{
+    color:#ff8d8d;
+    margin-bottom:20px;
+}
+
+.question{
+    background:#161616;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.question p{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.question label{
+    display:block;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.question label:hover{
+    color:#ff9090;
+}
+
+button{
+    background:linear-gradient(135deg,var(--red),#541414);
+    color:white;
+    border:none;
+    padding:14px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.result{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    padding:40px;
+    color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .layout{
+        flex-direction:column;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 4.2</div>
+
+<div class="subtitle">
+CSS avanzado: medidas, colores, fondos, tipografías, alineaciones, overflow y estilos visuales.
+</div>
+
+<nav class="menu">
+
+<a href="#b10">4.10 Medidas</a>
+<a href="#b11">4.11 Color</a>
+<a href="#b12">4.12 Bordes y márgenes</a>
+<a href="#b13">4.13 Contorno</a>
+<a href="#b14">4.14 Fondo</a>
+<a href="#b15">4.15 Importación de fuentes</a>
+<a href="#b16">4.16 Modo de escritura</a>
+<a href="#b17">4.17 Alineaciones</a>
+<a href="#b18">4.18 Fuentes y variantes</a>
+<a href="#b19">4.19 Decoración y sombras</a>
+<a href="#b20">4.20 Espaciados</a>
+<a href="#b21">4.21 Enlaces</a>
+<a href="#b22">4.22 Overflow</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 4.2 - CSS</h1>
+
+<p>
+En esta unidad se estudian las propiedades fundamentales de CSS relacionadas
+con tamaños, colores, bordes, fondos, tipografías, alineaciones y comportamiento visual
+de los elementos. También se profundiza en overflow, decoración del texto y personalización avanzada.
+</p>
+
+</section>
+
+<!-- 4.10 -->
+
+<section class="block" id="b10">
+
+<h2>4.10 Medidas</h2>
+
+<span class="tag">px</span>
+<span class="tag">em</span>
+<span class="tag">vh</span>
+
+<p>
+CSS utiliza diferentes unidades de medida para controlar tamaños,
+espaciados y dimensiones.
+</p>
+
+<h3>Medidas absolutas</h3>
+
+<table>
+
+<tr>
+<th>Unidad</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>px</td>
+<td>Píxeles</td>
+</tr>
+
+<tr>
+<td>cm</td>
+<td>Centímetros</td>
+</tr>
+
+<tr>
+<td>mm</td>
+<td>Milímetros</td>
+</tr>
+
+</table>
+
+<h3>Medidas relativas</h3>
+
+<table>
+
+<tr>
+<th>Unidad</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>em</td>
+<td>Relativa al tamaño padre</td>
+</tr>
+
+<tr>
+<td>rem</td>
+<td>Relativa al root</td>
+</tr>
+
+<tr>
+<td>%</td>
+<td>Porcentaje</td>
+</tr>
+
+</table>
+
+<h3>Medidas flexibles</h3>
+
+<div class="code">
+width: 100vw;
+height: 100vh;
+</div>
+
+<h3>Ejemplo práctico</h3>
+
+<div class="code">
+div{
+
+  width:50%;
+  height:200px;
+  padding:2rem;
+
+}
+</div>
+
+<div class="tip">
+rem es una de las unidades más usadas actualmente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué unidad es relativa al tamaño root?</p>
+
+<label><input type="radio" name="q10"> em</label>
+<label><input type="radio" name="q10" data-correct> rem</label>
+<label><input type="radio" name="q10"> px</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.11 -->
+
+<section class="block" id="b11">
+
+<h2>4.11 Color</h2>
+
+<span class="tag">RGB</span>
+<span class="tag">HEX</span>
+
+<p>
+CSS permite aplicar colores mediante nombres, RGB, HEX y HSL.
+</p>
+
+<h3>Color hexadecimal</h3>
+
+<div class="code">
+color:#ff0000;
+</div>
+
+<h3>Color RGB</h3>
+
+<div class="code">
+color:rgb(255,0,0);
+</div>
+
+<h3>Color RGBA</h3>
+
+<div class="code">
+color:rgba(255,0,0,.5);
+</div>
+
+<h3>Gradientes</h3>
+
+<div class="code">
+background:
+linear-gradient(
+to right,
+red,
+black
+);
+</div>
+
+<div class="warning">
+HEX es uno de los formatos más usados en diseño web.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué formato permite transparencia?</p>
+
+<label><input type="radio" name="q11"> HEX</label>
+<label><input type="radio" name="q11" data-correct> RGBA</label>
+<label><input type="radio" name="q11"> RGB simple</label>
+
+</div>
+
+<button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+<div id="r11" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.12 -->
+
+<section class="block" id="b12">
+
+<h2>4.12 Bordes, relleno y margen</h2>
+
+<span class="tag">margin</span>
+<span class="tag">padding</span>
+<span class="tag">border</span>
+
+<p>
+Todo elemento HTML funciona como una caja.
+</p>
+
+<h3>Modelo de caja</h3>
+
+<ul>
+<li>Contenido</li>
+<li>Padding</li>
+<li>Border</li>
+<li>Margin</li>
+</ul>
+
+<div class="code">
+div{
+
+  border:2px solid red;
+  padding:20px;
+  margin:30px;
+
+}
+</div>
+
+<h3>Border radius</h3>
+
+<div class="code">
+border-radius:20px;
+</div>
+
+<h3>Tipos de borde</h3>
+
+<table>
+
+<tr>
+<th>Valor</th>
+<th>Resultado</th>
+</tr>
+
+<tr>
+<td>solid</td>
+<td>Línea sólida</td>
+</tr>
+
+<tr>
+<td>dashed</td>
+<td>Línea discontinua</td>
+</tr>
+
+<tr>
+<td>dotted</td>
+<td>Punteado</td>
+</tr>
+
+</table>
+
+<div class="tip">
+Padding genera espacio interno.
+Margin genera espacio externo.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad genera espacio interno?</p>
+
+<label><input type="radio" name="q12"> margin</label>
+<label><input type="radio" name="q12" data-correct> padding</label>
+<label><input type="radio" name="q12"> border</label>
+
+</div>
+
+<button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+<div id="r12" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.13 -->
+
+<section class="block" id="b13">
+
+<h2>4.13 Contorno</h2>
+
+<span class="tag">outline</span>
+
+<p>
+El outline crea un contorno exterior al borde.
+</p>
+
+<div class="code">
+button{
+
+  outline:3px solid red;
+  outline-offset:5px;
+
+}
+</div>
+
+<h3>Diferencia con border</h3>
+
+<ul>
+<li>Border ocupa espacio.</li>
+<li>Outline no modifica dimensiones.</li>
+</ul>
+
+<h3>Outline styles</h3>
+
+<div class="code">
+outline-style:dashed;
+</div>
+
+<div class="warning">
+Outline suele usarse para accesibilidad y focus.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad separa outline del borde?</p>
+
+<label><input type="radio" name="q13"> border-space</label>
+<label><input type="radio" name="q13" data-correct> outline-offset</label>
+<label><input type="radio" name="q13"> padding</label>
+
+</div>
+
+<button onclick="checkQuiz('q13','r13')">Corregir</button>
+
+<div id="r13" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.14 -->
+
+<section class="block" id="b14">
+
+<h2>4.14 Fondo</h2>
+
+<span class="tag">background</span>
+
+<p>
+Las propiedades background controlan fondos y colores.
+</p>
+
+<div class="code">
+body{
+
+  background-color:black;
+
+}
+</div>
+
+<h3>Imagen de fondo</h3>
+
+<div class="code">
+background-image:
+url("fondo.jpg");
+</div>
+
+<h3>Background shorthand</h3>
+
+<div class="code">
+background:
+black
+url("fondo.jpg")
+no-repeat
+center
+cover;
+</div>
+
+<h3>Background-size</h3>
+
+<div class="code">
+background-size:cover;
+</div>
+
+<div class="tip">
+cover adapta la imagen al contenedor completo.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor adapta una imagen al contenedor?</p>
+
+<label><input type="radio" name="q14"> contain</label>
+<label><input type="radio" name="q14" data-correct> cover</label>
+<label><input type="radio" name="q14"> repeat</label>
+
+</div>
+
+<button onclick="checkQuiz('q14','r14')">Corregir</button>
+
+<div id="r14" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.15 -->
+
+<section class="block" id="b15">
+
+<h2>4.15 Importación de fuentes</h2>
+
+<span class="tag">Google Fonts</span>
+
+<p>
+Google Fonts permite importar tipografías externas.
+</p>
+
+<div class="code">
+@import url(
+'https://fonts.googleapis.com/css2?family=Roboto'
+);
+</div>
+
+<div class="code">
+body{
+
+  font-family:'Roboto',sans-serif;
+
+}
+</div>
+
+<h3>Tipos de fuente</h3>
+
+<ul>
+<li>serif</li>
+<li>sans-serif</li>
+<li>monospace</li>
+<li>cursive</li>
+</ul>
+
+<div class="tip">
+Usar máximo 2 o 3 tipografías por proyecto.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad cambia la tipografía?</p>
+
+<label><input type="radio" name="q15"> font-style</label>
+<label><input type="radio" name="q15" data-correct> font-family</label>
+<label><input type="radio" name="q15"> font-weight</label>
+
+</div>
+
+<button onclick="checkQuiz('q15','r15')">Corregir</button>
+
+<div id="r15" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.16 -->
+
+<section class="block" id="b16">
+
+<h2>4.16 Modo de escritura</h2>
+
+<span class="tag">writing-mode</span>
+
+<p>
+Permite cambiar orientación del texto.
+</p>
+
+<div class="code">
+writing-mode:
+vertical-rl;
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>horizontal-tb</li>
+<li>vertical-rl</li>
+<li>vertical-lr</li>
+</ul>
+
+<div class="warning">
+Muy usado en diseños creativos y orientales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor coloca texto vertical?</p>
+
+<label><input type="radio" name="q16"> horizontal-tb</label>
+<label><input type="radio" name="q16" data-correct> vertical-rl</label>
+<label><input type="radio" name="q16"> inline</label>
+
+</div>
+
+<button onclick="checkQuiz('q16','r16')">Corregir</button>
+
+<div id="r16" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.17 -->
+
+<section class="block" id="b17">
+
+<h2>4.17 Alineaciones</h2>
+
+<span class="tag">text-align</span>
+
+<p>
+CSS permite controlar alineaciones horizontales y verticales.
+</p>
+
+<div class="code">
+p{
+
+  text-align:center;
+
+}
+</div>
+
+<h3>Alineación vertical</h3>
+
+<div class="code">
+vertical-align:middle;
+</div>
+
+<h3>Valores comunes</h3>
+
+<ul>
+<li>left</li>
+<li>right</li>
+<li>center</li>
+<li>justify</li>
+</ul>
+
+<div class="tip">
+justify se usa mucho en artículos y periódicos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor justifica texto?</p>
+
+<label><input type="radio" name="q17"> center</label>
+<label><input type="radio" name="q17" data-correct> justify</label>
+<label><input type="radio" name="q17"> left</label>
+
+</div>
+
+<button onclick="checkQuiz('q17','r17')">Corregir</button>
+
+<div id="r17" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.18 -->
+
+<section class="block" id="b18">
+
+<h2>4.18 Tamaño, estilo, peso y variantes</h2>
+
+<span class="tag">font-size</span>
+<span class="tag">font-weight</span>
+
+<h3>Tamaño</h3>
+
+<div class="code">
+font-size:20px;
+</div>
+
+<h3>Estilo</h3>
+
+<div class="code">
+font-style:italic;
+</div>
+
+<h3>Peso</h3>
+
+<div class="code">
+font-weight:bold;
+</div>
+
+<h3>Variantes</h3>
+
+<div class="code">
+font-variant:
+small-caps;
+</div>
+
+<div class="warning">
+font-weight puede ir desde 100 hasta 900.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad aplica negrita?</p>
+
+<label><input type="radio" name="q18"> font-style</label>
+<label><input type="radio" name="q18" data-correct> font-weight</label>
+<label><input type="radio" name="q18"> font-size</label>
+
+</div>
+
+<button onclick="checkQuiz('q18','r18')">Corregir</button>
+
+<div id="r18" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.19 -->
+
+<section class="block" id="b19">
+
+<h2>4.19 Decoración, sombra y transformaciones</h2>
+
+<span class="tag">text-shadow</span>
+
+<h3>Decoración</h3>
+
+<div class="code">
+text-decoration:
+underline;
+</div>
+
+<h3>Sombra</h3>
+
+<div class="code">
+text-shadow:
+2px 2px 5px red;
+</div>
+
+<h3>Transformación</h3>
+
+<div class="code">
+text-transform:
+uppercase;
+</div>
+
+<h3>Valores transform</h3>
+
+<ul>
+<li>uppercase</li>
+<li>lowercase</li>
+<li>capitalize</li>
+</ul>
+
+<div class="tip">
+capitalize pone en mayúscula la primera letra.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor pone texto en MAYÚSCULAS?</p>
+
+<label><input type="radio" name="q19"> lowercase</label>
+<label><input type="radio" name="q19" data-correct> uppercase</label>
+<label><input type="radio" name="q19"> capitalize</label>
+
+</div>
+
+<button onclick="checkQuiz('q19','r19')">Corregir</button>
+
+<div id="r19" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.20 -->
+
+<section class="block" id="b20">
+
+<h2>4.20 Espaciados</h2>
+
+<span class="tag">letter-spacing</span>
+
+<h3>Espaciado entre letras</h3>
+
+<div class="code">
+letter-spacing:4px;
+</div>
+
+<h3>Espaciado entre palabras</h3>
+
+<div class="code">
+word-spacing:10px;
+</div>
+
+<h3>Sangría</h3>
+
+<div class="code">
+text-indent:40px;
+</div>
+
+<h3>White-space</h3>
+
+<div class="code">
+white-space:nowrap;
+</div>
+
+<div class="warning">
+nowrap evita saltos automáticos de línea.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué propiedad separa letras?</p>
+
+<label><input type="radio" name="q20"> word-spacing</label>
+<label><input type="radio" name="q20" data-correct> letter-spacing</label>
+<label><input type="radio" name="q20"> text-indent</label>
+
+</div>
+
+<button onclick="checkQuiz('q20','r20')">Corregir</button>
+
+<div id="r20" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.21 -->
+
+<section class="block" id="b21">
+
+<h2>4.21 Enlaces</h2>
+
+<span class="tag">hover</span>
+
+<h3>Estados de enlaces</h3>
+
+<div class="code">
+a:link{}
+a:visited{}
+a:hover{}
+a:active{}
+</div>
+
+<h3>Ejemplo</h3>
+
+<div class="code">
+a:hover{
+
+  color:red;
+
+}
+</div>
+
+<h3>Eliminar subrayado</h3>
+
+<div class="code">
+text-decoration:none;
+</div>
+
+<div class="tip">
+hover es fundamental para efectos interactivos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué pseudoclase actúa al pasar el ratón?</p>
+
+<label><input type="radio" name="q21"> active</label>
+<label><input type="radio" name="q21" data-correct> hover</label>
+<label><input type="radio" name="q21"> visited</label>
+
+</div>
+
+<button onclick="checkQuiz('q21','r21')">Corregir</button>
+
+<div id="r21" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4.22 -->
+
+<section class="block" id="b22">
+
+<h2>4.22 Overflow</h2>
+
+<span class="tag">overflow</span>
+
+<p>
+Controla el contenido que sobresale del contenedor.
+</p>
+
+<div class="code">
+overflow:hidden;
+</div>
+
+<h3>Valores</h3>
+
+<ul>
+<li>visible</li>
+<li>hidden</li>
+<li>scroll</li>
+<li>auto</li>
+</ul>
+
+<h3>Ejemplo completo</h3>
+
+<div class="code">
+div{
+
+  width:300px;
+  height:150px;
+  overflow:auto;
+
+}
+</div>
+
+<div class="warning">
+overflow:auto muestra scroll solo cuando es necesario.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué valor muestra scroll automáticamente?</p>
+
+<label><input type="radio" name="q22"> hidden</label>
+<label><input type="radio" name="q22"> visible</label>
+<label><input type="radio" name="q22" data-correct> auto</label>
+
+</div>
+
+<button onclick="checkQuiz('q22','r22')">Corregir</button>
+
+<div id="r22" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 4.2 completada 🚀
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+    const options=document.getElementsByName(group);
+
+    let correct=false;
+
+    options.forEach(option=>{
+
+        if(option.checked && option.dataset.correct !== undefined){
+
+            correct=true;
+
+        }
+
+    });
+
+    const resultBox=document.getElementById(result);
+
+    if(correct){
+
+        resultBox.innerHTML="✅ Correcto";
+        resultBox.style.color="#57ffb0";
+
+    }else{
+
+        resultBox.innerHTML="❌ Incorrecto";
+        resultBox.style.color="#ff7b7b";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

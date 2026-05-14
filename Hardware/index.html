@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HARDWARE</title>
+
+<style>
+
+:root{
+  --bg:#08111f;
+  --panel:#101c34;
+  --panel2:#17284b;
+  --accent:#00e0ff;
+  --accent2:#8b5cf6;
+  --text:#eef5ff;
+  --muted:#9fb2d1;
+  --border:#27385d;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Segoe UI,sans-serif;
+  min-height:100vh;
+  background:
+  radial-gradient(circle at top right, rgba(0,224,255,.08), transparent 20%),
+  radial-gradient(circle at bottom left, rgba(139,92,246,.08), transparent 20%),
+  var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* HERO */
+
+.hero{
+  padding:70px 30px 40px;
+  text-align:center;
+}
+
+.tag{
+  display:inline-block;
+  padding:8px 16px;
+  border-radius:999px;
+  border:1px solid rgba(0,224,255,.3);
+  color:var(--accent);
+  background:rgba(0,224,255,.08);
+  margin-bottom:20px;
+  font-weight:600;
+}
+
+.hero h1{
+  font-size:4rem;
+  margin-bottom:18px;
+  color:var(--accent);
+  text-shadow:0 0 15px rgba(0,224,255,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.hero h1 span{
+  color:#7dd3fc;
+}
+
+.hero p{
+  max-width:850px;
+  margin:auto;
+  line-height:1.9;
+  color:var(--muted);
+  font-size:1.05rem;
+}
+
+/* GRID */
+
+.grid{
+  width:min(1300px,90%);
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:28px;
+  padding-bottom:60px;
+}
+
+/* CARD */
+
+.card{
+  background:rgba(16,28,52,.96);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:30px;
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:'';
+  position:absolute;
+  width:140px;
+  height:140px;
+  background:radial-gradient(circle, rgba(0,224,255,.15), transparent 70%);
+  top:-40px;
+  right:-40px;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
+
+.card h2{
+  font-size:1.45rem;
+  margin-bottom:14px;
+  color:var(--accent);
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.8;
+  margin-bottom:24px;
+}
+
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),#38bdf8);
+  color:#001018;
+  font-weight:800;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:scale(1.04);
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+  border-top:1px solid var(--border);
+  margin-top:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.hero h1{
+  font-size:2.7rem;
+}
+
+.hero{
+  padding-top:50px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="tag">Plataforma interactiva de estudio</div>
+
+<h1>
+<span>⚡</span>
+HARDWARE
+</h1>
+
+<p>
+Portal principal de estudio interactivo de Fundamentos de Hardware.
+Accede rápidamente a todas las unidades con teoría detallada,
+mini-tests y contenidos. Hazlo por Von Neumann <3
+</p>
+
+</section>
+
+<!-- GRID -->
+
+<section class="grid">
+
+<div class="card">
+<h2>Unidad 1</h2>
+<p>
+Introducción y arquitectura básica de los ordenadores,
+componentes fundamentales y conceptos esenciales.
+</p>
+<a class="btn" href="Unidad 1 - Intro y arquitectura básica.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 2</h2>
+<p>
+Placa base, chipsets y BIOS/UEFI.
+Conectividad, buses y estructura interna.
+</p>
+<a class="btn" href="Unidad 2 - Placa Base, Chipsets y BIOS.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 3</h2>
+<p>
+Microprocesadores y memoria RAM.
+Jerarquía de memoria y rendimiento.
+</p>
+<a class="btn" href="Unidad 3 - Micro-procesadores y memoria.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 4</h2>
+<p>
+Montaje y mantenimiento del PC.
+Diagnóstico, limpieza y buenas prácticas.
+</p>
+<a class="btn" href="Unidad 4 - Montaje y mantenimiento del PC.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 5</h2>
+<p>
+Tarjetas de expansión, GPU, periféricos
+y conectividad moderna.
+</p>
+<a class="btn" href="Unidad 5 - Tarjetas de expansión y periféricos.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 6</h2>
+<p>
+Almacenamiento, SSD, NVMe,
+RAID y sistemas NAS.
+</p>
+<a class="btn" href="Unidad 6 - Almacenamiento y sistemas RAID y NAS.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 7</h2>
+<p>
+Soluciones empresariales, servidores,
+CPD y arquitecturas críticas.
+</p>
+<a class="btn" href="Unidad 7 - Soluciones empresariales y CPD.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 8</h2>
+<p>
+Copias de seguridad, mantenimiento,
+monitorización y recuperación.
+</p>
+<a class="btn" href="Unidad 8 - Copias de seguridad y mantenimiento.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+<div class="card">
+<h2>Unidad 9</h2>
+<p>
+Computación en la nube,
+AWS, Azure, GCP y tendencias cloud.
+</p>
+<a class="btn" href="Unidad 9 - Computación en la nube.html"target="_blank">
+Abrir unidad
+</a>
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+HARDWARE · Plataforma interactiva de estudio
+</footer>
+
+</body>
+</html>

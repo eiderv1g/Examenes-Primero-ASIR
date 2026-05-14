@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 - Resolución de incidencias y adm. avanzada</title>
+
+<style>
+
+:root{
+  --bg:#09090f;
+  --panel:#141421;
+  --panel2:#1c1c2d;
+  --purple:#7c3aed;
+  --purple2:#5b21b6;
+  --orange:#ff8c42;
+  --text:#ececf1;
+  --muted:#a1a1aa;
+  --border:#2a2a40;
+  --green:#10b981;
+  --red:#ef4444;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(255,140,66,0.08), transparent 30%),
+  var(--bg);
+
+  color:var(--text);
+  font-family:Segoe UI, sans-serif;
+  display:flex;
+}
+
+.sidebar{
+  width:320px;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  background:rgba(10,10,18,0.97);
+  border-right:1px solid var(--border);
+  padding:30px 20px;
+}
+
+.logo{
+  margin-bottom:30px;
+}
+
+.logo h1{
+  font-size:1.8rem;
+  line-height:1.2;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.nav-title{
+  color:var(--orange);
+  text-transform:uppercase;
+  font-size:0.9rem;
+  margin-bottom:15px;
+  letter-spacing:1px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,0.03);
+  border:1px solid transparent;
+  padding:12px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  background:rgba(124,58,237,0.16);
+  border-color:var(--purple);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg, rgba(124,58,237,0.2), rgba(255,140,66,0.08));
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:40px;
+  margin-bottom:35px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:900px;
+}
+
+.time{
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,140,66,0.12);
+  border:1px solid rgba(255,140,66,0.3);
+  color:var(--orange);
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.block h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.block h3{
+  margin-top:25px;
+  margin-bottom:12px;
+  color:var(--orange);
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:16px;
+  color:#d7d7e2;
+}
+
+.block ul{
+  padding-left:20px;
+  margin-bottom:20px;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.note{
+  background:rgba(124,58,237,0.12);
+  border-left:4px solid var(--purple);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.warning{
+  background:rgba(239,68,68,0.08);
+  border-left:4px solid var(--red);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.tip{
+  background:rgba(16,185,129,0.08);
+  border-left:4px solid var(--green);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+th{
+  background:var(--purple2);
+  padding:14px;
+  text-align:left;
+}
+
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+}
+
+.code{
+  background:#0f0f17;
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+  overflow-x:auto;
+  font-family:Consolas, monospace;
+  margin:15px 0;
+  color:#9ef5c5;
+}
+
+.mini-test{
+  margin-top:35px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+  padding:18px;
+  background:rgba(0,0,0,0.25);
+  border-radius:14px;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.options button{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  transition:0.25s;
+  text-align:left;
+}
+
+.options button:hover{
+  background:rgba(124,58,237,0.15);
+  border-color:var(--purple);
+}
+
+.correct{
+  background:rgba(16,185,129,0.2)!important;
+  border-color:var(--green)!important;
+}
+
+.incorrect{
+  background:rgba(239,68,68,0.15)!important;
+  border-color:var(--red)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  position:relative;
+  width:100%;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
+
+.hero h2{
+  font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+<h1>Unidad 7<br><span>Resolución de incidencias</span></h1>
+</div>
+
+<div class="nav-title">Bloques de estudio</div>
+
+<nav class="nav">
+
+<a href="#b1">7.1 Instalaciones desatendidas</a>
+<a href="#b2">7.2 Fichero de respuesta</a>
+<a href="#b3">7.3 WDS y PXE</a>
+<a href="#b4">7.4 WSUS</a>
+<a href="#b5">7.5 Microsoft Deployment Toolkit</a>
+<a href="#b6">7.6 WSIM y GPO</a>
+<a href="#b7">7.7 Protocolos administración remota</a>
+<a href="#b8">7.8 RDP, SSH y VNC</a>
+<a href="#b9">7.9 Protocolos de actuación</a>
+<a href="#b10">7.10 Resolución telemática</a>
+<a href="#b11">7.11 TeamViewer y soporte remoto</a>
+<a href="#b12">7.12 Herramientas y consejos</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 7 - Resolución de incidencias y adm. avanzada</h2>
+
+<p>
+Aprende a automatizar despliegues de sistemas operativos,
+administrar equipos de forma remota,
+centralizar actualizaciones,
+resolver incidencias telemáticamente
+y aplicar metodologías profesionales
+de soporte y administración avanzada.
+</p>
+
+<div class="time">
+⏱ Tiempo estimado por bloque: 20-35 minutos
+</div>
+
+</section>
+
+<section class="block" id="b1">
+
+<h2>7.1 Instalaciones desatendidas</h2>
+
+<p>
+Las instalaciones desatendidas permiten desplegar
+sistemas operativos automáticamente
+sin intervención humana durante el proceso.
+</p>
+
+<h3>Problema que resuelven</h3>
+
+<ul>
+<li>Instalaciones repetitivas</li>
+<li>Pérdida de tiempo manual</li>
+<li>Errores humanos</li>
+<li>Falta de homogeneidad</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<table>
+
+<tr>
+<th>Ventaja</th>
+<th>Impacto</th>
+</tr>
+
+<tr>
+<td>Automatización</td>
+<td>Menos intervención humana</td>
+</tr>
+
+<tr>
+<td>Velocidad</td>
+<td>Despliegues masivos</td>
+</tr>
+
+<tr>
+<td>Homogeneidad</td>
+<td>Todos los equipos iguales</td>
+</tr>
+
+<tr>
+<td>Escalabilidad</td>
+<td>Ideal para grandes empresas</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 En empresas grandes, instalar manualmente Windows en cientos de equipos es inviable.
+</div>
+
+<div class="warning">
+⚠ Un despliegue manual inconsistente puede provocar errores de configuración difíciles de detectar.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuál es el objetivo principal de una instalación desatendida?</p>
+
+<div class="options">
+<button onclick="correct(this)">Automatizar instalaciones</button>
+<button onclick="incorrect(this)">Aumentar temperatura CPU</button>
+<button onclick="incorrect(this)">Bloquear acceso remoto</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b2">
+
+<h2>7.2 Fichero de respuesta (unattend.xml)</h2>
+
+<p>
+El fichero unattend.xml contiene todas
+las respuestas necesarias para automatizar
+la instalación de Windows.
+</p>
+
+<h3>Configuraciones habituales</h3>
+
+<ul>
+<li>Idioma y región</li>
+<li>Particionado disco</li>
+<li>Clave producto</li>
+<li>Nombre equipo</li>
+<li>Dominio</li>
+<li>Usuarios locales</li>
+<li>Configuración red</li>
+</ul>
+
+<div class="code">
+unattend.xml
+</div>
+
+<h3>Características</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>XML</td>
+<td>Formato estructurado</td>
+</tr>
+
+<tr>
+<td>EULA</td>
+<td>Aceptación automática</td>
+</tr>
+
+<tr>
+<td>Scripts</td>
+<td>Postinstalación</td>
+</tr>
+
+<tr>
+<td>Drivers</td>
+<td>Integración hardware</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Es recomendable mantener distintos unattend.xml según departamentos o modelos de hardware.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué archivo automatiza la instalación de Windows?</p>
+
+<div class="options">
+<button onclick="correct(this)">unattend.xml</button>
+<button onclick="incorrect(this)">boot.ini</button>
+<button onclick="incorrect(this)">config.sys</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b3">
+
+<h2>7.3 WDS y arranque PXE</h2>
+
+<p>
+Windows Deployment Services (WDS)
+permite desplegar sistemas operativos
+a través de red mediante PXE.
+</p>
+
+<h3>Funcionamiento</h3>
+
+<ul>
+<li>El equipo arranca por red</li>
+<li>Solicita instrucciones PXE</li>
+<li>Descarga imagen corporativa</li>
+<li>Inicia instalación automática</li>
+</ul>
+
+<h3>Ventajas del PXE</h3>
+
+<table>
+
+<tr>
+<th>Ventaja</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Sin USB</td>
+<td>No requiere pendrive</td>
+</tr>
+
+<tr>
+<td>Centralización</td>
+<td>Imágenes únicas</td>
+</tr>
+
+<tr>
+<td>Rapidez</td>
+<td>Despliegues simultáneos</td>
+</tr>
+
+<tr>
+<td>Control</td>
+<td>Configuración homogénea</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 WDS + PXE + unattend.xml forman la base del despliegue moderno en Windows.
+</div>
+
+<div class="warning">
+⚠ Una mala configuración DHCP/PXE puede impedir completamente el arranque por red.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué protocolo permite arrancar equipos por red?</p>
+
+<div class="options">
+<button onclick="correct(this)">PXE</button>
+<button onclick="incorrect(this)">SMTP</button>
+<button onclick="incorrect(this)">FTP</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b4">
+
+<h2>7.4 WSUS (Windows Server Update Services)</h2>
+
+<p>
+WSUS centraliza las actualizaciones Windows
+en una empresa descargando una sola copia
+desde Microsoft Update.
+</p>
+
+<h3>Objetivos principales</h3>
+
+<ul>
+<li>Reducir ancho de banda</li>
+<li>Aprobar actualizaciones</li>
+<li>Evitar fallos masivos</li>
+<li>Controlar despliegues</li>
+</ul>
+
+<h3>Flujo típico</h3>
+
+<table>
+
+<tr>
+<th>Fase</th>
+<th>Acción</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>WSUS descarga actualizaciones</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Administrador las aprueba</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Clientes reciben parches</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Muchas empresas prueban primero las actualizaciones en equipos piloto.
+</div>
+
+<div class="warning">
+⚠ Aprobar automáticamente todos los parches puede provocar incidencias masivas.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Cuál es una ventaja principal de WSUS?</p>
+
+<div class="options">
+<button onclick="correct(this)">Reducir consumo de red</button>
+<button onclick="incorrect(this)">Aumentar latencia</button>
+<button onclick="incorrect(this)">Eliminar Active Directory</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b5">
+
+<h2>7.5 Microsoft Deployment Toolkit (MDT)</h2>
+
+<p>
+MDT permite crear despliegues automatizados
+de Windows mediante secuencias de tareas.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Crear imágenes corporativas</li>
+<li>Integrar drivers</li>
+<li>Instalar aplicaciones</li>
+<li>Automatizar configuración</li>
+<li>Reducir errores humanos</li>
+</ul>
+
+<h3>Task Sequences</h3>
+
+<p>
+Las Task Sequences automatizan
+todos los pasos de despliegue:
+particionado, drivers, software,
+dominio y configuración.
+</p>
+
+<table>
+
+<tr>
+<th>Elemento MDT</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Task Sequence</td>
+<td>Pasos automatizados</td>
+</tr>
+
+<tr>
+<td>Deployment Share</td>
+<td>Repositorio central</td>
+</tr>
+
+<tr>
+<td>Drivers</td>
+<td>Compatibilidad hardware</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 MDT es ampliamente utilizado en centros educativos y empresas medianas.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué automatiza MDT?</p>
+
+<div class="options">
+<button onclick="correct(this)">Despliegues Windows</button>
+<button onclick="incorrect(this)">Cifrado SSL</button>
+<button onclick="incorrect(this)">Servidores DNS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b6">
+
+<h2>7.6 WSIM y GPO</h2>
+
+<h3>Windows System Image Manager</h3>
+
+<p>
+WSIM es la herramienta oficial
+para crear y validar ficheros unattend.xml.
+</p>
+
+<h3>Funciones WSIM</h3>
+
+<ul>
+<li>Editar XML</li>
+<li>Validar configuraciones</li>
+<li>Explorar componentes Windows</li>
+<li>Crear configuraciones específicas</li>
+</ul>
+
+<h3>GPO y WSUS</h3>
+
+<p>
+Las GPO permiten configurar
+automáticamente los clientes
+para usar servidores WSUS.
+</p>
+
+<div class="code">
+http://servidor:8530
+</div>
+
+<table>
+
+<tr>
+<th>Configuración GPO</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Servidor WSUS</td>
+<td>Centralizar actualizaciones</td>
+</tr>
+
+<tr>
+<td>Horarios</td>
+<td>Instalación automática</td>
+</tr>
+
+<tr>
+<td>Reinicios</td>
+<td>Control del usuario</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Separar equipos por OU permite aplicar políticas diferentes según necesidades.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué herramienta crea unattend.xml?</p>
+
+<div class="options">
+<button onclick="correct(this)">WSIM</button>
+<button onclick="incorrect(this)">DHCP</button>
+<button onclick="incorrect(this)">IIS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b7">
+
+<h2>7.7 Protocolos de administración remota</h2>
+
+<p>
+La administración remota permite
+resolver incidencias y gestionar sistemas
+sin presencia física.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Reducción desplazamientos</li>
+<li>Respuesta rápida</li>
+<li>Soporte internacional</li>
+<li>Administración centralizada</li>
+</ul>
+
+<h3>Protocolos principales</h3>
+
+<table>
+
+<tr>
+<th>Protocolo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>RDP</td>
+<td>Windows gráfico</td>
+</tr>
+
+<tr>
+<td>SSH</td>
+<td>Linux seguro</td>
+</tr>
+
+<tr>
+<td>VNC</td>
+<td>Soporte compartido</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ El acceso remoto mal configurado es un riesgo crítico de seguridad.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué protocolo administra Linux de forma segura?</p>
+
+<div class="options">
+<button onclick="correct(this)">SSH</button>
+<button onclick="incorrect(this)">VGA</button>
+<button onclick="incorrect(this)">USB</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b8">
+
+<h2>7.8 RDP, SSH y VNC</h2>
+
+<h3>RDP</h3>
+
+<p>
+Protocolo Microsoft para escritorio remoto gráfico.
+Crea sesiones independientes.
+</p>
+
+<h3>SSH</h3>
+
+<p>
+Administración cifrada mediante terminal.
+Es el estándar Linux y networking.
+</p>
+
+<h3>VNC</h3>
+
+<p>
+Comparte exactamente la sesión del usuario.
+Ideal para soporte técnico.
+</p>
+
+<table>
+
+<tr>
+<th>Protocolo</th>
+<th>Característica clave</th>
+</tr>
+
+<tr>
+<td>RDP</td>
+<td>Sesión independiente</td>
+</tr>
+
+<tr>
+<td>SSH</td>
+<td>Consola cifrada</td>
+</tr>
+
+<tr>
+<td>VNC</td>
+<td>Sesión compartida</td>
+</tr>
+
+</table>
+
+<div class="code">
+ssh usuario@servidor
+</div>
+
+<div class="tip">
+💡 SSH también permite túneles seguros y transferencia de archivos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué protocolo muestra exactamente la sesión del usuario?</p>
+
+<div class="options">
+<button onclick="correct(this)">VNC</button>
+<button onclick="incorrect(this)">SSH</button>
+<button onclick="incorrect(this)">PXE</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b9">
+
+<h2>7.9 Protocolos de actuación</h2>
+
+<p>
+Toda incidencia debe seguir
+un procedimiento estructurado
+para garantizar trazabilidad.
+</p>
+
+<h3>Fases principales</h3>
+
+<table>
+
+<tr>
+<th>Fase</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Registro</td>
+<td>Crear ticket</td>
+</tr>
+
+<tr>
+<td>Evaluación</td>
+<td>Determinar gravedad</td>
+</tr>
+
+<tr>
+<td>Resolución</td>
+<td>Aplicar solución</td>
+</tr>
+
+<tr>
+<td>Escalado</td>
+<td>Enviar a nivel superior</td>
+</tr>
+
+<tr>
+<td>Documentación</td>
+<td>Guardar solución</td>
+</tr>
+
+</table>
+
+<h3>Importancia</h3>
+
+<ul>
+<li>Orden operativo</li>
+<li>Histórico incidencias</li>
+<li>Mejora continua</li>
+<li>Trabajo colaborativo</li>
+</ul>
+
+<div class="note">
+💡 Un ticket bien documentado ahorra horas de troubleshooting futuro.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué garantiza un protocolo de actuación?</p>
+
+<div class="options">
+<button onclick="correct(this)">Trazabilidad</button>
+<button onclick="incorrect(this)">Más consumo CPU</button>
+<button onclick="incorrect(this)">Menos seguridad</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b10">
+
+<h2>7.10 Resolución telemática de incidencias</h2>
+
+<p>
+La resolución telemática combina
+herramientas remotas,
+metodología y comunicación efectiva.
+</p>
+
+<h3>Elementos clave</h3>
+
+<ul>
+<li>Conectividad</li>
+<li>Protocolos remotos</li>
+<li>Ticketing</li>
+<li>Documentación</li>
+<li>Comunicación usuario</li>
+</ul>
+
+<h3>Comprobaciones iniciales</h3>
+
+<div class="code">
+ping 192.168.1.10
+telnet servidor 3389
+nmap 192.168.1.10
+</div>
+
+<table>
+
+<tr>
+<th>Comprobación</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Ping</td>
+<td>Conectividad</td>
+</tr>
+
+<tr>
+<td>Puerto</td>
+<td>Servicio abierto</td>
+</tr>
+
+<tr>
+<td>IP</td>
+<td>Identificación correcta</td>
+</tr>
+
+</table>
+
+<div class="warning">
+⚠ Muchos problemas aparentemente complejos son simplemente fallos de conectividad.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué debe comprobarse primero?</p>
+
+<div class="options">
+<button onclick="correct(this)">Conectividad</button>
+<button onclick="incorrect(this)">GPU</button>
+<button onclick="incorrect(this)">Tema visual Windows</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b11">
+
+<h2>7.11 TeamViewer y soporte remoto</h2>
+
+<p>
+TeamViewer revolucionó el soporte remoto
+simplificando conexiones entre técnico y usuario.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>ID único</li>
+<li>Contraseña temporal</li>
+<li>Sin abrir puertos</li>
+<li>Compatible NAT</li>
+<li>Conexión instantánea</li>
+</ul>
+
+<h3>Ventajas empresariales</h3>
+
+<table>
+
+<tr>
+<th>Ventaja</th>
+<th>Impacto</th>
+</tr>
+
+<tr>
+<td>Menos desplazamientos</td>
+<td>Ahorro costes</td>
+</tr>
+
+<tr>
+<td>Rapidez</td>
+<td>Menor tiempo respuesta</td>
+</tr>
+
+<tr>
+<td>Visualización directa</td>
+<td>Soporte más preciso</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Herramientas similares: AnyDesk, Zoho Assist y Supremo.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué simplificó TeamViewer?</p>
+
+<div class="options">
+<button onclick="correct(this)">Conexiones remotas</button>
+<button onclick="incorrect(this)">Instalación BIOS</button>
+<button onclick="incorrect(this)">Montaje RAID</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b12">
+
+<h2>7.12 Herramientas y consejos</h2>
+
+<h3>Herramientas importantes</h3>
+
+<table>
+
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>PuTTY</td>
+<td>Cliente SSH</td>
+</tr>
+
+<tr>
+<td>Jira / GLPI</td>
+<td>Ticketing</td>
+</tr>
+
+<tr>
+<td>RDP</td>
+<td>Administración Windows</td>
+</tr>
+
+<tr>
+<td>VNC</td>
+<td>Soporte usuario</td>
+</tr>
+
+</table>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Usar MFA siempre que sea posible</li>
+<li>No exponer RDP directamente</li>
+<li>Usar VPN</li>
+<li>Documentar incidencias</li>
+<li>Validar conectividad antes de actuar</li>
+</ul>
+
+<h3>Posibles preguntas trampa</h3>
+
+<ul>
+<li>RDP NO es inseguro por sí mismo</li>
+<li>VNC NO reemplaza a RDP</li>
+<li>SSH NO necesita interfaz gráfica</li>
+<li>WSUS NO descarga una copia por equipo</li>
+</ul>
+
+<div class="warning">
+⚠ Exponer el puerto 3389 directamente a Internet es una práctica extremadamente peligrosa.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test Final</h3>
+
+<div class="question">
+
+<p>1. ¿Qué cliente SSH es muy popular en Windows?</p>
+
+<div class="options">
+<button onclick="correct(this)">PuTTY</button>
+<button onclick="incorrect(this)">Excel</button>
+<button onclick="incorrect(this)">Paint</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>2. ¿Qué protocolo usa escritorio gráfico en Windows?</p>
+
+<div class="options">
+<button onclick="correct(this)">RDP</button>
+<button onclick="incorrect(this)">SSH</button>
+<button onclick="incorrect(this)">PXE</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>3. ¿Qué herramienta centraliza incidencias?</p>
+
+<div class="options">
+<button onclick="correct(this)">GLPI / Jira</button>
+<button onclick="incorrect(this)">BIOS</button>
+<button onclick="incorrect(this)">NTFS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 7 — Resolución de incidencias y administración avanzada
+</div>
+
+</main>
+
+<script>
+
+function correct(btn){
+btn.classList.add("correct");
+}
+
+function incorrect(btn){
+btn.classList.add("incorrect");
+}
+
+</script>
+
+</body>
+</html>

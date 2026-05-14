@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 6 - Jornada laboral, salario y nómina</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#1f3d34;
+  --accent:#e7f0eb;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:26px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:330px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-right:1px solid #e5e7eb;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  margin-bottom:10px;
+  font-size:1.7rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:28px;
+  line-height:1.6;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:10px;
+  transition:0.25s;
+  font-size:0.95rem;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3d34,#355649);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.hero p{
+  max-width:900px;
+  line-height:1.9;
+  color:rgba(255,255,255,0.9);
+}
+
+/* BLOCKS */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:38px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  font-size:2rem;
+  margin-bottom:18px;
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:0.85rem;
+  margin-bottom:18px;
+  font-weight:600;
+}
+
+.study-block h3{
+  margin-top:24px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box{
+  background:#eef8f2;
+  border-left:5px solid #2d6a4f;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.trap-box{
+  background:#fff8e8;
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.example-box{
+  background:#eef6ff;
+  border-left:5px solid #3b82f6;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:22px;
+  padding:24px;
+  margin-top:28px;
+}
+
+.quiz h4{
+  color:var(--primary);
+  margin-bottom:20px;
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+}
+
+.question p{
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{
+  opacity:0.92;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:34px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 6</h1>
+
+<p>Jornada laboral, salario y nómina</p>
+
+<a class="nav-link" href="#b1">6.1 Jornada laboral</a>
+<a class="nav-link" href="#b2">6.2 Duración jornada</a>
+<a class="nav-link" href="#b3">6.3 Descansos</a>
+<a class="nav-link" href="#b4">6.4 Trabajo nocturno</a>
+<a class="nav-link" href="#b5">6.5 Sentencia TS 2017</a>
+<a class="nav-link" href="#b6">6.7 Horas extraordinarias</a>
+<a class="nav-link" href="#b7">6.8 Horas complementarias</a>
+<a class="nav-link" href="#b8">6.9 Conciliación</a>
+<a class="nav-link" href="#b9">6.10 Permisos retribuidos</a>
+<a class="nav-link" href="#b10">6.11 Salario y SMI</a>
+<a class="nav-link" href="#b11">6.12 Salario base</a>
+<a class="nav-link" href="#b12">6.13 Complementos salariales</a>
+<a class="nav-link" href="#b13">6.14 Pagas extraordinarias</a>
+<a class="nav-link" href="#b14">6.15 Ejemplo de salario</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 6 · Jornada laboral, salario y nómina</h2>
+
+<p>
+Página interactiva para estudiar jornada laboral, descansos,
+conciliación, horas extraordinarias, salario y nómina.
+Cada bloque incluye explicaciones detalladas, ejemplos reales,
+preguntas trampa y mini-test tipo examen.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>6.1 La jornada laboral</h2>
+
+<p>
+La jornada laboral es el tiempo que una persona dedica a trabajar.
+Aunque parece un concepto simple, tiene una regulación muy estricta porque afecta directamente a la salud, la conciliación y la seguridad.
+</p>
+
+<p>
+En España, la jornada laboral se regula principalmente en el artículo 34 del Estatuto de los Trabajadores.
+</p>
+
+<h3>Objetivos de la regulación</h3>
+
+<ul>
+<li>Evitar exceso de fatiga.</li>
+<li>Reducir accidentes laborales.</li>
+<li>Garantizar descanso y conciliación.</li>
+<li>Proteger salud física y mental.</li>
+</ul>
+
+<div class="tip-box">
+<strong>Idea clave:</strong>
+Los límites de jornada son derechos mínimos obligatorios, aunque empresa y trabajador acuerden otra cosa.
+</div>
+
+<div class="trap-box">
+<strong>Pregunta trampa:</strong>
+Trabajar más horas no significa automáticamente cobrar más si existen incumplimientos legales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué norma regula principalmente la jornada laboral?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Código Penal
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Estatuto de los Trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Ley Rider
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>6.2 Duración de la jornada laboral</h2>
+
+<p>
+La ley establece límites máximos para evitar jornadas excesivas.
+</p>
+
+<ul>
+<li>Máximo 40 horas semanales de promedio anual.</li>
+<li>Máximo 9 horas diarias salvo convenio.</li>
+<li>Puede existir distribución irregular.</li>
+</ul>
+
+<h3>Promedio anual</h3>
+
+<p>
+Puede haber semanas con más horas y otras con menos,
+siempre que el promedio anual no supere las 40 horas semanales.
+</p>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+En campañas de verano o Navidad pueden aumentarse temporalmente las horas.
+</div>
+
+<div class="trap-box">
+El límite de 40 horas NO significa exactamente 40 horas cada semana.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cómo se calcula el límite de 40 horas?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Cada día
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+En promedio anual
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Solo mensualmente
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>6.3 Los descansos</h2>
+
+<h3>Descanso entre jornadas</h3>
+
+<ul>
+<li>Mínimo 12 horas entre un turno y otro.</li>
+</ul>
+
+<h3>Descanso semanal</h3>
+
+<ul>
+<li>Mínimo 1 día y medio ininterrumpido.</li>
+</ul>
+
+<h3>Vacaciones</h3>
+
+<ul>
+<li>Mínimo 30 días naturales al año.</li>
+<li>No pueden sustituirse por dinero salvo fin de contrato.</li>
+</ul>
+
+<h3>Descanso intrajornada</h3>
+
+<ul>
+<li>Mínimo 15 minutos si se trabajan más de 6 horas seguidas.</li>
+</ul>
+
+<div class="tip-box">
+Los descansos son una medida de prevención de riesgos laborales.
+</div>
+
+<div class="trap-box">
+Las vacaciones no pueden “renunciarse” para cobrar más dinero.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuántas horas mínimas deben existir entre jornadas?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+8 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+12 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+24 horas
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>6.4 Trabajo nocturno</h2>
+
+<p>
+Se considera trabajo nocturno el realizado entre las 22:00 y las 6:00.
+</p>
+
+<h3>Protecciones especiales</h3>
+
+<ul>
+<li>Máximo 8 horas de promedio en 15 días.</li>
+<li>Reconocimientos médicos obligatorios.</li>
+<li>Plus de nocturnidad según convenio.</li>
+</ul>
+
+<div class="example-box">
+Los trabajos nocturnos suelen tener mayor riesgo de fatiga y accidentes.
+</div>
+
+<div class="trap-box">
+El plus nocturno puede depender del convenio colectivo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Entre qué horas se considera trabajo nocturno?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+20:00 - 4:00
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+22:00 - 6:00
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+00:00 - 8:00
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>6.5 Sentencia del Tribunal Supremo de 23 de marzo de 2017</h2>
+
+<p>
+El Tribunal Supremo analizó si el descanso de 15 minutos debía computarse como tiempo efectivo de trabajo.
+</p>
+
+<h3>Qué ocurrió</h3>
+
+<ul>
+<li>El convenio colectivo reconocía ese descanso.</li>
+<li>La empresa no quería contarlo como tiempo trabajado.</li>
+<li>El trabajador reclamó judicialmente.</li>
+</ul>
+
+<div class="tip-box">
+El Tribunal dio la razón al trabajador porque el convenio mejoraba la ley.
+</div>
+
+<div class="trap-box">
+El convenio colectivo puede mejorar los mínimos legales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué confirmó el Tribunal Supremo?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Que el descanso nunca cuenta
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Que el convenio puede considerar el descanso como trabajo efectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Que la empresa decide siempre
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>6.7 Horas extraordinarias (art. 35 ET)</h2>
+
+<p>
+Son las horas realizadas por encima de la jornada ordinaria.
+</p>
+
+<ul>
+<li>Máximo 80 horas al año.</li>
+<li>Generalmente voluntarias.</li>
+<li>Deben compensarse con dinero o descanso.</li>
+</ul>
+
+<div class="tip-box">
+Las horas extra abusivas pueden afectar gravemente a la salud.
+</div>
+
+<div class="trap-box">
+Las horas extra NO son obligatorias salvo fuerza mayor o pacto previo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es el límite anual general de horas extra?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+40 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+120 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+80 horas
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="study-block" id="b7">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>6.8 Horas complementarias en contratos a tiempo parcial</h2>
+
+<p>
+Las horas complementarias son horas adicionales pactadas en contratos parciales.
+</p>
+
+<ul>
+<li>Deben pactarse previamente.</li>
+<li>No son iguales a las horas extra.</li>
+<li>No pueden convertir el contrato en jornada completa.</li>
+</ul>
+
+<div class="trap-box">
+Muchos exámenes confunden horas complementarias con extraordinarias.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿En qué contratos existen horas complementarias?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Contratos indefinidos
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Contratos a tiempo parcial
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Contratos nocturnos
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="study-block" id="b8">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>6.9 Conciliación de la vida personal y laboral</h2>
+
+<p>
+La conciliación busca equilibrar trabajo y responsabilidades familiares.
+</p>
+
+<h3>Derechos principales</h3>
+
+<ul>
+<li>Reducción de jornada.</li>
+<li>Adaptación horaria.</li>
+<li>Excedencias por cuidado.</li>
+</ul>
+
+<div class="tip-box">
+La empresa debe justificar adecuadamente cualquier negativa.
+</div>
+
+<div class="example-box">
+El artículo 34.8 ET permite solicitar cambios de horario sin reducir salario.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué permite el artículo 34.8 ET?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Eliminar vacaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Solicitar adaptación de jornada
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Trabajar sin descanso
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="study-block" id="b9">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>6.10 Permisos retribuidos (art. 37 ET)</h2>
+
+<ul>
+<li>Matrimonio → 15 días.</li>
+<li>Mudanza → 1 día.</li>
+<li>Fallecimiento o accidente familiar → 2 o 4 días.</li>
+<li>Deber público → tiempo indispensable.</li>
+</ul>
+
+<div class="tip-box">
+Durante estos permisos el trabajador mantiene el salario.
+</div>
+
+<div class="trap-box">
+Los permisos retribuidos no deben recuperarse después.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuántos días corresponden por matrimonio?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+7 días
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+15 días
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+30 días
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="study-block" id="b10">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>6.11 El salario - Introducción y SMI</h2>
+
+<p>
+El salario es la retribución económica por el trabajo realizado.
+</p>
+
+<h3>Aspectos clave</h3>
+
+<ul>
+<li>Debe pagarse en dinero.</li>
+<li>Debe aparecer en nómina.</li>
+<li>No puede ser inferior al SMI.</li>
+</ul>
+
+<div class="tip-box">
+El SMI actúa como red mínima de protección salarial.
+</div>
+
+<div class="trap-box">
+El salario bruto y el neto NO son iguales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa SMI?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Sistema Mínimo Industrial
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+Salario Mínimo Interprofesional
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Servicio Mínimo Individual
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="study-block" id="b11">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>6.12 Salario base</h2>
+
+<p>
+Es la cuantía principal fijada para el puesto de trabajo.
+</p>
+
+<ul>
+<li>Depende del convenio.</li>
+<li>Varía según grupo profesional.</li>
+<li>Es la base para calcular complementos.</li>
+</ul>
+
+<div class="example-box">
+Dos trabajadores pueden tener distinto salario base según categoría profesional.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué determina principalmente el salario base?</p>
+
+<label class="option">
+<input type="radio" name="q11">
+El color del uniforme
+</label>
+
+<label class="option">
+<input type="radio" name="q11" data-correct="true">
+Grupo profesional y convenio
+</label>
+
+<label class="option">
+<input type="radio" name="q11">
+Las vacaciones
+</label>
+
+<button onclick="checkQuiz('q11', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 12 -->
+
+<section class="study-block" id="b12">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>6.13 Complementos salariales</h2>
+
+<h3>Tipos frecuentes</h3>
+
+<ul>
+<li>Antigüedad.</li>
+<li>Nocturnidad.</li>
+<li>Peligrosidad.</li>
+<li>Productividad.</li>
+<li>Transporte.</li>
+</ul>
+
+<div class="tip-box">
+Los complementos pueden ser obligatorios si aparecen en convenio o contrato.
+</div>
+
+<div class="example-box">
+El Tribunal Supremo reconoció el plus de peligrosidad a trabajadoras de limpieza industrial.
+</div>
+
+<div class="trap-box">
+Los pluses NO son opcionales cuando el convenio los exige.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué complemento compensa trabajar en horario nocturno?</p>
+
+<label class="option">
+<input type="radio" name="q12">
+Antigüedad
+</label>
+
+<label class="option">
+<input type="radio" name="q12" data-correct="true">
+Nocturnidad
+</label>
+
+<label class="option">
+<input type="radio" name="q12">
+Productividad
+</label>
+
+<button onclick="checkQuiz('q12', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 13 -->
+
+<section class="study-block" id="b13">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>6.14 Pagas extraordinarias</h2>
+
+<p>
+El Estatuto obliga normalmente a dos pagas extraordinarias al año.
+</p>
+
+<ul>
+<li>Suelen pagarse en verano y Navidad.</li>
+<li>Pueden prorratearse.</li>
+<li>Forman parte del salario bruto.</li>
+</ul>
+
+<div class="trap-box">
+Si están prorrateadas deben aparecer repartidas en cada nómina mensual.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuántas pagas extra establece normalmente el Estatuto?</p>
+
+<label class="option">
+<input type="radio" name="q13">
+1
+</label>
+
+<label class="option">
+<input type="radio" name="q13" data-correct="true">
+2
+</label>
+
+<label class="option">
+<input type="radio" name="q13">
+4
+</label>
+
+<button onclick="checkQuiz('q13', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 14 -->
+
+<section class="study-block" id="b14">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>6.15 Ejemplo de salario</h2>
+
+<h3>Devengos</h3>
+
+<ul>
+<li>Salario base.</li>
+<li>Complementos.</li>
+<li>Pagas extra.</li>
+<li>Percepciones no salariales.</li>
+</ul>
+
+<h3>Deducciones</h3>
+
+<ul>
+<li>Seguridad Social.</li>
+<li>IRPF.</li>
+<li>Anticipos.</li>
+</ul>
+
+<h3>Líquido a percibir</h3>
+
+<p>
+Es el dinero final que llega a la cuenta bancaria.
+</p>
+
+<div class="tip-box">
+El salario bruto es clave para calcular prestaciones e indemnizaciones.
+</div>
+
+<div class="trap-box">
+El neto puede variar mucho según IRPF y cotizaciones.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué resultado se obtiene tras restar deducciones a los devengos?</p>
+
+<label class="option">
+<input type="radio" name="q14">
+Convenio colectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q14" data-correct="true">
+Líquido a percibir
+</label>
+
+<label class="option">
+<input type="radio" name="q14">
+Horas extraordinarias
+</label>
+
+<button onclick="checkQuiz('q14', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

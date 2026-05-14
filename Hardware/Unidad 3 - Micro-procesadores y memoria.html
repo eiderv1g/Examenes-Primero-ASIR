@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 3 - Micro-procesadores y Memoria</title>
+
+<style>
+
+:root{
+  --bg:#07111f;
+  --panel:#101b32;
+  --panel2:#172545;
+  --accent:#00e5ff;
+  --accent2:#7c3aed;
+  --text:#eef4ff;
+  --muted:#9fb0cb;
+  --border:#243659;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Segoe UI,sans-serif;
+  background:
+  radial-gradient(circle at top right, rgba(0,229,255,.08), transparent 20%),
+  radial-gradient(circle at bottom left, rgba(124,58,237,.09), transparent 20%),
+  var(--bg);
+  color:var(--text);
+  display:flex;
+  overflow:hidden;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:rgba(5,10,20,.97);
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:24px;
+}
+
+.logo{
+  font-size:1.9rem;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+
+.desc{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:28px;
+}
+
+.nav-btn{
+  width:100%;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+  transition:.25s;
+  font-weight:700;
+}
+
+.nav-btn:hover{
+  transform:translateX(6px);
+  border-color:var(--accent);
+  background:var(--panel2);
+}
+
+.nav-btn small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-weight:400;
+}
+
+/* CONTENT */
+
+.content{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  height:100vh;
+  overflow-y:auto;
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#101d39,#162b52);
+  border-radius:24px;
+  border:1px solid var(--border);
+  padding:42px;
+  margin-bottom:35px;
+}
+
+.tag{
+  display:inline-block;
+  margin-bottom:14px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,229,255,.3);
+  color:var(--accent);
+  background:rgba(0,229,255,.08);
+  font-size:.9rem;
+}
+
+.hero h1{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.9;
+}
+
+/* BLOCKS */
+
+.block{
+  background:rgba(16,27,50,.95);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:35px;
+}
+
+.block h2{
+  color:var(--accent);
+  font-size:2rem;
+  margin-bottom:18px;
+}
+
+.block h3{
+  margin-top:24px;
+  margin-bottom:12px;
+}
+
+.block p{
+  line-height:1.85;
+  margin-bottom:14px;
+}
+
+.block ul,
+.block ol{
+  padding-left:22px;
+  margin:15px 0;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.8;
+}
+
+.card{
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  border-radius:14px;
+  padding:18px;
+  margin:18px 0;
+}
+
+.success{
+  border-left-color:var(--success);
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th,td{
+  border:1px solid var(--border);
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#0f172a;
+  color:var(--accent);
+}
+
+td{
+  background:#172545;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#0d1629;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+}
+
+.quiz h3{
+  margin-bottom:20px;
+}
+
+.question{
+  margin-bottom:24px;
+}
+
+.question p{
+  font-weight:700;
+}
+
+.question button{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#1b2a49;
+  color:var(--text);
+  cursor:pointer;
+  transition:.2s;
+  text-align:left;
+}
+
+.question button:hover{
+  border-color:var(--accent);
+}
+
+.correct{
+  background:rgba(16,185,129,.2)!important;
+  border-color:var(--success)!important;
+}
+
+.wrong{
+  background:rgba(239,68,68,.2)!important;
+  border-color:var(--danger)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding-bottom:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+  overflow:auto;
+}
+
+.sidebar{
+  width:100%;
+  height:auto;
+  position:relative;
+}
+
+.content{
+  width:100%;
+  margin-left:0;
+  height:auto;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">⚙ CPU LAB</div>
+
+<div class="desc">
+Unidad 3 — Micro-procesadores y Memoria.<br>
+Teoría avanzada + tablas + mini-tests interactivos.
+</div>
+
+<button class="nav-btn" onclick="goTo('b1')">
+1. CPU y evolución
+<small>Fetch-Decode-Execute</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b2')">
+2. Litografía y núcleos
+<small>Ley de Moore y multi-core</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b3')">
+3. Intel vs AMD
+<small>Ryzen y competencia</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b4')">
+4. Arquitectura interna CPU
+<small>ALU, UC y registros</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b5')">
+5. Caché y jerarquía
+<small>L1, L2 y L3</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b6')">
+6. CISC vs RISC
+<small>x86 y ARM</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b7')">
+7. RAM y DDR
+<small>DDR4, DDR5 y LPDDR</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b8')">
+8. Dual Channel y XMP
+<small>Configuración avanzada</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b9')">
+9. Benchmarks
+<small>Cinebench y Geekbench</small>
+</button>
+
+<button class="nav-btn" onclick="goTo('b10')">
+10. Resumen final
+<small>Mitos y examen</small>
+</button>
+
+</aside>
+
+<!-- CONTENT -->
+
+<main class="content">
+
+<section class="hero">
+
+<div class="tag">Hardware avanzado</div>
+
+<h1>Unidad 3 - Micro-procesadores y Memoria</h1>
+
+<p>
+La página incluye explicaciones ampliadas, tablas,
+casos reales, comparativas y mini-tests interactivos
+al final de cada bloque.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>1. CPU y evolución histórica</h2>
+
+<p>
+La CPU (Unidad Central de Procesamiento) es el cerebro del ordenador.
+Se encarga de ejecutar instrucciones y procesar datos mediante
+el ciclo:
+</p>
+
+<table>
+
+<tr>
+<th>Fase</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Fetch</td>
+<td>Obtiene la instrucción desde RAM</td>
+</tr>
+
+<tr>
+<td>Decode</td>
+<td>Interpreta la instrucción</td>
+</tr>
+
+<tr>
+<td>Execute</td>
+<td>Ejecuta la operación</td>
+</tr>
+
+</table>
+
+<h3>Evolución histórica</h3>
+
+<ul>
+<li>1971 → Intel 4004.</li>
+<li>1978 → Intel 8086 y arquitectura x86.</li>
+<li>1993 → Intel Pentium.</li>
+<li>2006 → Core 2 Duo y era multi-core.</li>
+<li>2017 → AMD Ryzen revoluciona el mercado.</li>
+<li>Actualidad → CPUs de 5nm e IA integrada.</li>
+</ul>
+
+<div class="card success">
+La evolución de las CPUs ha seguido la famosa Ley de Moore:
+duplicar transistores aproximadamente cada 2 años.
+</div>
+
+<div class="card warning">
+Más GHz NO siempre significa mejor rendimiento.
+La arquitectura y caché también son fundamentales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué hace la fase Decode?</p>
+
+<button onclick="correct(this)">Interpretar la instrucción</button>
+<button onclick="wrong(this)">Guardar datos en SSD</button>
+<button onclick="wrong(this)">Aumentar la frecuencia RAM</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>2. Litografía y procesadores multi-core</h2>
+
+<p>
+La litografía mide el tamaño de fabricación de los transistores
+en nanómetros (nm).
+</p>
+
+<table>
+
+<tr>
+<th>Litografía menor</th>
+<th>Ventajas</th>
+</tr>
+
+<tr>
+<td>7nm → 5nm</td>
+<td>Más eficiencia y menos calor</td>
+</tr>
+
+<tr>
+<td>Más transistores</td>
+<td>Mayor potencia</td>
+</tr>
+
+<tr>
+<td>Menor voltaje</td>
+<td>Menor consumo energético</td>
+</tr>
+
+</table>
+
+<h3>Procesadores multi-core</h3>
+
+<p>
+Las CPUs modernas integran múltiples núcleos capaces de trabajar
+en paralelo.
+</p>
+
+<ul>
+<li>Single-core → Un solo núcleo.</li>
+<li>Dual-core → Dos núcleos.</li>
+<li>Quad-core → Cuatro núcleos.</li>
+<li>Multi-core → Muchos núcleos.</li>
+</ul>
+
+<div class="card success">
+Los núcleos múltiples mejoran multitarea, edición de vídeo y virtualización.
+</div>
+
+<div class="card danger">
+No todos los programas aprovechan muchos núcleos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué ventaja tiene una litografía más pequeña?</p>
+
+<button onclick="correct(this)">Mayor eficiencia energética</button>
+<button onclick="wrong(this)">Más ruido en ventiladores</button>
+<button onclick="wrong(this)">Reduce capacidad SSD</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>3. Intel vs AMD</h2>
+
+<p>
+Durante años Intel dominó el mercado,
+hasta la llegada de AMD Ryzen en 2017.
+</p>
+
+<table>
+
+<tr>
+<th>Intel</th>
+<th>AMD Ryzen</th>
+</tr>
+
+<tr>
+<td>Mayor dominio histórico</td>
+<td>Más núcleos a menor precio</td>
+</tr>
+
+<tr>
+<td>Gran rendimiento gaming</td>
+<td>Excelente multitarea</td>
+</tr>
+
+<tr>
+<td>x86 tradicional</td>
+<td>Innovación agresiva</td>
+</tr>
+
+</table>
+
+<h3>Impacto de Ryzen</h3>
+
+<ul>
+<li>Más competencia.</li>
+<li>Bajada de precios.</li>
+<li>Más núcleos en consumo.</li>
+<li>Mejor rendimiento multi-core.</li>
+</ul>
+
+<div class="card success">
+La competencia Intel vs AMD impulsó una enorme evolución del hardware.
+</div>
+
+<div class="card warning">
+Un procesador caro no siempre es la mejor opción para gaming.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué destacó especialmente en Ryzen?</p>
+
+<button onclick="correct(this)">Muchos núcleos a buen precio</button>
+<button onclick="wrong(this)">Eliminar la caché</button>
+<button onclick="wrong(this)">Usar únicamente un núcleo</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>4. Arquitectura interna CPU</h2>
+
+<h3>Componentes internos</h3>
+
+<table>
+
+<tr>
+<th>Componente</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>UC</td>
+<td>Coordina instrucciones</td>
+</tr>
+
+<tr>
+<td>ALU</td>
+<td>Realiza cálculos matemáticos y lógicos</td>
+</tr>
+
+<tr>
+<td>Registros</td>
+<td>Memoria ultrarrápida interna</td>
+</tr>
+
+<tr>
+<td>Caché</td>
+<td>Reduce acceso lento a RAM</td>
+</tr>
+
+</table>
+
+<h3>ALU</h3>
+
+<p>
+La Unidad Aritmético-Lógica realiza operaciones matemáticas,
+comparaciones y lógica binaria.
+</p>
+
+<h3>Unidad de Control</h3>
+
+<p>
+Es el “director de orquesta” del procesador.
+Coordina el flujo de datos y señales.
+</p>
+
+<div class="card success">
+Los registros son la memoria más rápida de todo el sistema.
+</div>
+
+<div class="card danger">
+La CPU no accede directamente al SSD para cálculos rápidos;
+primero usa caché y RAM.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué componente realiza cálculos matemáticos?</p>
+
+<button onclick="correct(this)">ALU</button>
+<button onclick="wrong(this)">UEFI</button>
+<button onclick="wrong(this)">PCIe</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>5. Memoria caché y jerarquía</h2>
+
+<p>
+La caché es una memoria extremadamente rápida integrada
+dentro del procesador.
+</p>
+
+<table>
+
+<tr>
+<th>Nivel</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>L1</td>
+<td>Muy rápida y pequeña</td>
+</tr>
+
+<tr>
+<td>L2</td>
+<td>Más grande, algo más lenta</td>
+</tr>
+
+<tr>
+<td>L3</td>
+<td>Compartida entre núcleos</td>
+</tr>
+
+</table>
+
+<h3>Jerarquía de memoria</h3>
+
+<ol>
+
+<li>Registros CPU</li>
+<li>Caché L1/L2/L3</li>
+<li>RAM</li>
+<li>SSD/HDD</li>
+
+</ol>
+
+<div class="card success">
+Cuanto más rápida es la memoria,
+más cara y pequeña suele ser.
+</div>
+
+<div class="card warning">
+La caché L3 es especialmente importante en gaming.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Cuál es la caché más rápida?</p>
+
+<button onclick="correct(this)">L1</button>
+<button onclick="wrong(this)">L3</button>
+<button onclick="wrong(this)">SSD</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>6. Arquitecturas CISC y RISC</h2>
+
+<table>
+
+<tr>
+<th>CISC</th>
+<th>RISC</th>
+</tr>
+
+<tr>
+<td>x86 Intel/AMD</td>
+<td>ARM Apple y móviles</td>
+</tr>
+
+<tr>
+<td>Instrucciones complejas</td>
+<td>Instrucciones simples</td>
+</tr>
+
+<tr>
+<td>Hardware más complejo</td>
+<td>Mayor eficiencia energética</td>
+</tr>
+
+</table>
+
+<h3>Apple Silicon</h3>
+
+<p>
+Apple demostró que ARM puede competir en ordenadores
+de alto rendimiento gracias a Apple Silicon.
+</p>
+
+<ul>
+<li>Mayor eficiencia por vatio.</li>
+<li>Menor consumo.</li>
+<li>Excelente autonomía.</li>
+<li>Arquitectura unificada.</li>
+</ul>
+
+<div class="card success">
+ARM domina smartphones y ahora también está creciendo en PCs.
+</div>
+
+<div class="card danger">
+RISC NO significa automáticamente “más potente”.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué arquitectura usan la mayoría de smartphones?</p>
+
+<button onclick="correct(this)">ARM / RISC</button>
+<button onclick="wrong(this)">x86 clásico</button>
+<button onclick="wrong(this)">PCIe</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>7. Memoria RAM y generaciones DDR</h2>
+
+<p>
+La RAM es la memoria temporal de trabajo del sistema.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>DDR3</td>
+<td>Obsoleta actualmente</td>
+</tr>
+
+<tr>
+<td>DDR4</td>
+<td>Estándar actual más extendido</td>
+</tr>
+
+<tr>
+<td>DDR5</td>
+<td>Mayor velocidad y eficiencia</td>
+</tr>
+
+<tr>
+<td>LPDDR</td>
+<td>Bajo consumo para portátiles y móviles</td>
+</tr>
+
+</table>
+
+<h3>Características importantes</h3>
+
+<ul>
+<li>RAM = memoria volátil.</li>
+<li>Se borra al apagar el PC.</li>
+<li>DDR4 y DDR5 son incompatibles físicamente.</li>
+<li>LPDDR prioriza batería y eficiencia.</li>
+</ul>
+
+<div class="card success">
+DDR5 duplica el ancho de banda respecto a DDR4.
+</div>
+
+<div class="card warning">
+Más RAM no siempre significa más velocidad.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué significa que la RAM sea volátil?</p>
+
+<button onclick="correct(this)">Pierde datos al apagar el PC</button>
+<button onclick="wrong(this)">Nunca se borra</button>
+<button onclick="wrong(this)">Es permanente como un SSD</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>8. Dual Channel y perfiles XMP/EXPO</h2>
+
+<h3>Dual Channel</h3>
+
+<p>
+Permite que la CPU acceda simultáneamente a dos módulos RAM,
+duplicando el ancho de banda.
+</p>
+
+<h3>Configuración correcta</h3>
+
+<ul>
+<li>Instalar módulos en A2 y B2.</li>
+<li>Usar kits idénticos.</li>
+<li>Evitar mezclar marcas y latencias.</li>
+</ul>
+
+<h3>XMP / EXPO</h3>
+
+<table>
+
+<tr>
+<th>Tecnología</th>
+<th>Fabricante</th>
+</tr>
+
+<tr>
+<td>XMP</td>
+<td>Intel</td>
+</tr>
+
+<tr>
+<td>EXPO</td>
+<td>AMD</td>
+</tr>
+
+</table>
+
+<p>
+Permiten activar automáticamente la velocidad anunciada de la RAM.
+</p>
+
+<div class="card success">
+Activar XMP/EXPO puede aumentar mucho el rendimiento.
+</div>
+
+<div class="card danger">
+Sin XMP/EXPO, la RAM suele funcionar a velocidad reducida.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué hace Dual Channel?</p>
+
+<button onclick="correct(this)">Duplica el ancho de banda</button>
+<button onclick="wrong(this)">Reduce la RAM instalada</button>
+<button onclick="wrong(this)">Desactiva caché L3</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>9. Benchmarks y comparativas</h2>
+
+<p>
+Los benchmarks permiten medir objetivamente el rendimiento del hardware.
+</p>
+
+<table>
+
+<tr>
+<th>Benchmark</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>Cinebench</td>
+<td>Rendimiento CPU</td>
+</tr>
+
+<tr>
+<td>Geekbench</td>
+<td>Comparativa multiplataforma</td>
+</tr>
+
+<tr>
+<td>CPU-Z Bench</td>
+<td>Pruebas rápidas CPU</td>
+</tr>
+
+<tr>
+<td>AIDA64</td>
+<td>RAM y caché</td>
+</tr>
+
+</table>
+
+<h3>Tipos</h3>
+
+<ul>
+<li>Benchmarks sintéticos.</li>
+<li>Benchmarks de mundo real.</li>
+<li>FPS en videojuegos.</li>
+<li>Renderizado y edición.</li>
+</ul>
+
+<div class="card success">
+Cinebench diferencia rendimiento Single-Core y Multi-Core.
+</div>
+
+<div class="card warning">
+No compares puntuaciones entre programas distintos.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué benchmark es famoso para probar CPUs?</p>
+
+<button onclick="correct(this)">Cinebench</button>
+<button onclick="wrong(this)">Paint</button>
+<button onclick="wrong(this)">WordPad</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<h2>10. Mitos, errores y resumen final</h2>
+
+<h3>Mitos importantes</h3>
+
+<ul>
+<li>Más núcleos ≠ siempre más rendimiento.</li>
+<li>Más RAM ≠ PC más rápido automáticamente.</li>
+<li>ARM ≠ siempre superior a x86.</li>
+<li>Benchmarks ≠ experiencia real absoluta.</li>
+</ul>
+
+<h3>Errores típicos de examen</h3>
+
+<table>
+
+<tr>
+<th>Error</th>
+<th>Corrección</th>
+</tr>
+
+<tr>
+<td>Confundir RAM con almacenamiento</td>
+<td>RAM es memoria temporal</td>
+</tr>
+
+<tr>
+<td>Confundir caché y RAM</td>
+<td>La caché está dentro de la CPU</td>
+</tr>
+
+<tr>
+<td>Comparar benchmarks distintos</td>
+<td>Solo comparar mismo software</td>
+</tr>
+
+</table>
+
+<div class="card success">
+Resumen clave:
+CPU + caché + RAM + arquitectura trabajan conjuntamente.
+</div>
+
+<div class="card danger">
+El equilibrio del sistema es más importante que un único componente extremadamente potente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test final</h3>
+
+<div class="question">
+<p>¿Qué memoria está integrada dentro de la CPU?</p>
+
+<button onclick="correct(this)">Memoria caché</button>
+<button onclick="wrong(this)">SSD</button>
+<button onclick="wrong(this)">Disco duro HDD</button>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 3 · Micro-procesadores y Memoria · Plataforma interactiva de estudio
+</div>
+
+</main>
+
+<script>
+
+function goTo(id){
+  document.getElementById(id).scrollIntoView({
+    behavior:'smooth'
+  });
+}
+
+function correct(btn){
+
+  reset(btn.parentElement);
+
+  btn.classList.add('correct');
+}
+
+function wrong(btn){
+
+  reset(btn.parentElement);
+
+  btn.classList.add('wrong');
+}
+
+function reset(parent){
+
+  let buttons = parent.querySelectorAll('button');
+
+  buttons.forEach(b=>{
+    b.classList.remove('correct');
+    b.classList.remove('wrong');
+  });
+
+}
+
+</script>
+
+</body>
+</html>

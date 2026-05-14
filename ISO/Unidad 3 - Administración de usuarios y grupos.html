@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 3 - Administración de usuarios y grupos</title>
+
+<style>
+
+:root{
+  --bg:#09090f;
+  --panel:#141421;
+  --panel2:#1c1c2d;
+  --purple:#7c3aed;
+  --purple2:#5b21b6;
+  --orange:#ff8c42;
+  --text:#ececf1;
+  --muted:#a1a1aa;
+  --border:#2a2a40;
+  --green:#10b981;
+  --red:#ef4444;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:
+  radial-gradient(circle at top left, rgba(124,58,237,0.16), transparent 30%),
+  radial-gradient(circle at bottom right, rgba(255,140,66,0.08), transparent 30%),
+  var(--bg);
+
+  color:var(--text);
+  font-family:Segoe UI, sans-serif;
+  display:flex;
+}
+
+.sidebar{
+  width:320px;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  background:rgba(10,10,18,0.97);
+  border-right:1px solid var(--border);
+  padding:30px 20px;
+}
+
+.logo{
+  margin-bottom:30px;
+}
+
+.logo h1{
+  font-size:1.8rem;
+  line-height:1.2;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.nav-title{
+  color:var(--orange);
+  text-transform:uppercase;
+  font-size:0.9rem;
+  margin-bottom:15px;
+  letter-spacing:1px;
+}
+
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,0.03);
+  border:1px solid transparent;
+  padding:12px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  background:rgba(124,58,237,0.16);
+  border-color:var(--purple);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg, rgba(124,58,237,0.2), rgba(255,140,66,0.08));
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:40px;
+  margin-bottom:35px;
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+  max-width:900px;
+}
+
+.time{
+  display:inline-block;
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,140,66,0.12);
+  border:1px solid rgba(255,140,66,0.3);
+  color:var(--orange);
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:35px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.block h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+.block h3{
+  margin-top:25px;
+  margin-bottom:12px;
+  color:var(--orange);
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:16px;
+  color:#d7d7e2;
+}
+
+.block ul{
+  padding-left:20px;
+  margin-bottom:20px;
+}
+
+.block li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.note{
+  background:rgba(124,58,237,0.12);
+  border-left:4px solid var(--purple);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.warning{
+  background:rgba(239,68,68,0.08);
+  border-left:4px solid var(--red);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+.tip{
+  background:rgba(16,185,129,0.08);
+  border-left:4px solid var(--green);
+  padding:18px;
+  border-radius:12px;
+  margin:20px 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+th{
+  background:var(--purple2);
+  padding:14px;
+  text-align:left;
+}
+
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+}
+
+.code{
+  background:#0f0f17;
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+  overflow-x:auto;
+  font-family:Consolas, monospace;
+  margin:15px 0;
+  color:#9ef5c5;
+}
+
+.mini-test{
+  margin-top:35px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+  padding:18px;
+  background:rgba(0,0,0,0.25);
+  border-radius:14px;
+}
+
+.question p{
+  font-weight:bold;
+  margin-bottom:12px;
+}
+
+.options button{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  transition:0.25s;
+  text-align:left;
+}
+
+.options button:hover{
+  background:rgba(124,58,237,0.15);
+  border-color:var(--purple);
+}
+
+.correct{
+  background:rgba(16,185,129,0.2)!important;
+  border-color:var(--green)!important;
+}
+
+.incorrect{
+  background:rgba(239,68,68,0.15)!important;
+  border-color:var(--red)!important;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  position:relative;
+  width:100%;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
+
+.hero h2{
+  font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">
+<h1>Unidad 3<br><span>Administración de usuarios y grupos</span></h1>
+</div>
+
+<div class="nav-title">Bloques de estudio</div>
+
+<nav class="nav">
+
+<a href="#b1">3.1 Gestión de identidades y accesos</a>
+<a href="#b2">3.2 Cuentas locales</a>
+<a href="#b3">3.3 Cuentas de dominio</a>
+<a href="#b4">3.4 Gestión de contraseñas y bloqueo</a>
+<a href="#b5">3.5 Active Directory corporativo</a>
+<a href="#b6">3.6 Herramientas clave</a>
+<a href="#b7">3.7 Perfiles móviles</a>
+<a href="#b8">3.8 Perfiles obligatorios</a>
+<a href="#b9">3.9 Scripts de inicio de sesión</a>
+<a href="#b10">3.10 OUs, grupos y delegación</a>
+<a href="#b11">3.11 Herramientas y consejos</a>
+
+</nav>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 3 - Administración de usuarios y grupos</h2>
+
+<p>
+Estudio completo sobre autenticación, Active Directory,
+usuarios locales y de dominio, perfiles móviles,
+GPOs, delegación de tareas y administración profesional
+de identidades en entornos Windows corporativos.
+</p>
+
+<div class="time">
+⏱ Tiempo estimado por bloque: 20-30 minutos
+</div>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>3.1 Gestión de identidades y accesos</h2>
+
+<p>
+La gestión de identidades y accesos determina:
+</p>
+
+<ul>
+<li>Quién puede acceder</li>
+<li>A qué recursos puede acceder</li>
+<li>Qué acciones puede realizar</li>
+<li>Qué permisos tiene cada usuario</li>
+</ul>
+
+<h3>Objetivos principales</h3>
+
+<table>
+
+<tr>
+<th>Objetivo</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Autenticación</td>
+<td>Verificar identidad</td>
+</tr>
+
+<tr>
+<td>Autorización</td>
+<td>Asignar permisos</td>
+</tr>
+
+<tr>
+<td>Auditoría</td>
+<td>Registrar actividades</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Proteger recursos</td>
+</tr>
+
+</table>
+
+<h3>Tipos de autenticación</h3>
+
+<ul>
+<li>Contraseña</li>
+<li>Tarjeta inteligente</li>
+<li>MFA</li>
+<li>Biometría</li>
+</ul>
+
+<div class="note">
+💡 Active Directory es la base de autenticación empresarial en Windows.
+</div>
+
+<div class="warning">
+⚠ Pregunta trampa:
+Autenticación y autorización NO son lo mismo.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué proceso verifica identidad?</p>
+
+<div class="options">
+<button onclick="correct(this)">Autenticación</button>
+<button onclick="incorrect(this)">Autorización</button>
+<button onclick="incorrect(this)">Auditoría</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>3.2 Cuentas locales</h2>
+
+<p>
+Las cuentas locales se almacenan en la base SAM
+(Security Account Manager) del propio equipo.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Independientes por ordenador</li>
+<li>No requieren dominio</li>
+<li>Administración descentralizada</li>
+<li>Uso doméstico o pequeños entornos</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Simplicidad</li>
+<li>No dependen de red</li>
+<li>Funcionan sin servidor</li>
+</ul>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Duplicar usuarios en varios equipos</li>
+<li>Contraseñas distintas</li>
+<li>Gestión compleja</li>
+<li>Menor control corporativo</li>
+</ul>
+
+<div class="code">
+lusrmgr.msc
+</div>
+
+<p>
+Abre Usuarios y grupos locales.
+</p>
+
+<div class="warning">
+⚠ Una cuenta local NO existe en otros equipos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Dónde se almacenan usuarios locales?</p>
+
+<div class="options">
+<button onclick="correct(this)">SAM</button>
+<button onclick="incorrect(this)">GPT</button>
+<button onclick="incorrect(this)">GRUB</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>3.3 Cuentas de dominio</h2>
+
+<p>
+Las cuentas de dominio se gestionan desde un
+Controlador de Dominio mediante Active Directory.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Inicio de sesión único</li>
+<li>Gestión centralizada</li>
+<li>Aplicación de políticas globales</li>
+<li>Mayor seguridad</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>DC</td>
+<td>Controlador de dominio</td>
+</tr>
+
+<tr>
+<td>AD</td>
+<td>Base de identidades</td>
+</tr>
+
+<tr>
+<td>GPO</td>
+<td>Políticas de seguridad</td>
+</tr>
+
+<tr>
+<td>OU</td>
+<td>Organización lógica</td>
+</tr>
+
+</table>
+
+<h3>Funcionamiento</h3>
+
+<p>
+El usuario puede iniciar sesión en cualquier PC del dominio
+con las mismas credenciales.
+</p>
+
+<div class="note">
+💡 Si un usuario deja la empresa, basta con desactivar su cuenta AD.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué servicio centraliza autenticación?</p>
+
+<div class="options">
+<button onclick="correct(this)">Active Directory</button>
+<button onclick="incorrect(this)">BIOS</button>
+<button onclick="incorrect(this)">Docker</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>3.4 Gestión de contraseñas y bloqueo</h2>
+
+<h3>Políticas de contraseña</h3>
+
+<ul>
+<li>Longitud mínima</li>
+<li>Complejidad</li>
+<li>Caducidad</li>
+<li>Historial</li>
+</ul>
+
+<h3>Bloqueo de cuentas</h3>
+
+<p>
+Protege frente a ataques de fuerza bruta.
+</p>
+
+<table>
+
+<tr>
+<th>Política</th>
+<th>Ejemplo</th>
+</tr>
+
+<tr>
+<td>Intentos fallidos</td>
+<td>3 intentos</td>
+</tr>
+
+<tr>
+<td>Bloqueo</td>
+<td>15 minutos</td>
+</tr>
+
+<tr>
+<td>Complejidad</td>
+<td>Mayúsculas + símbolos</td>
+</tr>
+
+</table>
+
+<h3>MFA</h3>
+
+<p>
+La autenticación multifactor mejora drásticamente la seguridad.
+</p>
+
+<div class="warning">
+⚠ Contraseña compleja ≠ seguridad total.
+</div>
+
+<div class="tip">
+💡 MFA es obligatorio en entornos modernos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué evita fuerza bruta?</p>
+
+<div class="options">
+<button onclick="correct(this)">Bloqueo de cuenta</button>
+<button onclick="incorrect(this)">Defragmentación</button>
+<button onclick="incorrect(this)">NTFS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>3.5 Active Directory en entornos corporativos</h2>
+
+<p>
+AD centraliza usuarios, grupos, políticas,
+equipos y permisos.
+</p>
+
+<h3>Objetos importantes</h3>
+
+<ul>
+<li>Usuarios</li>
+<li>Equipos</li>
+<li>Grupos</li>
+<li>Impresoras</li>
+<li>OUs</li>
+</ul>
+
+<h3>Beneficios empresariales</h3>
+
+<table>
+
+<tr>
+<th>Ventaja</th>
+<th>Impacto</th>
+</tr>
+
+<tr>
+<td>Centralización</td>
+<td>Menos trabajo manual</td>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Políticas globales</td>
+</tr>
+
+<tr>
+<td>Escalabilidad</td>
+<td>Miles de usuarios</td>
+</tr>
+
+<tr>
+<td>Auditoría</td>
+<td>Trazabilidad</td>
+</tr>
+
+</table>
+
+<div class="note">
+💡 Las GPOs automatizan configuraciones masivas.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué almacena AD además de usuarios?</p>
+
+<div class="options">
+<button onclick="correct(this)">Equipos y políticas</button>
+<button onclick="incorrect(this)">Solo contraseñas</button>
+<button onclick="incorrect(this)">Solo impresoras</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>3.6 Herramientas clave</h2>
+
+<h3>lusrmgr.msc</h3>
+
+<p>
+Gestiona usuarios locales.
+</p>
+
+<h3>net user</h3>
+
+<div class="code">
+net user alumno /add
+net user alumno *
+net user alumno /delete
+</div>
+
+<h3>dsa.msc</h3>
+
+<p>
+Usuarios y equipos de Active Directory.
+</p>
+
+<h3>gpmc.msc</h3>
+
+<p>
+Administración de políticas de grupo.
+</p>
+
+<table>
+
+<tr>
+<th>Herramienta</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>lusrmgr.msc</td>
+<td>Usuarios locales</td>
+</tr>
+
+<tr>
+<td>dsa.msc</td>
+<td>AD</td>
+</tr>
+
+<tr>
+<td>gpmc.msc</td>
+<td>GPOs</td>
+</tr>
+
+<tr>
+<td>net user</td>
+<td>Línea de comandos</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 PowerShell es clave en automatización empresarial.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué consola administra GPOs?</p>
+
+<div class="options">
+<button onclick="correct(this)">gpmc.msc</button>
+<button onclick="incorrect(this)">diskpart</button>
+<button onclick="incorrect(this)">notepad</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>3.7 Perfiles móviles (Roaming Profiles)</h2>
+
+<p>
+Los perfiles móviles almacenan configuraciones
+de usuario en un servidor central.
+</p>
+
+<h3>Funcionamiento</h3>
+
+<ol style="padding-left:20px; line-height:2;">
+
+<li>Inicio de sesión</li>
+<li>Descarga perfil</li>
+<li>Trabajo normal</li>
+<li>Sincronización al cerrar sesión</li>
+
+</ol>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Mismo entorno en cualquier PC</li>
+<li>Movilidad</li>
+<li>Configuración centralizada</li>
+</ul>
+
+<h3>Problemas típicos</h3>
+
+<ul>
+<li>Perfiles muy pesados</li>
+<li>Sincronización lenta</li>
+<li>Corrupciones</li>
+</ul>
+
+<div class="warning">
+⚠ No guardar gigas en el Escritorio.
+</div>
+
+<div class="tip">
+💡 Usar redirección de carpetas mejora muchísimo el rendimiento.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Dónde se almacenan perfiles móviles?</p>
+
+<div class="options">
+<button onclick="correct(this)">Servidor</button>
+<button onclick="incorrect(this)">GPU</button>
+<button onclick="incorrect(this)">BIOS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>3.8 Perfiles obligatorios (Mandatory Profiles)</h2>
+
+<p>
+Son perfiles móviles de solo lectura.
+</p>
+
+<h3>Funcionamiento</h3>
+
+<ul>
+<li>Los cambios no se guardan</li>
+<li>Cada sesión empieza limpia</li>
+<li>Ideal para aulas y kioscos</li>
+</ul>
+
+<h3>Implementación</h3>
+
+<div class="code">
+NTUSER.DAT → NTUSER.MAN
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Menor mantenimiento</li>
+<li>Mayor estabilidad</li>
+<li>Protección frente a malware</li>
+</ul>
+
+<div class="note">
+💡 Muy utilizados en universidades y cibercafés.
+</div>
+
+<div class="warning">
+⚠ Los usuarios NO conservan personalización.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué archivo convierte un perfil en obligatorio?</p>
+
+<div class="options">
+<button onclick="correct(this)">NTUSER.MAN</button>
+<button onclick="incorrect(this)">BOOT.INI</button>
+<button onclick="incorrect(this)">SAM</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>3.9 Scripts de inicio de sesión</h2>
+
+<p>
+Los logon scripts automatizan tareas al iniciar sesión.
+</p>
+
+<h3>Funciones típicas</h3>
+
+<ul>
+<li>Mapear unidades</li>
+<li>Asignar impresoras</li>
+<li>Lanzar aplicaciones</li>
+<li>Mostrar mensajes</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<div class="code">
+@echo off
+net use Z: \\Servidor\Recursos
+echo Bienvenido
+</div>
+
+<h3>Ubicación</h3>
+
+<div class="code">
+NETLOGON
+</div>
+
+<p>
+Los scripts suelen almacenarse allí.
+</p>
+
+<div class="tip">
+💡 GPP es una alternativa moderna a scripts clásicos.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué comando mapea unidades?</p>
+
+<div class="options">
+<button onclick="correct(this)">net use</button>
+<button onclick="incorrect(this)">shutdown</button>
+<button onclick="incorrect(this)">mkdir</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<h2>3.10 OUs, grupos y delegación</h2>
+
+<h3>OUs</h3>
+
+<p>
+Contenedores lógicos para organizar objetos.
+</p>
+
+<ul>
+<li>Usuarios</li>
+<li>Equipos</li>
+<li>Impresoras</li>
+<li>Departamentos</li>
+</ul>
+
+<h3>Grupos</h3>
+
+<table>
+
+<tr>
+<th>Grupo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Permisos</td>
+</tr>
+
+<tr>
+<td>Distribución</td>
+<td>Correo</td>
+</tr>
+
+</table>
+
+<h3>Delegación</h3>
+
+<p>
+Permite asignar tareas limitadas sin otorgar privilegios globales.
+</p>
+
+<h3>Tipos de grupos</h3>
+
+<ul>
+<li>Global</li>
+<li>Local de dominio</li>
+<li>Universal</li>
+</ul>
+
+<div class="warning">
+⚠ OUs y grupos NO son lo mismo.
+</div>
+
+<div class="note">
+💡 AGDLP es la metodología profesional recomendada.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué sirve para organizar objetos?</p>
+
+<div class="options">
+<button onclick="correct(this)">OU</button>
+<button onclick="incorrect(this)">Grupo</button>
+<button onclick="incorrect(this)">MFA</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>2. ¿Qué asigna permisos?</p>
+
+<div class="options">
+<button onclick="correct(this)">Grupos</button>
+<button onclick="incorrect(this)">OUs</button>
+<button onclick="incorrect(this)">DNS</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block" id="b11">
+
+<h2>3.11 Herramientas y consejos</h2>
+
+<h3>PowerShell</h3>
+
+<div class="code">
+New-ADUser
+New-ADGroup
+Set-ADUser
+</div>
+
+<h3>Consejos profesionales</h3>
+
+<ul>
+<li>Aplicar principio de mínimo privilegio</li>
+<li>Usar MFA</li>
+<li>Centralizar autenticación</li>
+<li>Documentar delegaciones</li>
+<li>Evitar permisos directos</li>
+</ul>
+
+<h3>Principio AGDLP</h3>
+
+<table>
+
+<tr>
+<th>Sigla</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Accounts</td>
+</tr>
+
+<tr>
+<td>G</td>
+<td>Global Groups</td>
+</tr>
+
+<tr>
+<td>DL</td>
+<td>Domain Local</td>
+</tr>
+
+<tr>
+<td>P</td>
+<td>Permissions</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Los permisos deben darse a grupos, no a usuarios individuales.
+</div>
+
+<div class="warning">
+⚠ Dar permisos directos complica auditorías y mantenimiento.
+</div>
+
+<div class="mini-test">
+
+<h3>Mini-Test Final</h3>
+
+<div class="question">
+
+<p>1. ¿Qué principio organiza permisos en AD?</p>
+
+<div class="options">
+<button onclick="correct(this)">AGDLP</button>
+<button onclick="incorrect(this)">MBR</button>
+<button onclick="incorrect(this)">GPT</button>
+</div>
+
+</div>
+
+<div class="question">
+
+<p>2. ¿Qué herramienta moderna administra AD?</p>
+
+<div class="options">
+<button onclick="correct(this)">ADAC</button>
+<button onclick="incorrect(this)">Paint</button>
+<button onclick="incorrect(this)">GRUB</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Unidad 3 — Administración de usuarios y grupos
+</div>
+
+</main>
+
+<script>
+
+function correct(btn){
+btn.classList.add("correct");
+}
+
+function incorrect(btn){
+btn.classList.add("incorrect");
+}
+
+</script>
+
+</body>
+</html>

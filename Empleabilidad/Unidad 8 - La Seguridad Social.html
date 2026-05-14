@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 8 - La Seguridad Social</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#1d3557;
+  --secondary:#edf3fb;
+  --accent:#dce9f9;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --success:#eef8f1;
+  --warning:#fff8e8;
+  --shadow:0 12px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(18px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.9rem;
+  color:var(--primary);
+  margin-bottom:12px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:26px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1d3557,#4f6f94);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCK */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.85rem;
+  margin-bottom:20px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  background:#fafafa;
+  padding:16px;
+  border-bottom:1px solid #ececec;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:var(--success);
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  border-radius:24px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 8</h1>
+
+<p>La Seguridad Social</p>
+
+<a class="nav-link" href="#b1">8.1 Introducción</a>
+<a class="nav-link" href="#b2">8.2 Principios básicos</a>
+<a class="nav-link" href="#b3">8.3 Niveles de protección</a>
+<a class="nav-link" href="#b4">8.4 COVID-19 y ERTE</a>
+<a class="nav-link" href="#b5">8.5 Prestaciones contributivas y no contributivas</a>
+<a class="nav-link" href="#b6">8.6 Prestaciones contributivas</a>
+<a class="nav-link" href="#b7">8.7 Prestaciones no contributivas</a>
+<a class="nav-link" href="#b8">8.8 Subsidio >52 años</a>
+<a class="nav-link" href="#b9">8.9 Entidades gestoras</a>
+<a class="nav-link" href="#b10">8.10 Mutuas colaboradoras</a>
+<a class="nav-link" href="#b11">8.11 Caso Glovo</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 8 · La Seguridad Social</h2>
+
+<p>
+Aprende cómo funciona uno de los pilares fundamentales del Estado del Bienestar.
+En esta unidad estudiarás principios básicos, prestaciones contributivas y no contributivas,
+ERTE, entidades gestoras, mutuas colaboradoras y casos reales como Glovo o los ERTE durante la pandemia.
+Cada bloque incluye contenido detallado, ejemplos, tablas comparativas, preguntas trampa y mini-test tipo examen.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>8.1 Introducción a la Seguridad Social</h2>
+
+<p>
+La Seguridad Social es el sistema público que protege a las personas frente a situaciones
+que pueden afectar a sus ingresos o capacidad laboral:
+enfermedad, desempleo, jubilación, incapacidad, maternidad o fallecimiento.
+</p>
+
+<p>
+Se basa en la idea de solidaridad colectiva:
+las personas activas contribuyen mediante cotizaciones y el sistema protege a quienes lo necesitan.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Garantizar ingresos mínimos.</li>
+<li>Proteger ante riesgos laborales y sociales.</li>
+<li>Reducir desigualdades económicas.</li>
+<li>Mantener la cohesión social.</li>
+</ul>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Cuando un trabajador enferma y recibe una baja médica, la Seguridad Social cubre parte de su salario.
+</div>
+
+<div class="tip-box">
+La Seguridad Social no es solo “el paro” o “la jubilación”.
+Incluye muchas más prestaciones y servicios.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es la finalidad principal de la Seguridad Social?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Beneficiar únicamente a empresas
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Proteger a las personas ante riesgos sociales y laborales
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Controlar contratos laborales
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>8.2 Principios básicos de la Seguridad Social</h2>
+
+<p>
+El sistema funciona gracias a una serie de principios fundamentales.
+Son muy importantes en examen.
+</p>
+
+<table>
+
+<tr>
+<th>Principio</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Universalidad</td>
+<td>Toda persona está protegida por el sistema.</td>
+</tr>
+
+<tr>
+<td>Unidad</td>
+<td>Existe un único sistema coordinado.</td>
+</tr>
+
+<tr>
+<td>Solidaridad</td>
+<td>Quienes más aportan ayudan a sostener el sistema.</td>
+</tr>
+
+<tr>
+<td>Suficiencia</td>
+<td>Las prestaciones deben cubrir necesidades básicas.</td>
+</tr>
+
+<tr>
+<td>Equidad</td>
+<td>Se contribuye según la capacidad económica.</td>
+</tr>
+
+</table>
+
+<div class="trap-box">
+<strong>Pregunta trampa:</strong>
+Universalidad NO significa que todas las personas cobren exactamente lo mismo.
+</div>
+
+<div class="tip-box">
+Muchos exámenes preguntan diferencias entre solidaridad y equidad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué principio implica que las prestaciones deben cubrir necesidades básicas?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Unidad
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Solidaridad
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Suficiencia
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>8.3 Niveles de protección</h2>
+
+<p>
+La Seguridad Social se organiza en dos grandes niveles:
+</p>
+
+<table>
+
+<tr>
+<th>Nivel</th>
+<th>Financiación</th>
+<th>Requisitos</th>
+</tr>
+
+<tr>
+<td>Contributivo</td>
+<td>Cotizaciones</td>
+<td>Haber cotizado previamente</td>
+</tr>
+
+<tr>
+<td>No contributivo</td>
+<td>Impuestos</td>
+<td>Situación de necesidad</td>
+</tr>
+
+</table>
+
+<h3>Nivel contributivo</h3>
+
+<p>
+Protege a personas que han trabajado y cotizado.
+</p>
+
+<h3>Nivel no contributivo</h3>
+
+<p>
+Garantiza un mínimo vital a quienes no pudieron cotizar lo suficiente.
+</p>
+
+<div class="example-box">
+Una persona que nunca trabajó puede acceder a ciertas ayudas no contributivas.
+</div>
+
+<div class="trap-box">
+Cotizar mucho NO garantiza automáticamente cualquier prestación.
+Cada ayuda tiene requisitos específicos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué nivel se financia principalmente mediante impuestos?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Contributivo
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+No contributivo
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+RETA
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>8.4 COVID-19 y los ERTE (España, 2020)</h2>
+
+<p>
+Durante la pandemia, millones de trabajadores dejaron temporalmente de trabajar debido al cierre de empresas.
+</p>
+
+<h3>¿Qué hizo el Gobierno?</h3>
+
+<ul>
+<li>Activó ERTE por fuerza mayor.</li>
+<li>Mantuvo relaciones laborales.</li>
+<li>Protegió cotizaciones y prestaciones.</li>
+</ul>
+
+<h3>Medidas clave</h3>
+
+<ul>
+<li>Prestación por desempleo sin cotización previa.</li>
+<li>70% de la base reguladora.</li>
+<li>Exoneración de cuotas empresariales.</li>
+<li>Protección del empleo.</li>
+</ul>
+
+<div class="example-box">
+Más de 3,4 millones de trabajadores estuvieron protegidos simultáneamente.
+</div>
+
+<div class="tip-box">
+Los ERTE ayudaron a evitar despidos masivos durante la pandemia.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué permitía el ERTE?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Extinguir contratos automáticamente
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Suspender temporalmente la actividad manteniendo el vínculo laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Eliminar cotizaciones
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>8.5 Prestaciones contributivas y no contributivas</h2>
+
+<p>
+Las prestaciones son ayudas económicas o servicios que ofrece la Seguridad Social.
+</p>
+
+<table>
+
+<tr>
+<th>Contributivas</th>
+<th>No contributivas</th>
+</tr>
+
+<tr>
+<td>Exigen cotización previa</td>
+<td>No requieren cotización suficiente</td>
+</tr>
+
+<tr>
+<td>Dependen del historial laboral</td>
+<td>Dependen de necesidad económica</td>
+</tr>
+
+<tr>
+<td>Financiadas por cotizaciones</td>
+<td>Financiadas por impuestos</td>
+</tr>
+
+</table>
+
+<div class="trap-box">
+Contributivo NO significa “más importante”.
+Ambos niveles son esenciales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué determina principalmente las prestaciones contributivas?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+La edad
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Las cotizaciones previas
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+El municipio
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 26 min</span>
+
+<h2>8.6 Ejemplos habituales de prestaciones contributivas</h2>
+
+<ul>
+<li>Jubilación contributiva.</li>
+<li>Desempleo contributivo.</li>
+<li>Incapacidad temporal.</li>
+<li>Incapacidad permanente.</li>
+<li>Nacimiento y cuidado del menor.</li>
+</ul>
+
+<h3>Ejemplo importante</h3>
+
+<p>
+Para cobrar el paro contributivo normalmente se requieren 360 días cotizados en los últimos 6 años.
+</p>
+
+<div class="tip-box">
+Las prestaciones contributivas suelen calcularse según bases de cotización.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuántos días cotizados suelen exigirse para cobrar el paro contributivo?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+180 días
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+360 días
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+720 días
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="study-block" id="b7">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>8.7 Ejemplos de prestaciones no contributivas</h2>
+
+<ul>
+<li>Pensión no contributiva de jubilación.</li>
+<li>Pensión no contributiva de invalidez.</li>
+<li>Subsidios asistenciales.</li>
+<li>Ingreso Mínimo Vital.</li>
+</ul>
+
+<h3>Características</h3>
+
+<ul>
+<li>Protección básica.</li>
+<li>Dirigidas a personas vulnerables.</li>
+<li>Basadas en situación económica.</li>
+</ul>
+
+<div class="example-box">
+Una persona con discapacidad superior al 65% puede acceder a pensión no contributiva si carece de ingresos suficientes.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué requisito principal tienen las ayudas no contributivas?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Cotizar muchos años
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Situación de necesidad económica
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Tener empresa propia
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="study-block" id="b8">
+
+<span class="study-time">⏱️ 26 min</span>
+
+<h2>8.8 El subsidio para mayores de 52 años</h2>
+
+<p>
+Es una ayuda asistencial para personas desempleadas mayores de 52 años.
+</p>
+
+<h3>Requisitos</h3>
+
+<ul>
+<li>Tener 52 años o más.</li>
+<li>Estar desempleado.</li>
+<li>Haber cotizado al menos 15 años.</li>
+<li>No superar límites de renta.</li>
+</ul>
+
+<h3>Importancia</h3>
+
+<p>
+Mientras se cobra, el Estado continúa cotizando para la jubilación.
+</p>
+
+<div class="tip-box">
+Este subsidio combina protección asistencial y mantenimiento de cotizaciones.
+</div>
+
+<div class="trap-box">
+Aunque es no contributivo, protege futuras pensiones contributivas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué característica especial tiene el subsidio para mayores de 52 años?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+No permite cotizar
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Mantiene cotizaciones para jubilación
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Es incompatible con desempleo
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="study-block" id="b9">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>8.9 Las principales entidades gestoras</h2>
+
+<table>
+
+<tr>
+<th>Entidad</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>INSS</td>
+<td>Gestiona prestaciones</td>
+</tr>
+
+<tr>
+<td>TGSS</td>
+<td>Altas, bajas y cotizaciones</td>
+</tr>
+
+<tr>
+<td>IMSERSO</td>
+<td>Mayores y dependencia</td>
+</tr>
+
+<tr>
+<td>SEPE</td>
+<td>Prestaciones por desempleo</td>
+</tr>
+
+</table>
+
+<div class="tip-box">
+En examen suele preguntarse diferencia entre INSS y TGSS.
+</div>
+
+<div class="trap-box">
+El SEPE participa en desempleo, pero no forma parte orgánica de la Seguridad Social.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué organismo gestiona altas y cotizaciones?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+INSS
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+TGSS
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+IMSERSO
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="study-block" id="b10">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>8.10 Mutuas Colaboradoras de la Seguridad Social</h2>
+
+<p>
+Son asociaciones privadas sin ánimo de lucro que colaboran con la Seguridad Social.
+</p>
+
+<h3>Funciones</h3>
+
+<ul>
+<li>Gestionar accidentes laborales.</li>
+<li>Gestionar enfermedades profesionales.</li>
+<li>Participar en incapacidad temporal.</li>
+<li>Seguimiento médico y rehabilitación.</li>
+</ul>
+
+<div class="example-box">
+Mutuas conocidas: Fremap, Asepeyo, Ibermutua, Umivale.
+</div>
+
+<div class="trap-box">
+Las mutuas NO son aseguradoras privadas normales.
+Colaboran con la Seguridad Social.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué gestionan principalmente las mutuas?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Impuestos
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+Accidentes laborales y enfermedades profesionales
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Convenios colectivos
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="study-block" id="b11">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>8.11 Falsos autónomos en Glovo (2020)</h2>
+
+<p>
+Glovo clasificó a muchos repartidores como autónomos,
+aunque realmente trabajaban bajo organización y control empresarial.
+</p>
+
+<h3>¿Qué detectó la Inspección?</h3>
+
+<ul>
+<li>Control mediante algoritmos.</li>
+<li>Asignación de pedidos.</li>
+<li>Dependencia organizativa.</li>
+<li>Ausencia de verdadera autonomía.</li>
+</ul>
+
+<h3>Consecuencias</h3>
+
+<ul>
+<li>Altas retroactivas en Régimen General.</li>
+<li>Pago de cuotas atrasadas.</li>
+<li>Millones en sanciones.</li>
+<li>Aprobación de la Ley Rider.</li>
+</ul>
+
+<div class="example-box">
+Glovo acumuló más de 200 millones de euros en sanciones y cuotas reclamadas.
+</div>
+
+<div class="tip-box">
+La obligación de alta corresponde a la empresa en el Régimen General.
+</div>
+
+<div class="trap-box">
+Llamar “autónomo” a un trabajador no significa automáticamente que lo sea legalmente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué ocurrió tras el caso Glovo?</p>
+
+<label class="option">
+<input type="radio" name="q11">
+Se eliminaron las cotizaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q11">
+Los repartidores siguieron como autónomos sin cambios
+</label>
+
+<label class="option">
+<input type="radio" name="q11" data-correct="true">
+Muchos repartidores pasaron al Régimen General
+</label>
+
+<button onclick="checkQuiz('q11', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

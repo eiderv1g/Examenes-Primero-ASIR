@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 4 - Implantación de LAN I</title>
+
+<style>
+
+:root{
+  --bg:#071018;
+  --panel:#101b27;
+  --panel2:#162534;
+  --border:#22384d;
+  --text:#d8f6ee;
+  --muted:#8da7a0;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:330px;
+  background:#0c151f;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  color:var(--accent);
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+  color:#9fffdc;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  padding:18px;
+  border-radius:12px;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+.quiz{
+  margin-top:30px;
+  background:#0c141c;
+  border:1px solid #203445;
+  border-radius:14px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#05110d;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#63ffd6;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:30px;
+}
+
+code{
+  background:#08131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 4</h1>
+
+<p>
+Implantación de LAN I.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+<ul>
+<li><a href="#b1">4.1 Hubs, switches y MAUs</a></li>
+<li><a href="#b2">4.2 APs, WAPs y routers</a></li>
+<li><a href="#b3">4.3 Modems</a></li>
+<li><a href="#b4">4.4 Tipos de modem</a></li>
+<li><a href="#b5">4.5 Conectores</a></li>
+<li><a href="#b6">4.6 Elementos pasivos</a></li>
+<li><a href="#b7">4.7 Cableado estructurado</a></li>
+<li><a href="#b8">4.8 Subsistemas ISO/IEC</a></li>
+<li><a href="#b9">4.9 Elementos del cableado</a></li>
+<li><a href="#b10">4.10 Medios transmisión</a></li>
+<li><a href="#b11">4.11 Fibra óptica</a></li>
+<li><a href="#b12">4.12 Herramientas</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 4 - Implantación de LAN I</h1>
+
+<p>
+Resumen interactivo de implantación de redes LAN,
+elementos de red, cableado estructurado y fibra óptica.
+Basado en el contenido de mis resúmenes. Dormir está sobrevalorado.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>4.1 Elementos de red - Hubs, switches y MAUs</h2>
+
+<h3>Hub</h3>
+
+<ul>
+<li>Conecta dispositivos en un medio común</li>
+<li>Forma una topología lógica bus</li>
+<li>Genera colisiones</li>
+<li>Actualmente obsoleto</li>
+</ul>
+
+<h3>Switch</h3>
+
+<ul>
+<li>Conmuta tráfico usando MAC</li>
+<li>Evita colisiones</li>
+<li>Topología estrella</li>
+<li>Mucho más eficiente</li>
+</ul>
+
+<h3>MAU</h3>
+
+<ul>
+<li>Usado en Token Ring</li>
+<li>Topología lógica anillo</li>
+<li>Actualmente casi desaparecido</li>
+</ul>
+
+<div class="card">
+💡 Los switches sustituyeron casi totalmente a los hubs.
+</div>
+
+<div class="card warning">
+⚠ Pregunta trampa:
+<br><br>
+Un hub NO “aprende” direcciones MAC.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué dispositivo reduce colisiones?</p>
+
+<label><input type="radio" name="q1"> Hub</label><br>
+<label><input type="radio" name="q1" data-correct> Switch</label><br>
+<label><input type="radio" name="q1"> MAU</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>4.2 Elementos de red - APs, WAPs y routers</h2>
+
+<ul>
+<li><b>AP/WAP:</b> acceso inalámbrico mediante radiofrecuencia</li>
+<li><b>Router:</b> conecta redes distintas</li>
+<li><b>Gateway:</b> otro nombre del router</li>
+</ul>
+
+<p>
+Los routers domésticos suelen integrar:
+</p>
+
+<ul>
+<li>Switch</li>
+<li>Router</li>
+<li>Access Point</li>
+<li>Firewall básico</li>
+</ul>
+
+<div class="card">
+📡 Un AP conecta dispositivos Wi-Fi a la LAN.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+confundir AP con router.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué dispositivo conecta redes diferentes?</p>
+
+<label><input type="radio" name="q2"> Access Point</label><br>
+<label><input type="radio" name="q2" data-correct> Router</label><br>
+<label><input type="radio" name="q2"> Switch</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>4.3 Elementos de red - Modems</h2>
+
+<p>
+MODEM significa:
+<code>MOdulador / DEModulador</code>
+</p>
+
+<ul>
+<li>Convierte señales digitales y analógicas</li>
+<li>Usado para conexión telefónica o ISP</li>
+<li>RJ-11 en telefonía clásica</li>
+</ul>
+
+<div class="card">
+📞 Los antiguos modems dial-up usaban la línea telefónica.
+</div>
+
+<div class="card warning">
+⚠ RJ-11 NO es RJ-45.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué significa MODEM?</p>
+
+<label><input type="radio" name="q3"> Multiplexador</label><br>
+<label><input type="radio" name="q3" data-correct> Modulador/Demodulador</label><br>
+<label><input type="radio" name="q3"> Modulación Ethernet</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>4.4 Elementos de red - Tipos de modem</h2>
+
+<table class="table">
+
+<tr>
+<th>Tipo</th>
+<th>Estado</th>
+</tr>
+
+<tr>
+<td>Dial-up</td>
+<td>Obsoleto</td>
+</tr>
+
+<tr>
+<td>ADSL/DSL</td>
+<td>En declive</td>
+</tr>
+
+<tr>
+<td>DOCSIS</td>
+<td>Vigente</td>
+</tr>
+
+<tr>
+<td>Fibra ONT/GPON</td>
+<td>Actual estándar</td>
+</tr>
+
+<tr>
+<td>4G/5G</td>
+<td>Muy usado</td>
+</tr>
+
+</table>
+
+<div class="card">
+🚀 GPON usa fibra óptica y es el estándar moderno.
+</div>
+
+<div class="card warning">
+⚠ Dial-up apenas alcanzaba 56 kbps.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué tecnología usa fibra óptica?</p>
+
+<label><input type="radio" name="q4"> Dial-up</label><br>
+<label><input type="radio" name="q4" data-correct> GPON</label><br>
+<label><input type="radio" name="q4"> GSM</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>4.5 Elementos de red - Conectores</h2>
+
+<table class="table">
+
+<tr>
+<th>Conector</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>RJ-45</td>
+<td>Ethernet</td>
+</tr>
+
+<tr>
+<td>RJ-11</td>
+<td>Telefonía</td>
+</tr>
+
+<tr>
+<td>SC</td>
+<td>Fibra óptica</td>
+</tr>
+
+<tr>
+<td>LC</td>
+<td>Fibra óptica compacta</td>
+</tr>
+
+<tr>
+<td>ST</td>
+<td>Fibra multimodo</td>
+</tr>
+
+</table>
+
+<div class="card">
+🔌 RJ-45 tiene 8 contactos; RJ-11 solo 6.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que RJ-11 sirve para Ethernet.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué conector se usa normalmente en Ethernet?</p>
+
+<label><input type="radio" name="q5"> RJ-11</label><br>
+<label><input type="radio" name="q5" data-correct> RJ-45</label><br>
+<label><input type="radio" name="q5"> ST</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>4.6 Elementos pasivos de red</h2>
+
+<p>
+Los NIC (Network Interface Card) permiten conectar equipos a la red.
+</p>
+
+<ul>
+<li>NIC PCI Ethernet</li>
+<li>NIC USB Wi-Fi</li>
+<li>Tarjetas integradas</li>
+</ul>
+
+<div class="card">
+💡 Cada NIC posee dirección MAC propia.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué significa NIC?</p>
+
+<label><input type="radio" name="q6" data-correct> Network Interface Card</label><br>
+<label><input type="radio" name="q6"> Network Internet Cable</label><br>
+<label><input type="radio" name="q6"> Node Interface Connection</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>4.7 Cableado estructurado</h2>
+
+<p>
+El cableado estructurado organiza físicamente una LAN.
+:contentReference[oaicite:1]{index=1}
+</p>
+
+<ul>
+<li>Facilita mantenimiento</li>
+<li>Permite ampliaciones</li>
+<li>Integra datos, voz y vídeo</li>
+<li>Usa topología estrella</li>
+</ul>
+
+<div class="card">
+🏢 Cada toma llega al rack central mediante cableado.
+</div>
+
+<div class="card warning">
+⚠ Si un cable falla, solo afecta a un usuario.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué topología usa el cableado estructurado?</p>
+
+<label><input type="radio" name="q7"> Bus</label><br>
+<label><input type="radio" name="q7"> Malla</label><br>
+<label><input type="radio" name="q7" data-correct> Estrella</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>4.8 Cableado estructurado - Subsistemas ISO/IEC 11801</h2>
+
+<table class="table">
+
+<tr>
+<th>Subsistema</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>Entrada edificio</td>
+<td>Acceso operador</td>
+</tr>
+
+<tr>
+<td>Equipamiento</td>
+<td>Routers/switches</td>
+</tr>
+
+<tr>
+<td>Backbone vertical</td>
+<td>Entre plantas</td>
+</tr>
+
+<tr>
+<td>Horizontal</td>
+<td>Dentro de planta</td>
+</tr>
+
+<tr>
+<td>Administración</td>
+<td>Patch-panel</td>
+</tr>
+
+<tr>
+<td>Área trabajo</td>
+<td>Rosetas RJ-45</td>
+</tr>
+
+</table>
+
+<div class="card">
+🏗 Backbone vertical suele usar fibra óptica.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué subsistema conecta diferentes plantas?</p>
+
+<label><input type="radio" name="q8"> Área de trabajo</label><br>
+<label><input type="radio" name="q8" data-correct> Backbone vertical</label><br>
+<label><input type="radio" name="q8"> Administración</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>4.9 Cableado estructurado - Elementos</h2>
+
+<ul>
+<li>Cableado vertical</li>
+<li>Cableado horizontal</li>
+<li>Rack</li>
+<li>Patch panel</li>
+<li>Canalizaciones</li>
+</ul>
+
+<h3>Rack</h3>
+
+<p>
+Armario donde se instalan switches,
+patch-panels y equipos.
+</p>
+
+<div class="card">
+📦 Los racks suelen ser de 19 pulgadas.
+</div>
+
+<div class="card warning">
+⚠ El patch-panel NO conmuta tráfico.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Dónde se centralizan las conexiones?</p>
+
+<label><input type="radio" name="q9"> Roseta</label><br>
+<label><input type="radio" name="q9" data-correct> Rack</label><br>
+<label><input type="radio" name="q9"> Canaleta</label>
+
+</div>
+
+<button onclick="checkQuiz('q9', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<h2>4.10 Cableado estructurado - Medios de transmisión</h2>
+
+<table class="table">
+
+<tr>
+<th>Medio</th>
+<th>Velocidad</th>
+<th>Distancia</th>
+</tr>
+
+<tr>
+<td>Cat 5e</td>
+<td>1 Gbps</td>
+<td>100 m</td>
+</tr>
+
+<tr>
+<td>Cat 6</td>
+<td>10 Gbps</td>
+<td>55-100 m</td>
+</tr>
+
+<tr>
+<td>OM3</td>
+<td>10 Gbps</td>
+<td>300 m</td>
+</tr>
+
+<tr>
+<td>OS2</td>
+<td>100 Gbps</td>
+<td>10 km</td>
+</tr>
+
+</table>
+
+<div class="card">
+⚡ La fibra óptica supera ampliamente al cobre en distancia.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué medio permite mayores distancias?</p>
+
+<label><input type="radio" name="q10"> Cat 5e</label><br>
+<label><input type="radio" name="q10" data-correct> OS2 monomodo</label><br>
+<label><input type="radio" name="q10"> Cat 6</label>
+
+</div>
+
+<button onclick="checkQuiz('q10', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block" id="b11">
+
+<h2>4.11 Cableado estructurado - Fibra óptica</h2>
+
+<ul>
+<li><b>Núcleo:</b> viaja la luz</li>
+<li><b>Cladding:</b> refleja la luz</li>
+<li><b>Cubierta:</b> protección</li>
+</ul>
+
+<h3>Tipos</h3>
+
+<ul>
+<li>Monomodo</li>
+<li>Multimodo</li>
+</ul>
+
+<div class="card">
+💡 La fibra usa luz en vez de electricidad.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que toda fibra es igual.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué parte refleja la luz en la fibra?</p>
+
+<label><input type="radio" name="q11"> Núcleo</label><br>
+<label><input type="radio" name="q11" data-correct> Cladding</label><br>
+<label><input type="radio" name="q11"> Cubierta</label>
+
+</div>
+
+<button onclick="checkQuiz('q11', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 12 -->
+
+<section class="block" id="b12">
+
+<h2>4.12 Cableado estructurado - Herramientas</h2>
+
+<ul>
+<li>Crimpadora</li>
+<li>Tester</li>
+<li>Certificador Fluke</li>
+<li>Pelacables</li>
+<li>Patch-cords</li>
+</ul>
+
+<h3>Funciones</h3>
+
+<ul>
+<li>Crimpar conectores RJ-45</li>
+<li>Comprobar continuidad</li>
+<li>Certificar instalaciones</li>
+</ul>
+
+<div class="card">
+🧰 El certificador Fluke genera informes profesionales.
+</div>
+
+<div class="card warning">
+⚠ Los patch-cords de fábrica suelen ser más fiables.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué herramienta certifica cableado profesional?</p>
+
+<label><input type="radio" name="q12"> Tijeras</label><br>
+<label><input type="radio" name="q12" data-correct> Fluke DSX</label><br>
+<label><input type="radio" name="q12"> Alicates</label>
+
+</div>
+
+<button onclick="checkQuiz('q12', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes.
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+  const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+
+  answers.forEach(answer=>{
+    if(answer.checked && answer.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  if(correct){
+    result.textContent = "✔ Correcto";
+    result.style.color = "#00ffc3";
+  }else{
+    result.textContent = "✘ Incorrecto";
+    result.style.color = "#ff5d7d";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

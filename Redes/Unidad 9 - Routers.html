@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 9 - Routers</title>
+
+<style>
+
+:root{
+  --bg:#071018;
+  --panel:#101b27;
+  --panel2:#162534;
+  --border:#22384d;
+  --text:#d8f6ee;
+  --muted:#90a7a3;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:340px;
+  background:#0c151f;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.02);
+  text-decoration:none;
+  color:var(--text);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:340px;
+  width:calc(100% - 340px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  padding:18px;
+  border-radius:12px;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+.quiz{
+  margin-top:30px;
+  background:#0c141c;
+  border:1px solid #203445;
+  border-radius:14px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#05110d;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#63ffd6;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:30px;
+}
+
+code{
+  background:#08131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+pre{
+  background:#08131c;
+  color:#7effd8;
+  padding:18px;
+  border-radius:12px;
+  overflow-x:auto;
+  margin-top:15px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>🌐 Unidad 9</h1>
+
+<p>
+Routers Cisco, IOS y configuración básica.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+<ul>
+<li><a href="#b1">9.1 Routers - Fundamentos</a></li>
+<li><a href="#b2">9.2 Hardware y componentes</a></li>
+<li><a href="#b3">9.3 Cisco IOS</a></li>
+<li><a href="#b4">9.4 Arranque IOS</a></li>
+<li><a href="#b5">9.5 Configuración básica</a></li>
+<li><a href="#b6">9.6 Comandos del router</a></li>
+<li><a href="#b7">9.7 Router Home</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 9 - Routers</h1>
+
+<p>
+Resumen interactivo sobre routers Cisco,
+IOS y configuración básica.
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+</section>
+
+<!-- 1 -->
+
+<section class="block" id="b1">
+
+<h2>9.1 Routers - Fundamentos</h2>
+
+<p>
+Un router interconecta redes distintas y decide
+la mejor ruta para enviar paquetes IP.
+Funciona en la capa 3 del modelo OSI.
+
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Encaminamiento (Routing)</li>
+<li>Segmentación de redes</li>
+<li>NAT/PAT</li>
+<li>ACLs y seguridad</li>
+<li>Servicios DHCP y VPN</li>
+</ul>
+
+<div class="card">
+📡 El router toma decisiones usando tablas de enrutamiento.
+</div>
+
+<div class="card warning">
+⚠ Sin router no puede existir comunicación entre redes distintas.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿En qué capa OSI funciona un router?</p>
+
+<label><input type="radio" name="q1"> Capa 2</label><br>
+<label><input type="radio" name="q1" data-correct> Capa 3</label><br>
+<label><input type="radio" name="q1"> Capa 7</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 2 -->
+
+<section class="block" id="b2">
+
+<h2>9.2 Routers - Hardware y componentes</h2>
+
+<p>
+Los routers incluyen CPU, RAM, Flash,
+ROM e interfaces físicas.
+
+</p>
+
+<table class="table">
+
+<tr>
+<th>Componente</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>RAM</td>
+<td>Running-config y tablas</td>
+</tr>
+
+<tr>
+<td>NVRAM</td>
+<td>Startup-config</td>
+</tr>
+
+<tr>
+<td>Flash</td>
+<td>Imagen IOS</td>
+</tr>
+
+<tr>
+<td>ROM</td>
+<td>Bootstrap y ROMMON</td>
+</tr>
+
+</table>
+
+<h3>Interfaces comunes</h3>
+
+<ul>
+<li>FastEthernet</li>
+<li>GigabitEthernet</li>
+<li>Serial</li>
+<li>Consola</li>
+<li>Auxiliar</li>
+</ul>
+
+<div class="card">
+🖥 Los routers pueden ser fijos o modulares.
+</div>
+
+<div class="card danger">
+❌ Si falla la Flash, el IOS puede no cargar.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Dónde se almacena el IOS?</p>
+
+<label><input type="radio" name="q2"> RAM</label><br>
+<label><input type="radio" name="q2" data-correct> Flash</label><br>
+<label><input type="radio" name="q2"> CPU</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 3 -->
+
+<section class="block" id="b3">
+
+<h2>9.3 Cisco IOS</h2>
+
+<p>
+Cisco IOS es el sistema operativo usado
+por routers y switches Cisco.
+
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>CLI (Command Line Interface)</li>
+<li>Routing y Switching</li>
+<li>Seguridad y ACLs</li>
+<li>SSH y administración remota</li>
+<li>QoS y VPN</li>
+</ul>
+
+<h3>Archivos importantes</h3>
+
+<ul>
+<li><code>running-config</code></li>
+<li><code>startup-config</code></li>
+<li><code>IOS image</code></li>
+</ul>
+
+<div class="card">
+⚙ IOS es altamente modular.
+</div>
+
+<div class="card warning">
+⚠ Running-config está en RAM y se pierde si no se guarda.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Dónde se guarda la configuración activa?</p>
+
+<label><input type="radio" name="q3" data-correct> Running-config</label><br>
+<label><input type="radio" name="q3"> Startup-config</label><br>
+<label><input type="radio" name="q3"> Flash</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 4 -->
+
+<section class="block" id="b4">
+
+<h2>9.4 Cisco IOS - Proceso de arranque</h2>
+
+<p>
+El arranque del router sigue varias etapas.
+
+</p>
+
+<ol style="margin-left:20px; line-height:1.8;">
+<li>POST</li>
+<li>Carga Bootstrap</li>
+<li>Carga IOS</li>
+<li>Carga startup-config</li>
+</ol>
+
+<h3>POST</h3>
+
+<ul>
+<li>Verifica CPU</li>
+<li>Verifica RAM</li>
+<li>Verifica hardware</li>
+</ul>
+
+<div class="card">
+🚀 El Bootstrap carga el IOS desde Flash.
+</div>
+
+<div class="card danger">
+❌ Si falla el IOS → entra en ROMMON mode.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué ocurre si el IOS falla?</p>
+
+<label><input type="radio" name="q4"> Se apaga</label><br>
+<label><input type="radio" name="q4" data-correct> Entra en ROMMON</label><br>
+<label><input type="radio" name="q4"> Borra la RAM</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 5 -->
+
+<section class="block" id="b5">
+
+<h2>9.5 Configuración básica de routers</h2>
+
+<p>
+Los routers domésticos suelen configurarse
+mediante interfaz web.
+Los routers Cisco empresariales usan consola,
+Telnet o SSH.
+
+</p>
+
+<h3>Pasos recomendados</h3>
+
+<ul>
+<li>Hostname</li>
+<li>Enable secret</li>
+<li>Usuarios</li>
+<li>SSH</li>
+<li>Configurar interfaces</li>
+<li>Guardar configuración</li>
+</ul>
+
+<div class="card">
+🔐 SSH es más seguro que Telnet.
+</div>
+
+<div class="card warning">
+⚠ Telnet transmite datos en texto plano.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué protocolo es seguro?</p>
+
+<label><input type="radio" name="q5"> Telnet</label><br>
+<label><input type="radio" name="q5" data-correct> SSH</label><br>
+<label><input type="radio" name="q5"> FTP</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 6 -->
+
+<section class="block" id="b6">
+
+<h2>9.6 Comandos para la configuración del router</h2>
+
+<h3>Clave de administrador</h3>
+
+<pre>
+enable
+configure terminal
+enable secret admin1234
+</pre>
+
+<h3>Configurar IP</h3>
+
+<pre>
+interface GigabitEthernet0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+</pre>
+
+<h3>Configurar DHCP</h3>
+
+<pre>
+ip dhcp pool LAN
+network 192.168.1.0 255.255.255.0
+default-router 192.168.1.1
+dns-server 8.8.8.8
+</pre>
+
+<div class="card">
+🛠 El comando <code>no shutdown</code> activa la interfaz.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+olvidar guardar la configuración.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando activa una interfaz?</p>
+
+<label><input type="radio" name="q6"> enable</label><br>
+<label><input type="radio" name="q6" data-correct> no shutdown</label><br>
+<label><input type="radio" name="q6"> reload</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 7 -->
+
+<section class="block" id="b7">
+
+<h2>9.7 Router Home</h2>
+
+<p>
+Los routers domésticos integran:
+router + switch + Wi-Fi.
+
+</p>
+
+<h3>Características comunes</h3>
+
+<ul>
+<li>IP LAN: 192.168.1.1</li>
+<li>Servidor DHCP</li>
+<li>NAT/PAT</li>
+<li>Wi-Fi integrado</li>
+<li>Switch interno</li>
+</ul>
+
+<div class="card">
+🏠 Un router doméstico incluye múltiples dispositivos en uno.
+</div>
+
+<div class="card warning">
+⚠ Cambiar la contraseña por defecto es obligatorio.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué suele incluir un router doméstico?</p>
+
+<label><input type="radio" name="q7"> Solo Wi-Fi</label><br>
+<label><input type="radio" name="q7" data-correct> Router + Switch + Wi-Fi</label><br>
+<label><input type="radio" name="q7"> Solo DHCP</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+  const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+
+  answers.forEach(answer=>{
+    if(answer.checked && answer.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  if(correct){
+    result.textContent = "✔ Correcto";
+    result.style.color = "#00ffc3";
+  }else{
+    result.textContent = "✘ Incorrecto";
+    result.style.color = "#ff5d7d";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

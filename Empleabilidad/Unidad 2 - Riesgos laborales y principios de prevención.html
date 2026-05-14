@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 2 - Riesgos laborales y principios de prevención</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3d34;
+  --secondary:#6b7d75;
+  --accent:#dde8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --danger:#fff4e5;
+  --info:#eef6ff;
+  --success:#edf9f0;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:300px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-right:1px solid #e5e7eb;
+  padding:30px 20px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  font-size:1.6rem;
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px 16px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:300px;
+  width:calc(100% - 300px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3d34,#324f45);
+  color:white;
+  padding:60px;
+  border-radius:32px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.8;
+  max-width:800px;
+  opacity:0.9;
+}
+
+/* BLOCK */
+
+.block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:40px;
+  margin-bottom:35px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--primary);
+  margin-bottom:12px;
+  font-size:2rem;
+}
+
+.study-time{
+  display:inline-block;
+  padding:8px 16px;
+  border-radius:999px;
+  background:var(--accent);
+  color:var(--primary);
+  font-size:0.85rem;
+  margin-bottom:22px;
+  font-weight:600;
+}
+
+.block h3{
+  margin-top:26px;
+  margin-bottom:14px;
+  color:var(--primary);
+}
+
+.block p{
+  line-height:1.8;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:22px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  margin-top:20px;
+}
+
+.card{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:20px;
+}
+
+.card h4{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.tip{
+  background:var(--success);
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.trap{
+  background:var(--danger);
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th, td{
+  padding:14px;
+  border:1px solid #e5e7eb;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:35px;
+  background:#f8fafc;
+  padding:24px;
+  border-radius:22px;
+  border:1px solid #e5e7eb;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+}
+
+.question p{
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:14px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 2</h1>
+<p>Riesgos laborales y principios de prevención</p>
+
+<a class="nav-link" href="#b1">2.1 Introducción</a>
+<a class="nav-link" href="#b2">2.2 Ley 31/1995</a>
+<a class="nav-link" href="#b3">2.3 Seguridad e higiene</a>
+<a class="nav-link" href="#b4">2.4 Construcción</a>
+<a class="nav-link" href="#b5">2.7 Consejos</a>
+<a class="nav-link" href="#b6">2.8 Riesgos psicosociales</a>
+<a class="nav-link" href="#b7">2.9 Impacto</a>
+<a class="nav-link" href="#b8">2.10 Prevención organizativa</a>
+<a class="nav-link" href="#b9">2.11 Sector sanitario</a>
+<a class="nav-link" href="#b10">2.12 Herramientas</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 2 · Riesgos laborales y principios de prevención</h2>
+
+<p>
+Página interactiva diseñada para estudiar prevención de riesgos laborales,
+seguridad, ergonomía y riesgos psicosociales mediante explicaciones detalladas,
+tablas, ejemplos y mini-tests.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>2.1 Introducción a la seguridad en el trabajo</h2>
+
+<p>
+La seguridad laboral busca identificar, evaluar y controlar riesgos antes de que provoquen daños.
+Toda actividad profesional implica peligros potenciales, incluso en oficinas.
+</p>
+
+<h3>Objetivos principales</h3>
+
+<ul>
+<li>Evitar accidentes y enfermedades.</li>
+<li>Crear ambientes seguros.</li>
+<li>Reducir costes derivados de accidentes.</li>
+<li>Mejorar productividad y bienestar.</li>
+</ul>
+
+<div class="grid">
+
+<div class="card">
+<h4>Accidente laboral</h4>
+<p>Suceso repentino que produce lesión.</p>
+</div>
+
+<div class="card">
+<h4>Enfermedad profesional</h4>
+<p>Daño causado por exposición continuada.</p>
+</div>
+
+<div class="card">
+<h4>Prevención</h4>
+<p>Conjunto de medidas para reducir riesgos.</p>
+</div>
+
+</div>
+
+<div class="trap">
+⚠️ Pregunta trampa:
+Un accidente leve también es accidente laboral.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es el objetivo principal de la prevención?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Aumentar horas de trabajo
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Evitar daños y proteger la salud
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Eliminar descansos
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>2.2 Ley 31/1995 de Prevención de Riesgos Laborales</h2>
+
+<p>
+La Ley 31/1995 (LPRL) es la base de la prevención en España.
+Establece derechos y obligaciones tanto para empresas como trabajadores.
+</p>
+
+<table>
+
+<tr>
+<th>Principio</th>
+<th>Explicación</th>
+</tr>
+
+<tr>
+<td>Evitar riesgos</td>
+<td>Eliminar el peligro desde el origen</td>
+</tr>
+
+<tr>
+<td>Evaluar riesgos</td>
+<td>Analizar los que no puedan evitarse</td>
+</tr>
+
+<tr>
+<td>Adaptar trabajo</td>
+<td>Diseñar tareas según la persona</td>
+</tr>
+
+<tr>
+<td>Prioridad colectiva</td>
+<td>Primero protección colectiva, luego individual</td>
+</tr>
+
+</table>
+
+<div class="example">
+💡 Ejemplo:
+Es mejor instalar barandillas que depender solo de un casco.
+</div>
+
+<div class="tip">
+La prevención debe actualizarse constantemente con avances técnicos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué prioriza la LPRL?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Equipos individuales
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Medidas colectivas
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Castigos económicos
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>2.3 Seguridad en el trabajo, higiene industrial y ergonomía</h2>
+
+<p>
+Estas tres disciplinas forman la base técnica de la prevención moderna.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<h4>Seguridad</h4>
+<p>Previene accidentes inmediatos: caídas, cortes o golpes.</p>
+</div>
+
+<div class="card">
+<h4>Higiene industrial</h4>
+<p>Controla contaminantes como ruido, polvo o químicos.</p>
+</div>
+
+<div class="card">
+<h4>Ergonomía</h4>
+<p>Adapta el trabajo a la persona para evitar fatiga y lesiones.</p>
+</div>
+
+</div>
+
+<h3>Diferencias importantes</h3>
+
+<table>
+
+<tr>
+<th>Disciplina</th>
+<th>Actúa sobre</th>
+</tr>
+
+<tr>
+<td>Seguridad</td>
+<td>Accidentes inmediatos</td>
+</tr>
+
+<tr>
+<td>Higiene</td>
+<td>Enfermedades por exposición</td>
+</tr>
+
+<tr>
+<td>Ergonomía</td>
+<td>Posturas y carga física/mental</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ Pregunta trampa:
+La ergonomía no es exclusiva de oficinas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué disciplina controla sustancias peligrosas?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Ergonomía
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Higiene industrial
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Señalización
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>2.4 La construcción en España</h2>
+
+<p>
+La construcción es uno de los sectores con mayor riesgo laboral debido
+a trabajos en altura, maquinaria pesada y condiciones cambiantes.
+</p>
+
+<h3>Riesgos frecuentes</h3>
+
+<ul>
+<li>Caídas en altura.</li>
+<li>Atrapamientos.</li>
+<li>Golpes por objetos.</li>
+<li>Exposición a polvo y ruido.</li>
+</ul>
+
+<h3>Medidas preventivas</h3>
+
+<ul>
+<li>Uso de arneses.</li>
+<li>Líneas de vida.</li>
+<li>Formación específica.</li>
+<li>Señalización adecuada.</li>
+</ul>
+
+<div class="tip">
+💡 Entre 2008 y 2020 las caídas mortales disminuyeron gracias a las medidas preventivas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué riesgo es muy frecuente en construcción?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Estrés digital
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Caídas en altura
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Teletrabajo
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<span class="study-time">⏱️ 15 min</span>
+
+<h2>2.7 Consejos para la seguridad en el trabajo</h2>
+
+<ul>
+<li>Aplicar la jerarquía preventiva.</li>
+<li>Actualizar protocolos.</li>
+<li>No ignorar “casi accidentes”.</li>
+<li>Realizar pausas activas.</li>
+<li>Usar correctamente los EPIs.</li>
+</ul>
+
+<div class="example">
+💡 Curiosidad:
+Muchos accidentes graves fueron precedidos por pequeños incidentes ignorados.
+</div>
+
+<div class="trap">
+⚠️ Los EPIs son la última barrera de protección.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué debe hacerse con un “casi accidente”?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Ignorarlo
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Analizarlo y corregirlo
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Ocultarlo
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>2.8 Riesgos psicosociales</h2>
+
+<p>
+Los riesgos psicosociales afectan a la salud mental y emocional de los trabajadores.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<h4>Estrés</h4>
+<p>Presión excesiva continuada.</p>
+</div>
+
+<div class="card">
+<h4>Burnout</h4>
+<p>Agotamiento emocional y desmotivación.</p>
+</div>
+
+<div class="card">
+<h4>Mobbing</h4>
+<p>Acoso psicológico repetido.</p>
+</div>
+
+</div>
+
+<div class="tip">
+💡 El burnout está reconocido por la OMS como fenómeno laboral.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es el mobbing?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Descanso laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Acoso psicológico
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Formación preventiva
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>2.9 Impacto en la salud y en la organización</h2>
+
+<p>
+Los riesgos laborales afectan tanto a las personas como a la empresa.
+</p>
+
+<table>
+
+<tr>
+<th>Impacto humano</th>
+<th>Impacto empresarial</th>
+</tr>
+
+<tr>
+<td>Ansiedad y lesiones</td>
+<td>Absentismo</td>
+</tr>
+
+<tr>
+<td>Fatiga</td>
+<td>Pérdida de productividad</td>
+</tr>
+
+<tr>
+<td>Burnout</td>
+<td>Rotación de personal</td>
+</tr>
+
+</table>
+
+<div class="example">
+📌 Cerca del 30% de las bajas largas tienen origen psicosocial.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué efecto tiene el estrés laboral?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Mayor bienestar
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Absentismo y errores
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Reducción de riesgos
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>2.10 Prevención y enfoque organizativo</h2>
+
+<p>
+Los riesgos psicosociales requieren soluciones organizativas y culturales.
+</p>
+
+<ul>
+<li>Mejorar comunicación.</li>
+<li>Repartir cargas de trabajo.</li>
+<li>Reconocer logros.</li>
+<li>Promover participación.</li>
+<li>Favorecer conciliación.</li>
+</ul>
+
+<div class="trap">
+⚠️ El estrés no se elimina solo con EPIs.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué ayuda frente al estrés laboral?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Aumentar presión
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Mejorar organización
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Eliminar descansos
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>2.11 El sector sanitario durante la pandemia</h2>
+
+<p>
+La pandemia de COVID-19 mostró la importancia de la prevención psicosocial.
+</p>
+
+<h3>Problemas detectados</h3>
+
+<ul>
+<li>Turnos excesivos.</li>
+<li>Agotamiento emocional.</li>
+<li>Falta de recursos.</li>
+<li>Alta exposición al riesgo.</li>
+</ul>
+
+<h3>Medidas aplicadas</h3>
+
+<ul>
+<li>Apoyo psicológico.</li>
+<li>Espacios de descanso.</li>
+<li>Pausas estructuradas.</li>
+<li>Liderazgo empático.</li>
+</ul>
+
+<div class="tip">
+💡 Algunas medidas redujeron notablemente las bajas por ansiedad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué ayudó al personal sanitario?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Eliminar descansos
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Apoyo psicológico
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Más presión laboral
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>2.12 Herramientas y consejos</h2>
+
+<h3>Herramientas útiles</h3>
+
+<ul>
+<li>FPSICO.</li>
+<li>ISTAS21.</li>
+<li>Encuestas de clima laboral.</li>
+<li>Software de bienestar.</li>
+</ul>
+
+<h3>Consejos clave</h3>
+
+<ul>
+<li>Fomentar autonomía.</li>
+<li>Escuchar a los trabajadores.</li>
+<li>Reconocer el esfuerzo.</li>
+<li>Evaluar cargas objetivamente.</li>
+</ul>
+
+<div class="trap">
+⚠️ La salud mental forma parte de la prevención moderna.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué herramienta evalúa riesgos psicosociales?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Arnés
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Señalización
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+FPSICO
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

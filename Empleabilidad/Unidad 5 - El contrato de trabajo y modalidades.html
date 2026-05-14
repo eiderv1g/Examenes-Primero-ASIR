@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 5 - El contrato de trabajo y modalidades</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#1f3d34;
+  --accent:#e6f0ea;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:26px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-right:1px solid #e5e7eb;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  margin-bottom:12px;
+  font-size:1.7rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:30px;
+  line-height:1.6;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:10px;
+  transition:0.25s;
+  font-size:0.95rem;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3d34,#355649);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:20px;
+}
+
+.hero p{
+  max-width:850px;
+  line-height:1.8;
+  color:rgba(255,255,255,0.9);
+}
+
+/* BLOCK */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:38px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:0.85rem;
+  margin-bottom:18px;
+  font-weight:600;
+}
+
+.study-block h3{
+  color:var(--primary);
+  margin-top:26px;
+  margin-bottom:12px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:18px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box{
+  background:#eef8f2;
+  border-left:5px solid #2d6a4f;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.trap-box{
+  background:#fff8e8;
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.example-box{
+  background:#eef6ff;
+  border-left:5px solid #3b82f6;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:22px;
+  padding:24px;
+  margin-top:30px;
+}
+
+.quiz h4{
+  color:var(--primary);
+  margin-bottom:20px;
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+}
+
+.question p{
+  font-weight:600;
+  margin-bottom:16px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{
+  opacity:0.92;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 5</h1>
+
+<p>El contrato de trabajo y modalidades</p>
+
+<a class="nav-link" href="#b1">5.1 Doble relevancia</a>
+<a class="nav-link" href="#b2">5.2 Elementos esenciales</a>
+<a class="nav-link" href="#b3">5.3 Características esenciales</a>
+<a class="nav-link" href="#b4">5.4 Real Decreto 1659/1998</a>
+<a class="nav-link" href="#b5">5.5 Caso monitor deportivo</a>
+<a class="nav-link" href="#b6">5.6 Modalidades y reforma 2021</a>
+<a class="nav-link" href="#b7">5.7 Contrato indefinido</a>
+<a class="nav-link" href="#b8">5.8 Contrato temporal</a>
+<a class="nav-link" href="#b9">5.9 Contrato formativo</a>
+<a class="nav-link" href="#b10">5.10 Fijo-discontinuo</a>
+<a class="nav-link" href="#b11">5.11 Tiempo parcial</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 5 · El contrato de trabajo y modalidades</h2>
+
+<p>
+Página interactiva diseñada para estudiar el contrato laboral,
+sus elementos esenciales y las principales modalidades de contratación
+tras la reforma laboral de 2021.
+Cada bloque incluye explicaciones ampliadas, ejemplos, preguntas trampa
+y mini-test tipo examen.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>5.1 La doble relevancia del contrato de trabajo</h2>
+
+<p>
+El contrato de trabajo es la base jurídica de toda relación laboral.
+Representa el acuerdo entre trabajador y empresa mediante el cual
+se prestan servicios de manera voluntaria, retribuida y bajo dirección empresarial.
+</p>
+
+<h3>Importancia para el trabajador</h3>
+
+<ul>
+<li>Garantiza salario y cotización.</li>
+<li>Protege frente a despidos injustificados.</li>
+<li>Reconoce vacaciones, descansos y jornada.</li>
+<li>Asegura derechos ante Seguridad Social.</li>
+</ul>
+
+<h3>Importancia para la empresa</h3>
+
+<ul>
+<li>Define funciones y responsabilidades.</li>
+<li>Permite organizar recursos humanos.</li>
+<li>Aporta seguridad jurídica.</li>
+<li>Sirve para justificar la relación laboral.</li>
+</ul>
+
+<div class="tip-box">
+<strong>Idea clave:</strong>
+El contrato no es solo un documento administrativo; regula derechos y obligaciones de ambas partes.
+</div>
+
+<div class="trap-box">
+<strong>Pregunta trampa:</strong>
+Aunque exista confianza entre empresa y trabajador, la relación laboral sigue teniendo consecuencias legales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué garantiza principalmente el contrato para el trabajador?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Solo acceso al edificio
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Derechos laborales y salario
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Beneficios empresariales
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>5.2 Elementos esenciales del contrato de trabajo</h2>
+
+<p>
+Todo contrato laboral necesita tres elementos jurídicos básicos.
+Si falta alguno, el contrato puede ser inválido o nulo.
+</p>
+
+<h3>Consentimiento</h3>
+
+<p>
+Implica aceptación libre entre empresa y trabajador.
+No puede existir coacción ni engaño.
+</p>
+
+<h3>Objeto</h3>
+
+<p>
+Es el trabajo que se va a realizar.
+Debe ser legal, posible y determinado.
+</p>
+
+<h3>Causa</h3>
+
+<p>
+Es el motivo del contrato:
+el trabajador recibe salario y la empresa obtiene rendimiento laboral.
+</p>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Un contrato para realizar actividades ilegales sería nulo porque el objeto no es lícito.
+</div>
+
+<div class="trap-box">
+El salario NO es el objeto del contrato, sino parte de la causa.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué elemento representa la aceptación libre entre ambas partes?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Objeto
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Causa
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Consentimiento
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>5.3 Características esenciales del contrato de trabajo</h2>
+
+<ul>
+<li><strong>Personal:</strong> el trabajo lo realiza directamente la persona contratada.</li>
+<li><strong>Voluntario:</strong> nadie puede ser obligado a trabajar.</li>
+<li><strong>Retribuido:</strong> debe existir salario.</li>
+<li><strong>Dependiente:</strong> el trabajador sigue instrucciones empresariales.</li>
+<li><strong>Por cuenta ajena:</strong> los beneficios pertenecen a la empresa.</li>
+</ul>
+
+<div class="tip-box">
+La dependencia y la ajenidad son claves para distinguir un contrato laboral de un trabajo autónomo.
+</div>
+
+<div class="example-box">
+Un repartidor que sigue rutas, horarios y precios fijados por la empresa puede ser considerado trabajador asalariado.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué característica implica que los beneficios pertenecen a la empresa?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Voluntariedad
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Ajenidad
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Consentimiento
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>5.4 Real Decreto 1659/1998</h2>
+
+<p>
+Este Real Decreto regula el contenido mínimo que debe aparecer en un contrato laboral.
+</p>
+
+<h3>Datos obligatorios</h3>
+
+<ul>
+<li>Identificación de las partes.</li>
+<li>Duración y fecha de inicio.</li>
+<li>Lugar de trabajo.</li>
+<li>Grupo profesional.</li>
+<li>Jornada y vacaciones.</li>
+<li>Salario y complementos.</li>
+<li>Convenio colectivo aplicable.</li>
+</ul>
+
+<div class="tip-box">
+Algunas modalidades de contrato deben formalizarse obligatoriamente por escrito.
+</div>
+
+<div class="trap-box">
+Un contrato verbal puede existir legalmente, pero es mucho más difícil de demostrar.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué norma regula el contenido mínimo del contrato?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Ley Rider
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Real Decreto 1659/1998
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Código Penal
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>5.5 El caso del monitor deportivo</h2>
+
+<p>
+Un gimnasio contrató verbalmente a un monitor de spinning.
+Tras despedirlo, alegó que no existía relación laboral por no haber contrato escrito.
+</p>
+
+<h3>Qué analizó el Tribunal Supremo</h3>
+
+<ul>
+<li>Existencia de salario.</li>
+<li>Prestación real de servicios.</li>
+<li>Dependencia y horarios.</li>
+<li>Ajenidad empresarial.</li>
+</ul>
+
+<div class="example-box">
+El Tribunal declaró que sí existía relación laboral y el despido fue improcedente.
+</div>
+
+<div class="tip-box">
+La realidad prevalece sobre la forma escrita.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué concluyó el Tribunal Supremo?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Que sin contrato escrito no hay trabajo
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Que la relación laboral sí existía
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Que el trabajador era autónomo
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>5.6 Modalidades de contratación y Real Decreto-ley 32/2021</h2>
+
+<p>
+La reforma laboral de 2021 redujo la temporalidad y convirtió el contrato indefinido en la forma ordinaria de contratación.
+</p>
+
+<h3>Objetivos principales</h3>
+
+<ul>
+<li>Reducir contratos temporales abusivos.</li>
+<li>Fomentar estabilidad laboral.</li>
+<li>Impulsar contratos indefinidos y fijos-discontinuos.</li>
+<li>Limitar causas de temporalidad.</li>
+</ul>
+
+<div class="tip-box">
+La reforma eliminó el contrato por obra y servicio.
+</div>
+
+<div class="trap-box">
+No cualquier necesidad empresarial justifica un contrato temporal.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué buscó principalmente la reforma laboral de 2021?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Aumentar temporalidad
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Reducir precariedad y temporalidad
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Eliminar contratos indefinidos
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="study-block" id="b7">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>5.7 Contrato indefinido</h2>
+
+<p>
+Es la modalidad general de contratación en España.
+No tiene fecha de finalización prevista.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Mayor estabilidad laboral.</li>
+<li>Mejor planificación personal.</li>
+<li>Fidelización del talento.</li>
+<li>Mayor protección frente al despido.</li>
+</ul>
+
+<div class="example-box">
+Una empresa que necesita un administrativo permanente debe usar contrato indefinido.
+</div>
+
+<div class="tip-box">
+Tras la reforma de 2021, el contrato indefinido es la norma general.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué caracteriza al contrato indefinido?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Tiene duración máxima fija
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+No tiene fecha final preestablecida
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Solo puede ser parcial
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="study-block" id="b8">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>5.8 Contrato temporal</h2>
+
+<p>
+Solo puede utilizarse cuando exista una causa concreta y limitada en el tiempo.
+</p>
+
+<h3>Supuestos permitidos</h3>
+
+<ul>
+<li>Circunstancias de la producción.</li>
+<li>Sustitución de trabajadores.</li>
+</ul>
+
+<h3>Límites</h3>
+
+<ul>
+<li>Máximo habitual de 6 meses.</li>
+<li>Ampliable a 12 por convenio.</li>
+<li>Fraude → conversión en indefinido.</li>
+</ul>
+
+<div class="trap-box">
+Encadenar contratos temporales sin causa puede ser ilegal.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué ocurre si un contrato temporal es fraudulento?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Se elimina automáticamente
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Puede convertirse en indefinido
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+No ocurre nada
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="study-block" id="b9">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>5.9 Contrato formativo</h2>
+
+<h3>Contrato de formación en alternancia</h3>
+
+<ul>
+<li>Combina estudios y trabajo.</li>
+<li>Duración entre 3 meses y 2 años.</li>
+<li>Incluye tutor y plan formativo.</li>
+</ul>
+
+<h3>Contrato para práctica profesional</h3>
+
+<ul>
+<li>Dirigido a titulados recientes.</li>
+<li>Duración entre 6 meses y 1 año.</li>
+<li>Busca experiencia profesional.</li>
+</ul>
+
+<div class="tip-box">
+Estos contratos tienen finalidad educativa, no solo productiva.
+</div>
+
+<div class="trap-box">
+Sin tutor o plan formativo, el contrato puede ser irregular.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué debe incluir obligatoriamente un contrato formativo?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Horas extra obligatorias
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Tutor y plan formativo
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Jornada ilimitada
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="study-block" id="b10">
+
+<span class="study-time">⏱️ 20 min</span>
+
+<h2>5.10 Contrato fijo-discontinuo</h2>
+
+<p>
+Es un contrato indefinido utilizado para actividades estacionales o intermitentes.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Existe relación laboral permanente.</li>
+<li>Hay periodos de inactividad.</li>
+<li>El trabajador conserva antigüedad.</li>
+<li>La empresa debe realizar llamamientos.</li>
+</ul>
+
+<div class="example-box">
+Muy frecuente en turismo y campañas agrícolas.
+</div>
+
+<div class="tip-box">
+La reforma laboral impulsó esta modalidad para sustituir temporales abusivos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué conserva el trabajador fijo-discontinuo durante la inactividad?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Ningún derecho
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+La antigüedad laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Un contrato temporal nuevo
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="study-block" id="b11">
+
+<span class="study-time">⏱️ 18 min</span>
+
+<h2>5.11 Contrato a tiempo parcial</h2>
+
+<p>
+Tiene una jornada inferior a la completa.
+Debe formalizarse obligatoriamente por escrito.
+</p>
+
+<h3>Aspectos importantes</h3>
+
+<ul>
+<li>Debe indicar número exacto de horas.</li>
+<li>Los derechos son proporcionales.</li>
+<li>Se permiten horas complementarias pactadas.</li>
+<li>No se permiten horas extra salvo fuerza mayor.</li>
+</ul>
+
+<div class="trap-box">
+Muchos exámenes confunden horas extraordinarias con horas complementarias.
+</div>
+
+<div class="tip-box">
+El trabajador parcial tiene los mismos derechos básicos que uno a jornada completa.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué debe indicar obligatoriamente un contrato parcial?</p>
+
+<label class="option">
+<input type="radio" name="q11">
+Solo el salario
+</label>
+
+<label class="option">
+<input type="radio" name="q11" data-correct="true">
+Número exacto de horas pactadas
+</label>
+
+<label class="option">
+<input type="radio" name="q11">
+Únicamente el convenio
+</label>
+
+<button onclick="checkQuiz('q11', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 9 - Mundo laboral y potencial profesional</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#244b42;
+  --secondary:#edf6f3;
+  --accent:#d8ece5;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --success:#eefaf1;
+  --warning:#fff7e8;
+  --shadow:0 12px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.8rem;
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#244b42,#4d7c70);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  background:#fafafa;
+  padding:16px;
+  border-bottom:1px solid #ececec;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:var(--success);
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 9</h1>
+
+<p>Mundo laboral y potencial profesional</p>
+
+<a class="nav-link" href="#b1">9.1 Elementos de la carrera profesional</a>
+<a class="nav-link" href="#b2">9.2 Lifelong learning</a>
+<a class="nav-link" href="#b3">9.3 Caso Indra</a>
+<a class="nav-link" href="#b4">9.4 Análisis DAFO personal</a>
+<a class="nav-link" href="#b5">9.5 Objetivos SMART</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 9 · Mundo laboral y potencial profesional</h2>
+
+<p>
+Aprende cómo construir una carrera profesional sólida en un mercado laboral cambiante.
+En esta unidad estudiarás competencias profesionales, formación continua, networking,
+análisis DAFO, objetivos SMART y estrategias reales de empleabilidad.
+Cada bloque incluye explicaciones detalladas, ejemplos prácticos, tablas comparativas,
+preguntas trampa y mini-test tipo examen.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>9.1 Elementos en la carrera profesional</h2>
+
+<p>
+La carrera profesional no es un camino fijo ni lineal.
+Se construye mediante decisiones formativas, experiencias laborales,
+competencias personales y capacidad de adaptación.
+</p>
+
+<p>
+Actualmente, el mercado laboral cambia constantemente debido a:
+</p>
+
+<ul>
+<li>Digitalización.</li>
+<li>Automatización.</li>
+<li>Globalización.</li>
+<li>Nuevas tecnologías.</li>
+<li>Cambios en las empresas.</li>
+</ul>
+
+<h3>Elementos fundamentales</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Importancia</th>
+</tr>
+
+<tr>
+<td>Formación</td>
+<td>Mejora conocimientos y cualificación profesional.</td>
+</tr>
+
+<tr>
+<td>Experiencia</td>
+<td>Permite aplicar habilidades en situaciones reales.</td>
+</tr>
+
+<tr>
+<td>Competencias</td>
+<td>Incluye habilidades técnicas y sociales.</td>
+</tr>
+
+<tr>
+<td>Networking</td>
+<td>Facilita contactos y oportunidades laborales.</td>
+</tr>
+
+<tr>
+<td>Metas</td>
+<td>Orientan las decisiones profesionales.</td>
+</tr>
+
+</table>
+
+<h3>Tipos de competencias</h3>
+
+<ul>
+<li><strong>Hard skills:</strong> habilidades técnicas (idiomas, programación, software).</li>
+<li><strong>Soft skills:</strong> comunicación, liderazgo, trabajo en equipo.</li>
+<li><strong>Competencias transversales:</strong> organización, adaptación, resolución de problemas.</li>
+</ul>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Una persona puede tener conocimientos avanzados de informática,
+pero si no sabe trabajar en equipo o comunicarse correctamente,
+su crecimiento profesional puede verse limitado.
+</div>
+
+<div class="tip-box">
+Las empresas valoran cada vez más los perfiles híbridos:
+buen nivel técnico + buenas habilidades sociales.
+</div>
+
+<div class="trap-box">
+<strong>Pregunta trampa:</strong>
+La carrera profesional NO depende únicamente de tener estudios.
+La actitud, adaptación y aprendizaje continuo son igual de importantes.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál de los siguientes elementos forma parte de la carrera profesional?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Solo la formación académica
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Formación, experiencia, competencias y networking
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Únicamente la experiencia laboral
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 26 min</span>
+
+<h2>9.2 Lifelong learning</h2>
+
+<p>
+El concepto <strong>lifelong learning</strong> significa “aprendizaje permanente”.
+Hace referencia a la necesidad de continuar aprendiendo durante toda la vida profesional.
+</p>
+
+<p>
+En el pasado, muchas personas trabajaban décadas con los mismos conocimientos.
+Hoy eso ya no es suficiente.
+</p>
+
+<h3>¿Por qué es tan importante?</h3>
+
+<ul>
+<li>Las tecnologías cambian rápidamente.</li>
+<li>Surgen nuevas profesiones.</li>
+<li>Las empresas exigen actualización constante.</li>
+<li>La automatización elimina tareas repetitivas.</li>
+<li>Las competencias digitales son esenciales.</li>
+</ul>
+
+<h3>Formas de aprendizaje continuo</h3>
+
+<ul>
+<li>Cursos online.</li>
+<li>FP y universidad.</li>
+<li>Certificaciones técnicas.</li>
+<li>Seminarios y congresos.</li>
+<li>Autoaprendizaje.</li>
+<li>Experiencia laboral.</li>
+</ul>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Un técnico informático puede necesitar aprender ciberseguridad o inteligencia artificial
+para seguir siendo competitivo.
+</div>
+
+<div class="tip-box">
+Aprender constantemente aumenta la empleabilidad y mejora la adaptación al mercado.
+</div>
+
+<div class="trap-box">
+Tener un título NO garantiza estabilidad profesional para toda la vida.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa lifelong learning?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Trabajar en varios países
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Aprender de forma continua durante toda la vida
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Trabajar siempre en la misma empresa
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>9.3 Indra y el desarrollo del talento joven</h2>
+
+<p>
+Indra es una de las empresas tecnológicas más importantes de España.
+Trabaja en sectores como:
+</p>
+
+<ul>
+<li>Ciberseguridad.</li>
+<li>Defensa.</li>
+<li>Transporte.</li>
+<li>Consultoría tecnológica.</li>
+<li>Inteligencia artificial.</li>
+</ul>
+
+<h3>¿Qué busca Indra?</h3>
+
+<p>
+La empresa necesita perfiles técnicos,
+pero también personas con habilidades sociales y capacidad de adaptación.
+</p>
+
+<h3>Estrategias de desarrollo del talento</h3>
+
+<table>
+
+<tr>
+<th>Estrategia</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Programas junior</td>
+<td>Incorporar jóvenes profesionales</td>
+</tr>
+
+<tr>
+<td>Academias internas</td>
+<td>Formación continua especializada</td>
+</tr>
+
+<tr>
+<td>Trabajo colaborativo</td>
+<td>Mejorar soft skills</td>
+</tr>
+
+<tr>
+<td>Evaluación de competencias</td>
+<td>Detectar necesidades formativas</td>
+</tr>
+
+</table>
+
+<h3>Conclusión importante</h3>
+
+<p>
+Indra demuestra que el talento profesional surge de combinar:
+</p>
+
+<ul>
+<li>Hard skills.</li>
+<li>Soft skills.</li>
+<li>Formación continua.</li>
+<li>Experiencia práctica.</li>
+</ul>
+
+<div class="example-box">
+Muchos estudiantes de FP acceden a Indra mediante programas de talento junior.
+</div>
+
+<div class="tip-box">
+Las empresas valoran cada vez más la capacidad de adaptación y aprendizaje.
+</div>
+
+<div class="trap-box">
+Tener conocimientos técnicos excelentes NO garantiza éxito profesional si faltan habilidades sociales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué combinación favorece más el desarrollo profesional según el caso Indra?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Solo conocimientos técnicos
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Hard skills, soft skills y formación continua
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Únicamente experiencia laboral
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>9.4 Análisis DAFO personal</h2>
+
+<p>
+El análisis DAFO permite evaluar la situación profesional y personal de una persona.
+Es una herramienta muy utilizada en orientación laboral y planificación profesional.
+</p>
+
+<h3>¿Qué significa DAFO?</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Debilidades</td>
+<td>Aspectos internos a mejorar</td>
+</tr>
+
+<tr>
+<td>Amenazas</td>
+<td>Factores externos negativos</td>
+</tr>
+
+<tr>
+<td>Fortalezas</td>
+<td>Capacidades y ventajas personales</td>
+</tr>
+
+<tr>
+<td>Oportunidades</td>
+<td>Factores externos positivos</td>
+</tr>
+
+</table>
+
+<h3>Ejemplos</h3>
+
+<ul>
+<li><strong>Debilidad:</strong> bajo nivel de inglés.</li>
+<li><strong>Amenaza:</strong> alta competencia laboral.</li>
+<li><strong>Fortaleza:</strong> aprendizaje rápido.</li>
+<li><strong>Oportunidad:</strong> becas y formación online.</li>
+</ul>
+
+<h3>¿Para qué sirve?</h3>
+
+<ul>
+<li>Conocerse mejor.</li>
+<li>Detectar puntos fuertes.</li>
+<li>Identificar áreas de mejora.</li>
+<li>Diseñar estrategias profesionales.</li>
+<li>Tomar decisiones realistas.</li>
+</ul>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Un estudiante de informática puede detectar como debilidad su inglés técnico
+y convertirlo en objetivo prioritario de mejora.
+</div>
+
+<div class="tip-box">
+El DAFO debe ser honesto y realista.
+Ocultar debilidades impide mejorar.
+</div>
+
+<div class="trap-box">
+El DAFO NO es solo para empresas.
+También es muy útil a nivel personal y profesional.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué elemento del DAFO representa factores externos positivos?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Debilidades
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Amenazas
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Oportunidades
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>9.5 Definición de objetivos SMART</h2>
+
+<p>
+Los objetivos SMART permiten transformar ideas generales en planes concretos y medibles.
+</p>
+
+<h3>Significado del acrónimo SMART</h3>
+
+<table>
+
+<tr>
+<th>Letra</th>
+<th>Significado</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>S</td>
+<td>Specific</td>
+<td>Objetivo específico y claro</td>
+</tr>
+
+<tr>
+<td>M</td>
+<td>Measurable</td>
+<td>Debe poder medirse</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Achievable</td>
+<td>Realista y alcanzable</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>Relevant</td>
+<td>Importante para tu proyecto profesional</td>
+</tr>
+
+<tr>
+<td>T</td>
+<td>Time-bound</td>
+<td>Con plazo definido</td>
+</tr>
+
+</table>
+
+<h3>Ejemplo incorrecto</h3>
+
+<p>
+“Quiero encontrar trabajo”.
+</p>
+
+<p>
+Problema: es demasiado genérico y no permite medir avances.
+</p>
+
+<h3>Ejemplo SMART correcto</h3>
+
+<p>
+“Obtener empleo como técnico de redes en 12 meses,
+mejorando mi inglés técnico y enviando 10 candidaturas mensuales”.
+</p>
+
+<h3>Ventajas de los objetivos SMART</h3>
+
+<ul>
+<li>Permiten organizar acciones.</li>
+<li>Ayudan a medir progreso.</li>
+<li>Reducen improvisación.</li>
+<li>Mejoran motivación.</li>
+<li>Facilitan la planificación profesional.</li>
+</ul>
+
+<div class="example-box">
+El estudiante del caso práctico mejoró su inglés y consiguió empleo internacional gracias a un objetivo SMART concreto.
+</div>
+
+<div class="tip-box">
+Combinar DAFO + SMART crea un plan profesional mucho más sólido.
+</div>
+
+<div class="trap-box">
+Objetivos demasiado ambiciosos pueden generar frustración.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué característica debe tener un objetivo SMART?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Ser ambiguo
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+No tener fecha límite
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Ser específico y medible
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

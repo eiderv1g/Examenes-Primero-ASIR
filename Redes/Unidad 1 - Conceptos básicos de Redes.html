@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 - Conceptos básicos de redes</title>
+
+  <style>
+    :root{
+      --bg:#0b1116;
+      --panel:#111923;
+      --panel2:#172330;
+      --text:#d9f7e9;
+      --muted:#8aa39a;
+      --accent:#00ff9c;
+      --accent2:#00c77b;
+      --danger:#ff4d6d;
+      --warning:#ffd166;
+      --border:#1d3142;
+      --shadow:0 0 25px rgba(0,255,156,.08);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display:flex;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:320px;
+      background: linear-gradient(180deg,#0d151d,#111c27);
+      border-right:1px solid var(--border);
+      padding:25px;
+      position:fixed;
+      height:100vh;
+      overflow-y:auto;
+      box-shadow: var(--shadow);
+    }
+
+    .logo{
+      font-size:1.7rem;
+      font-weight:700;
+      color:var(--accent);
+      margin-bottom:8px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:.95rem;
+      margin-bottom:25px;
+      line-height:1.5;
+    }
+
+    .sidebar ul{
+      list-style:none;
+    }
+
+    .sidebar li{
+      margin-bottom:12px;
+    }
+
+    .sidebar a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      background:rgba(255,255,255,.02);
+      border:1px solid transparent;
+      padding:12px 14px;
+      border-radius:10px;
+      transition:.2s;
+      font-size:.95rem;
+    }
+
+    .sidebar a:hover{
+      background:rgba(0,255,156,.08);
+      border-color:rgba(0,255,156,.25);
+      transform:translateX(4px);
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:320px;
+      width:calc(100% - 320px);
+      padding:40px;
+    }
+
+    .hero{
+      background:
+      linear-gradient(135deg,rgba(0,255,156,.08),rgba(0,0,0,.2)),
+      var(--panel);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:40px;
+      margin-bottom:30px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:3rem;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:900px;
+      line-height:1.7;
+    }
+
+    .study-block{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:35px;
+      margin-bottom:30px;
+      box-shadow:var(--shadow);
+    }
+
+    .study-block h2{
+      color:var(--accent);
+      margin-bottom:18px;
+      font-size:2rem;
+    }
+
+    .study-block h3{
+      margin-top:24px;
+      margin-bottom:10px;
+      color:#9effd4;
+    }
+
+    .study-block p,
+    .study-block li{
+      line-height:1.8;
+      color:#d6e8df;
+    }
+
+    .study-block ul{
+      margin-left:20px;
+      margin-top:10px;
+    }
+
+    .card{
+      background:var(--panel2);
+      border-left:4px solid var(--accent);
+      padding:18px;
+      margin-top:18px;
+      border-radius:12px;
+    }
+
+    .warning{
+      border-left-color:var(--warning);
+    }
+
+    .danger{
+      border-left-color:var(--danger);
+    }
+
+    code{
+      background:#0a131a;
+      color:#79ffc6;
+      padding:3px 7px;
+      border-radius:6px;
+    }
+
+    .quiz{
+      margin-top:35px;
+      padding:25px;
+      border-radius:14px;
+      background:#0f1822;
+      border:1px solid #203647;
+    }
+
+    .quiz h3{
+      margin-bottom:15px;
+    }
+
+    .question{
+      margin-bottom:20px;
+    }
+
+    .question p{
+      margin-bottom:10px;
+      font-weight:600;
+    }
+
+    button{
+      margin-top:10px;
+      padding:12px 20px;
+      background:var(--accent);
+      color:#04110c;
+      border:none;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    button:hover{
+      background:#63ffc1;
+      transform:translateY(-2px);
+    }
+
+    .result{
+      margin-top:15px;
+      font-weight:bold;
+      color:var(--accent);
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      overflow:hidden;
+      border-radius:10px;
+    }
+
+    .table th,
+    .table td{
+      border:1px solid var(--border);
+      padding:12px;
+      text-align:left;
+    }
+
+    .table th{
+      background:#13202d;
+      color:var(--accent);
+    }
+
+    .highlight{
+      color:var(--accent);
+      font-weight:bold;
+    }
+
+    .footer{
+      margin-top:50px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    @media(max-width:1100px){
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      body{
+        flex-direction:column;
+      }
+
+      .main{
+        width:100%;
+        margin-left:0;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">Unidad 1</div>
+    <div class="subtitle">
+      Conceptos básicos de redes<br>
+      Página interactiva de estudio.
+    </div>
+
+    <ul>
+      <li><a href="#b1">1. Representación de la información</a></li>
+      <li><a href="#b2">2. Sistemas de numeración</a></li>
+      <li><a href="#b3">3. Conversión entre sistemas</a></li>
+      <li><a href="#b4">4. Código ASCII</a></li>
+      <li><a href="#b5">5. Conceptos básicos de redes</a></li>
+      <li><a href="#b6">6. Modelo OSI</a></li>
+      <li><a href="#b7">7. Modelo OSI - PDUs</a></li>
+      <li><a href="#b8">8. Modelo TCP/IP</a></li>
+      <li><a href="#b9">9. Topologías de red</a></li>
+      <li><a href="#b10">10. QoS</a></li>
+      <li><a href="#b11">11. Protocolo IP</a></li>
+      <li><a href="#b12">12. Clases IP</a></li>
+      <li><a href="#b13">13. Máscaras y CIDR</a></li>
+      <li><a href="#b14">14. Subredes</a></li>
+      <li><a href="#b15">15. Subnetting paso a paso</a></li>
+      <li><a href="#b16">16. IPv6</a></li>
+      <li><a href="#b17">17. IPv6 Rangos</a></li>
+      <li><a href="#b18">18. IPv4 vs IPv6</a></li>
+      <li><a href="#b19">19. Direcciones especiales</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <section class="hero">
+      <h1>Unidad 1 - Conceptos básicos de redes</h1>
+      <p>
+        Plataforma de estudio basada en mis resúmenes personales.
+        Incluye teoría resumida, ejemplos, curiosidades, preguntas trampa y mini-tests. Al lío!!!
+      </p>
+    </section>
+
+    <!-- BLOQUE 1 -->
+    <section class="study-block" id="b1">
+      <h2>1. Representación de la información</h2>
+
+      <p>
+        Toda la información digital se representa usando bits:
+        <span class="highlight">0 y 1</span>.
+      </p>
+
+      <h3>Unidades importantes</h3>
+
+      <table class="table">
+        <tr>
+          <th>Unidad</th>
+          <th>Equivale</th>
+        </tr>
+        <tr>
+          <td>1 Byte</td>
+          <td>8 bits</td>
+        </tr>
+        <tr>
+          <td>1 KB</td>
+          <td>1024 Bytes</td>
+        </tr>
+          <tr>
+          <td>1 kB</td>
+          <td>1000 Bytes (decimal)</td>
+        </tr>
+        <tr>
+          <td>1 MB</td>
+          <td>1024 KB</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        💡 Curiosidad: los fabricantes de discos usan sistema decimal
+        (1000) mientras que informática suele usar binario (1024).
+      </div>
+
+      <div class="card warning">
+        ⚠ Pregunta trampa típica:
+        <br><br>
+        ¿1 KB son 1000 bytes o 1024 bytes?
+        <br>
+        Depende del contexto.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuántos bits tiene 1 byte?</p>
+          <label><input type="radio" name="q1"> 4</label><br>
+          <label><input type="radio" name="q1" data-correct> 8</label><br>
+          <label><input type="radio" name="q1"> 16</label>
+        </div>
+
+        <button onclick="checkQuiz('q1', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 2 -->
+    <section class="study-block" id="b2">
+      <h2>2. Sistemas de numeración</h2>
+
+      <ul>
+        <li><b>Decimal:</b> usa 0-9</li>
+        <li><b>Binario:</b> usa 0 y 1</li>
+        <li><b>Hexadecimal:</b> usa 0-9 y A-F</li>
+      </ul>
+
+      <div class="card">
+        En redes:
+        <ul>
+          <li>IP → decimal</li>
+          <li>Máscaras → binario</li>
+          <li>MAC → hexadecimal</li>
+        </ul>
+      </div>
+
+      <div class="card danger">
+        ❌ Error típico:
+        confundir hexadecimal con decimal.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuántos símbolos tiene el sistema hexadecimal?</p>
+          <label><input type="radio" name="q2"> 8</label><br>
+          <label><input type="radio" name="q2"> 10</label><br>
+          <label><input type="radio" name="q2" data-correct> 16</label>
+        </div>
+
+        <button onclick="checkQuiz('q2', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 3 -->
+    <section class="study-block" id="b3">
+      <h2>3. Conversión entre binario-decimal-hexadecimal</h2>
+
+      <h3>Decimal → Binario</h3>
+
+      <p>
+        Se divide sucesivamente entre 2 y se leen los restos al revés.
+      </p>
+
+      <div class="card">
+        Ejemplo:
+        <br><br>
+        25 → 11001
+      </div>
+
+      <h3>Binario → Decimal</h3>
+
+      <p>
+        Se usan potencias de 2.
+      </p>
+
+      <div class="card">
+        11001 =
+        16 + 8 + 0 + 0 + 1 = 25
+      </div>
+
+      <h3>Binario → Hexadecimal</h3>
+
+      <p>
+        Agrupar en bloques de 4 bits.
+      </p>
+
+      <div class="card">
+        11011011 → 1101 1011 → DB
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuál es el binario de 5?</p>
+          <label><input type="radio" name="q3"> 111</label><br>
+          <label><input type="radio" name="q3" data-correct> 101</label><br>
+          <label><input type="radio" name="q3"> 100</label>
+        </div>
+
+        <button onclick="checkQuiz('q3', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 4 -->
+    <section class="study-block" id="b4">
+      <h2>4. Código ASCII</h2>
+
+      <p>
+        ASCII representa caracteres mediante números.
+      </p>
+
+      <table class="table">
+        <tr>
+          <th>Carácter</th>
+          <th>Decimal</th>
+          <th>Binario</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>65</td>
+          <td>01000001</td>
+        </tr>
+        <tr>
+          <td>a</td>
+          <td>97</td>
+          <td>01100001</td>
+        </tr>
+      </table>
+      <ul>
+        <li>0-31 → caracteres de control</li>
+        <li>48-57 → números</li>
+        <li>65-90 → mayúsculas</li>
+        <li>97 - 122 → minúsculas</li>
+      </ul>
+
+      <div class="card">
+        “Hola” en ASCII:
+        <br><br>
+        H → 72 → 01001000
+        <br><br>
+        o → 111 → 01101111
+        <br><br>
+        l → 108 → 01101100
+        <br><br>
+        a → 97 → 01100001
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>ASCII estándar usa:</p>
+          <label><input type="radio" name="q4"> 4 bits</label><br>
+          <label><input type="radio" name="q4" data-correct> 7 bits</label><br>
+          <label><input type="radio" name="q4"> 16 bits</label>
+        </div>
+
+        <button onclick="checkQuiz('q4', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 5 -->
+    <section class="study-block" id="b5">
+      <h2>5. Conceptos básicos de redes</h2>
+
+      <ul>
+        <li>Una red conecta dispositivos.</li>
+        <li>Los dispositivos necesitan dirección IP.</li>
+        <li>Internet es una red de redes.</li>
+      </ul>
+
+      <div class="card">
+        Un router conecta redes distintas.
+      </div>
+
+      <div class="card warning">
+        ⚠ Pregunta trampa:
+        <br><br>
+        Internet NO es una única red gigante controlada por una empresa.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué dispositivo conecta redes diferentes?</p>
+          <label><input type="radio" name="q5"> Switch</label><br>
+          <label><input type="radio" name="q5" data-correct> Router</label><br>
+          <label><input type="radio" name="q5"> Hub</label>
+        </div>
+
+        <button onclick="checkQuiz('q5', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6 -->
+    <section class="study-block" id="b6">
+      <h2>6. Modelo OSI</h2>
+
+      <ol style="margin-left:20px; line-height:2;">
+        <li>Física (Cables, conectores,hubs)</li>
+        <li>Enlace (Ethernet, PPP, HDCL)</li>
+        <li>Red (IP, ICM, ARP)</li>
+        <li>Transporte (TCP, UDP, SCTP)</li>
+        <li>Sesión (NetBios, RPC, PPTP)</li>
+        <li>Presentación (SSL/TLS, ASCII, JPEG)</li>
+        <li>Aplicación (HTTP, HTTPS, FTP)</li>
+      </ol>
+
+      <div class="card">
+        Truco:
+        <br><br>
+        “Feos Estudian Redes Todos Sin Protestar Apenas”
+      </div>
+
+      <div class="card danger">
+        ❌ Error típico:
+        pensar que HTTP pertenece a Red.
+        <br><br>
+        HTTP es capa Aplicación.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿En qué capa trabaja IP?</p>
+          <label><input type="radio" name="q6"> Transporte</label><br>
+          <label><input type="radio" name="q6" data-correct> Red</label><br>
+          <label><input type="radio" name="q6"> Aplicación</label>
+        </div>
+
+        <button onclick="checkQuiz('q6', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 7 -->
+    <section class="study-block" id="b7">
+      <h2>7. Modelo OSI - PDUs</h2>
+
+      <table class="table">
+        <tr>
+          <th>Capa</th>
+          <th>PDU</th>
+        </tr>
+        <tr>
+          <td>Aplicación</td>
+          <td>Datos</td>
+        </tr>
+        <tr>
+          <td>Transporte</td>
+          <td>Segmento</td>
+        </tr>
+        <tr>
+          <td>Red</td>
+          <td>Paquete</td>
+        </tr>
+        <tr>
+          <td>Enlace</td>
+          <td>Trama</td>
+        </tr>
+        <tr>
+          <td>Física</td>
+          <td>Bits</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        TCP usa segmentos y UDP usa datagramas.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cómo se llama la PDU de capa 2?</p>
+          <label><input type="radio" name="q7"> Paquete</label><br>
+          <label><input type="radio" name="q7" data-correct> Trama</label><br>
+          <label><input type="radio" name="q7"> Segmento</label>
+        </div>
+
+        <button onclick="checkQuiz('q7', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 8 -->
+    <section class="study-block" id="b8">
+      <h2>8. Modelo TCP/IP</h2>
+
+      <ul>
+        <li>Acceso a red</li>
+        <li>Internet</li>
+        <li>Transporte</li>
+        <li>Aplicación</li>
+      </ul>
+
+      <div class="card">
+        TCP/IP es el modelo realmente usado en Internet.
+      </div>
+
+      <div class="card warning">
+        ⚠ Mito:
+        “Internet usa el modelo OSI tal cual”.
+        <br><br>
+        FALSO.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué protocolo pertenece a Transporte?</p>
+          <label><input type="radio" name="q8"> HTTP</label><br>
+          <label><input type="radio" name="q8" data-correct> TCP</label><br>
+          <label><input type="radio" name="q8"> IP</label>
+        </div>
+
+        <button onclick="checkQuiz('q8', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 9 -->
+    <section class="study-block" id="b9">
+      <h2>9. Topologías de red</h2>
+
+      <ul>
+        <li>Estrella → Más usada, depende del switch</li>
+        <li>Bus → Obsoleta, un solo cable </li>
+        <li>Anillo → Forma circular </li>
+        <li>Malla → Alta redundancia</li>
+        <li>Híbrida → Mezcla de varias topologías</li>
+      </ul>
+
+      <div class="card">
+        ⭐ La más usada en redes LAN actuales:
+        Topología estrella.
+      </div>
+
+      <div class="card warning">
+        ⚠ Pregunta trampa:
+        La topología sí afecta al rendimiento y QoS.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué topología ofrece más redundancia?</p>
+          <label><input type="radio" name="q9"> Bus</label><br>
+          <label><input type="radio" name="q9" data-correct> Malla</label><br>
+          <label><input type="radio" name="q9"> Estrella</label>
+        </div>
+
+        <button onclick="checkQuiz('q9', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 10 -->
+    <section class="study-block" id="b10">
+      <h2>10. QoS</h2>
+
+      <p>
+        QoS (Quality of Service) prioriza tráfico importante.
+      </p>
+
+      <div class="card">
+        Ejemplo:
+        videollamadas tienen prioridad frente a descargas.
+      </div>
+
+      <ul>
+        <li>Reduce latencia</li>
+        <li>Reduce jitter</li>
+        <li>Controla ancho de banda</li>
+      </ul>
+      <div class="card danger">
+        ❌ Más ancho de banda NO garantiza más velocidad.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué tráfico suele priorizar QoS?</p>
+          <label><input type="radio" name="q10"> Descargas P2P</label><br>
+          <label><input type="radio" name="q10" data-correct> Videollamadas</label><br>
+          <label><input type="radio" name="q10"> Backups</label>
+        </div>
+
+        
+
+        <button onclick="checkQuiz('q10', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 11 -->
+    <section class="study-block" id="b11">
+      <h2>11. Protocolo IP</h2>
+
+      <ul>
+        <li>No orientado a conexión</li>
+        <li>Usa datagramas</li>
+        <li>No garantiza entrega</li>
+      </ul>
+
+      <div class="card">
+        IPv4 usa 32 bits.
+      </div>
+
+      <div class="card danger">
+        ❌ IP NO garantiza que el paquete llegue.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>IPv4 usa:</p>
+          <label><input type="radio" name="q11"> 64 bits</label><br>
+          <label><input type="radio" name="q11"> 128 bits</label><br>
+          <label><input type="radio" name="q11" data-correct> 32 bits</label>
+        </div>
+
+        <button onclick="checkQuiz('q11', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 12 -->
+    <section class="study-block" id="b12">
+      <h2>12. Clases de direccionamiento IP</h2>
+
+      <table class="table">
+        <tr>
+          <th>Clase</th>
+          <th>Rango</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>1 - 126</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>128 - 191</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>192 - 223</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>224 - 239</td>
+        </tr>
+         <tr>
+          <td>E</td>
+          <td>240 - 247</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        Clase D → multicast. | Clase E → reservada
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué clase es 192.168.1.1?</p>
+          <label><input type="radio" name="q12"> A</label><br>
+          <label><input type="radio" name="q12"> B</label><br>
+          <label><input type="radio" name="q12" data-correct> C</label>
+        </div>
+
+        <button onclick="checkQuiz('q12', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 13 -->
+    <section class="study-block" id="b13">
+      <h2>13. Máscaras de red y CIDR</h2>
+
+      <p>
+        La máscara distingue red y host.
+      </p>
+
+      <table class="table">
+        <tr>
+          <th>Clase</th>
+          <th>Máscara</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>255.0.0.0</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>255.255.0.0</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>255.255.255.0</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        CIDR:
+        <code>/24</code> equivale a
+        <code>255.255.255.0</code>
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué significa /16?</p>
+          <label><input type="radio" name="q13"> 16 hosts</label><br>
+          <label><input type="radio" name="q13" data-correct> 16 bits de red</label><br>
+          <label><input type="radio" name="q13"> 16 routers</label>
+        </div>
+
+        <button onclick="checkQuiz('q13', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 14 -->
+    <section class="study-block" id="b14">
+      <h2>14. Subredes</h2>
+
+      <p>
+        Las subredes dividen una red en partes más pequeñas.
+      </p>
+
+      <ul>
+        <li>Reducen congestión</li>
+        <li>Mejoran seguridad</li>
+        <li>Mejoran organización</li>
+      </ul>
+
+      <div class="card">
+        Para crear subredes se toman bits de host.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Para qué sirve subnetting?</p>
+          <label><input type="radio" name="q14"> Aumentar voltaje</label><br>
+          <label><input type="radio" name="q14" data-correct> Dividir redes</label><br>
+          <label><input type="radio" name="q14"> Crear cables</label>
+        </div>
+
+        <button onclick="checkQuiz('q14', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 15 -->
+    <section class="study-block" id="b15">
+      <h2>15. Subnetting paso a paso</h2>
+
+      <ol style="margin-left:20px; line-height:2;">
+        <li>Determinar hosts necesarios</li>
+        <li>Calcular bits necesarios</li>
+        <li>Construir máscara</li>
+        <li>Calcular saltos</li>
+      </ol>
+
+      <div class="card">
+        Fórmula:
+        <br><br>
+        <code>2^n - 2</code>
+      </div>
+
+      <div class="card warning">
+        ⚠ Se restan 2:
+        <ul>
+          <li>Dirección de red</li>
+          <li>Broadcast</li>
+        </ul>
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuántos hosts permite una subred con 4 bits host?</p>
+          <label><input type="radio" name="q15"> 8</label><br>
+          <label><input type="radio" name="q15" data-correct> 14</label><br>
+          <label><input type="radio" name="q15"> 16</label>
+        </div>
+
+        <button onclick="checkQuiz('q15', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 16 -->
+    <section class="study-block" id="b16">
+      <h2>16. IPv6</h2>
+
+      <p>
+        IPv6 usa 128 bits.
+      </p>
+
+      <div class="card">
+        Ejemplo:
+        <br><br>
+        <code>fe80:a13d:d3d6:a190:31d2:a216:3261:1800</code>
+      </div>
+
+      <div class="card">
+        Se puede abreviar:
+        <br><br>
+        <code>3410::2900</code>
+      </div>
+
+      <div class="card danger">
+        ❌ Solo puede existir un doble “::”
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Cuántos bits usa IPv6?</p>
+          <label><input type="radio" name="q16"> 32</label><br>
+          <label><input type="radio" name="q16"> 64</label><br>
+          <label><input type="radio" name="q16" data-correct> 128</label>
+        </div>
+
+        <button onclick="checkQuiz('q16', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 17 -->
+    <section class="study-block" id="b17">
+      <h2>17. IPv6 - Rangos y ejemplos</h2>
+
+      <table class="table">
+        <tr>
+          <th>Tipo</th>
+          <th>Prefijo</th>
+        </tr>
+        <tr>
+          <td>Global</td>
+          <td>2000::/3</td>
+        </tr>
+        <tr>
+          <td>Local único</td>
+          <td>fc00::/7</td>
+        </tr>
+        <tr>
+          <td>Link-local</td>
+          <td>fe80::/10</td>
+        </tr>
+        <tr>
+          <td>Multicast</td>
+          <td>ff00::/8</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        fe80 → link-local.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué prefijo identifica multicast?</p>
+          <label><input type="radio" name="q17"> fe80</label><br>
+          <label><input type="radio" name="q17"> fc00</label><br>
+          <label><input type="radio" name="q17" data-correct> ff00</label>
+        </div>
+
+        <button onclick="checkQuiz('q17', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 18 -->
+    <section class="study-block" id="b18">
+      <h2>18. IPv4 vs IPv6</h2>
+
+      <table class="table">
+        <tr>
+          <th>IPv4</th>
+          <th>IPv6</th>
+        </tr>
+        <tr>
+          <td>32 bits</td>
+          <td>128 bits</td>
+        </tr>
+        <tr>
+          <td>Decimal</td>
+          <td>Hexadecimal</td>
+        </tr>
+        <tr>
+          <td>Pocas IPs</td>
+          <td>Muchísimas IPs</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        IPv4 e IPv6 convivirán durante muchos años.
+      </div>
+
+      <div class="card warning">
+        ⚠ Mito:
+        “IPv6 solo añade más direcciones”.
+        <br><br>
+        FALSO.
+      </div>
+
+      <div class="quiz">
+        <h3>Mini-test final</h3>
+
+        <div class="question">
+          <p>¿Cuál usa hexadecimal?</p>
+          <label><input type="radio" name="q18"> IPv4</label><br>
+          <label><input type="radio" name="q18" data-correct> IPv6</label>
+        </div>
+
+        <button onclick="checkQuiz('q18', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 19 -->
+    <section class="study-block" id="b19">
+      <h2>19. Direcciones especiales</h2>
+
+      <table class="table">
+        <tr>
+          <th>Tipo</th>
+          <th>Significado</th>
+          <th>Ejemplo</th>
+        </tr>
+        <tr>
+          <td>Todo a 0</td>
+          <td>Identifica el propio host o una dirección no especificada</td>
+          <td>0.0.0.0</td>
+        </tr>
+        <tr>
+          <td>Todo a 0 en red</td>
+          <td>Host dentro de la red</td>
+          <td>0.0.0.19</td>
+        </tr>
+        <tr>
+          <td>Host todo a 0</td>
+          <td>Representa la dirección de red</td>
+          <td>192.168.1.0</td>
+        </tr>
+        <tr>
+          <td>Todo a 1</td>
+          <td>Broadcast general (difusión a toda la red)</td>
+          <td>255.255.255.255</td>
+        </tr>
+        <tr>
+          <td>Host todo a 1</td>
+          <td>Broadcast de una red concreta</td>
+          <td>192.168.1.255</td>
+        </tr>
+        <tr>
+          <td>127.x.x.x</td>
+          <td>Loopback, se usa para probar la red del propio equipo</td>
+          <td>127.0.0.1</td>
+        </tr>
+      </table>
+
+      <div class="card">
+        Red con host = 0 → dirección de red<br>
+        Red con host = 255 → dirección de broadcast
+      </div>
+
+
+      <div class="quiz">
+        <h3>Mini-test</h3>
+
+        <div class="question">
+          <p>¿Qué representa 0.0.0.4?</p>
+          <label><input type="radio" name="q18"> Multicast</label><br>
+          <label><input type="radio" name="q18" data-correct> Host en la red</label><br>
+          <label><input type="radio" name="q18"> Dirección no especificada</label>
+        </div>
+
+        <button onclick="checkQuiz('q18', this)">Comprobar</button>
+        <div class="result"></div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Página de estudio generada a partir de mis resúmenes. Esto es una herramienta complementaria.
+    </div>
+
+  </main>
+
+  <script>
+    function checkQuiz(groupName, button){
+
+      const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+      const result = button.nextElementSibling;
+
+      let correct = false;
+
+      answers.forEach(answer=>{
+        if(answer.checked && answer.dataset.correct !== undefined){
+          correct = true;
+        }
+      });
+
+      if(correct){
+        result.textContent = "✔ Correcto";
+        result.style.color = "#00ff9c";
+      }else{
+        result.textContent = "✘ Incorrecto";
+        result.style.color = "#ff5d7a";
+      }
+    }
+  </script>
+
+</body>
+</html>

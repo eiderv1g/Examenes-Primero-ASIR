@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 7.1 - Contenido extra</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#243b53;
+  --secondary:#eef4fb;
+  --accent:#dce8f7;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --success:#eefaf1;
+  --warning:#fff7e8;
+  --shadow:0 12px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.8rem;
+  color:var(--primary);
+  margin-bottom:12px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#243b53,#486581);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.85rem;
+  margin-bottom:20px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  background:#fafafa;
+  padding:16px;
+  border-bottom:1px solid #ececec;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:var(--success);
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  border-radius:24px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 7.1</h1>
+
+<p>Inspección de trabajo y representación de los trabajadores</p>
+
+<a class="nav-link" href="#b1">7.1 Inspección de Trabajo</a>
+<a class="nav-link" href="#b2">7.2 Delegados y comité</a>
+<a class="nav-link" href="#b3">7.3 Elecciones y garantías</a>
+<a class="nav-link" href="#b4">7.4 Sindicatos</a>
+<a class="nav-link" href="#b5">7.5 Libertad sindical</a>
+<a class="nav-link" href="#b6">7.6 Conflicto laboral</a>
+<a class="nav-link" href="#b7">7.7 Huelga</a>
+<a class="nav-link" href="#b8">7.8 Cierre patronal</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 7.1 · Contenido extra</h2>
+
+<p>
+Aprende cómo funcionan la Inspección de Trabajo,
+la representación de los trabajadores,
+los sindicatos y los conflictos laborales.
+Esta unidad incluye explicaciones detalladas,
+tablas comparativas, ejemplos reales,
+preguntas trampa y mini-test al final de cada bloque.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>7.1 Inspección de Trabajo</h2>
+
+<p>
+La Inspección de Trabajo y Seguridad Social es el organismo encargado de vigilar
+que empresas y trabajadores cumplan la normativa laboral.
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Controlar el cumplimiento de la legislación laboral.</li>
+<li>Supervisar prevención de riesgos laborales.</li>
+<li>Controlar cotizaciones y Seguridad Social.</li>
+<li>Detectar fraude laboral.</li>
+<li>Imponer sanciones.</li>
+<li>Asesorar a empresas y trabajadores.</li>
+</ul>
+
+<h3>Capacidad inspectora</h3>
+
+<p>
+Los inspectores pueden acceder libremente a centros de trabajo,
+revisar documentación y entrevistar trabajadores.
+</p>
+
+<table>
+
+<tr>
+<th>Función</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>Vigilancia y control</td>
+<td>Comprobar cumplimiento legal</td>
+</tr>
+
+<tr>
+<td>Asesoramiento</td>
+<td>Informar sobre derechos y obligaciones</td>
+</tr>
+
+<tr>
+<td>Sanción</td>
+<td>Corregir irregularidades</td>
+</tr>
+
+<tr>
+<td>Mediación</td>
+<td>Intervenir en conflictos laborales</td>
+</tr>
+
+</table>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+La Inspección puede sancionar a una empresa por tener trabajadores sin contrato.
+</div>
+
+<div class="tip-box">
+Las denuncias ante Inspección pueden realizarse por trabajadores o sindicatos.
+</div>
+
+<div class="trap-box">
+La Inspección NO necesita avisar previamente para realizar visitas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es una función de la Inspección de Trabajo?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Negociar convenios colectivos
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Vigilar el cumplimiento de la normativa laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Elegir delegados sindicales
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>7.2 Delegados de personal y comité de empresa</h2>
+
+<p>
+Los trabajadores tienen derecho a estar representados dentro de la empresa.
+</p>
+
+<h3>Delegados de personal</h3>
+
+<ul>
+<li>Empresas entre 6 y 49 trabajadores.</li>
+<li>Hasta 30 trabajadores → 1 delegado.</li>
+<li>De 31 a 49 trabajadores → 3 delegados.</li>
+</ul>
+
+<h3>Comité de empresa</h3>
+
+<p>
+Existe en empresas o centros con 50 o más trabajadores.
+</p>
+
+<table>
+
+<tr>
+<th>Nº trabajadores</th>
+<th>Representantes</th>
+</tr>
+
+<tr>
+<td>50 a 100</td>
+<td>5</td>
+</tr>
+
+<tr>
+<td>101 a 250</td>
+<td>9</td>
+</tr>
+
+<tr>
+<td>251 a 500</td>
+<td>13</td>
+</tr>
+
+<tr>
+<td>501 a 750</td>
+<td>17</td>
+</tr>
+
+</table>
+
+<h3>Funciones</h3>
+
+<ul>
+<li>Recibir información económica.</li>
+<li>Controlar condiciones laborales.</li>
+<li>Participar en decisiones.</li>
+<li>Mediar en conflictos.</li>
+<li>Negociar con la empresa.</li>
+</ul>
+
+<div class="example-box">
+Un comité puede emitir informes cuando la empresa pretende despedir trabajadores.
+</div>
+
+<div class="tip-box">
+Delegados y comité tienen funciones similares,
+pero cambia el tamaño de empresa donde actúan.
+</div>
+
+<div class="trap-box">
+Los representantes NO dirigen la empresa;
+participan y defienden intereses laborales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿En qué empresas existe comité de empresa?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Menos de 10 trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+50 o más trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Solo empresas públicas
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>7.3 Elecciones y garantías de los representantes</h2>
+
+<h3>Procedimiento electoral</h3>
+
+<ul>
+<li>Promueven elecciones sindicatos o trabajadores.</li>
+<li>Debe comunicarse a la autoridad laboral.</li>
+<li>Se constituye una mesa electoral.</li>
+<li>La votación es libre y secreta.</li>
+</ul>
+
+<h3>Requisitos</h3>
+
+<table>
+
+<tr>
+<th>Condición</th>
+<th>Electores</th>
+<th>Elegibles</th>
+</tr>
+
+<tr>
+<td>Edad</td>
+<td>16 años</td>
+<td>18 años</td>
+</tr>
+
+<tr>
+<td>Antigüedad</td>
+<td>1 mes</td>
+<td>6 meses</td>
+</tr>
+
+</table>
+
+<h3>Garantías</h3>
+
+<ul>
+<li>No ser discriminados.</li>
+<li>Protección frente a despidos.</li>
+<li>Crédito horario sindical.</li>
+<li>Libre expresión de opiniones.</li>
+<li>Prioridad de permanencia en despidos colectivos.</li>
+</ul>
+
+<div class="example-box">
+Un representante despedido improcedentemente puede elegir entre readmisión o indemnización.
+</div>
+
+<div class="tip-box">
+El crédito horario permite dedicar tiempo laboral a funciones representativas.
+</div>
+
+<div class="trap-box">
+No cualquier trabajador puede presentarse:
+hay requisitos mínimos de edad y antigüedad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cómo debe ser la votación de representantes?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Pública
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Solo online
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Libre, directa y secreta
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>7.4 Sindicatos</h2>
+
+<p>
+Los sindicatos son organizaciones que defienden los intereses laborales,
+económicos y sociales de los trabajadores.
+</p>
+
+<h3>Funciones</h3>
+
+<ul>
+<li>Negociar convenios colectivos.</li>
+<li>Representar trabajadores.</li>
+<li>Defender derechos laborales.</li>
+<li>Participar en conflictos colectivos.</li>
+<li>Promover elecciones sindicales.</li>
+</ul>
+
+<h3>Financiación</h3>
+
+<ul>
+<li>Cuotas de afiliados.</li>
+<li>Subvenciones públicas.</li>
+</ul>
+
+<h3>Sindicatos más representativos</h3>
+
+<table>
+
+<tr>
+<th>Ámbito</th>
+<th>Representatividad</th>
+</tr>
+
+<tr>
+<td>Estatal</td>
+<td>10%</td>
+</tr>
+
+<tr>
+<td>Autonómico</td>
+<td>15% y 1.500 representantes</td>
+</tr>
+
+</table>
+
+<div class="example-box">
+CCOO y UGT son sindicatos de ámbito estatal.
+</div>
+
+<div class="tip-box">
+Los sindicatos pueden intervenir en negociaciones colectivas.
+</div>
+
+<div class="trap-box">
+Afiliarse a un sindicato es voluntario.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es una función de los sindicatos?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Imponer sanciones administrativas
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Defender intereses de los trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Aprobar leyes laborales
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="study-block" id="b5">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>7.5 Libertad sindical</h2>
+
+<p>
+La libertad sindical es un derecho fundamental reconocido en el artículo 28.1 de la Constitución Española.
+</p>
+
+<h3>Incluye:</h3>
+
+<ul>
+<li>Crear sindicatos.</li>
+<li>Afiliarse libremente.</li>
+<li>No afiliarse.</li>
+<li>Crear confederaciones sindicales.</li>
+</ul>
+
+<h3>¿Quién puede ejercerla?</h3>
+
+<ul>
+<li>Trabajadores asalariados.</li>
+<li>Funcionarios públicos.</li>
+</ul>
+
+<h3>Limitaciones</h3>
+
+<ul>
+<li>Jueces y fiscales no pueden sindicarse.</li>
+<li>Fuerzas armadas tienen restricciones.</li>
+</ul>
+
+<div class="example-box">
+Nadie puede ser obligado a afiliarse a un sindicato.
+</div>
+
+<div class="trap-box">
+Libertad sindical también significa derecho a NO sindicarse.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué implica la libertad sindical?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Obligación de afiliarse
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Derecho a afiliarse libremente
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Prohibición de sindicatos
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="study-block" id="b6">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>7.6 Conflicto laboral</h2>
+
+<p>
+Un conflicto laboral es una discrepancia entre trabajadores y empresarios.
+</p>
+
+<h3>Tipos</h3>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>Individual</td>
+<td>Afecta a un trabajador concreto</td>
+</tr>
+
+<tr>
+<td>Colectivo</td>
+<td>Afecta a un grupo de trabajadores</td>
+</tr>
+
+</table>
+
+<h3>Conflicto colectivo</h3>
+
+<ul>
+<li>Interpretación de normas.</li>
+<li>Aplicación de convenios.</li>
+<li>Modificación de condiciones laborales.</li>
+</ul>
+
+<h3>Formas de resolución</h3>
+
+<ul>
+<li>Negociación.</li>
+<li>Mediación.</li>
+<li>Arbitraje.</li>
+<li>Conciliación.</li>
+</ul>
+
+<div class="tip-box">
+La mediación busca acuerdo con ayuda de una tercera persona neutral.
+</div>
+
+<div class="trap-box">
+No todos los conflictos terminan en huelga.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué caracteriza un conflicto colectivo?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+Afecta solo a un trabajador
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Afecta a un grupo de trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Es siempre ilegal
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="study-block" id="b7">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>7.7 La huelga</h2>
+
+<p>
+La huelga es un derecho fundamental de los trabajadores.
+Consiste en la suspensión colectiva del trabajo como medida de presión.
+</p>
+
+<h3>Requisitos de huelga legal</h3>
+
+<ul>
+<li>Acuerdo expreso.</li>
+<li>Comunicación al empresario y autoridad laboral.</li>
+<li>Comité de huelga.</li>
+<li>Respeto a servicios mínimos.</li>
+</ul>
+
+<h3>¿Quién puede convocarla?</h3>
+
+<ul>
+<li>Representantes de los trabajadores.</li>
+<li>Trabajadores mediante acuerdo.</li>
+</ul>
+
+<h3>Plazo de comunicación</h3>
+
+<p>
+Debe avisarse con al menos 5 días de antelación.
+</p>
+
+<h3>Contenido obligatorio</h3>
+
+<ul>
+<li>Objetivos de la huelga.</li>
+<li>Fecha de inicio.</li>
+<li>Gestiones previas.</li>
+<li>Composición del comité de huelga.</li>
+</ul>
+
+<h3>Aspectos importantes</h3>
+
+<ul>
+<li>El empresario NO puede sustituir huelguistas.</li>
+<li>Los trabajadores pueden informar y recaudar fondos.</li>
+<li>El contrato queda suspendido temporalmente.</li>
+</ul>
+
+<div class="example-box">
+En servicios esenciales pueden imponerse servicios mínimos.
+</div>
+
+<div class="trap-box">
+Durante la huelga no se cobra salario.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Puede la empresa sustituir trabajadores en huelga?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Sí, libremente
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+No, salvo excepciones legales
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Solo en empresas privadas
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="study-block" id="b8">
+
+<span class="study-time">⏱️ 22 min</span>
+
+<h2>7.8 El cierre patronal</h2>
+
+<p>
+El cierre patronal es una medida de presión utilizada por empresarios.
+Consiste en cerrar temporalmente el centro de trabajo.
+</p>
+
+<h3>Cuándo puede producirse</h3>
+
+<ul>
+<li>Peligro para personas o bienes.</li>
+<li>Ocupación ilegal del centro.</li>
+<li>Imposibilidad grave de producción.</li>
+</ul>
+
+<h3>Consecuencias</h3>
+
+<ul>
+<li>Suspensión de actividad.</li>
+<li>No se pagan salarios.</li>
+<li>Debe comunicarse a la autoridad laboral.</li>
+</ul>
+
+<h3>Plazo de comunicación</h3>
+
+<p>
+La empresa debe avisar en 12 horas.
+</p>
+
+<div class="tip-box">
+El cierre patronal tiene regulación legal estricta.
+</div>
+
+<div class="trap-box">
+El cierre patronal NO puede utilizarse arbitrariamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué ocurre con el salario durante el cierre patronal?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Se paga normalmente
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Se suspende el pago salarial
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Lo paga el sindicato
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 2 - Ethernet y medios físicos</title>
+
+<style>
+
+:root{
+  --bg:#0a1015;
+  --panel:#101922;
+  --panel2:#16222e;
+  --border:#223647;
+  --text:#d7f5e6;
+  --muted:#8ea99f;
+  --accent:#00ff9c;
+  --accent2:#00c97d;
+  --danger:#ff5c7a;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI, sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:300px;
+  background:#0e161f;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  font-size:1.7rem;
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  font-size:.95rem;
+  margin-bottom:20px;
+  line-height:1.5;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:12px;
+}
+
+.sidebar a{
+  text-decoration:none;
+  color:var(--text);
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,156,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:300px;
+  width:calc(100% - 300px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,156,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  padding:40px;
+  border-radius:20px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-size:3rem;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+  color:#9fffd2;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  padding:18px;
+  border-radius:12px;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#13202c;
+  color:var(--accent);
+}
+
+.quiz{
+  margin-top:30px;
+  background:#0d151d;
+  border:1px solid #1f3445;
+  padding:25px;
+  border-radius:14px;
+}
+
+.quiz h3{
+  margin-bottom:20px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:var(--accent);
+  color:#04100b;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#5dffc0;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:30px;
+}
+
+code{
+  background:#081218;
+  padding:3px 8px;
+  border-radius:6px;
+  color:#7dffc8;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 2</h1>
+
+<p>
+Ethernet y medios físicos.<br>
+
+</p>
+
+<ul>
+<li><a href="#b1">1. Ethernet</a></li>
+<li><a href="#b2">2. CSMA/CD</a></li>
+<li><a href="#b3">3. Trama Ethernet y MAC</a></li>
+<li><a href="#b4">4. Cables RJ45</a></li>
+<li><a href="#b5">5. Medios físicos</a></li>
+<li><a href="#b6">6. Topologías de red</a></li>
+<li><a href="#b7">7. LAN y dispositivos</a></li>
+<li><a href="#b8">8. Switches y dominios</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 2 - Ethernet y medios físicos</h1>
+
+<p>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>1. Ethernet</h2>
+
+<p>
+Ethernet es el estándar más usado en redes LAN.
+Define cómo se comunican los dispositivos usando cables o fibra.
+Basado en IEEE 802.3. :contentReference[oaicite:2]{index=2}
+</p>
+
+<h3>Funciones principales</h3>
+
+<ul>
+<li>Envío de datos mediante tramas</li>
+<li>Uso de direcciones MAC</li>
+<li>Definición de velocidades y medios físicos</li>
+<li>Control de acceso al medio</li>
+</ul>
+
+<table class="table">
+<tr>
+<th>Tipo Ethernet</th>
+<th>Velocidad</th>
+</tr>
+
+<tr>
+<td>10BASE-T</td>
+<td>10 Mbps</td>
+</tr>
+
+<tr>
+<td>Fast Ethernet</td>
+<td>100 Mbps</td>
+</tr>
+
+<tr>
+<td>Gigabit Ethernet</td>
+<td>1 Gbps</td>
+</tr>
+
+<tr>
+<td>10G Ethernet</td>
+<td>10 Gbps</td>
+</tr>
+
+</table>
+
+<div class="card">
+💡 Ethernet es el “idioma” que usan los dispositivos para comunicarse en LAN.
+</div>
+
+<div class="card warning">
+⚠ Pregunta trampa:
+<br><br>
+Ethernet NO es Internet.
+Ethernet es una tecnología LAN.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+<p>¿Qué estándar define Ethernet?</p>
+
+<label><input type="radio" name="q1"> IEEE 802.11</label><br>
+<label><input type="radio" name="q1" data-correct> IEEE 802.3</label><br>
+<label><input type="radio" name="q1"> IEEE 802.1X</label>
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>2. CSMA/CD</h2>
+
+<p>
+CSMA/CD significa:
+<code>Carrier Sense Multiple Access / Collision Detection</code>.
+</p>
+
+<ul>
+<li>Escucha el medio antes de transmitir</li>
+<li>Detecta colisiones</li>
+<li>Reintenta el envío</li>
+</ul>
+
+<div class="card">
+Actualmente las colisiones casi han desaparecido gracias a los switches modernos.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que CSMA/CD se usa mucho hoy.
+<br><br>
+Con switches full-duplex casi no hay colisiones.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué detecta CSMA/CD?</p>
+
+<label><input type="radio" name="q2"> Broadcast</label><br>
+<label><input type="radio" name="q2" data-correct> Colisiones</label><br>
+<label><input type="radio" name="q2"> VLANs</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>3. Trama Ethernet y dirección MAC</h2>
+
+<p>
+La trama Ethernet encapsula la información que viaja por la red.
+:contentReference[oaicite:3]{index=3}
+</p>
+
+<table class="table">
+
+<tr>
+<th>Campo</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>MAC destino</td>
+<td>A quién se envía</td>
+</tr>
+
+<tr>
+<td>MAC origen</td>
+<td>Quién envía</td>
+</tr>
+
+<tr>
+<td>Datos</td>
+<td>Payload</td>
+</tr>
+
+<tr>
+<td>FCS</td>
+<td>Detección de errores</td>
+</tr>
+
+</table>
+
+<h3>Dirección MAC</h3>
+
+<p>
+Es un identificador físico único de 48 bits.
+Ejemplo:
+<code>01:1F:D0:C8:D6:6E</code>
+:contentReference[oaicite:4]{index=4}
+</p>
+
+<div class="card">
+Los primeros bytes identifican al fabricante.
+</div>
+
+<div class="card warning">
+⚠ Pregunta trampa:
+<br><br>
+La MAC NO cambia según la red.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué identifica una dirección MAC?</p>
+
+<label><input type="radio" name="q3"> Red lógica</label><br>
+<label><input type="radio" name="q3" data-correct> Interfaz física</label><br>
+<label><input type="radio" name="q3"> Usuario</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>4. Cables RJ45</h2>
+
+<p>
+RJ45 es el conector típico usado en Ethernet.
+:contentReference[oaicite:5]{index=5}
+</p>
+
+<h3>Tipos de cables</h3>
+
+<ul>
+<li><b>Directo:</b> mismo estándar en ambos extremos</li>
+<li><b>Cruzado:</b> un extremo T568A y otro T568B</li>
+</ul>
+
+<div class="card">
+
+Directo:
+<ul>
+<li>PC → Switch</li>
+<li>Router → Switch</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+Cruzado:
+<ul>
+<li>PC → PC</li>
+<li>Switch → Switch</li>
+</ul>
+
+</div>
+
+<div class="card warning">
+⚠ Hoy muchos dispositivos usan Auto-MDI/MDIX y detectan automáticamente el tipo de cable.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué cable suele conectar un PC a un switch?</p>
+
+<label><input type="radio" name="q4" data-correct> Directo</label><br>
+<label><input type="radio" name="q4"> Cruzado</label><br>
+<label><input type="radio" name="q4"> Coaxial</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>5. Medios físicos</h2>
+
+<h3>UTP</h3>
+
+<ul>
+<li>Barato y flexible</li>
+<li>Muy usado en oficinas</li>
+<li>Puede sufrir interferencias</li>
+</ul>
+
+<h3>STP</h3>
+
+<ul>
+<li>Tiene blindaje metálico</li>
+<li>Reduce EMI</li>
+<li>Ideal en fábricas</li>
+</ul>
+
+<h3>Fibra óptica</h3>
+
+<ul>
+<li>Usa luz</li>
+<li>Muy alta velocidad</li>
+<li>Largas distancias</li>
+</ul>
+
+<table class="table">
+
+<tr>
+<th>Tipo</th>
+<th>Distancia típica</th>
+</tr>
+
+<tr>
+<td>UTP</td>
+<td>100 m</td>
+</tr>
+
+<tr>
+<td>Fibra multimodo</td>
+<td>550 m</td>
+</tr>
+
+<tr>
+<td>Fibra monomodo</td>
+<td>100 km</td>
+</tr>
+
+</table>
+
+<div class="card">
+💡 La fibra óptica no sufre interferencias electromagnéticas.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que toda fibra es igual.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué medio usa pulsos de luz?</p>
+
+<label><input type="radio" name="q5"> UTP</label><br>
+<label><input type="radio" name="q5"> STP</label><br>
+<label><input type="radio" name="q5" data-correct> Fibra óptica</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>6. Topologías de red</h2>
+
+<ul>
+<li>Bus</li>
+<li>Estrella</li>
+<li>Anillo</li>
+<li>Malla</li>
+<li>Árbol</li>
+<li>Híbrida</li>
+</ul>
+
+<table class="table">
+
+<tr>
+<th>Topología</th>
+<th>Característica</th>
+</tr>
+
+<tr>
+<td>Bus</td>
+<td>Un cable principal</td>
+</tr>
+
+<tr>
+<td>Estrella</td>
+<td>Switch central</td>
+</tr>
+
+<tr>
+<td>Malla</td>
+<td>Máxima redundancia</td>
+</tr>
+
+</table>
+
+<div class="card">
+⭐ La topología más usada actualmente es estrella.
+</div>
+
+<div class="card warning">
+⚠ Pregunta trampa:
+<br><br>
+La topología sí afecta al rendimiento y QoS.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué topología ofrece más redundancia?</p>
+
+<label><input type="radio" name="q6"> Bus</label><br>
+<label><input type="radio" name="q6" data-correct> Malla</label><br>
+<label><input type="radio" name="q6"> Estrella</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>7. LAN y dispositivos de red</h2>
+
+<p>
+Una LAN conecta dispositivos en un área limitada:
+hogar, oficina o escuela.
+:contentReference[oaicite:6]{index=6}
+</p>
+
+<h3>Dispositivos importantes</h3>
+
+<ul>
+<li><b>Hub:</b> obsoleto, genera colisiones</li>
+<li><b>Switch:</b> envía datos correctamente usando MAC</li>
+<li><b>Router:</b> conecta redes diferentes</li>
+<li><b>AP:</b> acceso inalámbrico</li>
+</ul>
+
+<div class="card">
+💡 Los hubs hoy casi solo se usan para análisis/sniffing.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+confundir switch con router.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>¿Qué dispositivo conecta redes distintas?</p>
+
+<label><input type="radio" name="q7"> Hub</label><br>
+<label><input type="radio" name="q7" data-correct> Router</label><br>
+<label><input type="radio" name="q7"> Switch</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>8. Switches y dominios</h2>
+
+<h3>Switch</h3>
+
+<ul>
+<li>Opera en capa 2 OSI</li>
+<li>Usa direcciones MAC</li>
+<li>Cada puerto es un dominio de colisión</li>
+</ul>
+
+<h3>Dominio de colisión</h3>
+
+<p>
+Zona donde dos equipos pueden transmitir simultáneamente causando colisión.
+:contentReference[oaicite:7]{index=7}
+</p>
+
+<h3>Dominio de broadcast</h3>
+
+<p>
+Área donde todos reciben mensajes broadcast.
+:contentReference[oaicite:8]{index=8}
+</p>
+
+<div class="card">
+Un router divide dominios broadcast.
+</div>
+
+<div class="card warning">
+⚠ Pregunta trampa:
+<br><br>
+Un switch básico NO divide dominios broadcast.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test final</h3>
+
+<div class="question">
+
+<p>¿Qué dispositivo divide dominios broadcast?</p>
+
+<label><input type="radio" name="q8"> Hub</label><br>
+<label><input type="radio" name="q8"> Switch</label><br>
+<label><input type="radio" name="q8" data-correct> Router</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Contenido basado en mis humildes resúmenes.
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+  const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+
+  answers.forEach(answer=>{
+    if(answer.checked && answer.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  if(correct){
+    result.textContent = "✔ Correcto";
+    result.style.color = "#00ff9c";
+  }else{
+    result.textContent = "✘ Incorrecto";
+    result.style.color = "#ff5c7a";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

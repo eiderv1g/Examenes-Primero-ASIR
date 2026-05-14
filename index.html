@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contenido de repaso para los exámenes de 1º de ASIR</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: #121821;
+      --panel-hover: #182231;
+      --border: #243244;
+      --text: #e6edf3;
+      --muted: #9fb0c3;
+      --accent: #ff4b63;
+      --accent-soft: rgba(77,163,255,0.15);
+      --shadow: rgba(0,0,0,0.35);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(77,163,255,0.08), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(120,120,255,0.05), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .grid-bg{
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .container{
+      position:relative;
+      z-index:1;
+      width:min(1100px, 92%);
+      margin:auto;
+      padding:70px 0;
+    }
+
+    header{
+      margin-bottom:50px;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:8px 14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--accent);
+      font-size:0.85rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      margin-bottom:22px;
+      border-radius:999px;
+      backdrop-filter: blur(6px);
+    }
+
+    h1{
+      font-family:'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height:1.1;
+      margin-bottom:24px;
+      color:white;
+      max-width:900px;
+    }
+
+    .intro{
+      max-width:850px;
+      color: var(--muted);
+      font-size:1.05rem;
+      line-height:1.8;
+    }
+
+    .intro p{
+      margin-bottom:18px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap:22px;
+      margin-top:60px;
+    }
+
+    .card{
+      position:relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:28px;
+      overflow:hidden;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity:0.6;
+    }
+
+    .card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(77,163,255,0.5);
+      background: var(--panel-hover);
+      box-shadow: 0 15px 40px var(--shadow);
+    }
+
+    .card-number{
+      font-family:'Orbitron', sans-serif;
+      font-size:0.85rem;
+      color: var(--accent);
+      opacity:0.8;
+      margin-bottom:16px;
+      letter-spacing:1px;
+    }
+
+    .card h2{
+      font-size:1.35rem;
+      margin-bottom:12px;
+      color:white;
+    }
+
+    .card p{
+      color: var(--muted);
+      line-height:1.6;
+      margin-bottom:24px;
+      font-size:0.95rem;
+    }
+
+    .card a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color: var(--text);
+      padding:12px 18px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(77,163,255,0.08);
+      transition: all 0.2s ease;
+      font-weight:500;
+    }
+
+    .card a:hover{
+      background: var(--accent-soft);
+      border-color: rgba(77,163,255,0.4);
+      color:white;
+    }
+
+    footer{
+      margin-top:70px;
+      padding-top:25px;
+      border-top:1px solid rgba(255,255,255,0.08);
+      color: #7f8fa3;
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    @media (max-width:700px){
+      .container{
+        padding:50px 0;
+      }
+
+      .intro{
+        font-size:1rem;
+      }
+
+      .card{
+        padding:24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-bg"></div>
+
+  <div class="container">
+
+    <header>
+      <div class="tag">ASIR · REPASO INTERACTIVO</div>
+
+      <h1>Contenido de repaso para los exámenes de 1º de ASIR</h1>
+
+      <div class="intro">
+        <p>
+          A continuación, tenéis cada asignatura dividida en diferentes bloques de estudio.
+          Son páginas web interactivas con mini-tests facilitos.
+        </p>
+
+        <p>
+          Esto es una herramienta complementaria de estudio. Os recomiendo que además
+          consultéis los apuntes originales de cada asignatura y que hagáis tests,
+          muchos tests, como los que nos han dejado los profesores o los que han
+          colgado nuestros increíbles compañeros.
+        </p>
+
+        <p>
+          Espero que os sirva de ayuda. ¡Mucha suerte y a darle duro!
+        </p>
+
+        <p><strong>Miri.</strong></p>
+      </div>
+    </header>
+
+    <section class="cards">
+
+      <article class="card">
+        <div class="card-number">01</div>
+        <h2>Redes</h2>
+        <p>
+          Repaso de direccionamiento IP, switching, routing, VLANs, protocolos y servicios de red.
+        </p>
+
+        <a href="/Redes/index.html" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">02</div>
+        <h2>Computación en la Nube (en proceso)</h2>
+        <p>
+          Conceptos cloud, virtualización, despliegues, servicios y fundamentos de infraestructura.
+        </p>
+
+        <a href="#" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">03</div>
+        <h2>Bases de Datos (en proceso)</h2>
+        <p>
+          SQL, modelos relacionales, consultas, normalización y administración básica.
+        </p>
+
+        <a href="#" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">04</div>
+        <h2>ISO</h2>
+        <p>
+          Sistemas operativos, gestión de usuarios, permisos, automatización y administración.
+        </p>
+
+        <a href="/ISO/index.html" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">05</div>
+        <h2>Lenguaje de Marcas</h2>
+        <p>
+          HTML, CSS, XML y estructura de documentos orientados al desarrollo web.
+        </p>
+
+        <a href="/Lenguaje de Marcas/index.html" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">06</div>
+        <h2>Hardware</h2>
+        <p>
+          Componentes físicos, arquitectura de equipos, mantenimiento y fundamentos técnicos.
+        </p>
+
+        <a href="/Hardware/index.html" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-number">07</div>
+        <h2>Empleabilidad</h2>
+        <p>
+          Recursos orientados al entorno laboral, entrevistas, CV y habilidades profesionales.
+        </p>
+
+        <a href="/Empleabilidad/index.html" target="_blank">
+          Acceder al contenido
+        </a>
+      </article>
+
+    </section>
+
+    <footer>
+      Herramienta de apoyo para los compis de ASIR
+    </footer>
+
+  </div>
+
+</body>
+</html>

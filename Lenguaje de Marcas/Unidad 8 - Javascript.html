@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 8 - JavaScript</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#090909;
+--panel:#141414;
+--panel2:#1e1e1e;
+--text:#f1f1f1;
+--muted:#b0b0b0;
+--red:#8d2f2f;
+--red2:#ff9c9c;
+--border:#2d2d2d;
+--green:#79ffbb;
+--yellow:#ffd369;
+--shadow:0 0 25px rgba(255,80,80,.12);
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Segoe UI,sans-serif;
+overflow-x:hidden;
+}
+
+.layout{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+bottom:0;
+width:320px;
+background:#050505;
+border-right:1px solid var(--border);
+padding:30px;
+overflow-y:auto;
+z-index:999;
+}
+
+.logo{
+font-size:34px;
+font-weight:900;
+color:var(--red2);
+margin-bottom:15px;
+}
+
+.sidebar p{
+color:var(--muted);
+line-height:1.8;
+margin-bottom:25px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.menu a{
+text-decoration:none;
+background:#131313;
+color:#eee;
+padding:14px;
+border-radius:12px;
+transition:.25s;
+border:1px solid transparent;
+font-size:14px;
+}
+
+.menu a:hover{
+transform:translateX(6px);
+border-color:var(--red);
+background:#1d1d1d;
+}
+
+/* MAIN */
+
+.main{
+margin-left:320px;
+width:calc(100% - 320px);
+padding:40px;
+}
+
+.hero{
+background:linear-gradient(135deg,#151515,#301717);
+padding:50px;
+border-radius:26px;
+border:1px solid var(--border);
+box-shadow:var(--shadow);
+margin-bottom:35px;
+}
+
+.hero h1{
+font-size:56px;
+margin-bottom:20px;
+}
+
+.hero p{
+line-height:1.9;
+font-size:18px;
+color:#ddd;
+}
+
+/* BLOCKS */
+
+.block{
+background:var(--panel);
+padding:35px;
+border-radius:24px;
+margin-bottom:35px;
+border:1px solid var(--border);
+box-shadow:var(--shadow);
+}
+
+.block h2{
+font-size:34px;
+color:var(--red2);
+margin-bottom:20px;
+}
+
+.block h3{
+margin-top:25px;
+margin-bottom:14px;
+color:#fff;
+}
+
+.block p{
+line-height:1.9;
+margin-bottom:18px;
+color:#ddd;
+}
+
+.block ul{
+margin-left:24px;
+margin-bottom:20px;
+}
+
+.block li{
+margin-bottom:10px;
+line-height:1.8;
+}
+
+.tag{
+display:inline-block;
+padding:6px 12px;
+background:#241313;
+border:1px solid #723838;
+border-radius:999px;
+color:#ffbaba;
+font-size:13px;
+margin-right:8px;
+margin-bottom:18px;
+}
+
+.code{
+background:#050505;
+padding:20px;
+border-radius:16px;
+border-left:4px solid var(--red2);
+overflow-x:auto;
+font-family:Consolas, monospace;
+white-space:pre-wrap;
+margin:22px 0;
+color:var(--green);
+}
+
+.tip{
+background:#151010;
+border:1px solid #5e3030;
+padding:18px;
+border-radius:14px;
+margin:22px 0;
+}
+
+.warning{
+background:#261515;
+border:1px solid #8f3b3b;
+padding:18px;
+border-radius:14px;
+margin:22px 0;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+
+th,td{
+border:1px solid #333;
+padding:14px;
+text-align:left;
+}
+
+th{
+background:#1d1d1d;
+color:#ffb2b2;
+}
+
+tr:nth-child(even){
+background:#181818;
+}
+
+/* QUIZ */
+
+.quiz{
+margin-top:40px;
+background:#101010;
+padding:25px;
+border-radius:20px;
+border:1px solid #333;
+}
+
+.quiz h3{
+margin-bottom:20px;
+color:#ffb2b2;
+}
+
+.question{
+background:#181818;
+padding:18px;
+border-radius:14px;
+margin-bottom:18px;
+}
+
+.question p{
+font-weight:bold;
+margin-bottom:14px;
+}
+
+.question label{
+display:block;
+margin-bottom:10px;
+cursor:pointer;
+transition:.2s;
+}
+
+.question label:hover{
+color:#ffbcbc;
+}
+
+button{
+background:linear-gradient(135deg,var(--red),#581818);
+color:white;
+border:none;
+padding:14px 24px;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+transition:.25s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+.footer{
+text-align:center;
+padding:50px;
+color:#666;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.layout{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">UNIDAD 8</div>
+
+<p>
+Aprendizaje completo sobre fundamentos de JavaScript:
+variables, tipos de datos, operadores, estructuras de control
+y programación estructurada.
+</p>
+
+<nav class="menu">
+
+<a href="#b1">8.1 Introducción</a>
+<a href="#b2">8.2 Modo Estricto</a>
+<a href="#b3">8.3 ¿Cómo utilizar JS?</a>
+<a href="#b4">8.4 Comentarios</a>
+<a href="#b5">8.5 Sentencias</a>
+<a href="#b6">8.6 Variables</a>
+<a href="#b7">8.7 Constantes</a>
+<a href="#b8">8.8 Tipos de datos</a>
+<a href="#b9">8.9 alert, prompt y confirm</a>
+<a href="#b10">8.10 Conversión de tipos</a>
+<a href="#b11">8.11 Operadores aritméticos</a>
+<a href="#b12">8.12 Comparación</a>
+<a href="#b13">8.13 Prog. estructurada I</a>
+<a href="#b14">8.14 Operadores lógicos</a>
+<a href="#b15">8.15 Prog. estructurada II</a>
+
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 8 - JavaScript</h1>
+
+<p>
+JavaScript es el lenguaje principal de la web moderna.
+Permite crear páginas dinámicas, validar formularios,
+interactuar con usuarios, modificar HTML y desarrollar
+aplicaciones completas tanto en navegador como en servidor.
+</p>
+
+</section>
+
+<!-- 8.1 -->
+
+<section class="block" id="b1">
+
+<h2>8.1 Introducción</h2>
+
+<span class="tag">javascript</span>
+<span class="tag">frontend</span>
+
+<p>
+JavaScript es un lenguaje de programación interpretado,
+ligero y orientado a eventos.
+Originalmente fue creado para navegadores web,
+pero actualmente también se utiliza en backend mediante Node.js.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Lenguaje dinámicamente tipado.</li>
+<li>Interpretado por el navegador.</li>
+<li>Compatible con HTML y CSS.</li>
+<li>Permite crear páginas interactivas.</li>
+<li>Usado tanto en frontend como backend.</li>
+</ul>
+
+<h3>DHTML</h3>
+
+<p>
+DHTML combina:
+</p>
+
+<ul>
+<li>HTML → estructura.</li>
+<li>CSS → diseño visual.</li>
+<li>JavaScript → comportamiento.</li>
+<li>DOM → manipulación de elementos.</li>
+</ul>
+
+<div class="code">
+console.log("Hola JavaScript");
+</div>
+
+<div class="tip">
+JavaScript NO es lo mismo que Java.
+El parecido del nombre fue una decisión de marketing.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué permite JavaScript?</p>
+
+<label><input type="radio" name="q1"> Crear sistemas operativos</label>
+<label><input type="radio" name="q1" data-correct> Añadir interactividad web</label>
+<label><input type="radio" name="q1"> Compilar programas</label>
+
+</div>
+
+<button onclick="checkQuiz('q1','r1')">Corregir</button>
+
+<div id="r1" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.2 -->
+
+<section class="block" id="b2">
+
+<h2>8.2 Modo Estricto</h2>
+
+<span class="tag">strict mode</span>
+
+<p>
+El modo estricto activa una versión más segura del lenguaje.
+Ayuda a detectar errores y evita malas prácticas.
+</p>
+
+<div class="code">
+"use strict";
+
+let nombre = "Carlos";
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Evita variables accidentales.</li>
+<li>Reduce errores silenciosos.</li>
+<li>Mejora seguridad.</li>
+<li>Facilita depuración.</li>
+</ul>
+
+<h3>Error típico</h3>
+
+<div class="code">
+"use strict";
+
+edad = 20; // ERROR
+</div>
+
+<div class="warning">
+"use strict" debe colocarse al inicio del archivo o función.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué activa el modo estricto?</p>
+
+<label><input type="radio" name="q2"> "strict"</label>
+<label><input type="radio" name="q2" data-correct> "use strict"</label>
+<label><input type="radio" name="q2"> strict=true</label>
+
+</div>
+
+<button onclick="checkQuiz('q2','r2')">Corregir</button>
+
+<div id="r2" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.3 -->
+
+<section class="block" id="b3">
+
+<h2>8.3 ¿Cómo utilizar JS?</h2>
+
+<span class="tag">script</span>
+
+<p>
+JavaScript puede escribirse directamente dentro del HTML
+o en archivos externos con extensión .js.
+</p>
+
+<h3>Script interno</h3>
+
+<div class="code">
+&lt;script&gt;
+
+alert("Hola");
+
+&lt;/script&gt;
+</div>
+
+<h3>Script externo</h3>
+
+<div class="code">
+&lt;script src="app.js"&gt;&lt;/script&gt;
+</div>
+
+<h3>Ventajas de archivos externos</h3>
+
+<ul>
+<li>Reutilización.</li>
+<li>Mejor mantenimiento.</li>
+<li>Código más limpio.</li>
+<li>Mayor rendimiento.</li>
+</ul>
+
+<div class="warning">
+Nunca cierres script usando &lt;script /&gt;
+porque no es válido en muchos navegadores.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué etiqueta se usa para JS?</p>
+
+<label><input type="radio" name="q3"> code</label>
+<label><input type="radio" name="q3" data-correct> script</label>
+<label><input type="radio" name="q3"> js</label>
+
+</div>
+
+<button onclick="checkQuiz('q3','r3')">Corregir</button>
+
+<div id="r3" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.4 -->
+
+<section class="block" id="b4">
+
+<h2>8.4 Comentarios</h2>
+
+<span class="tag">comentarios</span>
+
+<p>
+Los comentarios permiten documentar código y facilitar mantenimiento.
+El navegador ignora su contenido.
+</p>
+
+<h3>Comentario de línea</h3>
+
+<div class="code">
+// Comentario simple
+</div>
+
+<h3>Comentario multilínea</h3>
+
+<div class="code">
+/*
+Comentario
+multilínea
+*/
+</div>
+
+<div class="tip">
+Comentar código correctamente facilita el trabajo en equipo.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué símbolo crea comentario de línea?</p>
+
+<label><input type="radio" name="q4"> ##</label>
+<label><input type="radio" name="q4" data-correct> //</label>
+<label><input type="radio" name="q4"> --</label>
+
+</div>
+
+<button onclick="checkQuiz('q4','r4')">Corregir</button>
+
+<div id="r4" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.5 -->
+
+<section class="block" id="b5">
+
+<h2>8.5 Sentencias</h2>
+
+<span class="tag">sentencias</span>
+
+<p>
+Las sentencias son instrucciones que ejecuta JavaScript.
+</p>
+
+<div class="code">
+alert("Hola");
+console.log("Mundo");
+</div>
+
+<h3>Punto y coma</h3>
+
+<p>
+Las sentencias pueden separarse con ;
+</p>
+
+<div class="code">
+let a = 5;
+let b = 10;
+</div>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Una acción por línea.</li>
+<li>Indentación correcta.</li>
+<li>Evitar código confuso.</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué es una sentencia?</p>
+
+<label><input type="radio" name="q5"> Un comentario</label>
+<label><input type="radio" name="q5" data-correct> Una instrucción ejecutable</label>
+<label><input type="radio" name="q5"> Una etiqueta HTML</label>
+
+</div>
+
+<button onclick="checkQuiz('q5','r5')">Corregir</button>
+
+<div id="r5" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.6 -->
+
+<section class="block" id="b6">
+
+<h2>8.6 Variables</h2>
+
+<span class="tag">let</span>
+<span class="tag">var</span>
+
+<p>
+Las variables almacenan datos en memoria.
+</p>
+
+<div class="code">
+let nombre = "Ana";
+let edad = 20;
+</div>
+
+<h3>Características</h3>
+
+<ul>
+<li>El valor puede cambiar.</li>
+<li>Se crean con let.</li>
+<li>var es antiguo.</li>
+</ul>
+
+<h3>Variables múltiples</h3>
+
+<div class="code">
+let usuario = "Juan",
+edad = 25,
+pais = "España";
+</div>
+
+<h3>Nombres válidos</h3>
+
+<div class="code">
+let userName;
+let $precio;
+let _contador;
+</div>
+
+<h3>Nombres inválidos</h3>
+
+<div class="code">
+let 1dato;
+let mi-variable;
+</div>
+
+<div class="warning">
+No se puede declarar dos veces una variable usando let.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué palabra crea variables modernas?</p>
+
+<label><input type="radio" name="q6"> var</label>
+<label><input type="radio" name="q6" data-correct> let</label>
+<label><input type="radio" name="q6"> const</label>
+
+</div>
+
+<button onclick="checkQuiz('q6','r6')">Corregir</button>
+
+<div id="r6" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.7 -->
+
+<section class="block" id="b7">
+
+<h2>8.7 Constantes</h2>
+
+<span class="tag">const</span>
+
+<p>
+Las constantes almacenan valores que no cambian.
+</p>
+
+<div class="code">
+const PI = 3.1416;
+</div>
+
+<h3>Error</h3>
+
+<div class="code">
+const edad = 20;
+
+edad = 30; // ERROR
+</div>
+
+<h3>Constantes en mayúsculas</h3>
+
+<div class="code">
+const COLOR_RED = "#FF0000";
+</div>
+
+<ul>
+<li>Se usan para valores fijos.</li>
+<li>Facilitan lectura.</li>
+<li>Evitan errores.</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué palabra crea constantes?</p>
+
+<label><input type="radio" name="q7"> let</label>
+<label><input type="radio" name="q7"> var</label>
+<label><input type="radio" name="q7" data-correct> const</label>
+
+</div>
+
+<button onclick="checkQuiz('q7','r7')">Corregir</button>
+
+<div id="r7" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.8 -->
+
+<section class="block" id="b8">
+
+<h2>8.8 Tipos de datos</h2>
+
+<span class="tag">datatype</span>
+
+<p>
+JavaScript tiene múltiples tipos de datos.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Ejemplo</th>
+</tr>
+
+<tr>
+<td>number</td>
+<td>25</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>"Hola"</td>
+</tr>
+
+<tr>
+<td>boolean</td>
+<td>true</td>
+</tr>
+
+<tr>
+<td>null</td>
+<td>null</td>
+</tr>
+
+<tr>
+<td>undefined</td>
+<td>undefined</td>
+</tr>
+
+</table>
+
+<h3>Strings</h3>
+
+<div class="code">
+let texto = "Hola";
+let nombre = `Ana`;
+</div>
+
+<h3>Boolean</h3>
+
+<div class="code">
+let activo = true;
+</div>
+
+<h3>typeof</h3>
+
+<div class="code">
+typeof "Hola"; // string
+typeof 20; // number
+</div>
+
+<div class="tip">
+JavaScript es dinámicamente tipado.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué devuelve typeof?</p>
+
+<label><input type="radio" name="q8"> Un número</label>
+<label><input type="radio" name="q8" data-correct> El tipo del dato</label>
+<label><input type="radio" name="q8"> Un boolean</label>
+
+</div>
+
+<button onclick="checkQuiz('q8','r8')">Corregir</button>
+
+<div id="r8" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.9 -->
+
+<section class="block" id="b9">
+
+<h2>8.9 Interacción: alert, prompt y confirm</h2>
+
+<span class="tag">interacción</span>
+
+<h3>alert()</h3>
+
+<div class="code">
+alert("Hola");
+</div>
+
+<h3>prompt()</h3>
+
+<div class="code">
+let nombre = prompt("Tu nombre:");
+</div>
+
+<h3>confirm()</h3>
+
+<div class="code">
+let respuesta = confirm("¿Deseas continuar?");
+</div>
+
+<table>
+
+<tr>
+<th>Función</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>alert</td>
+<td>Mostrar mensaje</td>
+</tr>
+
+<tr>
+<td>prompt</td>
+<td>Pedir datos</td>
+</tr>
+
+<tr>
+<td>confirm</td>
+<td>Confirmación</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Estas ventanas son modales y bloquean interacción.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué función pide datos?</p>
+
+<label><input type="radio" name="q9"> alert</label>
+<label><input type="radio" name="q9" data-correct> prompt</label>
+<label><input type="radio" name="q9"> confirm</label>
+
+</div>
+
+<button onclick="checkQuiz('q9','r9')">Corregir</button>
+
+<div id="r9" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.10 -->
+
+<section class="block" id="b10">
+
+<h2>8.10 Conversión de tipos</h2>
+
+<span class="tag">conversion</span>
+
+<h3>String()</h3>
+
+<div class="code">
+String(123); // "123"
+</div>
+
+<h3>Number()</h3>
+
+<div class="code">
+Number("25"); // 25
+</div>
+
+<h3>Boolean()</h3>
+
+<div class="code">
+Boolean(1); // true
+Boolean(0); // false
+</div>
+
+<h3>Concatenación</h3>
+
+<div class="code">
+"Hola" + 5 // "Hola5"
+</div>
+
+<table>
+
+<tr>
+<th>Valor</th>
+<th>Boolean</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td>false</td>
+</tr>
+
+<tr>
+<td>""</td>
+<td>false</td>
+</tr>
+
+<tr>
+<td>"Hola"</td>
+<td>true</td>
+</tr>
+
+</table>
+
+<div class="tip">
+undefined convertido a número devuelve NaN.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué devuelve Number("5")?</p>
+
+<label><input type="radio" name="q10"> "5"</label>
+<label><input type="radio" name="q10" data-correct> 5</label>
+<label><input type="radio" name="q10"> true</label>
+
+</div>
+
+<button onclick="checkQuiz('q10','r10')">Corregir</button>
+
+<div id="r10" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.11 -->
+
+<section class="block" id="b11">
+
+<h2>8.11 Operadores aritméticos</h2>
+
+<span class="tag">math</span>
+
+<table>
+
+<tr>
+<th>Operador</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>+</td>
+<td>Suma</td>
+</tr>
+
+<tr>
+<td>-</td>
+<td>Resta</td>
+</tr>
+
+<tr>
+<td>*</td>
+<td>Multiplicación</td>
+</tr>
+
+<tr>
+<td>/</td>
+<td>División</td>
+</tr>
+
+<tr>
+<td>%</td>
+<td>Resto</td>
+</tr>
+
+</table>
+
+<div class="code">
+let a = 10;
+let b = 3;
+
+console.log(a + b);
+console.log(a % b);
+</div>
+
+<h3>Incremento</h3>
+
+<div class="code">
+let x = 5;
+
+x++;
+</div>
+
+<h3>Exponenciación</h3>
+
+<div class="code">
+2 ** 3 // 8
+</div>
+
+<div class="warning">
+El operador + concatena strings.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué operador calcula el resto?</p>
+
+<label><input type="radio" name="q11"> /</label>
+<label><input type="radio" name="q11"> *</label>
+<label><input type="radio" name="q11" data-correct> %</label>
+
+</div>
+
+<button onclick="checkQuiz('q11','r11')">Corregir</button>
+
+<div id="r11" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.12 -->
+
+<section class="block" id="b12">
+
+<h2>8.12 Operadores de comparación</h2>
+
+<span class="tag">comparison</span>
+
+<table>
+
+<tr>
+<th>Operador</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>==</td>
+<td>Igual</td>
+</tr>
+
+<tr>
+<td>===</td>
+<td>Igual estricto</td>
+</tr>
+
+<tr>
+<td>!=</td>
+<td>Diferente</td>
+</tr>
+
+<tr>
+<td>&gt;</td>
+<td>Mayor</td>
+</tr>
+
+<tr>
+<td>&lt;</td>
+<td>Menor</td>
+</tr>
+
+</table>
+
+<div class="code">
+5 == "5" // true
+
+5 === "5" // false
+</div>
+
+<h3>Comparación de strings</h3>
+
+<div class="code">
+"Z" > "A" // true
+</div>
+
+<div class="tip">
+=== compara valor Y tipo.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué operador compara estrictamente?</p>
+
+<label><input type="radio" name="q12"> ==</label>
+<label><input type="radio" name="q12" data-correct> ===</label>
+<label><input type="radio" name="q12"> !=</label>
+
+</div>
+
+<button onclick="checkQuiz('q12','r12')">Corregir</button>
+
+<div id="r12" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.13 -->
+
+<section class="block" id="b13">
+
+<h2>8.13 Programación estructurada (I)</h2>
+
+<span class="tag">if</span>
+
+<h3>IF</h3>
+
+<div class="code">
+if(edad >= 18){
+
+   console.log("Mayor");
+
+}
+</div>
+
+<h3>IF ELSE</h3>
+
+<div class="code">
+if(nota >= 5){
+
+   console.log("Aprobado");
+
+}else{
+
+   console.log("Suspenso");
+
+}
+</div>
+
+<h3>Operador ternario</h3>
+
+<div class="code">
+let acceso = edad >= 18 ? "Sí" : "No";
+</div>
+
+<div class="tip">
+El ternario simplifica condiciones simples.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué estructura ejecuta alternativas?</p>
+
+<label><input type="radio" name="q13"> while</label>
+<label><input type="radio" name="q13" data-correct> if else</label>
+<label><input type="radio" name="q13"> switch</label>
+
+</div>
+
+<button onclick="checkQuiz('q13','r13')">Corregir</button>
+
+<div id="r13" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.14 -->
+
+<section class="block" id="b14">
+
+<h2>8.14 Operadores lógicos</h2>
+
+<span class="tag">logic</span>
+
+<table>
+
+<tr>
+<th>Operador</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>&&</td>
+<td>AND</td>
+</tr>
+
+<tr>
+<td>||</td>
+<td>OR</td>
+</tr>
+
+<tr>
+<td>!</td>
+<td>NOT</td>
+</tr>
+
+</table>
+
+<div class="code">
+let edad = 20;
+let carnet = true;
+
+if(edad >= 18 && carnet){
+
+   console.log("Puede conducir");
+
+}
+</div>
+
+<h3>Nullish coalescing</h3>
+
+<div class="code">
+let usuario = null;
+
+let nombre = usuario ?? "Invitado";
+</div>
+
+<div class="warning">
+?? no debe mezclarse con && o || sin paréntesis.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué operador significa AND?</p>
+
+<label><input type="radio" name="q14"> ||</label>
+<label><input type="radio" name="q14" data-correct> &&</label>
+<label><input type="radio" name="q14"> !</label>
+
+</div>
+
+<button onclick="checkQuiz('q14','r14')">Corregir</button>
+
+<div id="r14" class="result"></div>
+
+</div>
+
+</section>
+
+<!-- 8.15 -->
+
+<section class="block" id="b15">
+
+<h2>8.15 Programación estructurada (II)</h2>
+
+<span class="tag">loops</span>
+
+<h3>WHILE</h3>
+
+<div class="code">
+let i = 0;
+
+while(i < 5){
+
+   console.log(i);
+   i++;
+
+}
+</div>
+
+<h3>DO WHILE</h3>
+
+<div class="code">
+let n = 0;
+
+do{
+
+   console.log(n);
+   n++;
+
+}while(n < 3);
+</div>
+
+<h3>FOR</h3>
+
+<div class="code">
+for(let i=0; i<5; i++){
+
+   console.log(i);
+
+}
+</div>
+
+<h3>BREAK</h3>
+
+<div class="code">
+break;
+</div>
+
+<h3>CONTINUE</h3>
+
+<div class="code">
+continue;
+</div>
+
+<h3>SWITCH</h3>
+
+<div class="code">
+switch(dia){
+
+case 1:
+   console.log("Lunes");
+break;
+
+default:
+   console.log("Otro");
+
+}
+</div>
+
+<div class="tip">
+Los bucles permiten repetir acciones automáticamente.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<div class="question">
+
+<p>1. ¿Qué bucle garantiza al menos una ejecución?</p>
+
+<label><input type="radio" name="q15"> while</label>
+<label><input type="radio" name="q15" data-correct> do while</label>
+<label><input type="radio" name="q15"> for</label>
+
+</div>
+
+<button onclick="checkQuiz('q15','r15')">Corregir</button>
+
+<div id="r15" class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 8 completada 🚀 JavaScript Foundations
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function checkQuiz(group,result){
+
+const options=document.getElementsByName(group);
+
+let correct=false;
+
+options.forEach(option=>{
+
+if(option.checked && option.dataset.correct !== undefined){
+
+correct=true;
+
+}
+
+});
+
+const resultBox=document.getElementById(result);
+
+if(correct){
+
+resultBox.innerHTML="✅ Correcto";
+resultBox.style.color="#79ffbb";
+
+}else{
+
+resultBox.innerHTML="❌ Incorrecto";
+resultBox.style.color="#ff7b7b";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

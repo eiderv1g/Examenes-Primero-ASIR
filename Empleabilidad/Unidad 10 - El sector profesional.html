@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 10 - El sector profesional</title>
+
+<style>
+
+:root{
+  --bg:#f5f5f7;
+  --card:#ffffff;
+  --primary:#234e52;
+  --secondary:#edf7f7;
+  --accent:#d9efef;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --success:#eefaf1;
+  --warning:#fff7e8;
+  --shadow:0 12px 30px rgba(0,0,0,0.06);
+  --radius:28px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(18px);
+  border-right:1px solid #e5e7eb;
+  padding:32px 22px;
+}
+
+.sidebar h1{
+  font-size:1.8rem;
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:24px;
+}
+
+.nav-link{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:14px;
+  border-radius:16px;
+  margin-bottom:10px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:42px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#234e52,#3b7a78);
+  color:white;
+  border-radius:36px;
+  padding:60px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.study-block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.study-block h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+.study-block h3{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:var(--primary);
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.study-block p{
+  line-height:1.9;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:24px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:24px 0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  background:#fafafa;
+  padding:16px;
+  border-bottom:1px solid #ececec;
+  line-height:1.7;
+}
+
+/* BOXES */
+
+.tip-box,
+.example-box,
+.trap-box{
+  padding:20px;
+  border-radius:18px;
+  margin:24px 0;
+  line-height:1.8;
+}
+
+.tip-box{
+  background:var(--success);
+  border-left:5px solid #2f855a;
+}
+
+.example-box{
+  background:#eef5ff;
+  border-left:5px solid #3b82f6;
+}
+
+.trap-box{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:30px;
+  background:#fafafa;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  border-radius:18px;
+  padding:24px;
+}
+
+.question p{
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:700;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:14px;
+  font-weight:700;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    position:relative;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 10</h1>
+
+<p>El sector profesional</p>
+
+<a class="nav-link" href="#b1">10.1 Sectores profesionales</a>
+<a class="nav-link" href="#b2">10.2 CNCP</a>
+<a class="nav-link" href="#b3">10.3 Indra y Telefónica</a>
+<a class="nav-link" href="#b4">10.4 Herramientas y consejos</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 10 · El sector profesional</h2>
+
+<p>
+Aprende cómo se organiza el mercado laboral,
+qué sectores profesionales existen,
+cómo funcionan las cualificaciones oficiales
+y cuáles son las competencias más demandadas.
+Esta unidad también analiza el papel de empresas tecnológicas
+como Indra y Telefónica en el empleo cualificado,
+además de herramientas clave para mejorar tu empleabilidad.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="study-block" id="b1">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>10.1 Los cuatro sectores profesionales</h2>
+
+<p>
+El mercado laboral se organiza en sectores profesionales.
+Cada sector agrupa actividades económicas similares y necesita perfiles específicos.
+</p>
+
+<h3>Sector primario</h3>
+
+<p>
+Incluye actividades relacionadas con la obtención directa de recursos naturales.
+</p>
+
+<ul>
+<li>Agricultura.</li>
+<li>Ganadería.</li>
+<li>Pesca.</li>
+<li>Minería.</li>
+<li>Explotación forestal.</li>
+</ul>
+
+<p>
+Actualmente utiliza tecnologías como GPS,
+maquinaria inteligente y digitalización agrícola.
+</p>
+
+<h3>Sector secundario</h3>
+
+<p>
+Incluye industria y construcción.
+</p>
+
+<ul>
+<li>Industria 4.0.</li>
+<li>Automatización.</li>
+<li>Robótica.</li>
+<li>Internet de las Cosas (IoT).</li>
+<li>Impresión 3D.</li>
+</ul>
+
+<h3>Sector terciario</h3>
+
+<p>
+Es el sector servicios y representa más del 70% del empleo en España.
+</p>
+
+<ul>
+<li>Turismo.</li>
+<li>Sanidad.</li>
+<li>Educación.</li>
+<li>Comercio.</li>
+<li>Hostelería.</li>
+<li>Transporte.</li>
+</ul>
+
+<h3>Sector cuaternario</h3>
+
+<p>
+Se basa en el conocimiento y la innovación tecnológica.
+</p>
+
+<ul>
+<li>Informática.</li>
+<li>Telecomunicaciones.</li>
+<li>I+D+i.</li>
+<li>Análisis de datos.</li>
+<li>Energías renovables.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Sector</th>
+<th>Características</th>
+<th>Ejemplos</th>
+</tr>
+
+<tr>
+<td>Primario</td>
+<td>Obtención de recursos naturales</td>
+<td>Agricultura y pesca</td>
+</tr>
+
+<tr>
+<td>Secundario</td>
+<td>Transformación industrial</td>
+<td>Fábricas y construcción</td>
+</tr>
+
+<tr>
+<td>Terciario</td>
+<td>Prestación de servicios</td>
+<td>Sanidad y turismo</td>
+</tr>
+
+<tr>
+<td>Cuaternario</td>
+<td>Innovación y tecnología</td>
+<td>IA y telecomunicaciones</td>
+</tr>
+
+</table>
+
+<div class="example-box">
+<strong>Ejemplo:</strong>
+Una empresa de desarrollo de software pertenece al sector cuaternario.
+</div>
+
+<div class="tip-box">
+El sector cuaternario es uno de los que ofrece mayor empleabilidad futura.
+</div>
+
+<div class="trap-box">
+El sector terciario NO es solo hostelería;
+incluye todos los servicios.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué sector incluye actividades basadas en innovación y tecnología?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Primario
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Secundario
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Cuaternario
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="study-block" id="b2">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>10.2 Catálogo Nacional de Cualificaciones Profesionales (CNCP)</h2>
+
+<p>
+Las cualificaciones profesionales son el conjunto de competencias necesarias
+para desarrollar una profesión.
+</p>
+
+<p>
+En España se organizan mediante el
+<strong>Catálogo Nacional de Cualificaciones Profesionales (CNCP)</strong>.
+</p>
+
+<h3>¿Para qué sirve el CNCP?</h3>
+
+<ul>
+<li>Definir competencias oficiales.</li>
+<li>Organizar las profesiones.</li>
+<li>Facilitar acreditaciones oficiales.</li>
+<li>Relacionar FP y empleo.</li>
+<li>Reconocer experiencia laboral.</li>
+</ul>
+
+<h3>Familias profesionales</h3>
+
+<p>
+El CNCP se divide en familias profesionales:
+</p>
+
+<ul>
+<li>Informática.</li>
+<li>Sanidad.</li>
+<li>Administración.</li>
+<li>Comercio.</li>
+<li>Energía.</li>
+<li>Química.</li>
+</ul>
+
+<h3>Formas de obtener cualificaciones</h3>
+
+<table>
+
+<tr>
+<th>Vía</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>FP</td>
+<td>Títulos oficiales de Formación Profesional</td>
+</tr>
+
+<tr>
+<td>Certificados de profesionalidad</td>
+<td>Acreditaciones específicas</td>
+</tr>
+
+<tr>
+<td>Experiencia laboral</td>
+<td>Reconocimiento de competencias adquiridas</td>
+</tr>
+
+</table>
+
+<h3>Competencias técnicas y actitudes</h3>
+
+<p>
+Las empresas no solo valoran conocimientos técnicos.
+También buscan:
+</p>
+
+<ul>
+<li>Responsabilidad.</li>
+<li>Motivación.</li>
+<li>Trabajo en equipo.</li>
+<li>Capacidad de adaptación.</li>
+<li>Ética laboral.</li>
+</ul>
+
+<div class="example-box">
+Una persona puede acreditar competencias informáticas mediante experiencia laboral reconocida oficialmente.
+</div>
+
+<div class="tip-box">
+Las cualificaciones oficiales mejoran la empleabilidad y movilidad laboral.
+</div>
+
+<div class="trap-box">
+Las cualificaciones NO se obtienen únicamente mediante estudios universitarios.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué organiza el CNCP?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Los convenios colectivos
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Las cualificaciones profesionales
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Los contratos laborales
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="study-block" id="b3">
+
+<span class="study-time">⏱️ 32 min</span>
+
+<h2>10.3 Indra y Telefónica como impulsores del empleo cualificado</h2>
+
+<p>
+El crecimiento tecnológico en España ha aumentado la demanda de empleo cualificado.
+</p>
+
+<p>
+Empresas como Indra y Telefónica son referentes en:
+</p>
+
+<ul>
+<li>Transformación digital.</li>
+<li>Telecomunicaciones.</li>
+<li>Ciberseguridad.</li>
+<li>Inteligencia artificial.</li>
+<li>Análisis de datos.</li>
+</ul>
+
+<h3>Perfiles más demandados</h3>
+
+<table>
+
+<tr>
+<th>Perfil</th>
+<th>Competencias</th>
+</tr>
+
+<tr>
+<td>Desarrollador software</td>
+<td>Programación y aplicaciones</td>
+</tr>
+
+<tr>
+<td>Ciberseguridad</td>
+<td>Protección de sistemas</td>
+</tr>
+
+<tr>
+<td>Administrador de sistemas</td>
+<td>Redes e infraestructuras</td>
+</tr>
+
+<tr>
+<td>Data analyst</td>
+<td>Análisis y gestión de datos</td>
+</tr>
+
+</table>
+
+<h3>Qué valoran estas empresas</h3>
+
+<ul>
+<li>Cualificaciones acreditadas.</li>
+<li>FP informática.</li>
+<li>Certificaciones Cisco o AWS.</li>
+<li>Aprendizaje continuo.</li>
+<li>Trabajo colaborativo.</li>
+</ul>
+
+<h3>Programas de talento</h3>
+
+<p>
+Indra desarrolla programas internos de formación y competencias blandas.
+Telefónica impulsa iniciativas como 42 Madrid,
+centrada en autoformación y colaboración.
+</p>
+
+<div class="example-box">
+El sector tecnológico genera empleo estable y creciente debido a la digitalización empresarial.
+</div>
+
+<div class="tip-box">
+Actualizar conocimientos constantemente es esencial en profesiones tecnológicas.
+</div>
+
+<div class="trap-box">
+En tecnología NO basta con aprender una sola vez:
+las herramientas cambian constantemente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué valoran especialmente Indra y Telefónica?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Solo experiencia laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Únicamente títulos universitarios
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Cualificaciones acreditadas y aprendizaje continuo
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="study-block" id="b4">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>10.4 Herramientas y consejos para tu futuro profesional</h2>
+
+<p>
+Existen herramientas y estrategias que ayudan a mejorar la empleabilidad.
+</p>
+
+<h3>Consultar el CNCP</h3>
+
+<p>
+Permite conocer qué competencias se exigen oficialmente en cada profesión.
+</p>
+
+<h3>Investigar el mercado laboral</h3>
+
+<ul>
+<li>Analizar sectores con crecimiento.</li>
+<li>Identificar profesiones demandadas.</li>
+<li>Conocer tendencias laborales.</li>
+</ul>
+
+<p>
+El Observatorio de las Ocupaciones del SEPE ofrece información útil sobre empleo.
+</p>
+
+<h3>Desarrollar actitudes profesionales</h3>
+
+<table>
+
+<tr>
+<th>Actitud</th>
+<th>Importancia</th>
+</tr>
+
+<tr>
+<td>Puntualidad</td>
+<td>Genera confianza</td>
+</tr>
+
+<tr>
+<td>Responsabilidad</td>
+<td>Mejora rendimiento laboral</td>
+</tr>
+
+<tr>
+<td>Aprendizaje continuo</td>
+<td>Facilita adaptación</td>
+</tr>
+
+<tr>
+<td>Trabajo en equipo</td>
+<td>Muy valorado por empresas</td>
+</tr>
+
+</table>
+
+<h3>Consejos prácticos</h3>
+
+<ul>
+<li>Actualizar CV y LinkedIn.</li>
+<li>Realizar cursos complementarios.</li>
+<li>Participar en proyectos.</li>
+<li>Practicar idiomas.</li>
+<li>Crear red de contactos.</li>
+</ul>
+
+<div class="example-box">
+Realizar voluntariado puede ayudar a desarrollar habilidades sociales y liderazgo.
+</div>
+
+<div class="tip-box">
+Las habilidades blandas marcan diferencias entre candidatos similares.
+</div>
+
+<div class="trap-box">
+La empleabilidad depende tanto de conocimientos como de actitud profesional.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Qué herramienta ayuda a conocer profesiones y competencias oficiales?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+SEPE
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+CNCP
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Convenio colectivo
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Basado en documentos y resúmenes personales. A darle caña.
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  }else{
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>

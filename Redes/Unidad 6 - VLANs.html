@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 - VLANs</title>
+
+<style>
+
+:root{
+  --bg:#071018;
+  --panel:#101b27;
+  --panel2:#162534;
+  --border:#22384d;
+  --text:#d8f6ee;
+  --muted:#8da7a0;
+  --accent:#00ffc3;
+  --danger:#ff5d7d;
+  --warning:#ffd166;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,sans-serif;
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width:340px;
+  background:#0c151f;
+  border-right:1px solid var(--border);
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  padding:25px;
+}
+
+.sidebar h1{
+  color:var(--accent);
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.sidebar ul{
+  list-style:none;
+}
+
+.sidebar li{
+  margin-bottom:10px;
+}
+
+.sidebar a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  text-decoration:none;
+  color:var(--text);
+  background:rgba(255,255,255,.02);
+  transition:.2s;
+}
+
+.sidebar a:hover{
+  background:rgba(0,255,195,.08);
+  transform:translateX(5px);
+}
+
+.main{
+  margin-left:340px;
+  width:calc(100% - 340px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,rgba(0,255,195,.08),transparent),var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  color:var(--accent);
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.block{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:35px;
+  margin-bottom:30px;
+}
+
+.block h2{
+  color:var(--accent);
+  margin-bottom:20px;
+  font-size:2rem;
+}
+
+.block h3{
+  margin-top:20px;
+  margin-bottom:10px;
+  color:#9fffdc;
+}
+
+.block p,
+.block li{
+  line-height:1.8;
+}
+
+.block ul{
+  margin-left:20px;
+}
+
+.card{
+  margin-top:20px;
+  background:var(--panel2);
+  border-left:4px solid var(--accent);
+  padding:18px;
+  border-radius:12px;
+}
+
+.warning{
+  border-left-color:var(--warning);
+}
+
+.danger{
+  border-left-color:var(--danger);
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:12px;
+}
+
+.table th{
+  background:#132130;
+  color:var(--accent);
+}
+
+.quiz{
+  margin-top:30px;
+  background:#0c141c;
+  border:1px solid #203445;
+  border-radius:14px;
+  padding:25px;
+}
+
+.question{
+  margin-bottom:20px;
+}
+
+button{
+  border:none;
+  background:var(--accent);
+  color:#05110d;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#63ffd6;
+}
+
+.result{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  padding-bottom:30px;
+}
+
+code{
+  background:#08131c;
+  color:#7effd8;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  position:relative;
+  height:auto;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>🧩 Unidad 6</h1>
+
+<p>
+VLANs y conmutación avanzada.<br>
+Página interactiva de estudio basada en el contenido de mis resúmenes
+</p>
+
+<ul>
+<li><a href="#b1">6.1 VLAN</a></li>
+<li><a href="#b2">6.2 LAN vs VLAN</a></li>
+<li><a href="#b3">6.3 Tipos de puerto VLAN</a></li>
+<li><a href="#b4">6.4 Funcionamiento VLANs</a></li>
+<li><a href="#b5">6.5 Switches gestionables</a></li>
+<li><a href="#b6">6.6 Switch capa 3</a></li>
+<li><a href="#b7">6.7 Inter-VLAN Routing</a></li>
+<li><a href="#b8">6.8 SVI</a></li>
+<li><a href="#b9">6.9 Configuración VLAN/SVI</a></li>
+<li><a href="#b10">6.10 Ventajas switch L3</a></li>
+<li><a href="#b11">6.11 Router-on-a-Stick</a></li>
+</ul>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h1>Unidad 6 - VLANs</h1>
+
+<p>
+Resumen interactivo sobre VLANs,
+segmentación lógica, switches capa 3 y routing inter-VLAN.
+Basado en mis horas sin dormir.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<h2>6.1 VLAN (Virtual LAN)</h2>
+
+<p>
+Una VLAN es una red lógica dentro de una LAN física.
+</p>
+
+<ul>
+<li>Segmenta dispositivos lógicamente</li>
+<li>Mejora seguridad</li>
+<li>Reduce broadcasts</li>
+<li>Facilita administración</li>
+</ul>
+
+<h3>Tipos comunes</h3>
+
+<ul>
+<li>VLAN de datos</li>
+<li>VLAN de voz</li>
+<li>VLAN nativa</li>
+<li>VLAN de gestión</li>
+</ul>
+
+<div class="card">
+🏢 Un switch físico puede contener varias VLANs.
+</div>
+
+<div class="card warning">
+⚠ Equipos en VLANs distintas NO se comunican directamente.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué es una VLAN?</p>
+
+<label><input type="radio" name="q1"> Un cable</label><br>
+<label><input type="radio" name="q1" data-correct> Una red lógica</label><br>
+<label><input type="radio" name="q1"> Un protocolo Wi-Fi</label>
+
+</div>
+
+<button onclick="checkQuiz('q1', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<h2>6.2 Diferencias entre LAN y VLAN</h2>
+
+<table class="table">
+
+<tr>
+<th>LAN</th>
+<th>VLAN</th>
+</tr>
+
+<tr>
+<td>Física</td>
+<td>Lógica</td>
+</tr>
+
+<tr>
+<td>Todos comunicados</td>
+<td>Segmentada</td>
+</tr>
+
+<tr>
+<td>Poca administración</td>
+<td>Configuración avanzada</td>
+</tr>
+
+<tr>
+<td>Más broadcasts</td>
+<td>Broadcast limitado</td>
+</tr>
+
+</table>
+
+<div class="card">
+🏠 Analogía:
+LAN = edificio completo,
+VLAN = apartamentos separados.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que una VLAN necesita switches distintos.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué característica define una VLAN?</p>
+
+<label><input type="radio" name="q2"> Separación física</label><br>
+<label><input type="radio" name="q2" data-correct> Separación lógica</label><br>
+<label><input type="radio" name="q2"> Cableado distinto</label>
+
+</div>
+
+<button onclick="checkQuiz('q2', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<h2>6.3 Tipos de puerto VLAN</h2>
+
+<h3>Puerto Access</h3>
+
+<ul>
+<li>Una sola VLAN</li>
+<li>Tráfico no etiquetado</li>
+<li>Usado por PCs e impresoras</li>
+</ul>
+
+<h3>Puerto Trunk</h3>
+
+<ul>
+<li>Múltiples VLANs</li>
+<li>Usa etiquetas 802.1Q</li>
+<li>Conecta switches o routers</li>
+</ul>
+
+<div class="card">
+🔌 Trunk = “autopista” de varias VLANs.
+</div>
+
+<div class="card warning">
+⚠ Los usuarios normales usan puertos Access.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué puerto transporta múltiples VLANs?</p>
+
+<label><input type="radio" name="q3"> Access</label><br>
+<label><input type="radio" name="q3" data-correct> Trunk</label><br>
+<label><input type="radio" name="q3"> Console</label>
+
+</div>
+
+<button onclick="checkQuiz('q3', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<h2>6.4 Funcionamiento de VLANs</h2>
+
+<p>
+Cada VLAN posee su propia subred IP.
+</p>
+
+<table class="table">
+
+<tr>
+<th>VLAN</th>
+<th>Subred</th>
+</tr>
+
+<tr>
+<td>VLAN 10</td>
+<td>192.168.10.0/24</td>
+</tr>
+
+<tr>
+<td>VLAN 20</td>
+<td>192.168.20.0/24</td>
+</tr>
+
+<tr>
+<td>VLAN 30</td>
+<td>192.168.30.0/24</td>
+</tr>
+
+</table>
+
+<ul>
+<li>Misma VLAN → comunicación directa</li>
+<li>Distinta VLAN → necesita routing</li>
+</ul>
+
+<div class="card">
+📡 Cada VLAN suele tener gateway propio.
+</div>
+
+<div class="card danger">
+❌ Error típico:
+pensar que las VLANs se comunican automáticamente.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué necesitan dos VLANs para comunicarse?</p>
+
+<label><input type="radio" name="q4"> Hub</label><br>
+<label><input type="radio" name="q4" data-correct> Routing</label><br>
+<label><input type="radio" name="q4"> Repetidor</label>
+
+</div>
+
+<button onclick="checkQuiz('q4', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<h2>6.5 Switches gestionables</h2>
+
+<p>
+Permiten configurar y controlar tráfico de red.
+</p>
+
+<ul>
+<li>VLANs</li>
+<li>QoS</li>
+<li>ACLs</li>
+<li>SNMP</li>
+<li>STP</li>
+</ul>
+
+<div class="card">
+⚙ Un switch no gestionable funciona automáticamente.
+</div>
+
+<div class="card warning">
+⚠ No todos los switches gestionables son capa 3.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué permite un switch gestionable?</p>
+
+<label><input type="radio" name="q5"> Solo repetir tráfico</label><br>
+<label><input type="radio" name="q5" data-correct> Configurar VLANs y seguridad</label><br>
+<label><input type="radio" name="q5"> Convertir fibra</label>
+
+</div>
+
+<button onclick="checkQuiz('q5', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<h2>6.6 Switch de capa 3</h2>
+
+<p>
+Combina funciones de switch y router.
+
+</p>
+
+<ul>
+<li>Conmuta tráfico LAN</li>
+<li>Enruta entre VLANs</li>
+<li>Opera en capas 2 y 3 OSI</li>
+</ul>
+
+<div class="card">
+🚀 Usa hardware ASIC para routing rápido.
+</div>
+
+<div class="card warning">
+⚠ Reduce necesidad de routers externos.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué hace un switch capa 3?</p>
+
+<label><input type="radio" name="q6"> Solo switching</label><br>
+<label><input type="radio" name="q6" data-correct> Switching y routing</label><br>
+<label><input type="radio" name="q6"> Solo Wi-Fi</label>
+
+</div>
+
+<button onclick="checkQuiz('q6', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<h2>6.7 Inter-VLAN Routing</h2>
+
+<p>
+Las VLANs están aisladas por defecto.
+
+</p>
+
+<h3>Opciones</h3>
+
+<ul>
+<li>Router-on-a-Stick</li>
+<li>Switch capa 3</li>
+</ul>
+
+<div class="card">
+🔄 Inter-VLAN routing permite comunicación entre departamentos.
+</div>
+
+<div class="card danger">
+❌ Sin routing no existe comunicación entre VLANs.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué permite inter-VLAN routing?</p>
+
+<label><input type="radio" name="q7"> Más velocidad Wi-Fi</label><br>
+<label><input type="radio" name="q7" data-correct> Comunicación entre VLANs</label><br>
+<label><input type="radio" name="q7"> Crear DNS</label>
+
+</div>
+
+<button onclick="checkQuiz('q7', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<h2>6.8 SVI (Switch Virtual Interface)</h2>
+
+<p>
+Una SVI es una interfaz lógica dentro del switch.
+
+</p>
+
+<ul>
+<li>Actúa como gateway</li>
+<li>Tiene IP propia</li>
+<li>Permite routing interno</li>
+</ul>
+
+<div class="card">
+💡 Una VLAN suele tener una SVI asociada.
+</div>
+
+<div class="card warning">
+⚠ La IP de la SVI suele ser la puerta de enlace.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué función tiene una SVI?</p>
+
+<label><input type="radio" name="q8"> Alimentar PoE</label><br>
+<label><input type="radio" name="q8" data-correct> Gateway de VLAN</label><br>
+<label><input type="radio" name="q8"> Crear fibra óptica</label>
+
+</div>
+
+<button onclick="checkQuiz('q8', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<h2>6.9 Configuración básica de VLANs y SVIs</h2>
+
+<h3>Pasos</h3>
+
+<ol style="margin-left:20px; line-height:1.8;">
+<li>Crear VLAN</li>
+<li>Crear SVI</li>
+<li>Asignar IP</li>
+<li>Asignar puertos</li>
+<li>Activar routing</li>
+</ol>
+
+<div class="card">
+Ejemplo:
+<br><br>
+<code>
+vlan 10<br>
+interface vlan 10<br>
+ip address 192.168.10.1 255.255.255.0
+</code>
+</div>
+
+<div class="card warning">
+⚠ No olvidar <code>ip routing</code>.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué comando activa routing en switch L3?</p>
+
+<label><input type="radio" name="q9"> enable routing</label><br>
+<label><input type="radio" name="q9" data-correct> ip routing</label><br>
+<label><input type="radio" name="q9"> vlan routing</label>
+
+</div>
+
+<button onclick="checkQuiz('q9', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<h2>6.10 Ventajas y limitaciones del switch capa 3</h2>
+
+<table class="table">
+
+<tr>
+<th>Ventajas</th>
+<th>Limitaciones</th>
+</tr>
+
+<tr>
+<td>Routing rápido</td>
+<td>Mayor coste</td>
+</tr>
+
+<tr>
+<td>Menos latencia</td>
+<td>Más complejo</td>
+</tr>
+
+<tr>
+<td>Escalable</td>
+<td>Routing avanzado limitado</td>
+</tr>
+
+<tr>
+<td>Centralización</td>
+<td>No ideal para WAN grandes</td>
+</tr>
+
+</table>
+
+<div class="card">
+🚀 El routing hardware es más rápido que software.
+</div>
+
+<div class="card danger">
+❌ Un switch L3 no sustituye totalmente a routers empresariales.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué ventaja tiene un switch capa 3?</p>
+
+<label><input type="radio" name="q10"> Más colisiones</label><br>
+<label><input type="radio" name="q10" data-correct> Menor latencia</label><br>
+<label><input type="radio" name="q10"> Menos seguridad</label>
+
+</div>
+
+<button onclick="checkQuiz('q10', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block" id="b11">
+
+<h2>6.11 Router-on-a-Stick (RoAS)</h2>
+
+<p>
+Método de inter-VLAN routing usando
+una sola interfaz física trunk.
+
+</p>
+
+<ul>
+<li>Usa subinterfaces</li>
+<li>802.1Q tagging</li>
+<li>Ideal para redes pequeñas</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Bajo coste</li>
+<li>Simple</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Cuello de botella</li>
+<li>Menor rendimiento</li>
+</ul>
+
+<div class="card">
+🔄 Todas las VLANs pasan por un único enlace trunk.
+</div>
+
+<div class="card warning">
+⚠ En redes grandes se prefiere switch capa 3.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+
+<p>¿Qué desventaja tiene RoAS?</p>
+
+<label><input type="radio" name="q11"> Más velocidad</label><br>
+<label><input type="radio" name="q11" data-correct> Cuello de botella</label><br>
+<label><input type="radio" name="q11"> Más redundancia</label>
+
+</div>
+
+<button onclick="checkQuiz('q11', this)">Comprobar</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+Página interactiva de estudio basada en el contenido de mis resúmenes. ¡A estudiar!
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(groupName, button){
+
+  const answers = document.querySelectorAll(`input[name="${groupName}"]`);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+
+  answers.forEach(answer=>{
+    if(answer.checked && answer.dataset.correct !== undefined){
+      correct = true;
+    }
+  });
+
+  if(correct){
+    result.textContent = "✔ Correcto";
+    result.style.color = "#00ffc3";
+  }else{
+    result.textContent = "✘ Incorrecto";
+    result.style.color = "#ff5d7d";
+  }
+
+}
+
+</script>
+
+</body>
+</html>
