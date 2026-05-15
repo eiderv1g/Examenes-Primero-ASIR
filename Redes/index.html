@@ -25,11 +25,26 @@
 }
 
 body{
+  margin: 0;
+    background: #050b16;
+
+    display: flex;
+    justify-content: center;
   background:var(--bg);
   color:var(--text);
   font-family:Segoe UI,sans-serif;
   min-height:100vh;
   padding:40px;
+  
+       
+      
+      
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 30px;
 }
 
 .hero{
@@ -53,9 +68,11 @@ body{
 }
 
 .grid{
+  
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:25px;
+  
 }
 
 .card{
@@ -150,6 +167,8 @@ body{
 </head>
 
 <body>
+
+<div class="container">
 
 <section class="hero">
 
@@ -259,6 +278,6 @@ Accede rápidamente a todas las unidades interactivas.
 <div class="footer">
 REDES · Portal interactivo de estudio
 </div>
-
+</div>
 </body>
 </html>
