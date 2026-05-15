@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BASES DE DATOS</title>
+
+<style>
+
+:root{
+    --bg:#eefbfd;
+    --sidebar:#0f3f57;
+    --primary:#157e9f;
+    --secondary:#41b7d4;
+    --accent:#7be0d9;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#64748b;
+    --border:#d8edf2;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#eefbfd,#dff7fb);
+    color:var(--text);
+    min-height:100vh;
+    padding:40px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+header{
+    background:linear-gradient(135deg,#0f3f57,#167595);
+    color:white;
+    padding:45px;
+    border-radius:28px;
+    margin-bottom:35px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+header h1{
+    font-size:2.8rem;
+    margin-bottom:14px;
+}
+
+header p{
+    max-width:850px;
+    line-height:1.8;
+    opacity:.95;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.card{
+    background:var(--card);
+    border-radius:24px;
+    padding:28px;
+    border:1px solid var(--border);
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+    transition:.25s;
+    text-decoration:none;
+    color:inherit;
+    position:relative;
+    overflow:hidden;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 35px rgba(0,0,0,.10);
+    border-color:#9edfec;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:linear-gradient(90deg,#41b7d4,#7be0d9);
+}
+
+.tag{
+    display:inline-block;
+    background:#dcf8fd;
+    color:#075f75;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:700;
+    margin-bottom:16px;
+}
+
+.card h2{
+    color:var(--primary);
+    font-size:1.25rem;
+    margin-bottom:14px;
+    line-height:1.5;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:.96rem;
+}
+
+.footer{
+    text-align:center;
+    margin-top:45px;
+    color:var(--muted);
+    font-size:.95rem;
+}
+
+@media(max-width:700px){
+
+    header{
+        padding:30px;
+    }
+
+    header h1{
+        font-size:2.1rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>BASES DE DATOS</h1>
+
+<p>
+Plataforma interactiva de estudio con teoría, ejemplos SQL, modelado, normalización, seguridad, PL/SQL y administración avanzada de bases de datos.
+</p>
+
+</header>
+
+<div class="grid">
+
+<a href="Unidad 1 - Bases de Datos. Fundamentos.html" class="card" target="_blank">
+<span class="tag">Unidad 1</span>
+<h2>Bases de Datos. Fundamentos</h2>
+<p>
+Introducción a bases de datos, SGBD, arquitectura ANSI/SPARC, cliente-servidor y fundamentos esenciales.
+</p>
+</a>
+
+<a href="Unidad 2 - Modelado y diseño conceptual.html" class="card" target="_blank">
+<span class="tag">Unidad 2</span>
+<h2>Modelado y diseño conceptual</h2>
+<p>
+Modelo Entidad-Relación, cardinalidades, claves, jerarquías y diseño conceptual profesional.
+</p>
+</a>
+
+<a href="Unidad 3 - Diseño lógico y normalización.html" class="card" target="_blank">
+<span class="tag">Unidad 3</span>
+<h2>Diseño lógico y normalización</h2>
+<p>
+Transformación E-R, normalización, dependencias funcionales y BCNF paso a paso.
+</p>
+</a>
+
+<a href="Unidad 4 - SQL. DDL y DML.html" class="card" target="_blank">
+<span class="tag">Unidad 4</span>
+<h2>SQL · DDL y DML</h2>
+<p>
+Creación de estructuras, inserción de datos, restricciones, transacciones y manipulación SQL.
+</p>
+</a>
+
+<a href="Unidad 5 - SQL. DQL Unitabla.html" class="card" target="_blank">
+<span class="tag">Unidad 5</span>
+<h2>SQL · DQL Unitabla</h2>
+<p>
+SELECT, WHERE, operadores, funciones agregadas y subconsultas básicas.
+</p>
+</a>
+
+<a href="Unidad 6 - SQL. DQL Multitabla.html" class="card" target="_blank">
+<span class="tag">Unidad 6</span>
+<h2>SQL · DQL Multitabla</h2>
+<p>
+JOINs, consultas relacionales, FULL JOIN y análisis avanzado multitabla.
+</p>
+</a>
+
+<a href="Unidad 7 - Seguridad en Bases de Datos.html" class="card" target="_blank">
+<span class="tag">Unidad 7</span>
+<h2>Seguridad en Bases de Datos</h2>
+<p>
+Usuarios, roles, permisos, GRANT, REVOKE y administración segura de accesos.
+</p>
+</a>
+
+<a href="Unidad 8 - Diseño Físico y Administración.html" class="card" target="_blank">
+<span class="tag">Unidad 8</span>
+<h2>Diseño Físico y Administración</h2>
+<p>
+Vistas, transacciones, triggers, eventos y automatización avanzada.
+</p>
+</a>
+
+<a href="Unidad 9 - PL/SQL y Programación en BD.html" class="card" target="_blank">
+<span class="tag">Unidad 9</span>
+<h2>PL/SQL y Programación en BD</h2>
+<p>
+Procedimientos, funciones, excepciones, packages y optimización PL/SQL.
+</p>
+</a>
+
+<a href="MANUAL - SQL.html" class="card" target="_blank">
+<span class="tag">Manual</span>
+<h2>Manual de SQL</h2>
+<p>
+Guía completa paso a paso sobre SQL, consultas, relaciones, transacciones y buenas prácticas.
+</p>
+</a>
+
+<a href="MANUAL - Sintaxis MySQL.html" class="card" target="_blank">
+<span class="tag">Manual</span>
+<h2>Sintáxis de MySQL</h2>
+<p>
+Sintaxis MySQL detallada con CREATE, INSERT, JOIN, GROUP BY, índices y filtros.
+</p>
+</a>
+
+<a href="MANUAL - Relación N.M a dos FK como clave primaria compuesta.html" class="card" target="_blank">
+<span class="tag">Manual</span>
+<h2>Relación N:M y clave primaria compuesta</h2>
+<p>
+Explicación completa sobre relaciones muchos a muchos y claves primarias compuestas.
+</p>
+</a>
+
+</div>
+
+<div class="footer">
+BASES DE DATOS · Plataforma interactiva de estudio
+</div>
+
+</div>
+
+</body>
+</html>

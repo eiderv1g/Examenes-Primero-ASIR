@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 8 - Diseño Físico y Administración</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --sidebar:#0f3d56;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --card:#ffffff;
+  --text:#1e293b;
+  --muted:#64748b;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:330px;
+  background:linear-gradient(180deg,#0f3d56,#167391);
+  color:white;
+  padding:25px 20px;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  overflow-y:auto;
+  box-shadow:4px 0 16px rgba(0,0,0,.16);
+}
+
+.sidebar h1{
+  font-size:1.7rem;
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.sidebar p{
+  opacity:.92;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.nav-btn{
+  width:100%;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:white;
+  text-align:left;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.25s;
+  font-size:.93rem;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:rgba(255,255,255,.22);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.block{
+  display:none;
+  animation:fade .35s ease;
+}
+
+.block.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:24px 0 12px;
+}
+
+p{
+  line-height:1.8;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:22px;
+  margin:14px 0;
+}
+
+li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  margin-bottom:16px;
+  font-weight:700;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:18px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:15px;
+}
+
+code{
+  font-family:Consolas, monospace;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:2px dashed #cfe8ef;
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer-note{
+  margin-top:40px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 8<br>Diseño Físico y Administración</h1>
+
+<p>
+Plataforma interactiva para dominar vistas, transacciones, ACID, procedimientos, triggers y automatización SQL.
+</p>
+
+<button class="nav-btn active" onclick="showBlock(0)">8.1 Vistas</button>
+<button class="nav-btn" onclick="showBlock(1)">8.2 Transacciones</button>
+<button class="nav-btn" onclick="showBlock(2)">8.3 Propiedades ACID</button>
+<button class="nav-btn" onclick="showBlock(3)">8.4 Cursores y procedimientos</button>
+<button class="nav-btn" onclick="showBlock(4)">8.5 Tienda online</button>
+<button class="nav-btn" onclick="showBlock(5)">8.6 Triggers</button>
+<button class="nav-btn" onclick="showBlock(6)">8.7 Eventos programados</button>
+<button class="nav-btn" onclick="showBlock(7)">8.8 Práctica aplicada</button>
+<button class="nav-btn" onclick="showBlock(8)">8.9 Consejos finales</button>
+
+</aside>
+
+<main class="main">
+
+<!-- BLOQUE 1 -->
+
+<section class="block active">
+<div class="card">
+
+<span class="tag">Bloque 8.1 · 35 min</span>
+
+<h2>Vistas</h2>
+
+<p>
+Una vista (VIEW) es una tabla virtual basada en una consulta SQL.
+</p>
+
+<p>
+No almacena datos físicamente. Guarda únicamente la lógica de la consulta.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Simplifican consultas complejas.</li>
+<li>Ocultan datos sensibles.</li>
+<li>Facilitan reporting.</li>
+<li>Mejoran abstracción.</li>
+<li>Permiten control de acceso.</li>
+</ul>
+
+<h3>Crear una vista</h3>
+
+<pre><code>CREATE VIEW vista_clientes AS
+SELECT nombre, ciudad
+FROM clientes
+WHERE activo = 1;</code></pre>
+
+<h3>Uso</h3>
+
+<pre><code>SELECT * FROM vista_clientes;</code></pre>
+
+<div class="example">
+Las vistas funcionan como ventanas filtradas hacia tablas reales.
+</div>
+
+<div class="trap">
+Una vista NO almacena datos en disco.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué es una vista?
+</div>
+
+<button class="option" onclick="check(this,true)">Una tabla virtual</button>
+<button class="option" onclick="check(this,false)">Un índice</button>
+<button class="option" onclick="check(this,false)">Un trigger</button>
+<button class="option" onclick="check(this,false)">Una copia física</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.2 · 40 min</span>
+
+<h2>Transacciones</h2>
+
+<p>
+Una transacción agrupa varias operaciones SQL como una única unidad indivisible.
+</p>
+
+<h3>Objetivo</h3>
+
+<ul>
+<li>Evitar inconsistencias.</li>
+<li>Garantizar integridad.</li>
+<li>Controlar errores.</li>
+<li>Proteger operaciones críticas.</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>START TRANSACTION;
+
+UPDATE cuentas
+SET saldo = saldo - 100
+WHERE id = 1;
+
+UPDATE cuentas
+SET saldo = saldo + 100
+WHERE id = 2;
+
+COMMIT;</code></pre>
+
+<h3>COMMIT</h3>
+
+<p>
+Confirma cambios definitivamente.
+</p>
+
+<h3>ROLLBACK</h3>
+
+<pre><code>ROLLBACK;</code></pre>
+
+<p>
+Deshace operaciones ante errores.
+</p>
+
+<div class="example">
+Las transacciones son esenciales en banca y e-commerce.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace COMMIT?
+</div>
+
+<button class="option" onclick="check(this,true)">Confirmar cambios</button>
+<button class="option" onclick="check(this,false)">Eliminar tablas</button>
+<button class="option" onclick="check(this,false)">Cerrar MySQL</button>
+<button class="option" onclick="check(this,false)">Crear usuarios</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.3 · 45 min</span>
+
+<h2>Propiedades ACID</h2>
+
+<p>
+ACID define el comportamiento seguro de las transacciones.
+</p>
+
+<table>
+<tr>
+<th>Letra</th>
+<th>Significado</th>
+</tr>
+<tr>
+<td>A</td>
+<td>Atomicidad</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Consistencia</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Aislamiento</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Durabilidad</td>
+</tr>
+</table>
+
+<h3>Atomicidad</h3>
+
+<p>
+Todo o nada.
+</p>
+
+<h3>Consistencia</h3>
+
+<p>
+Los datos pasan de un estado válido a otro válido.
+</p>
+
+<h3>Aislamiento</h3>
+
+<p>
+Las transacciones paralelas no interfieren.
+</p>
+
+<h3>Durabilidad</h3>
+
+<p>
+Los cambios confirmados sobreviven a fallos.
+</p>
+
+<h3>Niveles de aislamiento</h3>
+
+<pre><code>SET TRANSACTION ISOLATION LEVEL
+READ COMMITTED;</code></pre>
+
+<div class="tip">
+SERIALIZABLE es muy seguro pero puede bloquear muchas operaciones.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué significa Atomicidad?
+</div>
+
+<button class="option" onclick="check(this,true)">Todo o nada</button>
+<button class="option" onclick="check(this,false)">Velocidad</button>
+<button class="option" onclick="check(this,false)">Duplicación</button>
+<button class="option" onclick="check(this,false)">Compresión</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.4 · 50 min</span>
+
+<h2>Cursores y procedimientos almacenados</h2>
+
+<h3>Cursores</h3>
+
+<p>
+Permiten recorrer resultados fila a fila.
+</p>
+
+<h3>Fases principales</h3>
+
+<ul>
+<li>DECLARE CURSOR</li>
+<li>FETCH</li>
+<li>CLOSE</li>
+</ul>
+
+<h3>Procedimientos almacenados</h3>
+
+<p>
+Bloques SQL reutilizables almacenados en el servidor.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>DELIMITER //
+
+CREATE PROCEDURE aumentar_precios(
+IN porcentaje DECIMAL(5,2)
+)
+
+BEGIN
+
+ UPDATE productos
+ SET precio = precio * (1 + porcentaje / 100);
+
+END //
+
+DELIMITER ;</code></pre>
+
+<h3>Ejecución</h3>
+
+<pre><code>CALL aumentar_precios(10);</code></pre>
+
+<h3>Parámetros</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+<tr>
+<td>IN</td>
+<td>Entrada</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>Salida</td>
+</tr>
+<tr>
+<td>INOUT</td>
+<td>Ambos</td>
+</tr>
+</table>
+
+<div class="trap">
+Los cursores suelen ser más lentos que operaciones SQL en bloque.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué ejecuta un procedimiento almacenado?
+</div>
+
+<button class="option" onclick="check(this,false)">Una tabla física</button>
+<button class="option" onclick="check(this,true)">Un bloque SQL reutilizable</button>
+<button class="option" onclick="check(this,false)">Un servidor Linux</button>
+<button class="option" onclick="check(this,false)">Una clave primaria</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.5 · 40 min</span>
+
+<h2>Caso de estudio de una tienda online</h2>
+
+<p>
+Una tienda online necesitaba automatizar el control de stock.
+</p>
+
+<h3>Problema</h3>
+
+<ul>
+<li>Productos agotados seguían apareciendo disponibles.</li>
+<li>Clientes realizaban pedidos inválidos.</li>
+<li>Había revisiones manuales constantes.</li>
+</ul>
+
+<h3>Solución</h3>
+
+<pre><code>CREATE PROCEDURE actualizar_stock()
+
+BEGIN
+
+ UPDATE productos
+ SET estado = 'agotado'
+ WHERE cantidad = 0;
+
+END;</code></pre>
+
+<h3>Ejecución automática</h3>
+
+<pre><code>CALL actualizar_stock();</code></pre>
+
+<h3>Resultados</h3>
+
+<ul>
+<li>Menos errores.</li>
+<li>Automatización total.</li>
+<li>Mayor satisfacción del cliente.</li>
+<li>Menos carga técnica.</li>
+</ul>
+
+<div class="example">
+Un procedimiento sencillo puede ahorrar horas de trabajo diario.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hacía actualizar_stock?
+</div>
+
+<button class="option" onclick="check(this,false)">Crear clientes</button>
+<button class="option" onclick="check(this,true)">Marcar productos agotados</button>
+<button class="option" onclick="check(this,false)">Eliminar usuarios</button>
+<button class="option" onclick="check(this,false)">Crear vistas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.6 · 45 min</span>
+
+<h2>Triggers</h2>
+
+<p>
+Un trigger es un bloque SQL que se ejecuta automáticamente ante un evento.
+</p>
+
+<h3>Eventos posibles</h3>
+
+<ul>
+<li>INSERT</li>
+<li>UPDATE</li>
+<li>DELETE</li>
+</ul>
+
+<h3>Tipos</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Momento</th>
+</tr>
+<tr>
+<td>BEFORE</td>
+<td>Antes del evento</td>
+</tr>
+<tr>
+<td>AFTER</td>
+<td>Después del evento</td>
+</tr>
+</table>
+
+<h3>Palabras clave</h3>
+
+<ul>
+<li>NEW → valores nuevos.</li>
+<li>OLD → valores antiguos.</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>CREATE TRIGGER validar_precio
+BEFORE INSERT ON productos
+
+FOR EACH ROW
+
+SET NEW.precio = ABS(NEW.precio);</code></pre>
+
+<div class="tip">
+Los triggers son muy usados en auditoría y validación automática.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Cuándo se ejecuta un AFTER trigger?
+</div>
+
+<button class="option" onclick="check(this,false)">Antes del evento</button>
+<button class="option" onclick="check(this,true)">Después del evento</button>
+<button class="option" onclick="check(this,false)">Solo manualmente</button>
+<button class="option" onclick="check(this,false)">Al iniciar MySQL</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.7 · 40 min</span>
+
+<h2>Eventos programados</h2>
+
+<p>
+Los eventos programados permiten ejecutar tareas automáticas en momentos concretos.
+</p>
+
+<h3>Funcionamiento</h3>
+
+<p>
+Equivalen a cron jobs internos de MySQL.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>CREATE EVENT limpiar_temp
+
+ON SCHEDULE EVERY 1 DAY
+
+DO
+
+DELETE FROM temporal
+WHERE fecha < NOW() - INTERVAL 7 DAY;</code></pre>
+
+<h3>Usos habituales</h3>
+
+<ul>
+<li>Limpieza automática.</li>
+<li>Actualización de estadísticas.</li>
+<li>Procesos nocturnos.</li>
+<li>Replicación interna.</li>
+<li>Inventario automático.</li>
+</ul>
+
+<div class="example">
+Los eventos permiten que la base de datos "actúe sola".
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué crea un evento programado?
+</div>
+
+<button class="option" onclick="check(this,false)">CREATE TRIGGER</button>
+<button class="option" onclick="check(this,true)">CREATE EVENT</button>
+<button class="option" onclick="check(this,false)">CREATE VIEW</button>
+<button class="option" onclick="check(this,false)">CREATE USER</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.8 · 50 min</span>
+
+<h2>Práctica aplicada</h2>
+
+<h3>Empresa logística</h3>
+
+<p>
+Una empresa de transporte necesitaba notificar entregas automáticamente.
+</p>
+
+<h3>Problema</h3>
+
+<ul>
+<li>Notificaciones tardías.</li>
+<li>Errores manuales.</li>
+<li>Clientes desinformados.</li>
+</ul>
+
+<h3>Trigger implementado</h3>
+
+<pre><code>CREATE TRIGGER notificar_entrega
+
+AFTER UPDATE ON pedidos
+
+FOR EACH ROW
+
+IF NEW.estado = 'entregado' THEN
+
+ INSERT INTO notificaciones
+ (id_pedido, fecha, mensaje)
+
+ VALUES
+ (NEW.id_pedido, NOW(), 'Pedido entregado');
+
+END IF;</code></pre>
+
+<h3>Beneficios</h3>
+
+<ul>
+<li>Automatización total.</li>
+<li>Notificaciones en tiempo real.</li>
+<li>Menos errores humanos.</li>
+<li>Mayor satisfacción.</li>
+</ul>
+
+<div class="tip">
+FOR EACH ROW ejecuta el trigger para cada fila afectada.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace NEW?
+</div>
+
+<button class="option" onclick="check(this,true)">Acceder a valores nuevos</button>
+<button class="option" onclick="check(this,false)">Eliminar filas</button>
+<button class="option" onclick="check(this,false)">Cerrar MySQL</button>
+<button class="option" onclick="check(this,false)">Crear tablas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 8.9 · 35 min</span>
+
+<h2>Consejos finales</h2>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Usa vistas para proteger datos.</li>
+<li>Documenta procedimientos.</li>
+<li>Evita cursores innecesarios.</li>
+<li>Controla duración de transacciones.</li>
+<li>Monitoriza eventos y triggers.</li>
+<li>Realiza backups frecuentes.</li>
+</ul>
+
+<h3>Comandos útiles</h3>
+
+<pre><code>SHOW PROCEDURE STATUS;
+
+SHOW EVENTS;
+
+SHOW TRIGGERS;</code></pre>
+
+<h3>Errores comunes</h3>
+
+<ul>
+<li>Triggers encadenados.</li>
+<li>Transacciones demasiado largas.</li>
+<li>Abusar de SERIALIZABLE.</li>
+<li>No documentar automatizaciones.</li>
+</ul>
+
+<div class="trap">
+Una automatización mal documentada puede convertirse en un gran problema meses después.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué comando muestra triggers?
+</div>
+
+<button class="option" onclick="check(this,false)">SHOW TABLES</button>
+<button class="option" onclick="check(this,false)">SHOW USERS</button>
+<button class="option" onclick="check(this,true)">SHOW TRIGGERS</button>
+<button class="option" onclick="check(this,false)">SHOW VIEWS</button>
+
+</div>
+
+</div>
+</section>
+
+<div class="footer-note">
+Material para ayudarte a estudiar bases de datos. Mucha suerte.
+</div>
+
+</main>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const buttons = document.querySelectorAll('.nav-btn');
+
+function showBlock(index){
+
+  blocks.forEach(block => block.classList.remove('active'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  blocks[index].classList.add('active');
+  buttons[index].classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt=>{
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ ¡Correcto!"
+    : "❌ Incorrecto.";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

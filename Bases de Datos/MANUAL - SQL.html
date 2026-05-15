@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de SQL</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --text:#1e293b;
+  --card:#ffffff;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+}
+
+header{
+  background:linear-gradient(135deg,#0f3d56,#167391);
+  color:white;
+  padding:55px 25px;
+}
+
+header h1{
+  font-size:2.7rem;
+  margin-bottom:15px;
+}
+
+header p{
+  max-width:950px;
+  opacity:.95;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:32px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:24px 0 12px;
+}
+
+ul{
+  padding-left:22px;
+  margin:15px 0;
+}
+
+li{
+  margin-bottom:10px;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:20px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:14px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:50px;
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+footer{
+  text-align:center;
+  color:#64748b;
+  padding:40px 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Manual de SQL</h1>
+
+<p>
+Manual interactivo para aprender SQL paso a paso: creación de bases de datos, tablas, relaciones, consultas, JOINs, transacciones y buenas prácticas profesionales usando ejemplos orientados a empleados, departamentos y proyectos empresariales.
+</p>
+
+</header>
+
+<div class="container">
+
+<!-- BLOQUE 1 -->
+
+<section class="card">
+
+<span class="tag">Bloque 1 · Introducción</span>
+
+<h2>¿Qué es SQL?</h2>
+
+<p>
+SQL (Structured Query Language) es el lenguaje estándar para trabajar con bases de datos relacionales.
+</p>
+
+<p>
+Permite:
+</p>
+
+<ul>
+<li>Crear bases de datos.</li>
+<li>Diseñar tablas.</li>
+<li>Insertar datos.</li>
+<li>Consultar información.</li>
+<li>Actualizar registros.</li>
+<li>Eliminar datos.</li>
+</ul>
+
+<h3>Conceptos fundamentales</h3>
+
+<table>
+<tr>
+<th>Concepto</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Tabla</td>
+<td>Conjunto de datos organizados</td>
+</tr>
+
+<tr>
+<td>Fila</td>
+<td>Registro individual</td>
+</tr>
+
+<tr>
+<td>Columna</td>
+<td>Campo de información</td>
+</tr>
+
+<tr>
+<td>Relación</td>
+<td>Conexión entre tablas</td>
+</tr>
+</table>
+
+<h3>Ejemplo empresarial</h3>
+
+<ul>
+<li>Tabla Empleados</li>
+<li>Tabla Departamentos</li>
+<li>Tabla Proyectos</li>
+</ul>
+
+<div class="example">
+SQL es el idioma principal de las bases de datos relacionales.
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="card">
+
+<span class="tag">Bloque 2 · DDL</span>
+
+<h2>Creación de bases de datos y tablas</h2>
+
+<h3>Crear una base de datos</h3>
+
+<pre><code>CREATE DATABASE EmpresaDB;</code></pre>
+
+<h3>Seleccionar base de datos</h3>
+
+<pre><code>USE EmpresaDB;</code></pre>
+
+<h3>Tipos de datos importantes</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>INT</td>
+<td>Números enteros</td>
+</tr>
+
+<tr>
+<td>VARCHAR</td>
+<td>Texto</td>
+</tr>
+
+<tr>
+<td>DECIMAL</td>
+<td>Dinero</td>
+</tr>
+
+<tr>
+<td>DATE</td>
+<td>Fechas</td>
+</tr>
+
+<tr>
+<td>BOOLEAN</td>
+<td>Verdadero/Falso</td>
+</tr>
+</table>
+
+<h3>Crear tabla Empleados</h3>
+
+<pre><code>CREATE TABLE Empleados (
+
+ id_empleado INT PRIMARY KEY,
+ nombre VARCHAR(80) NOT NULL,
+ telefono VARCHAR(20),
+ email VARCHAR(100) UNIQUE,
+ salario DECIMAL(8,2)
+
+);</code></pre>
+
+<h3>Explicación de restricciones</h3>
+
+<ul>
+<li>PRIMARY KEY → identifica filas.</li>
+<li>NOT NULL → obligatorio.</li>
+<li>UNIQUE → evita duplicados.</li>
+</ul>
+
+<div class="tip">
+Los teléfonos suelen almacenarse como VARCHAR y no como INT.
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="card">
+
+<span class="tag">Bloque 3 · Relaciones</span>
+
+<h2>Claves foráneas y relaciones</h2>
+
+<p>
+Las relaciones conectan tablas entre sí.
+</p>
+
+<h3>Tabla Departamentos</h3>
+
+<pre><code>CREATE TABLE Departamentos (
+
+ id_departamento INT PRIMARY KEY,
+ nombre VARCHAR(80)
+
+);</code></pre>
+
+<h3>Tabla Empleados relacionada</h3>
+
+<pre><code>CREATE TABLE Empleados (
+
+ id_empleado INT PRIMARY KEY,
+ nombre VARCHAR(80),
+
+ id_departamento INT,
+
+ FOREIGN KEY(id_departamento)
+ REFERENCES Departamentos(id_departamento)
+
+);</code></pre>
+
+<h3>¿Qué hace la FOREIGN KEY?</h3>
+
+<ul>
+<li>Impide departamentos inexistentes.</li>
+<li>Garantiza integridad.</li>
+<li>Evita datos inválidos.</li>
+</ul>
+
+<div class="example">
+Las claves foráneas protegen la coherencia de la base de datos.
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="card">
+
+<span class="tag">Bloque 4 · INSERT</span>
+
+<h2>Insertar datos con INSERT</h2>
+
+<h3>Insertar departamentos</h3>
+
+<pre><code>INSERT INTO Departamentos VALUES
+(1, 'Recursos Humanos'),
+(2, 'Finanzas'),
+(3, 'Tecnología');</code></pre>
+
+<h3>Insertar empleados</h3>
+
+<pre><code>INSERT INTO Empleados VALUES
+(1, 'Laura Gómez', '611222333',
+'laura@empresa.com', 2400.00, 1),
+
+(2, 'Carlos Ruiz', '699111555',
+'carlos@empresa.com', 3200.00, 3);</code></pre>
+
+<h3>Orden correcto</h3>
+
+<ul>
+<li>Primero tablas padre.</li>
+<li>Después tablas hijas.</li>
+</ul>
+
+<div class="trap">
+No puedes insertar un empleado con un departamento inexistente.
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="card">
+
+<span class="tag">Bloque 5 · SELECT</span>
+
+<h2>Consultas SELECT</h2>
+
+<h3>Ver todos los empleados</h3>
+
+<pre><code>SELECT * FROM Empleados;</code></pre>
+
+<h3>Ver columnas específicas</h3>
+
+<pre><code>SELECT nombre, salario
+FROM Empleados;</code></pre>
+
+<h3>Filtrar resultados</h3>
+
+<pre><code>SELECT *
+FROM Empleados
+WHERE salario > 2500;</code></pre>
+
+<h3>Ordenar datos</h3>
+
+<pre><code>SELECT *
+FROM Empleados
+ORDER BY salario DESC;</code></pre>
+
+<h3>Operadores habituales</h3>
+
+<table>
+<tr>
+<th>Operador</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>=</td>
+<td>Igual</td>
+</tr>
+
+<tr>
+<td>></td>
+<td>Mayor</td>
+</tr>
+
+<tr>
+<td><</td>
+<td>Menor</td>
+</tr>
+
+<tr>
+<td>LIKE</td>
+<td>Búsqueda parcial</td>
+</tr>
+</table>
+
+<div class="tip">
+ORDER BY DESC ordena de mayor a menor.
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="card">
+
+<span class="tag">Bloque 6 · UPDATE y DELETE</span>
+
+<h2>Modificar y borrar datos</h2>
+
+<h3>Actualizar salario</h3>
+
+<pre><code>UPDATE Empleados
+
+SET salario = 3500
+
+WHERE id_empleado = 2;</code></pre>
+
+<h3>Eliminar un empleado</h3>
+
+<pre><code>DELETE FROM Empleados
+
+WHERE id_empleado = 1;</code></pre>
+
+<h3>Regla profesional</h3>
+
+<p>
+Siempre prueba primero con SELECT.
+</p>
+
+<pre><code>SELECT *
+FROM Empleados
+WHERE id_empleado = 2;</code></pre>
+
+<div class="trap">
+UPDATE o DELETE sin WHERE afectan TODA la tabla.
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="card">
+
+<span class="tag">Bloque 7 · JOIN</span>
+
+<h2>JOIN y consultas relacionales</h2>
+
+<p>
+JOIN permite unir tablas relacionadas.
+</p>
+
+<h3>Consulta relacional</h3>
+
+<pre><code>SELECT
+E.nombre,
+D.nombre AS departamento,
+E.salario
+
+FROM Empleados E
+
+JOIN Departamentos D
+ON E.id_departamento =
+D.id_departamento;</code></pre>
+
+<h3>Cómo leer el JOIN</h3>
+
+<ul>
+<li>Empiezo desde Empleados.</li>
+<li>Conecto Departamentos.</li>
+<li>Relaciono mediante FK.</li>
+</ul>
+
+<h3>Alias</h3>
+
+<table>
+<tr>
+<th>Alias</th>
+<th>Tabla</th>
+</tr>
+
+<tr>
+<td>E</td>
+<td>Empleados</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td>Departamentos</td>
+</tr>
+</table>
+
+<div class="example">
+JOIN es uno de los pilares más importantes de SQL.
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="card">
+
+<span class="tag">Bloque 8 · Transacciones</span>
+
+<h2>Transacciones y seguridad</h2>
+
+<p>
+Las transacciones agrupan operaciones críticas.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>START TRANSACTION;
+
+UPDATE Empleados
+SET salario = salario - 200
+WHERE id_empleado = 1;
+
+UPDATE Empleados
+SET salario = salario + 200
+WHERE id_empleado = 2;
+
+COMMIT;</code></pre>
+
+<h3>ROLLBACK</h3>
+
+<pre><code>ROLLBACK;</code></pre>
+
+<p>
+Deshace cambios si algo falla.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Evita inconsistencias.</li>
+<li>Protege datos.</li>
+<li>Garantiza integridad.</li>
+</ul>
+
+<div class="tip">
+Las transacciones son fundamentales en sistemas bancarios.
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="card">
+
+<span class="tag">Bloque 9 · ALTER y DROP</span>
+
+<h2>Modificar estructura</h2>
+
+<h3>Añadir columna</h3>
+
+<pre><code>ALTER TABLE Empleados
+
+ADD fecha_contrato DATE;</code></pre>
+
+<h3>Modificar tipo</h3>
+
+<pre><code>ALTER TABLE Empleados
+
+MODIFY telefono VARCHAR(30);</code></pre>
+
+<h3>Borrar tabla</h3>
+
+<pre><code>DROP TABLE Empleados;</code></pre>
+
+<h3>Borrar base de datos</h3>
+
+<pre><code>DROP DATABASE EmpresaDB;</code></pre>
+
+<div class="trap">
+DROP elimina información permanentemente.
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="card">
+
+<span class="tag">Bloque 10 · Buenas prácticas</span>
+
+<h2>Buenas prácticas profesionales</h2>
+
+<h3>Consejos importantes</h3>
+
+<ul>
+<li>Usa nombres claros.</li>
+<li>Evita duplicados.</li>
+<li>Utiliza claves foráneas.</li>
+<li>Documenta cambios.</li>
+<li>Haz backups frecuentes.</li>
+<li>Prueba UPDATE con SELECT antes.</li>
+</ul>
+
+<h3>Errores frecuentes</h3>
+
+<ul>
+<li>DELETE sin WHERE.</li>
+<li>Tipos de datos incorrectos.</li>
+<li>No usar índices.</li>
+<li>Duplicar información.</li>
+</ul>
+
+<div class="example">
+El diseño correcto evita muchos problemas futuros.
+</div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section class="quiz">
+
+<h2>Mini-Test Final</h2>
+
+<div class="question">
+1. ¿Qué hace PRIMARY KEY?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Identifica filas de forma única
+</button>
+
+<button class="option" onclick="check(this,false)">
+Elimina tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Ordena columnas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Crea usuarios
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+2. ¿Qué hace una FOREIGN KEY?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Relaciona tablas y garantiza integridad
+</button>
+
+<button class="option" onclick="check(this,false)">
+Borra registros
+</button>
+
+<button class="option" onclick="check(this,false)">
+Duplica columnas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Crea índices automáticamente
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+3. ¿Qué comando une tablas?
+</div>
+
+<button class="option" onclick="check(this,false)">
+ALTER
+</button>
+
+<button class="option" onclick="check(this,true)">
+JOIN
+</button>
+
+<button class="option" onclick="check(this,false)">
+DELETE
+</button>
+
+<button class="option" onclick="check(this,false)">
+DROP
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+4. ¿Qué hace COMMIT?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Confirma cambios
+</button>
+
+<button class="option" onclick="check(this,false)">
+Borra tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Cancela usuarios
+</button>
+
+<button class="option" onclick="check(this,false)">
+Modifica columnas
+</button>
+
+</section>
+
+</div>
+
+<footer>
+Manual de SQL · Plataforma interactiva de estudio · SQL paso a paso
+</footer>
+
+<script>
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt => {
+
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ Correcto"
+    : "❌ Incorrecto";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 2 - Modelado y diseño conceptual</title>
+
+<style>
+
+:root{
+  --bg:#f3fbfd;
+  --sidebar:#0d3f57;
+  --primary:#168aad;
+  --secondary:#52b7d8;
+  --accent:#84e4dc;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#607080;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d7eef3;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:linear-gradient(180deg,#0d3f57,#15708f);
+  color:white;
+  padding:25px 20px;
+  overflow-y:auto;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  box-shadow:4px 0 15px rgba(0,0,0,.15);
+}
+
+.sidebar h1{
+  font-size:1.6rem;
+  margin-bottom:12px;
+  line-height:1.25;
+}
+
+.sidebar p{
+  font-size:.95rem;
+  opacity:.9;
+  margin-bottom:20px;
+}
+
+.nav-btn{
+  width:100%;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:white;
+  text-align:left;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.25s;
+  font-size:.95rem;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:rgba(255,255,255,.22);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.block{
+  display:none;
+  animation:fade .35s ease;
+}
+
+.block.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:32px;
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 26px rgba(0,0,0,.05);
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  margin:24px 0 12px;
+  color:#0d6078;
+}
+
+p{
+  line-height:1.75;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:22px;
+  margin:15px 0;
+}
+
+li{
+  margin-bottom:10px;
+  line-height:1.6;
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#065d74;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  margin-bottom:16px;
+  font-weight:700;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:18px 0;
+}
+
+.tip{
+  background:#effff6;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d8f3ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:15px;
+}
+
+code{
+  font-family:Consolas, monospace;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0;
+}
+
+th,td{
+  border:1px solid #d7eef3;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#dff8fd;
+  color:#055f75;
+}
+
+.quiz{
+  margin-top:30px;
+  padding-top:20px;
+  border-top:2px dashed #cde8ef;
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#ddf7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer-note{
+  text-align:center;
+  color:var(--muted);
+  margin-top:40px;
+  font-size:.92rem;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 2<br>Modelado y diseño conceptual</h1>
+
+<p>
+Plataforma interactiva de estudio para dominar el modelo Entidad-Relación, relaciones, cardinalidades y diseño conceptual.
+</p>
+
+<button class="nav-btn active" onclick="showBlock(0)">2.1 Modelo E-R</button>
+<button class="nav-btn" onclick="showBlock(1)">2.2 Entidades y atributos</button>
+<button class="nav-btn" onclick="showBlock(2)">2.3 Claves primarias y foráneas</button>
+<button class="nav-btn" onclick="showBlock(3)">2.4 Beneficios del modelo E-R</button>
+<button class="nav-btn" onclick="showBlock(4)">2.5 Relaciones</button>
+<button class="nav-btn" onclick="showBlock(5)">2.6 Cardinalidades</button>
+<button class="nav-btn" onclick="showBlock(6)">2.7 Jerarquías</button>
+<button class="nav-btn" onclick="showBlock(7)">2.8 Caso Spotify</button>
+<button class="nav-btn" onclick="showBlock(8)">2.9 Caso Amazon</button>
+<button class="nav-btn" onclick="showBlock(9)">2.10 Biblioteca digital</button>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- BLOQUE 1 -->
+
+<section class="block active">
+
+<div class="card">
+
+<span class="tag">Bloque 2.1 · 25 min</span>
+
+<h2>Modelo Entidad-Relación (E-R)</h2>
+
+<p>
+El Modelo Entidad-Relación es el punto de partida en el diseño de cualquier base de datos moderna.
+Antes de crear tablas o escribir SQL, el modelo E-R permite representar visualmente cómo se organiza la información.
+</p>
+
+<p>
+Su objetivo es traducir el mundo real al lenguaje de los datos:
+clientes, productos, pedidos, alumnos o canciones se convierten en entidades conectadas mediante relaciones.
+</p>
+
+<h3>¿Qué representa un modelo E-R?</h3>
+
+<ul>
+<li><strong>Entidades:</strong> objetos o conceptos del sistema.</li>
+<li><strong>Atributos:</strong> características de cada entidad.</li>
+<li><strong>Relaciones:</strong> vínculos entre entidades.</li>
+<li><strong>Claves:</strong> identificadores únicos.</li>
+</ul>
+
+<div class="example">
+<strong>Ejemplo:</strong><br>
+En una academia:
+Alumno → entidad<br>
+nombre, email, edad → atributos<br>
+id_alumno → clave primaria
+</div>
+
+<h3>Ejemplo SQL derivado del modelo E-R</h3>
+
+<pre><code>CREATE TABLE Alumno (
+  id_alumno INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  email VARCHAR(100),
+  edad INT
+);</code></pre>
+
+<div class="tip">
+<strong>Consejo:</strong><br>
+El modelo E-R es conceptual. Todavía no define cómo se almacenan físicamente los datos.
+</div>
+
+<div class="trap">
+<strong>Pregunta trampa:</strong><br>
+“El modelo E-R solo sirve para bases de datos grandes.”
+❌ Falso. Incluso aplicaciones pequeñas necesitan diseño conceptual.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Cuál es el objetivo principal del modelo E-R?
+</div>
+
+<button class="option" onclick="check(this,true)">Representar conceptualmente los datos y relaciones</button>
+<button class="option" onclick="check(this,false)">Ejecutar consultas SQL</button>
+<button class="option" onclick="check(this,false)">Sustituir MySQL</button>
+<button class="option" onclick="check(this,false)">Eliminar tablas automáticamente</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.2 · 25 min</span>
+
+<h2>Entidades, atributos y claves</h2>
+
+<h3>Entidades</h3>
+
+<p>
+Una entidad representa un objeto del mundo real que queremos almacenar en la base de datos.
+</p>
+
+<ul>
+<li>Cliente</li>
+<li>Producto</li>
+<li>Pedido</li>
+<li>Empleado</li>
+</ul>
+
+<h3>Atributos</h3>
+
+<p>
+Son las propiedades que describen a una entidad.
+</p>
+
+<table>
+<tr>
+<th>Entidad</th>
+<th>Atributos</th>
+</tr>
+<tr>
+<td>Cliente</td>
+<td>nombre, email, teléfono</td>
+</tr>
+<tr>
+<td>Producto</td>
+<td>precio, stock, categoría</td>
+</tr>
+</table>
+
+<h3>Tipos de atributos</h3>
+
+<ul>
+<li><strong>Descriptivos:</strong> nombre, edad, dirección.</li>
+<li><strong>Identificadores:</strong> id_cliente, id_producto.</li>
+</ul>
+
+<pre><code>CREATE TABLE Producto (
+  id_producto INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  precio DECIMAL(10,2),
+  stock INT
+);</code></pre>
+
+<div class="example">
+Si dos productos tienen el mismo nombre,
+el sistema sigue diferenciándolos gracias a id_producto.
+</div>
+
+<div class="tip">
+<strong>Importante:</strong><br>
+Toda entidad debe tener una clave primaria única.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué representa un atributo?
+</div>
+
+<button class="option" onclick="check(this,false)">Una relación</button>
+<button class="option" onclick="check(this,true)">Una característica de la entidad</button>
+<button class="option" onclick="check(this,false)">Una consulta SQL</button>
+<button class="option" onclick="check(this,false)">Una tabla puente</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.3 · 30 min</span>
+
+<h2>Claves primarias, alternas y foráneas</h2>
+
+<h3>Clave primaria (Primary Key)</h3>
+
+<p>
+Identifica de forma única cada registro.
+</p>
+
+<pre><code>id_cliente INT PRIMARY KEY</code></pre>
+
+<h3>Clave alterna</h3>
+
+<p>
+Puede identificar registros, aunque no es la principal.
+</p>
+
+<ul>
+<li>DNI</li>
+<li>Email</li>
+<li>Número de pasaporte</li>
+</ul>
+
+<h3>Clave foránea (Foreign Key)</h3>
+
+<p>
+Conecta entidades distintas.
+</p>
+
+<pre><code>CREATE TABLE Pedido (
+  id_pedido INT PRIMARY KEY,
+  fecha DATE,
+  id_cliente INT,
+  FOREIGN KEY (id_cliente)
+  REFERENCES Cliente(id_cliente)
+);</code></pre>
+
+<div class="example">
+La clave foránea garantiza integridad referencial:
+un pedido no puede existir sin cliente.
+</div>
+
+<table>
+<tr>
+<th>Tipo de clave</th>
+<th>Función</th>
+</tr>
+<tr>
+<td>Primaria</td>
+<td>Identifica registros</td>
+</tr>
+<tr>
+<td>Alterna</td>
+<td>Identificador secundario</td>
+</tr>
+<tr>
+<td>Foránea</td>
+<td>Relaciona tablas</td>
+</tr>
+</table>
+
+<div class="trap">
+Muchos alumnos confunden:
+Primary Key ≠ Foreign Key.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace una clave foránea?
+</div>
+
+<button class="option" onclick="check(this,false)">Elimina tablas</button>
+<button class="option" onclick="check(this,true)">Conecta entidades relacionadas</button>
+<button class="option" onclick="check(this,false)">Duplica registros</button>
+<button class="option" onclick="check(this,false)">Reemplaza SQL</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.4 · 20 min</span>
+
+<h2>Beneficios del modelo E-R</h2>
+
+<p>
+El modelo E-R permite detectar errores antes de implementar la base de datos.
+</p>
+
+<h3>Ventajas principales</h3>
+
+<ul>
+<li>Evita redundancias.</li>
+<li>Mejora la integridad de datos.</li>
+<li>Facilita mantenimiento.</li>
+<li>Permite escalabilidad.</li>
+<li>Ayuda al trabajo en equipo.</li>
+</ul>
+
+<div class="example">
+Si “nombre_cliente” aparece repetido en varias tablas,
+el modelo E-R ayuda a centralizar la información.
+</div>
+
+<h3>Impacto profesional</h3>
+
+<p>
+Analistas, desarrolladores y administradores utilizan diagramas E-R
+para coordinar diseño y lógica de negocio.
+</p>
+
+<div class="tip">
+Un buen modelo conceptual reduce errores y costes futuros.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué problema ayuda a evitar el modelo E-R?
+</div>
+
+<button class="option" onclick="check(this,false)">Uso de Internet</button>
+<button class="option" onclick="check(this,true)">Duplicidad de datos</button>
+<button class="option" onclick="check(this,false)">Instalar MySQL</button>
+<button class="option" onclick="check(this,false)">Pérdida de electricidad</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.5 · 25 min</span>
+
+<h2>Relaciones</h2>
+
+<p>
+Las relaciones describen cómo interactúan las entidades.
+</p>
+
+<h3>Ejemplos reales</h3>
+
+<ul>
+<li>Cliente realiza pedidos.</li>
+<li>Alumno se matricula en cursos.</li>
+<li>Empleado supervisa empleados.</li>
+</ul>
+
+<h3>Relaciones en SQL</h3>
+
+<pre><code>CREATE TABLE Pedido (
+  id_pedido INT PRIMARY KEY,
+  id_cliente INT,
+  FOREIGN KEY (id_cliente)
+  REFERENCES Cliente(id_cliente)
+);</code></pre>
+
+<div class="example">
+La relación conecta Pedido con Cliente mediante id_cliente.
+</div>
+
+<div class="tip">
+Las relaciones representan lógica de negocio real.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué representa una relación?
+</div>
+
+<button class="option" onclick="check(this,true)">Un vínculo entre entidades</button>
+<button class="option" onclick="check(this,false)">Un atributo descriptivo</button>
+<button class="option" onclick="check(this,false)">Un fichero plano</button>
+<button class="option" onclick="check(this,false)">Una IP de red</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.6 · 30 min</span>
+
+<h2>Cardinalidades</h2>
+
+<h3>1:1 (Uno a Uno)</h3>
+
+<p>
+Una persona tiene un único pasaporte.
+</p>
+
+<h3>1:N (Uno a Muchos)</h3>
+
+<p>
+Un cliente puede tener muchos pedidos.
+</p>
+
+<h3>N:M (Muchos a Muchos)</h3>
+
+<p>
+Muchos alumnos pueden matricularse en muchos cursos.
+</p>
+
+<h3>Tabla intermedia</h3>
+
+<pre><code>CREATE TABLE Matricula (
+  id_alumno INT,
+  id_curso INT,
+  fecha DATE,
+  PRIMARY KEY(id_alumno,id_curso)
+);</code></pre>
+
+<table>
+<tr>
+<th>Cardinalidad</th>
+<th>Ejemplo</th>
+</tr>
+<tr>
+<td>1:1</td>
+<td>Persona → Pasaporte</td>
+</tr>
+<tr>
+<td>1:N</td>
+<td>Cliente → Pedido</td>
+</tr>
+<tr>
+<td>N:M</td>
+<td>Alumno ↔ Curso</td>
+</tr>
+</table>
+
+<div class="trap">
+Las relaciones N:M NO se implementan directamente:
+necesitan tabla intermedia.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué cardinalidad necesita una tabla puente?
+</div>
+
+<button class="option" onclick="check(this,false)">1:1</button>
+<button class="option" onclick="check(this,false)">1:N</button>
+<button class="option" onclick="check(this,true)">N:M</button>
+<button class="option" onclick="check(this,false)">0:1</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.7 · 25 min</span>
+
+<h2>Jerarquías: generalización y especialización</h2>
+
+<h3>Generalización</h3>
+
+<p>
+Agrupa entidades específicas en una más general.
+</p>
+
+<div class="example">
+Programador y Diseñador → Empleado
+</div>
+
+<h3>Especialización</h3>
+
+<p>
+Crea subtipos desde una entidad general.
+</p>
+
+<div class="example">
+Cliente → ClienteVIP
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Evita duplicidad.</li>
+<li>Facilita mantenimiento.</li>
+<li>Permite herencia de atributos.</li>
+</ul>
+
+<pre><code>CREATE TABLE Empleado (
+  id_empleado INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  salario DECIMAL(10,2)
+);
+
+CREATE TABLE Programador (
+  id_empleado INT PRIMARY KEY,
+  lenguaje VARCHAR(50),
+  FOREIGN KEY(id_empleado)
+  REFERENCES Empleado(id_empleado)
+);</code></pre>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace una especialización?
+</div>
+
+<button class="option" onclick="check(this,true)">Crear subtipos desde una entidad general</button>
+<button class="option" onclick="check(this,false)">Eliminar claves primarias</button>
+<button class="option" onclick="check(this,false)">Convertir SQL en Excel</button>
+<button class="option" onclick="check(this,false)">Eliminar relaciones</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.8 · 20 min</span>
+
+<h2>Caso de estudio: Spotify</h2>
+
+<p>
+Spotify gestiona millones de canciones, usuarios y listas de reproducción.
+</p>
+
+<h3>Entidades principales</h3>
+
+<ul>
+<li>Usuario</li>
+<li>Canción</li>
+<li>Lista de reproducción</li>
+</ul>
+
+<h3>Relación importante</h3>
+
+<p>
+Lista ↔ Canción es una relación N:M.
+</p>
+
+<pre><code>CREATE TABLE ListaCancion (
+  id_lista INT,
+  id_cancion INT,
+  PRIMARY KEY(id_lista,id_cancion)
+);</code></pre>
+
+<div class="example">
+Una canción puede aparecer en muchas listas.
+Una lista puede contener muchas canciones.
+</div>
+
+<div class="tip">
+Spotify utiliza modelos relacionales y distribuidos para escalar globalmente.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué tipo de relación existe entre Lista y Canción?
+</div>
+
+<button class="option" onclick="check(this,false)">1:1</button>
+<button class="option" onclick="check(this,false)">1:N</button>
+<button class="option" onclick="check(this,true)">N:M</button>
+<button class="option" onclick="check(this,false)">0:1</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.9 · 25 min</span>
+
+<h2>Caso de estudio: Amazon</h2>
+
+<p>
+Amazon necesita gestionar pedidos, productos, empleados y clientes a escala global.
+</p>
+
+<h3>Relaciones principales</h3>
+
+<ul>
+<li>Cliente → Pedido (1:N)</li>
+<li>Pedido ↔ Producto (N:M)</li>
+<li>Empleado → Envío (1:N)</li>
+</ul>
+
+<h3>Tabla intermedia</h3>
+
+<pre><code>CREATE TABLE OrderItems (
+  order_id INT,
+  product_id INT,
+  quantity INT,
+  unit_price DECIMAL(10,2)
+);</code></pre>
+
+<div class="example">
+OrderItems permite calcular cantidades, devoluciones y facturación.
+</div>
+
+<div class="tip">
+Amazon utiliza jerarquías para diferenciar repartidores y gestores.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué almacena la tabla OrderItems?
+</div>
+
+<button class="option" onclick="check(this,false)">Usuarios</button>
+<button class="option" onclick="check(this,true)">Relación entre pedidos y productos</button>
+<button class="option" onclick="check(this,false)">Correos electrónicos</button>
+<button class="option" onclick="check(this,false)">Conexiones WiFi</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block">
+
+<div class="card">
+
+<span class="tag">Bloque 2.10 · 30 min</span>
+
+<h2>Biblioteca digital y Workbench</h2>
+
+<p>
+Una red de bibliotecas públicas desea centralizar préstamos y usuarios mediante un modelo E-R.
+</p>
+
+<h3>Entidades</h3>
+
+<table>
+<tr>
+<th>Entidad</th>
+<th>Clave primaria</th>
+</tr>
+<tr>
+<td>Libro</td>
+<td>id_libro</td>
+</tr>
+<tr>
+<td>Usuario</td>
+<td>id_usuario</td>
+</tr>
+<tr>
+<td>Préstamo</td>
+<td>id_prestamo</td>
+</tr>
+</table>
+
+<h3>Modelo SQL</h3>
+
+<pre><code>CREATE TABLE Prestamo (
+  id_prestamo INT PRIMARY KEY,
+  fecha_prestamo DATE,
+  fecha_devolucion DATE,
+  id_usuario INT,
+  id_libro INT,
+  FOREIGN KEY(id_usuario)
+  REFERENCES Usuario(id_usuario),
+  FOREIGN KEY(id_libro)
+  REFERENCES Libro(id_libro)
+);</code></pre>
+
+<h3>Flujo en Workbench</h3>
+
+<ul>
+<li>Crear modelo EER</li>
+<li>Definir entidades</li>
+<li>Asignar claves</li>
+<li>Crear relaciones</li>
+<li>Validar modelo</li>
+<li>Forward Engineer</li>
+</ul>
+
+<div class="example">
+Workbench puede generar automáticamente el SQL desde el diagrama visual.
+</div>
+
+<div class="trap">
+Workbench NO diseña correctamente la base de datos por sí solo.
+El diseñador debe pensar la lógica.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué opción genera automáticamente el SQL en Workbench?
+</div>
+
+<button class="option" onclick="check(this,false)">Validate Diagram</button>
+<button class="option" onclick="check(this,false)">Quick Import</button>
+<button class="option" onclick="check(this,true)">Forward Engineer</button>
+<button class="option" onclick="check(this,false)">Export CSV</button>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer-note">
+Material para ayudarte a estudiar bases de datos. Mucha suerte.
+</div>
+
+</main>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const buttons = document.querySelectorAll('.nav-btn');
+
+function showBlock(index){
+
+  blocks.forEach(block => block.classList.remove('active'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  blocks[index].classList.add('active');
+  buttons[index].classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt=>{
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ ¡Correcto!"
+    : "❌ Incorrecto.";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

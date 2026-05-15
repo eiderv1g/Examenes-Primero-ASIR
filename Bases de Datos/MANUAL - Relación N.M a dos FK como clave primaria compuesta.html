@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relación N:M a dos FK como clave primaria compuesta</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --text:#1e293b;
+  --card:#ffffff;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+}
+
+header{
+  background:linear-gradient(135deg,#0f3d56,#167391);
+  color:white;
+  padding:50px 25px;
+}
+
+header h1{
+  font-size:2.4rem;
+  margin-bottom:14px;
+}
+
+header p{
+  max-width:900px;
+  opacity:.95;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:30px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:25px 0 12px;
+}
+
+ul{
+  padding-left:22px;
+  margin:15px 0;
+}
+
+li{
+  margin-bottom:10px;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:20px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:14px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:50px;
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+footer{
+  text-align:center;
+  color:#64748b;
+  padding:40px 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Relación N:M a dos FK como clave primaria compuesta</h1>
+
+<p>
+Guía completa paso a paso para entender por qué en una relación muchos a muchos se utilizan las dos claves foráneas como clave primaria compuesta, cuándo usar una PK artificial y cómo diseñar correctamente tablas intermedias en SQL.
+</p>
+
+</header>
+
+<div class="container">
+
+<!-- BLOQUE 1 -->
+
+<section class="card">
+
+<span class="tag">Bloque 1 · Concepto base</span>
+
+<h2>¿Qué es una relación N:M?</h2>
+
+<p>
+Una relación N:M (muchos a muchos) ocurre cuando:
+</p>
+
+<ul>
+<li>Un registro de la tabla A puede relacionarse con muchos registros de la tabla B.</li>
+<li>Y un registro de la tabla B puede relacionarse con muchos registros de la tabla A.</li>
+</ul>
+
+<h3>Ejemplo clásico</h3>
+
+<table>
+<tr>
+<th>Entidad</th>
+<th>Relación</th>
+</tr>
+<tr>
+<td>Alumno</td>
+<td>Puede estar en muchos cursos</td>
+</tr>
+<tr>
+<td>Curso</td>
+<td>Puede tener muchos alumnos</td>
+</tr>
+</table>
+
+<p>
+Esto NO puede representarse directamente en SQL con una sola FK.
+</p>
+
+<h3>Por eso aparece una tabla intermedia</h3>
+
+<pre><code>Matricula
+---------
+id_alumno
+id_curso</code></pre>
+
+<div class="example">
+La tabla intermedia representa la RELACIÓN entre dos entidades.
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="card">
+
+<span class="tag">Bloque 2 · Identidad real</span>
+
+<h2>¿Qué identifica realmente una fila?</h2>
+
+<p>
+La pregunta clave es:
+</p>
+
+<div class="example">
+¿Qué hace única una matrícula?
+</div>
+
+<p>
+No es un número inventado.
+</p>
+
+<p>
+Lo que realmente identifica la fila es:
+</p>
+
+<ul>
+<li>Qué alumno.</li>
+<li>En qué curso.</li>
+</ul>
+
+<h3>Por tanto</h3>
+
+<pre><code>PRIMARY KEY (id_alumno, id_curso)</code></pre>
+
+<p>
+La combinación de ambas claves foráneas ya es única.
+</p>
+
+<h3>Eso significa que:</h3>
+
+<ul>
+<li>No necesitas otra clave artificial.</li>
+<li>Evitas duplicados automáticamente.</li>
+<li>El modelo es más lógico.</li>
+</ul>
+
+<div class="tip">
+La PK compuesta representa la identidad REAL de la relación.
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="card">
+
+<span class="tag">Bloque 3 · Problema de PK artificial</span>
+
+<h2>¿Qué ocurre si usas una PK artificial?</h2>
+
+<p>
+Muchas personas crean algo así:
+</p>
+
+<pre><code>CREATE TABLE matricula (
+
+ id_matricula INT PRIMARY KEY,
+ id_alumno INT,
+ id_curso INT
+
+);</code></pre>
+
+<h3>Problema</h3>
+
+<p>
+SQL solo controla que id_matricula no se repita.
+</p>
+
+<p>
+Pero NO controla duplicados lógicos.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>1 | 14 | 3
+2 | 14 | 3</code></pre>
+
+<p>
+Para SQL son filas distintas.
+</p>
+
+<p>
+Pero en el mundo real:
+</p>
+
+<div class="trap">
+El alumno 14 está repetido en el curso 3.
+</div>
+
+<h3>¿Cómo se arregla?</h3>
+
+<pre><code>ALTER TABLE matricula
+ADD CONSTRAINT uq_alumno_curso
+UNIQUE(id_alumno, id_curso);</code></pre>
+
+<p>
+Al final acabas teniendo:
+</p>
+
+<ul>
+<li>PK artificial.</li>
+<li>UNIQUE adicional.</li>
+<li>Dos índices.</li>
+<li>Más complejidad.</li>
+</ul>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="card">
+
+<span class="tag">Bloque 4 · PK compuesta correcta</span>
+
+<h2>Ejemplo correcto con PK compuesta</h2>
+
+<h3>Tablas principales</h3>
+
+<pre><code>CREATE TABLE alumno (
+
+ id_alumno INT PRIMARY KEY,
+ nombre VARCHAR(50)
+
+);
+
+CREATE TABLE curso (
+
+ id_curso INT PRIMARY KEY,
+ nombre VARCHAR(50)
+
+);</code></pre>
+
+<h3>Tabla intermedia</h3>
+
+<pre><code>CREATE TABLE matricula_compuesta (
+
+ id_alumno INT,
+ id_curso INT,
+ fecha DATE,
+
+ PRIMARY KEY(id_alumno, id_curso),
+
+ FOREIGN KEY(id_alumno)
+ REFERENCES alumno(id_alumno),
+
+ FOREIGN KEY(id_curso)
+ REFERENCES curso(id_curso)
+
+);</code></pre>
+
+<h3>Inserción válida</h3>
+
+<pre><code>INSERT INTO matricula_compuesta
+VALUES (1, 10, '2024-09-01');</code></pre>
+
+<h3>Duplicado</h3>
+
+<pre><code>INSERT INTO matricula_compuesta
+VALUES (1, 10, '2024-09-15');</code></pre>
+
+<div class="trap">
+ERROR → la PK compuesta detecta duplicado automáticamente.
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="card">
+
+<span class="tag">Bloque 5 · Cuándo sí usar PK artificial</span>
+
+<h2>¿Cuándo sí tiene sentido una PK artificial?</h2>
+
+<p>
+Cuando la tabla intermedia tiene vida propia.
+</p>
+
+<h3>Ejemplo real</h3>
+
+<pre><code>CREATE TABLE detalle_pedido (
+
+ id_detalle INT PRIMARY KEY,
+
+ id_pedido INT,
+ id_producto INT,
+
+ cantidad INT,
+ precio NUMERIC(10,2),
+ descuento NUMERIC(10,2)
+
+);</code></pre>
+
+<h3>Aquí cambia el escenario</h3>
+
+<ul>
+<li>La fila tiene atributos importantes.</li>
+<li>Puede repetirse el mismo producto.</li>
+<li>Hay descuentos distintos.</li>
+<li>Puede haber promociones.</li>
+</ul>
+
+<h3>Entonces</h3>
+
+<p>
+La fila sí representa una entidad propia.
+</p>
+
+<div class="tip">
+Si la tabla tiene datos propios importantes → PK artificial.
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="card">
+
+<span class="tag">Bloque 6 · Comparativa</span>
+
+<h2>PK compuesta vs PK artificial</h2>
+
+<table>
+<tr>
+<th>PK compuesta</th>
+<th>PK artificial</th>
+</tr>
+
+<tr>
+<td>Relación pura</td>
+<td>Entidad propia</td>
+</tr>
+
+<tr>
+<td>Más simple</td>
+<td>Más flexible</td>
+</tr>
+
+<tr>
+<td>Evita duplicados automáticamente</td>
+<td>Necesita UNIQUE</td>
+</tr>
+
+<tr>
+<td>Menos índices</td>
+<td>Más índices</td>
+</tr>
+
+<tr>
+<td>Más normalizado</td>
+<td>Útil para históricos</td>
+</tr>
+</table>
+
+<h3>Ejemplos de PK compuesta</h3>
+
+<ul>
+<li>Alumno ↔ Curso</li>
+<li>Usuario ↔ Rol</li>
+<li>Actor ↔ Película</li>
+</ul>
+
+<h3>Ejemplos de PK artificial</h3>
+
+<ul>
+<li>DetallePedido</li>
+<li>Históricos</li>
+<li>Asignaciones con fechas</li>
+</ul>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="card">
+
+<span class="tag">Bloque 7 · Casos reales</span>
+
+<h2>Casos prácticos explicados</h2>
+
+<h3>Usuario ↔ Rol</h3>
+
+<pre><code>PRIMARY KEY(id_usuario, id_rol)</code></pre>
+
+<p>
+Un usuario no debería tener el mismo rol dos veces.
+</p>
+
+<h3>Profesor ↔ Departamento</h3>
+
+<p>
+Aquí suele usarse PK artificial.
+</p>
+
+<h3>¿Por qué?</h3>
+
+<p>
+Porque puede existir histórico:
+</p>
+
+<pre><code>7 | 3 | 2023
+7 | 3 | 2025</code></pre>
+
+<p>
+El mismo profesor vuelve al mismo departamento en otra fecha.
+</p>
+
+<h3>Entonces</h3>
+
+<pre><code>id_asignacion INT PRIMARY KEY</code></pre>
+
+<div class="example">
+Las relaciones con histórico suelen necesitar PK artificial.
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="card">
+
+<span class="tag">Bloque 8 · Reglas profesionales</span>
+
+<h2>Regla mental definitiva</h2>
+
+<h3>Usa PK compuesta cuando:</h3>
+
+<ul>
+<li>La tabla solo relaciona entidades.</li>
+<li>No tiene identidad propia.</li>
+<li>No hay histórico.</li>
+<li>No hay múltiples variaciones.</li>
+</ul>
+
+<h3>Usa PK artificial cuando:</h3>
+
+<ul>
+<li>La tabla tiene datos propios importantes.</li>
+<li>Existe histórico.</li>
+<li>Puede repetirse la combinación.</li>
+<li>Necesitas referenciar filas individuales.</li>
+</ul>
+
+<div class="tip">
+Pregunta clave:
+“¿La tabla representa SOLO una relación o representa una entidad propia?”
+</div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section class="quiz">
+
+<h2>Mini-Test Final</h2>
+
+<div class="question">
+1. ¿Por qué se usa una PK compuesta en una relación N:M pura?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Porque la combinación de las FK ya identifica la fila
+</button>
+
+<button class="option" onclick="check(this,false)">
+Porque SQL obliga siempre
+</button>
+
+<button class="option" onclick="check(this,false)">
+Porque mejora el diseño web
+</button>
+
+<button class="option" onclick="check(this,false)">
+Porque elimina las FK
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+2. ¿Qué problema aparece con una PK artificial sin UNIQUE?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Duplicados lógicos
+</button>
+
+<button class="option" onclick="check(this,false)">
+Pérdida de tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Desaparición de índices
+</button>
+
+<button class="option" onclick="check(this,false)">
+Errores HTML
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+3. ¿Cuándo suele usarse PK artificial?
+</div>
+
+<button class="option" onclick="check(this,false)">
+Cuando la tabla es mínima
+</button>
+
+<button class="option" onclick="check(this,true)">
+Cuando la relación tiene atributos propios importantes
+</button>
+
+<button class="option" onclick="check(this,false)">
+Cuando no existen FK
+</button>
+
+<button class="option" onclick="check(this,false)">
+Siempre en Oracle
+</button>
+
+</section>
+
+</div>
+
+<footer>
+Relación N:M · PK compuesta · SQL avanzado · Diseño relacional
+</footer>
+
+<script>
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt => {
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ Correcto"
+    : "❌ Incorrecto";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

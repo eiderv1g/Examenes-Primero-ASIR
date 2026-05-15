@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 4 - SQL - DDL y DML</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --sidebar:#0f3d56;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --card:#ffffff;
+  --text:#1e293b;
+  --muted:#64748b;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:330px;
+  background:linear-gradient(180deg,#0f3d56,#167391);
+  color:white;
+  padding:25px 20px;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  overflow-y:auto;
+  box-shadow:4px 0 16px rgba(0,0,0,.16);
+}
+
+.sidebar h1{
+  font-size:1.6rem;
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.sidebar p{
+  opacity:.92;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.nav-btn{
+  width:100%;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:white;
+  text-align:left;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.25s;
+  font-size:.94rem;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:rgba(255,255,255,.22);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.block{
+  display:none;
+  animation:fade .35s ease;
+}
+
+.block.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:24px 0 12px;
+}
+
+p{
+  line-height:1.8;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:22px;
+  margin:14px 0;
+}
+
+li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  margin-bottom:16px;
+  font-weight:700;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:18px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:15px;
+}
+
+code{
+  font-family:Consolas, monospace;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:2px dashed #cfe8ef;
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer-note{
+  margin-top:40px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 4<br>SQL - DDL y DML</h1>
+
+<p>
+Plataforma interactiva para dominar SQL, diseño de tablas, manipulación de datos, restricciones, transacciones y casos reales profesionales.
+</p>
+
+<button class="nav-btn active" onclick="showBlock(0)">4.1 Introducción a DDL</button>
+<button class="nav-btn" onclick="showBlock(1)">4.2 Tipos de datos DDL</button>
+<button class="nav-btn" onclick="showBlock(2)">4.3 Restricciones DDL</button>
+<button class="nav-btn" onclick="showBlock(3)">4.4 Caso Domestika</button>
+<button class="nav-btn" onclick="showBlock(4)">4.5 Introducción a DML</button>
+<button class="nav-btn" onclick="showBlock(5)">4.6 Sentencias DML</button>
+<button class="nav-btn" onclick="showBlock(6)">4.7 Transacciones</button>
+<button class="nav-btn" onclick="showBlock(7)">4.8 Caso Zara Store</button>
+<button class="nav-btn" onclick="showBlock(8)">4.9 Integración DDL+DML</button>
+<button class="nav-btn" onclick="showBlock(9)">4.10 Secuencia lógica</button>
+<button class="nav-btn" onclick="showBlock(10)">4.11 Caso HotelDB</button>
+<button class="nav-btn" onclick="showBlock(11)">4.12 Consejos</button>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<!-- BLOQUE 1 -->
+
+<section class="block active">
+<div class="card">
+
+<span class="tag">Bloque 4.1 · 30 min</span>
+
+<h2>Introducción a DDL</h2>
+
+<p>
+DDL (Data Definition Language) es el conjunto de comandos SQL encargado de definir
+la estructura de una base de datos.
+</p>
+
+<p>
+Con DDL se crean tablas, bases de datos, restricciones, relaciones y estructuras permanentes.
+Es la parte del lenguaje SQL que construye la arquitectura del sistema.
+</p>
+
+<h3>Principales comandos DDL</h3>
+
+<table>
+<tr>
+<th>Comando</th>
+<th>Función</th>
+</tr>
+<tr>
+<td>CREATE</td>
+<td>Crear objetos</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>Modificar estructuras</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>Eliminar objetos</td>
+</tr>
+<tr>
+<td>TRUNCATE</td>
+<td>Vaciar tablas</td>
+</tr>
+</table>
+
+<h3>Ejemplo CREATE DATABASE</h3>
+
+<pre><code>CREATE DATABASE academia;</code></pre>
+
+<p>
+Este comando crea una base de datos vacía llamada academia.
+Todavía no contiene tablas ni registros.
+</p>
+
+<h3>Ejemplo CREATE TABLE</h3>
+
+<pre><code>CREATE TABLE alumnos (
+  id_alumno INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  edad INT
+);</code></pre>
+
+<p>
+Este comando crea una tabla llamada alumnos.
+</p>
+
+<ul>
+<li><strong>id_alumno:</strong> identificador único.</li>
+<li><strong>VARCHAR(100):</strong> texto variable de hasta 100 caracteres.</li>
+<li><strong>PRIMARY KEY:</strong> garantiza unicidad.</li>
+</ul>
+
+<div class="example">
+DDL construye la estructura del sistema antes de insertar datos.
+</div>
+
+<div class="trap">
+TRUNCATE elimina todos los registros, pero mantiene la tabla.
+DROP elimina completamente la tabla.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace el comando CREATE TABLE?
+</div>
+
+<button class="option" onclick="check(this,true)">Crear una tabla</button>
+<button class="option" onclick="check(this,false)">Insertar datos</button>
+<button class="option" onclick="check(this,false)">Actualizar registros</button>
+<button class="option" onclick="check(this,false)">Eliminar filas concretas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.2 · 35 min</span>
+
+<h2>Tipos de datos DDL</h2>
+
+<p>
+Cada columna necesita un tipo de dato adecuado.
+Elegir correctamente el tipo mejora rendimiento, integridad y almacenamiento.
+</p>
+
+<h3>Tipos numéricos</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+<tr>
+<td>INT</td>
+<td>Números enteros</td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>Valores monetarios</td>
+</tr>
+<tr>
+<td>FLOAT</td>
+<td>Números decimales aproximados</td>
+</tr>
+</table>
+
+<h3>Tipos de texto</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>Texto fijo</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>Texto variable</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>Texto largo</td>
+</tr>
+</table>
+
+<h3>Tipos de fecha</h3>
+
+<ul>
+<li>DATE</li>
+<li>TIME</li>
+<li>DATETIME</li>
+<li>TIMESTAMP</li>
+</ul>
+
+<pre><code>CREATE TABLE productos (
+  id_producto INT PRIMARY KEY,
+  nombre VARCHAR(120),
+  precio DECIMAL(10,2),
+  fecha_creacion DATE
+);</code></pre>
+
+<h3>Explicación</h3>
+
+<ul>
+<li><strong>DECIMAL(10,2):</strong> hasta 10 dígitos y 2 decimales.</li>
+<li><strong>DATE:</strong> almacena fechas válidas.</li>
+<li><strong>VARCHAR:</strong> ahorra espacio frente a CHAR.</li>
+</ul>
+
+<div class="tip">
+Para dinero se recomienda DECIMAL y no FLOAT.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué tipo de dato es mejor para precios?
+</div>
+
+<button class="option" onclick="check(this,false)">TEXT</button>
+<button class="option" onclick="check(this,true)">DECIMAL</button>
+<button class="option" onclick="check(this,false)">BOOLEAN</button>
+<button class="option" onclick="check(this,false)">CHAR</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.3 · 35 min</span>
+
+<h2>Restricciones DDL</h2>
+
+<p>
+Las restricciones garantizan la integridad y coherencia de los datos.
+</p>
+
+<h3>PRIMARY KEY</h3>
+
+<p>
+Identifica registros únicos.
+</p>
+
+<h3>FOREIGN KEY</h3>
+
+<p>
+Relaciona tablas entre sí.
+</p>
+
+<h3>NOT NULL</h3>
+
+<p>
+Impide valores vacíos.
+</p>
+
+<h3>UNIQUE</h3>
+
+<p>
+Evita duplicados.
+</p>
+
+<h3>CHECK</h3>
+
+<p>
+Valida condiciones.
+</p>
+
+<pre><code>CREATE TABLE usuarios (
+  id_usuario INT PRIMARY KEY,
+  email VARCHAR(120) UNIQUE,
+  edad INT CHECK (edad >= 18),
+  nombre VARCHAR(100) NOT NULL
+);</code></pre>
+
+<h3>Explicación del ejemplo</h3>
+
+<ul>
+<li>email no puede repetirse.</li>
+<li>edad debe ser mayor o igual a 18.</li>
+<li>nombre es obligatorio.</li>
+</ul>
+
+<div class="example">
+Las restricciones evitan errores antes de que los datos entren al sistema.
+</div>
+
+<div class="trap">
+Muchos errores empresariales aparecen por ausencia de restricciones.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué restricción evita emails duplicados?
+</div>
+
+<button class="option" onclick="check(this,false)">CHECK</button>
+<button class="option" onclick="check(this,true)">UNIQUE</button>
+<button class="option" onclick="check(this,false)">INDEX</button>
+<button class="option" onclick="check(this,false)">DROP</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.4 · 30 min</span>
+
+<h2>Ejemplo con Domestika</h2>
+
+<p>
+Una plataforma como Domestika necesita gestionar usuarios, cursos e inscripciones.
+</p>
+
+<h3>Diseño de tablas</h3>
+
+<pre><code>CREATE TABLE cursos (
+  id_curso INT PRIMARY KEY,
+  titulo VARCHAR(150),
+  precio DECIMAL(8,2)
+);
+
+CREATE TABLE usuarios (
+  id_usuario INT PRIMARY KEY,
+  nombre VARCHAR(100),
+  email VARCHAR(120) UNIQUE
+);
+
+CREATE TABLE inscripciones (
+  id_usuario INT,
+  id_curso INT,
+  fecha DATE,
+  PRIMARY KEY(id_usuario,id_curso),
+  FOREIGN KEY(id_usuario)
+  REFERENCES usuarios(id_usuario),
+  FOREIGN KEY(id_curso)
+  REFERENCES cursos(id_curso)
+);</code></pre>
+
+<h3>Qué ocurre aquí</h3>
+
+<ul>
+<li>usuarios almacena alumnos.</li>
+<li>cursos almacena cursos.</li>
+<li>inscripciones conecta usuarios y cursos.</li>
+</ul>
+
+<div class="example">
+La tabla intermedia resuelve la relación N:M.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué tipo de relación existe entre usuarios y cursos?
+</div>
+
+<button class="option" onclick="check(this,false)">1:1</button>
+<button class="option" onclick="check(this,false)">1:N</button>
+<button class="option" onclick="check(this,true)">N:M</button>
+<button class="option" onclick="check(this,false)">0:1</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.5 · 25 min</span>
+
+<h2>Introducción a DML</h2>
+
+<p>
+DML (Data Manipulation Language) permite manipular la información almacenada.
+</p>
+
+<p>
+Mientras DDL crea estructuras,
+DML trabaja con los datos.
+</p>
+
+<h3>Comandos principales</h3>
+
+<table>
+<tr>
+<th>Comando</th>
+<th>Función</th>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>Insertar registros</td>
+</tr>
+<tr>
+<td>SELECT</td>
+<td>Consultar datos</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>Modificar registros</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Eliminar registros</td>
+</tr>
+</table>
+
+<div class="example">
+DDL construye la casa.
+DML coloca los muebles y los modifica.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace DML?
+</div>
+
+<button class="option" onclick="check(this,false)">Crear discos duros</button>
+<button class="option" onclick="check(this,true)">Manipular datos</button>
+<button class="option" onclick="check(this,false)">Diseñar redes</button>
+<button class="option" onclick="check(this,false)">Eliminar SQL</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.6 · 40 min</span>
+
+<h2>Sentencias esenciales de DML</h2>
+
+<h3>INSERT</h3>
+
+<pre><code>INSERT INTO alumnos
+VALUES (1,'Ana',20);</code></pre>
+
+<p>
+Inserta un nuevo registro.
+</p>
+
+<h3>SELECT</h3>
+
+<pre><code>SELECT * FROM alumnos;</code></pre>
+
+<p>
+Consulta todos los registros.
+</p>
+
+<h3>UPDATE</h3>
+
+<pre><code>UPDATE alumnos
+SET edad = 21
+WHERE id_alumno = 1;</code></pre>
+
+<p>
+Modifica registros existentes.
+</p>
+
+<h3>DELETE</h3>
+
+<pre><code>DELETE FROM alumnos
+WHERE id_alumno = 1;</code></pre>
+
+<p>
+Elimina filas concretas.
+</p>
+
+<h3>Importancia del WHERE</h3>
+
+<p>
+Sin WHERE, UPDATE y DELETE afectan a TODA la tabla.
+</p>
+
+<div class="trap">
+Uno de los errores más peligrosos en SQL:
+DELETE sin WHERE.
+</div>
+
+<div class="tip">
+Practica siempre primero con SELECT antes de UPDATE o DELETE.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué ocurre si ejecutas DELETE sin WHERE?
+</div>
+
+<button class="option" onclick="check(this,false)">Nada</button>
+<button class="option" onclick="check(this,true)">Se eliminan todos los registros</button>
+<button class="option" onclick="check(this,false)">Solo elimina uno</button>
+<button class="option" onclick="check(this,false)">SQL se bloquea</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.7 · 35 min</span>
+
+<h2>Otros comandos y transacciones</h2>
+
+<h3>COMMIT</h3>
+
+<p>
+Confirma cambios permanentemente.
+</p>
+
+<h3>ROLLBACK</h3>
+
+<p>
+Deshace cambios no confirmados.
+</p>
+
+<h3>START TRANSACTION</h3>
+
+<p>
+Inicia una transacción.
+</p>
+
+<pre><code>START TRANSACTION;
+
+UPDATE cuentas
+SET saldo = saldo - 100
+WHERE id = 1;
+
+UPDATE cuentas
+SET saldo = saldo + 100
+WHERE id = 2;
+
+COMMIT;</code></pre>
+
+<h3>¿Qué consigue?</h3>
+
+<p>
+Garantiza que ambas operaciones se ejecuten juntas.
+Si una falla, puede hacerse ROLLBACK.
+</p>
+
+<div class="example">
+Las transacciones son fundamentales en bancos y ecommerce.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace ROLLBACK?
+</div>
+
+<button class="option" onclick="check(this,false)">Confirma cambios</button>
+<button class="option" onclick="check(this,true)">Deshace cambios</button>
+<button class="option" onclick="check(this,false)">Crea tablas</button>
+<button class="option" onclick="check(this,false)">Elimina índices</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.8 · 30 min</span>
+
+<h2>Ejemplo con Zara Online Store</h2>
+
+<p>
+Una tienda online necesita gestionar productos, clientes y pedidos.
+</p>
+
+<pre><code>CREATE TABLE productos (
+  id_producto INT PRIMARY KEY,
+  nombre VARCHAR(120),
+  stock INT,
+  precio DECIMAL(10,2)
+);
+
+INSERT INTO productos
+VALUES (1,'Chaqueta Denim',15,49.99);
+
+SELECT * FROM productos;</code></pre>
+
+<h3>Explicación</h3>
+
+<ul>
+<li>CREATE TABLE crea la estructura.</li>
+<li>INSERT añade productos.</li>
+<li>SELECT consulta el catálogo.</li>
+</ul>
+
+<h3>Actualización de stock</h3>
+
+<pre><code>UPDATE productos
+SET stock = stock - 1
+WHERE id_producto = 1;</code></pre>
+
+<div class="example">
+Cada compra modifica automáticamente el stock.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué comando modifica el stock?
+</div>
+
+<button class="option" onclick="check(this,false)">SELECT</button>
+<button class="option" onclick="check(this,false)">INSERT</button>
+<button class="option" onclick="check(this,true)">UPDATE</button>
+<button class="option" onclick="check(this,false)">DROP</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.9 · 25 min</span>
+
+<h2>Integración de DDL y DML</h2>
+
+<p>
+DDL y DML trabajan juntos continuamente.
+</p>
+
+<table>
+<tr>
+<th>DDL</th>
+<th>DML</th>
+</tr>
+<tr>
+<td>Crea estructuras</td>
+<td>Manipula datos</td>
+</tr>
+<tr>
+<td>CREATE TABLE</td>
+<td>INSERT</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>UPDATE</td>
+</tr>
+</table>
+
+<pre><code>CREATE TABLE clientes (
+  id_cliente INT PRIMARY KEY,
+  nombre VARCHAR(100)
+);
+
+INSERT INTO clientes
+VALUES (1,'Carlos');</code></pre>
+
+<div class="example">
+Primero se define la estructura y después se insertan datos.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué ocurre normalmente primero?
+</div>
+
+<button class="option" onclick="check(this,true)">DDL</button>
+<button class="option" onclick="check(this,false)">DML</button>
+<button class="option" onclick="check(this,false)">ROLLBACK</button>
+<button class="option" onclick="check(this,false)">DELETE</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.10 · 25 min</span>
+
+<h2>Secuencia lógica y principios clave</h2>
+
+<h3>Flujo habitual</h3>
+
+<ol style="padding-left:22px; line-height:1.8;">
+<li>Diseñar modelo E-R.</li>
+<li>Crear tablas con DDL.</li>
+<li>Aplicar restricciones.</li>
+<li>Insertar datos con DML.</li>
+<li>Consultar y actualizar información.</li>
+<li>Gestionar transacciones.</li>
+</ol>
+
+<h3>Principios importantes</h3>
+
+<ul>
+<li>Integridad antes que velocidad.</li>
+<li>Normalización correcta.</li>
+<li>Uso adecuado de claves.</li>
+<li>Seguridad y permisos.</li>
+</ul>
+
+<div class="tip">
+Un mal diseño inicial genera problemas difíciles de corregir.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Cuál es el primer paso lógico?
+</div>
+
+<button class="option" onclick="check(this,false)">DELETE</button>
+<button class="option" onclick="check(this,true)">Diseñar el modelo</button>
+<button class="option" onclick="check(this,false)">ROLLBACK</button>
+<button class="option" onclick="check(this,false)">COMMIT</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.11 · 35 min</span>
+
+<h2>Ejemplo con HotelDB</h2>
+
+<p>
+HotelDB necesita gestionar habitaciones, clientes y reservas.
+</p>
+
+<pre><code>CREATE TABLE habitaciones (
+  id_habitacion INT PRIMARY KEY,
+  numero INT,
+  precio DECIMAL(10,2)
+);
+
+CREATE TABLE clientes (
+  id_cliente INT PRIMARY KEY,
+  nombre VARCHAR(100)
+);
+
+CREATE TABLE reservas (
+  id_reserva INT PRIMARY KEY,
+  id_cliente INT,
+  id_habitacion INT,
+  fecha_entrada DATE,
+  fecha_salida DATE,
+  FOREIGN KEY(id_cliente)
+  REFERENCES clientes(id_cliente),
+  FOREIGN KEY(id_habitacion)
+  REFERENCES habitaciones(id_habitacion)
+);</code></pre>
+
+<h3>Inserción de datos</h3>
+
+<pre><code>INSERT INTO clientes
+VALUES (1,'Laura');
+
+INSERT INTO habitaciones
+VALUES (101,301,120.00);</code></pre>
+
+<h3>Consulta</h3>
+
+<pre><code>SELECT *
+FROM habitaciones
+WHERE precio > 100;</code></pre>
+
+<div class="example">
+HotelDB integra creación de estructuras y manipulación de datos.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué relaciona la tabla reservas?
+</div>
+
+<button class="option" onclick="check(this,false)">Habitaciones y empleados</button>
+<button class="option" onclick="check(this,true)">Clientes y habitaciones</button>
+<button class="option" onclick="check(this,false)">Usuarios y redes</button>
+<button class="option" onclick="check(this,false)">Solo fechas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 12 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 4.12 · 20 min</span>
+
+<h2>Algunos consejos</h2>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Usa nombres coherentes.</li>
+<li>Aplica PRIMARY KEY siempre.</li>
+<li>Evita NULL innecesarios.</li>
+<li>Haz backups frecuentes.</li>
+<li>Usa transacciones en operaciones críticas.</li>
+<li>Documenta tablas y relaciones.</li>
+</ul>
+
+<h3>Herramientas recomendadas</h3>
+
+<ul>
+<li>MySQL Workbench</li>
+<li>DBeaver</li>
+<li>pgAdmin</li>
+<li>Oracle SQL Developer</li>
+</ul>
+
+<div class="trap">
+No probar UPDATE y DELETE en entornos de pruebas puede ser desastroso.
+</div>
+
+<div class="tip">
+Practicar SQL escribiendo código real es mucho más efectivo que memorizar teoría.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué práctica ayuda a evitar pérdidas masivas de datos?
+</div>
+
+<button class="option" onclick="check(this,false)">Eliminar restricciones</button>
+<button class="option" onclick="check(this,true)">Usar backups y transacciones</button>
+<button class="option" onclick="check(this,false)">No usar WHERE</button>
+<button class="option" onclick="check(this,false)">Guardar todo en Excel</button>
+
+</div>
+
+</div>
+</section>
+
+<div class="footer-note">
+Material para ayudarte a estudiar bases de datos. Mucha suerte.
+</div>
+
+</main>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const buttons = document.querySelectorAll('.nav-btn');
+
+function showBlock(index){
+
+  blocks.forEach(block => block.classList.remove('active'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  blocks[index].classList.add('active');
+  buttons[index].classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt=>{
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ ¡Correcto!"
+    : "❌ Incorrecto.";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

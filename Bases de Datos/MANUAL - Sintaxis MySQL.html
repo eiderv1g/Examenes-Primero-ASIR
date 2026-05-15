@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sintáxis de MySQL</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --text:#1e293b;
+  --card:#ffffff;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+}
+
+header{
+  background:linear-gradient(135deg,#0f3d56,#167391);
+  color:white;
+  padding:55px 25px;
+}
+
+header h1{
+  font-size:2.7rem;
+  margin-bottom:15px;
+}
+
+header p{
+  max-width:950px;
+  opacity:.95;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:35px;
+  margin-bottom:32px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:24px 0 12px;
+}
+
+ul{
+  padding-left:22px;
+  margin:15px 0;
+}
+
+li{
+  margin-bottom:10px;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:20px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:14px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:50px;
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+footer{
+  text-align:center;
+  color:#64748b;
+  padding:40px 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Sintáxis de MySQL</h1>
+
+<p>
+Guía interactiva para aprender sintaxis MySQL paso a paso: creación de tablas, relaciones, consultas, filtros, JOINs, transacciones, índices y buenas prácticas profesionales usando ejemplos reales con empleados, departamentos y proyectos.
+</p>
+
+</header>
+
+<div class="container">
+
+<!-- BLOQUE 1 -->
+
+<section class="card">
+
+<span class="tag">Bloque 1 · Introducción</span>
+
+<h2>Dónde escribir SQL</h2>
+
+<p>
+En phpMyAdmin o MySQL Workbench puedes escribir consultas SQL directamente.
+</p>
+
+<h3>Pasos básicos</h3>
+
+<ul>
+<li>Seleccionar la base de datos.</li>
+<li>Entrar en la pestaña SQL.</li>
+<li>Escribir consultas.</li>
+<li>Ejecutar.</li>
+</ul>
+
+<h3>Comentarios SQL</h3>
+
+<pre><code>-- Comentario corto
+
+# Comentario alternativo
+
+/* Comentario
+   multilínea */</code></pre>
+
+<div class="example">
+Los comentarios ayudan muchísimo a documentar consultas complejas.
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="card">
+
+<span class="tag">Bloque 2 · Bases de datos</span>
+
+<h2>Crear y usar bases de datos</h2>
+
+<h3>Crear base de datos</h3>
+
+<pre><code>CREATE DATABASE empresa_corporativa;</code></pre>
+
+<h3>Seleccionarla</h3>
+
+<pre><code>USE empresa_corporativa;</code></pre>
+
+<h3>Tipos de datos frecuentes</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>INT</td>
+<td>Números enteros</td>
+</tr>
+
+<tr>
+<td>DECIMAL(10,2)</td>
+<td>Dinero</td>
+</tr>
+
+<tr>
+<td>VARCHAR(80)</td>
+<td>Texto corto</td>
+</tr>
+
+<tr>
+<td>TEXT</td>
+<td>Texto largo</td>
+</tr>
+
+<tr>
+<td>DATE</td>
+<td>Fechas</td>
+</tr>
+
+<tr>
+<td>BOOLEAN</td>
+<td>Verdadero/Falso</td>
+</tr>
+</table>
+
+<div class="tip">
+DECIMAL es mucho mejor que FLOAT para dinero.
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="card">
+
+<span class="tag">Bloque 3 · CREATE TABLE</span>
+
+<h2>Crear tablas y restricciones</h2>
+
+<h3>Tabla Empleados</h3>
+
+<pre><code>CREATE TABLE empleados (
+
+ id INT AUTO_INCREMENT PRIMARY KEY,
+
+ nombre VARCHAR(60) NOT NULL,
+
+ email VARCHAR(120) UNIQUE,
+
+ salario DECIMAL(10,2),
+
+ creado_en TIMESTAMP
+ DEFAULT CURRENT_TIMESTAMP
+
+);</code></pre>
+
+<h3>Explicación</h3>
+
+<ul>
+<li>AUTO_INCREMENT → genera IDs automáticamente.</li>
+<li>PRIMARY KEY → clave principal.</li>
+<li>NOT NULL → obligatorio.</li>
+<li>UNIQUE → evita duplicados.</li>
+<li>CURRENT_TIMESTAMP → fecha automática.</li>
+</ul>
+
+<div class="example">
+Las restricciones ayudan a evitar errores y datos inconsistentes.
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="card">
+
+<span class="tag">Bloque 4 · Relaciones</span>
+
+<h2>Claves foráneas y relaciones</h2>
+
+<h3>Tabla departamentos</h3>
+
+<pre><code>CREATE TABLE departamentos (
+
+ id INT AUTO_INCREMENT PRIMARY KEY,
+
+ nombre VARCHAR(80)
+
+);</code></pre>
+
+<h3>Tabla proyectos</h3>
+
+<pre><code>CREATE TABLE proyectos (
+
+ id INT AUTO_INCREMENT PRIMARY KEY,
+
+ empleado_id INT NOT NULL,
+
+ nombre VARCHAR(100),
+
+ presupuesto DECIMAL(10,2),
+
+ FOREIGN KEY (empleado_id)
+ REFERENCES empleados(id)
+
+);</code></pre>
+
+<h3>ON DELETE CASCADE</h3>
+
+<pre><code>FOREIGN KEY (empleado_id)
+REFERENCES empleados(id)
+ON DELETE CASCADE</code></pre>
+
+<p>
+Si se elimina un empleado, también se eliminan automáticamente sus proyectos.
+</p>
+
+<div class="trap">
+Sin claves foráneas pueden aparecer datos huérfanos.
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="card">
+
+<span class="tag">Bloque 5 · INSERT</span>
+
+<h2>INSERT y carga de datos</h2>
+
+<h3>Insert individual</h3>
+
+<pre><code>INSERT INTO empleados
+(nombre, email, salario)
+
+VALUES
+('Marta Ruiz',
+'marta@empresa.com',
+2800.00);</code></pre>
+
+<h3>Insert múltiple</h3>
+
+<pre><code>INSERT INTO departamentos
+(nombre)
+
+VALUES
+('Finanzas'),
+('Marketing'),
+('Tecnología');</code></pre>
+
+<h3>Insert sin columnas</h3>
+
+<pre><code>INSERT INTO empleados
+
+VALUES
+(NULL,
+'Lucas Díaz',
+'lucas@empresa.com',
+3100.00,
+DEFAULT);</code></pre>
+
+<div class="tip">
+Es mejor indicar siempre los nombres de columnas.
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="card">
+
+<span class="tag">Bloque 6 · SELECT</span>
+
+<h2>Consultas SELECT</h2>
+
+<h3>Consultar todos los datos</h3>
+
+<pre><code>SELECT * FROM empleados;</code></pre>
+
+<h3>Consultar columnas concretas</h3>
+
+<pre><code>SELECT nombre, salario
+FROM empleados;</code></pre>
+
+<h3>Alias</h3>
+
+<pre><code>SELECT nombre AS trabajador,
+salario AS sueldo
+FROM empleados;</code></pre>
+
+<h3>ORDER BY</h3>
+
+<pre><code>SELECT *
+FROM empleados
+ORDER BY salario DESC;</code></pre>
+
+<h3>LIMIT</h3>
+
+<pre><code>SELECT *
+FROM empleados
+LIMIT 3;</code></pre>
+
+<div class="example">
+LIMIT es muy útil para paginación y pruebas rápidas.
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="card">
+
+<span class="tag">Bloque 7 · WHERE</span>
+
+<h2>Filtros y operadores</h2>
+
+<h3>Comparaciones</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE salario > 2500;</code></pre>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE salario >= 3000;</code></pre>
+
+<h3>AND y OR</h3>
+
+<pre><code>SELECT *
+FROM empleados
+
+WHERE salario > 2000
+AND salario < 4000;</code></pre>
+
+<h3>NOT</h3>
+
+<pre><code>SELECT *
+FROM empleados
+
+WHERE NOT (salario = 0);</code></pre>
+
+<h3>IS NULL</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE email IS NULL;</code></pre>
+
+<div class="tip">
+NULL no se compara con "=". Se usa IS NULL.
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="card">
+
+<span class="tag">Bloque 8 · LIKE</span>
+
+<h2>Búsquedas con LIKE</h2>
+
+<h3>Empieza por</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE nombre LIKE 'Mar%';</code></pre>
+
+<h3>Contiene</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE nombre LIKE '%Ruiz%';</code></pre>
+
+<h3>Dominio de email</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE email LIKE '%@empresa.com';</code></pre>
+
+<h3>Un solo carácter</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE nombre LIKE 'L_cas';</code></pre>
+
+<div class="example">
+% representa cualquier cantidad de caracteres.
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="card">
+
+<span class="tag">Bloque 9 · UPDATE y DELETE</span>
+
+<h2>Modificar y borrar registros</h2>
+
+<h3>UPDATE</h3>
+
+<pre><code>UPDATE empleados
+
+SET salario = 3500
+
+WHERE id = 2;</code></pre>
+
+<h3>DELETE</h3>
+
+<pre><code>DELETE FROM empleados
+WHERE id = 4;</code></pre>
+
+<h3>Peligro</h3>
+
+<pre><code>UPDATE empleados
+SET salario = 0;</code></pre>
+
+<div class="trap">
+Sin WHERE puedes modificar toda la tabla accidentalmente.
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="card">
+
+<span class="tag">Bloque 10 · ALTER y DROP</span>
+
+<h2>Modificar estructura</h2>
+
+<h3>Añadir columna</h3>
+
+<pre><code>ALTER TABLE empleados
+
+ADD telefono VARCHAR(20);</code></pre>
+
+<h3>Modificar tipo</h3>
+
+<pre><code>ALTER TABLE empleados
+
+MODIFY telefono VARCHAR(30);</code></pre>
+
+<h3>Renombrar columna</h3>
+
+<pre><code>ALTER TABLE empleados
+
+CHANGE telefono movil VARCHAR(30);</code></pre>
+
+<h3>Eliminar columna</h3>
+
+<pre><code>ALTER TABLE empleados
+
+DROP COLUMN movil;</code></pre>
+
+<h3>DROP TABLE</h3>
+
+<pre><code>DROP TABLE proyectos;</code></pre>
+
+<div class="trap">
+DROP elimina estructura y datos permanentemente.
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="card">
+
+<span class="tag">Bloque 11 · JOIN</span>
+
+<h2>JOIN y relaciones</h2>
+
+<h3>INNER JOIN</h3>
+
+<pre><code>SELECT
+e.nombre,
+d.nombre AS departamento
+
+FROM empleados e
+
+INNER JOIN departamentos d
+ON e.id = d.id;</code></pre>
+
+<h3>LEFT JOIN</h3>
+
+<pre><code>SELECT
+e.nombre,
+p.nombre AS proyecto
+
+FROM empleados e
+
+LEFT JOIN proyectos p
+ON e.id = p.empleado_id;</code></pre>
+
+<h3>Diferencia</h3>
+
+<table>
+<tr>
+<th>JOIN</th>
+<th>Resultado</th>
+</tr>
+
+<tr>
+<td>INNER</td>
+<td>Solo coincidencias</td>
+</tr>
+
+<tr>
+<td>LEFT</td>
+<td>Incluye registros sin coincidencia</td>
+</tr>
+</table>
+
+<div class="example">
+LEFT JOIN es muy usado en auditorías y análisis.
+</div>
+
+</section>
+
+<!-- BLOQUE 12 -->
+
+<section class="card">
+
+<span class="tag">Bloque 12 · Funciones agregadas</span>
+
+<h2>COUNT, SUM, AVG y GROUP BY</h2>
+
+<h3>COUNT</h3>
+
+<pre><code>SELECT COUNT(*)
+AS total_empleados
+
+FROM empleados;</code></pre>
+
+<h3>SUM</h3>
+
+<pre><code>SELECT SUM(salario)
+AS suma_salarios
+
+FROM empleados;</code></pre>
+
+<h3>AVG</h3>
+
+<pre><code>SELECT AVG(salario)
+AS salario_medio
+
+FROM empleados;</code></pre>
+
+<h3>GROUP BY</h3>
+
+<pre><code>SELECT
+departamento_id,
+COUNT(*) AS empleados
+
+FROM empleados
+
+GROUP BY departamento_id;</code></pre>
+
+<h3>HAVING</h3>
+
+<pre><code>SELECT
+departamento_id,
+COUNT(*) AS empleados
+
+FROM empleados
+
+GROUP BY departamento_id
+
+HAVING COUNT(*) >= 3;</code></pre>
+
+<div class="tip">
+HAVING filtra grupos. WHERE filtra filas.
+</div>
+
+</section>
+
+<!-- BLOQUE 13 -->
+
+<section class="card">
+
+<span class="tag">Bloque 13 · Subconsultas e índices</span>
+
+<h2>Subconsultas e índices</h2>
+
+<h3>Subconsulta</h3>
+
+<pre><code>SELECT *
+FROM empleados
+
+WHERE salario >
+
+(SELECT AVG(salario)
+FROM empleados);</code></pre>
+
+<h3>Índice</h3>
+
+<pre><code>CREATE INDEX
+idx_empleados_email
+
+ON empleados(email);</code></pre>
+
+<h3>Ventajas de índices</h3>
+
+<ul>
+<li>Aceleran búsquedas.</li>
+<li>Mejoran rendimiento.</li>
+<li>Optimizan filtros.</li>
+</ul>
+
+<div class="trap">
+Demasiados índices también ralentizan INSERT y UPDATE.
+</div>
+
+</section>
+
+<!-- BLOQUE 14 -->
+
+<section class="card">
+
+<span class="tag">Bloque 14 · Buenas prácticas</span>
+
+<h2>Buenas prácticas profesionales</h2>
+
+<ul>
+<li>Usa WHERE en UPDATE y DELETE.</li>
+<li>Usa DECIMAL para dinero.</li>
+<li>Usa claves foráneas.</li>
+<li>Usa nombres consistentes.</li>
+<li>Normaliza correctamente.</li>
+<li>Evita duplicar información.</li>
+</ul>
+
+<h3>Consejo profesional</h3>
+
+<pre><code>SELECT *
+FROM empleados
+WHERE id = 2;</code></pre>
+
+<p>
+Primero prueba con SELECT y después ejecuta UPDATE o DELETE.
+</p>
+
+<div class="example">
+La mayoría de errores graves en SQL ocurren por olvidar WHERE.
+</div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section class="quiz">
+
+<h2>Mini-Test Final</h2>
+
+<div class="question">
+1. ¿Qué hace AUTO_INCREMENT?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Generar IDs automáticamente
+</button>
+
+<button class="option" onclick="check(this,false)">
+Eliminar filas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Ordenar tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Crear índices
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+2. ¿Qué hace FOREIGN KEY?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Relacionar tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Eliminar registros
+</button>
+
+<button class="option" onclick="check(this,false)">
+Duplicar columnas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Crear usuarios
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+3. ¿Qué devuelve LEFT JOIN?
+</div>
+
+<button class="option" onclick="check(this,false)">
+Solo coincidencias
+</button>
+
+<button class="option" onclick="check(this,true)">
+También registros sin coincidencia
+</button>
+
+<button class="option" onclick="check(this,false)">
+Solo NULL
+</button>
+
+<button class="option" onclick="check(this,false)">
+Solo índices
+</button>
+
+<hr style="margin:30px 0; border:none; border-top:1px solid #d8edf2;">
+
+<div class="question">
+4. ¿Qué hace GROUP BY?
+</div>
+
+<button class="option" onclick="check(this,true)">
+Agrupar registros
+</button>
+
+<button class="option" onclick="check(this,false)">
+Eliminar filas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Crear tablas
+</button>
+
+<button class="option" onclick="check(this,false)">
+Modificar columnas
+</button>
+
+</section>
+
+</div>
+
+<footer>
+Sintáxis de MySQL · Plataforma interactiva de estudio · SQL profesional
+</footer>
+
+<script>
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt => {
+
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ Correcto"
+    : "❌ Incorrecto";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 6 - SQL. DQL Multitabla</title>
+
+<style>
+
+:root{
+    --bg:#eefbfd;
+    --sidebar:#0f3f57;
+    --primary:#157e9f;
+    --secondary:#41b7d4;
+    --accent:#7be0d9;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#64748b;
+    --success:#22c55e;
+    --danger:#ef4444;
+    --border:#d8edf2;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:330px;
+    background:linear-gradient(180deg,#0f3f57,#167595);
+    color:white;
+    padding:25px 20px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    overflow-y:auto;
+    box-shadow:4px 0 16px rgba(0,0,0,.15);
+}
+
+.sidebar h1{
+    font-size:1.7rem;
+    margin-bottom:14px;
+    line-height:1.3;
+}
+
+.sidebar p{
+    opacity:.9;
+    line-height:1.6;
+    margin-bottom:24px;
+}
+
+.nav-btn{
+    width:100%;
+    border:none;
+    background:rgba(255,255,255,.08);
+    color:white;
+    padding:14px;
+    margin-bottom:10px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:.25s;
+    font-size:.93rem;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:rgba(255,255,255,.20);
+    transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:330px;
+    width:calc(100% - 330px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade .35s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:var(--card);
+    border-radius:24px;
+    padding:34px;
+    margin-bottom:28px;
+    border:1px solid var(--border);
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+}
+
+.tag{
+    display:inline-block;
+    background:#dcf8fd;
+    color:#075f75;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+h2{
+    color:var(--primary);
+    margin-bottom:18px;
+    font-size:2rem;
+}
+
+h3{
+    color:#0f6880;
+    margin:26px 0 14px;
+}
+
+p{
+    line-height:1.8;
+    margin-bottom:16px;
+}
+
+ul{
+    padding-left:22px;
+    margin:14px 0;
+}
+
+li{
+    margin-bottom:10px;
+    line-height:1.7;
+}
+
+.example{
+    background:#ebfbff;
+    border-left:5px solid var(--secondary);
+    padding:18px;
+    border-radius:14px;
+    margin-top:20px;
+}
+
+.tip{
+    background:#effff7;
+    border-left:5px solid var(--success);
+    padding:18px;
+    border-radius:14px;
+    margin-top:18px;
+}
+
+.trap{
+    background:#fff3f3;
+    border-left:5px solid var(--danger);
+    padding:18px;
+    border-radius:14px;
+    margin-top:18px;
+}
+
+pre{
+    background:#0f172a;
+    color:#d6f1ff;
+    padding:18px;
+    border-radius:14px;
+    overflow:auto;
+    margin-top:14px;
+}
+
+code{
+    font-family:Consolas, monospace;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:18px;
+}
+
+th,td{
+    border:1px solid #d8edf2;
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:#def8fd;
+    color:#075f75;
+}
+
+.quiz{
+    margin-top:34px;
+    padding-top:24px;
+    border-top:2px dashed #cde7ee;
+}
+
+.question{
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.option{
+    display:block;
+    width:100%;
+    border:none;
+    background:#f2fbfd;
+    padding:14px;
+    margin-bottom:12px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:.2s;
+    border:2px solid transparent;
+}
+
+.option:hover{
+    background:#def7fb;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:700;
+}
+
+.footer{
+    text-align:center;
+    color:var(--muted);
+    margin-top:40px;
+}
+
+@media(max-width:1000px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 6<br>SQL · DQL Multitabla</h1>
+
+<p>
+Consultas avanzadas SQL con JOINs, FULL JOIN, relaciones entre tablas y subconsultas profesionales.
+</p>
+
+<button class="nav-btn active" onclick="showBlock(0)">6.1 Los JOINs</button>
+<button class="nav-btn" onclick="showBlock(1)">6.2 INNER, LEFT y RIGHT</button>
+<button class="nav-btn" onclick="showBlock(2)">6.3 Gestión de Ventas Retail</button>
+<button class="nav-btn" onclick="showBlock(3)">6.4 FULL OUTER JOIN</button>
+<button class="nav-btn" onclick="showBlock(4)">6.5 FULL JOIN</button>
+<button class="nav-btn" onclick="showBlock(5)">6.6 Subconsultas</button>
+<button class="nav-btn" onclick="showBlock(6)">6.7 Gestión de Aerolínea</button>
+
+</aside>
+
+<main class="main">
+
+<!-- BLOQUE 1 -->
+
+<section class="block active">
+<div class="card">
+
+<span class="tag">Bloque 6.1 · 35 min</span>
+
+<h2>Los JOINs</h2>
+
+<p>
+Los JOINs permiten combinar información procedente de varias tablas utilizando campos relacionados entre sí.
+</p>
+
+<p>
+En bases de datos reales, los datos están distribuidos para evitar redundancia y mejorar la integridad.
+</p>
+
+<h3>¿Por qué existen?</h3>
+
+<ul>
+<li>Separar entidades diferentes.</li>
+<li>Evitar duplicación de datos.</li>
+<li>Mantener consistencia.</li>
+<li>Escalar sistemas grandes.</li>
+<li>Optimizar almacenamiento.</li>
+</ul>
+
+<h3>Relación típica</h3>
+
+<table>
+<tr>
+<th>Tabla</th>
+<th>Contenido</th>
+</tr>
+<tr>
+<td>Clientes</td>
+<td>Datos personales</td>
+</tr>
+<tr>
+<td>Pedidos</td>
+<td>Compras realizadas</td>
+</tr>
+</table>
+
+<h3>Ejemplo básico</h3>
+
+<pre><code>SELECT Clientes.nombre, Pedidos.total
+FROM Clientes
+INNER JOIN Pedidos
+ON Clientes.id_cliente = Pedidos.id_cliente;</code></pre>
+
+<h3>Qué hace esta consulta</h3>
+
+<ul>
+<li>Une Clientes y Pedidos.</li>
+<li>Relaciona ambas tablas mediante id_cliente.</li>
+<li>Muestra únicamente coincidencias.</li>
+</ul>
+
+<div class="example">
+Los JOINs son la base del análisis empresarial moderno.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace un JOIN?
+</div>
+
+<button class="option" onclick="check(this,true)">Unir datos entre tablas</button>
+<button class="option" onclick="check(this,false)">Crear servidores</button>
+<button class="option" onclick="check(this,false)">Borrar discos</button>
+<button class="option" onclick="check(this,false)">Instalar Linux</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.2 · 45 min</span>
+
+<h2>INNER, LEFT y RIGHT</h2>
+
+<h3>INNER JOIN</h3>
+
+<p>
+Devuelve solo registros coincidentes entre ambas tablas.
+</p>
+
+<pre><code>SELECT C.nombre, P.total
+FROM Clientes C
+INNER JOIN Pedidos P
+ON C.id_cliente = P.id_cliente;</code></pre>
+
+<h3>LEFT JOIN</h3>
+
+<p>
+Devuelve todas las filas de la tabla izquierda.
+</p>
+
+<pre><code>SELECT C.nombre, P.total
+FROM Clientes C
+LEFT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente;</code></pre>
+
+<h3>RIGHT JOIN</h3>
+
+<p>
+Devuelve todas las filas de la tabla derecha.
+</p>
+
+<pre><code>SELECT C.nombre, P.total
+FROM Clientes C
+RIGHT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente;</code></pre>
+
+<h3>Diferencias</h3>
+
+<table>
+<tr>
+<th>JOIN</th>
+<th>Resultado</th>
+</tr>
+<tr>
+<td>INNER</td>
+<td>Solo coincidencias</td>
+</tr>
+<tr>
+<td>LEFT</td>
+<td>Todo izquierda + coincidencias</td>
+</tr>
+<tr>
+<td>RIGHT</td>
+<td>Todo derecha + coincidencias</td>
+</tr>
+</table>
+
+<div class="tip">
+LEFT JOIN es muy utilizado para detectar datos ausentes.
+</div>
+
+<div class="trap">
+RIGHT JOIN puede reescribirse normalmente como LEFT JOIN cambiando el orden de las tablas.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué devuelve INNER JOIN?
+</div>
+
+<button class="option" onclick="check(this,true)">Solo coincidencias</button>
+<button class="option" onclick="check(this,false)">Todas las filas</button>
+<button class="option" onclick="check(this,false)">Solo NULL</button>
+<button class="option" onclick="check(this,false)">Todas las bases de datos</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.3 · 45 min</span>
+
+<h2>Gestión de Ventas en una Cadena de Retail</h2>
+
+<p>
+En una empresa de retail como El Corte Inglés, los JOINs permiten analizar clientes, pedidos y ventas.
+</p>
+
+<h3>Tablas principales</h3>
+
+<pre><code>Clientes(
+  id_cliente,
+  nombre,
+  email,
+  provincia
+)
+
+Pedidos(
+  id_pedido,
+  id_cliente,
+  total,
+  fecha_compra
+)</code></pre>
+
+<h3>Clientes con compras</h3>
+
+<pre><code>SELECT C.nombre, P.total
+FROM Clientes C
+INNER JOIN Pedidos P
+ON C.id_cliente = P.id_cliente;</code></pre>
+
+<h3>Clientes sin compras</h3>
+
+<pre><code>SELECT C.nombre
+FROM Clientes C
+LEFT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente
+WHERE P.id_pedido IS NULL;</code></pre>
+
+<h3>Pedidos huérfanos</h3>
+
+<pre><code>SELECT P.id_pedido
+FROM Clientes C
+RIGHT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente
+WHERE C.id_cliente IS NULL;</code></pre>
+
+<h3>Aplicaciones reales</h3>
+
+<ul>
+<li>Marketing personalizado.</li>
+<li>Detección de errores.</li>
+<li>Auditoría de ventas.</li>
+<li>Segmentación comercial.</li>
+</ul>
+
+<div class="example">
+Los JOINs permiten detectar relaciones faltantes entre sistemas.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué detecta LEFT JOIN + IS NULL?
+</div>
+
+<button class="option" onclick="check(this,false)">Usuarios activos</button>
+<button class="option" onclick="check(this,true)">Ausencia de relaciones</button>
+<button class="option" onclick="check(this,false)">Errores de red</button>
+<button class="option" onclick="check(this,false)">Tablas duplicadas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.4 · 40 min</span>
+
+<h2>Introducción a FULL JOIN o FULL OUTER JOIN</h2>
+
+<p>
+FULL JOIN devuelve todas las filas de ambas tablas, coincidan o no.
+</p>
+
+<h3>Qué incluye</h3>
+
+<ul>
+<li>Coincidencias entre tablas.</li>
+<li>Filas solo de la izquierda.</li>
+<li>Filas solo de la derecha.</li>
+</ul>
+
+<h3>Funcionamiento conceptual</h3>
+
+<table>
+<tr>
+<th>Situación</th>
+<th>Resultado</th>
+</tr>
+<tr>
+<td>Coincidencia</td>
+<td>Se muestran ambas filas</td>
+</tr>
+<tr>
+<td>Solo izquierda</td>
+<td>Derecha = NULL</td>
+</tr>
+<tr>
+<td>Solo derecha</td>
+<td>Izquierda = NULL</td>
+</tr>
+</table>
+
+<h3>FULL OUTER JOIN</h3>
+
+<pre><code>SELECT *
+FROM Clientes
+FULL OUTER JOIN Pedidos
+ON Clientes.id_cliente = Pedidos.id_cliente;</code></pre>
+
+<div class="trap">
+MySQL NO soporta FULL JOIN de forma nativa.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué devuelve FULL JOIN?
+</div>
+
+<button class="option" onclick="check(this,false)">Solo coincidencias</button>
+<button class="option" onclick="check(this,true)">Todas las filas de ambas tablas</button>
+<button class="option" onclick="check(this,false)">Solo la izquierda</button>
+<button class="option" onclick="check(this,false)">Solo la derecha</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.5 · 50 min</span>
+
+<h2>FULL JOIN</h2>
+
+<h3>Simulación en MySQL</h3>
+
+<p>
+MySQL requiere combinar LEFT JOIN y RIGHT JOIN usando UNION.
+</p>
+
+<pre><code>SELECT C.nombre, P.total
+FROM Clientes C
+LEFT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente
+
+UNION
+
+SELECT C.nombre, P.total
+FROM Clientes C
+RIGHT JOIN Pedidos P
+ON C.id_cliente = P.id_cliente;</code></pre>
+
+<h3>Qué hace UNION</h3>
+
+<ul>
+<li>Combina resultados.</li>
+<li>Elimina duplicados.</li>
+<li>Genera conjunto final completo.</li>
+</ul>
+
+<h3>UNION ALL</h3>
+
+<pre><code>SELECT nombre FROM Clientes
+UNION ALL
+SELECT nombre FROM Proveedores;</code></pre>
+
+<p>
+UNION ALL mantiene duplicados y es más rápido.
+</p>
+
+<div class="tip">
+UNION ALL mejora rendimiento cuando no necesitas eliminar duplicados.
+</div>
+
+<div class="example">
+FULL JOIN es muy útil en auditoría y conciliación de sistemas.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Cómo se simula FULL JOIN en MySQL?
+</div>
+
+<button class="option" onclick="check(this,false)">Solo INNER JOIN</button>
+<button class="option" onclick="check(this,true)">LEFT JOIN + RIGHT JOIN + UNION</button>
+<button class="option" onclick="check(this,false)">Con DELETE</button>
+<button class="option" onclick="check(this,false)">Con CREATE DATABASE</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.6 · 55 min</span>
+
+<h2>Subconsultas</h2>
+
+<p>
+Las subconsultas son consultas anidadas dentro de otras consultas SQL.
+</p>
+
+<h3>Ejemplo básico</h3>
+
+<pre><code>SELECT nombre
+FROM Clientes
+WHERE id_cliente IN (
+   SELECT id_cliente
+   FROM Pedidos
+   WHERE total > 1000
+);</code></pre>
+
+<h3>Qué ocurre</h3>
+
+<ul>
+<li>La subconsulta obtiene clientes.</li>
+<li>La consulta principal filtra nombres.</li>
+</ul>
+
+<h3>IN</h3>
+
+<p>
+Comprueba si un valor pertenece a un conjunto.
+</p>
+
+<h3>EXISTS</h3>
+
+<pre><code>SELECT nombre
+FROM Clientes C
+WHERE EXISTS (
+   SELECT 1
+   FROM Pedidos P
+   WHERE P.id_cliente = C.id_cliente
+);</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Consultas complejas.</li>
+<li>Filtrado avanzado.</li>
+<li>Lógica empresarial.</li>
+<li>Análisis profesional.</li>
+</ul>
+
+<div class="trap">
+Una subconsulta mal optimizada puede ralentizar consultas enormes.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace IN?
+</div>
+
+<button class="option" onclick="check(this,true)">Comprobar pertenencia a un conjunto</button>
+<button class="option" onclick="check(this,false)">Crear índices</button>
+<button class="option" onclick="check(this,false)">Eliminar filas</button>
+<button class="option" onclick="check(this,false)">Modificar tablas</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 6.7 · 60 min</span>
+
+<h2>Gestión de una aerolínea</h2>
+
+<p>
+Las aerolíneas utilizan JOINs y subconsultas para relacionar pasajeros, reservas y vuelos.
+</p>
+
+<h3>Tablas</h3>
+
+<pre><code>Pasajeros(
+   id_pasajero,
+   nombre,
+   email
+)
+
+Reservas(
+   id_reserva,
+   id_pasajero,
+   destino,
+   precio
+)</code></pre>
+
+<h3>FULL JOIN simulado</h3>
+
+<pre><code>SELECT P.nombre, R.destino
+FROM Pasajeros P
+LEFT JOIN Reservas R
+ON P.id_pasajero = R.id_pasajero
+
+UNION
+
+SELECT P.nombre, R.destino
+FROM Pasajeros P
+RIGHT JOIN Reservas R
+ON P.id_pasajero = R.id_pasajero;</code></pre>
+
+<h3>Pasajeros premium</h3>
+
+<pre><code>SELECT nombre
+FROM Pasajeros
+WHERE id_pasajero IN (
+
+   SELECT id_pasajero
+   FROM Reservas
+   WHERE precio > 500
+
+);</code></pre>
+
+<h3>Objetivos empresariales</h3>
+
+<ul>
+<li>Detectar inconsistencias.</li>
+<li>Encontrar clientes premium.</li>
+<li>Auditar reservas.</li>
+<li>Conciliar sistemas.</li>
+<li>Aplicar campañas comerciales.</li>
+</ul>
+
+<h3>Optimización</h3>
+
+<pre><code>EXPLAIN
+SELECT P.nombre, R.destino
+FROM Pasajeros P
+LEFT JOIN Reservas R
+ON P.id_pasajero = R.id_pasajero;</code></pre>
+
+<p>
+EXPLAIN analiza cómo ejecuta MySQL la consulta.
+</p>
+
+<div class="tip">
+Indexar claves usadas en JOIN mejora muchísimo el rendimiento.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué herramienta analiza el plan de ejecución?
+</div>
+
+<button class="option" onclick="check(this,false)">DROP</button>
+<button class="option" onclick="check(this,false)">UPDATE</button>
+<button class="option" onclick="check(this,true)">EXPLAIN</button>
+<button class="option" onclick="check(this,false)">DELETE</button>
+
+</div>
+
+</div>
+</section>
+
+<div class="footer">
+Material para ayudarte a estudiar bases de datos. Mucha suerte.
+</div>
+
+</main>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const buttons = document.querySelectorAll('.nav-btn');
+
+function showBlock(index){
+
+    blocks.forEach(block => block.classList.remove('active'));
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[index].classList.add('active');
+    buttons[index].classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+}
+
+function check(button, correct){
+
+    const parent = button.parentElement;
+    const options = parent.querySelectorAll('.option');
+
+    options.forEach(opt => opt.disabled = true);
+
+    if(correct){
+        button.classList.add('correct');
+    }else{
+        button.classList.add('wrong');
+
+        options.forEach(opt=>{
+            if(opt.getAttribute('onclick').includes('true')){
+                opt.classList.add('correct');
+            }
+        });
+    }
+
+    const result = document.createElement('div');
+    result.classList.add('result');
+
+    result.innerHTML = correct
+      ? "✅ ¡Correcto!"
+      : "❌ Incorrecto.";
+
+    parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>

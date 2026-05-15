@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unidad 1 - Bases de Datos. Fundamentos.</title>
+
+  <style>
+    :root{
+      --bg:#f4fbfd;
+      --sidebar:#0f3d56;
+      --primary:#1282a2;
+      --secondary:#41b8d5;
+      --accent:#7be0d6;
+      --card:#ffffff;
+      --text:#1c2b33;
+      --muted:#5c7280;
+      --success:#22c55e;
+      --danger:#ef4444;
+      --border:#d8edf2;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:320px;
+      background:linear-gradient(180deg,#0f3d56,#156f8f);
+      color:white;
+      padding:25px 20px;
+      overflow-y:auto;
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      box-shadow:4px 0 15px rgba(0,0,0,.15);
+    }
+
+    .sidebar h1{
+      font-size:1.5rem;
+      margin-bottom:10px;
+      line-height:1.3;
+    }
+
+    .sidebar p{
+      font-size:.92rem;
+      opacity:.9;
+      margin-bottom:20px;
+    }
+
+    .nav-btn{
+      width:100%;
+      border:none;
+      background:rgba(255,255,255,.08);
+      color:white;
+      text-align:left;
+      padding:14px;
+      margin-bottom:10px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.25s;
+      font-size:.95rem;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active{
+      background:rgba(255,255,255,.22);
+      transform:translateX(4px);
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:320px;
+      width:calc(100% - 320px);
+      padding:40px;
+    }
+
+    .block{
+      display:none;
+      animation:fade .35s ease;
+    }
+
+    .block.active{
+      display:block;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(10px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:20px;
+      padding:30px;
+      margin-bottom:25px;
+      border:1px solid var(--border);
+      box-shadow:0 8px 24px rgba(0,0,0,.05);
+    }
+
+    h2{
+      color:var(--primary);
+      margin-bottom:18px;
+      font-size:2rem;
+    }
+
+    h3{
+      margin:20px 0 12px;
+      color:#0d5d78;
+    }
+
+    p{
+      line-height:1.7;
+      margin-bottom:14px;
+    }
+
+    ul{
+      padding-left:20px;
+      margin:12px 0;
+    }
+
+    li{
+      margin-bottom:10px;
+      line-height:1.6;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#dff7fb;
+      color:#05627c;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:.85rem;
+      margin-bottom:14px;
+      font-weight:600;
+    }
+
+    .example{
+      background:#eafcff;
+      border-left:5px solid var(--secondary);
+      padding:16px;
+      border-radius:12px;
+      margin:18px 0;
+    }
+
+    pre{
+      background:#0f172a;
+      color:#d6f1ff;
+      padding:18px;
+      border-radius:14px;
+      overflow:auto;
+      margin-top:12px;
+    }
+
+    code{
+      font-family:Consolas, monospace;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0;
+      overflow:hidden;
+      border-radius:12px;
+    }
+
+    th, td{
+      padding:14px;
+      border:1px solid #d8edf2;
+      text-align:left;
+    }
+
+    th{
+      background:#dff7fb;
+      color:#05566d;
+    }
+
+    .tip{
+      background:#effff7;
+      border-left:5px solid var(--success);
+      padding:16px;
+      border-radius:12px;
+      margin-top:18px;
+    }
+
+    .trap{
+      background:#fff3f3;
+      border-left:5px solid var(--danger);
+      padding:16px;
+      border-radius:12px;
+      margin-top:18px;
+    }
+
+    /* QUIZ */
+
+    .quiz{
+      margin-top:25px;
+      padding-top:20px;
+      border-top:2px dashed #cbe8ef;
+    }
+
+    .question{
+      font-weight:700;
+      margin-bottom:15px;
+    }
+
+    .option{
+      display:block;
+      width:100%;
+      border:none;
+      background:#f2fbfd;
+      padding:14px;
+      margin-bottom:12px;
+      border-radius:12px;
+      text-align:left;
+      cursor:pointer;
+      transition:.2s;
+      border:2px solid transparent;
+    }
+
+    .option:hover{
+      background:#ddf7fb;
+    }
+
+    .option.correct{
+      background:#dcfce7;
+      border-color:#22c55e;
+    }
+
+    .option.wrong{
+      background:#fee2e2;
+      border-color:#ef4444;
+    }
+
+    .result{
+      margin-top:12px;
+      font-weight:700;
+    }
+
+    .footer-note{
+      margin-top:40px;
+      color:var(--muted);
+      font-size:.9rem;
+      text-align:center;
+    }
+
+    @media(max-width:1000px){
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      body{
+        flex-direction:column;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <h1>Unidad 1<br>Bases de Datos</h1>
+
+    <p>
+      Plataforma interactiva de estudio para preparar el examen tipo test.
+    </p>
+
+    <button class="nav-btn active" onclick="showBlock(0)">1. Qué es una BD</button>
+    <button class="nav-btn" onclick="showBlock(1)">2. Historia de las BD</button>
+    <button class="nav-btn" onclick="showBlock(2)">3. SGBD y ventajas</button>
+    <button class="nav-btn" onclick="showBlock(3)">4. Tipos de SGBD</button>
+    <button class="nav-btn" onclick="showBlock(4)">5. Arquitectura ANSI/SPARC</button>
+    <button class="nav-btn" onclick="showBlock(5)">6. Modelo Cliente-Servidor</button>
+    <button class="nav-btn" onclick="showBlock(6)">7. Caso Netflix</button>
+    <button class="nav-btn" onclick="showBlock(7)">8. Caso WhatsApp</button>
+    <button class="nav-btn" onclick="showBlock(8)">9. Herramientas y Consejos</button>
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <!-- BLOQUE 1 -->
+
+    <section class="block active">
+
+      <div class="card">
+
+        <span class="tag">Bloque 1 · 20 min</span>
+
+        <h2>Qué es una Base de Datos</h2>
+
+        <p>
+          Una base de datos (BD) es un conjunto organizado de información estructurada
+          que permite almacenar, consultar, modificar y eliminar datos de forma eficiente.
+        </p>
+
+        <p>
+          Las bases de datos son fundamentales en prácticamente cualquier aplicación moderna:
+          redes sociales, tiendas online, bancos, videojuegos, hospitales o plataformas
+          de streaming.
+        </p>
+
+        <h3>Base de datos vs fichero plano</h3>
+
+        <table>
+          <tr>
+            <th>Ficheros Planos</th>
+            <th>Bases de Datos</th>
+          </tr>
+          <tr>
+            <td>Datos aislados</td>
+            <td>Datos relacionados</td>
+          </tr>
+          <tr>
+            <td>Poca seguridad</td>
+            <td>Control de accesos</td>
+          </tr>
+          <tr>
+            <td>Dificultad de búsqueda</td>
+            <td>Consultas rápidas con SQL</td>
+          </tr>
+          <tr>
+            <td>Duplicidad frecuente</td>
+            <td>Integridad de datos</td>
+          </tr>
+        </table>
+
+        <div class="example">
+          <strong>Ejemplo real:</strong><br>
+          Un Excel con clientes puede funcionar para una tienda pequeña.
+          Pero Amazon necesita millones de registros relacionados entre sí,
+          accesibles al instante y por miles de usuarios simultáneamente.
+        </div>
+
+        <h3>Ejemplo SQL</h3>
+
+<pre><code>CREATE TABLE Clientes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    email VARCHAR(100)
+);
+
+SELECT * FROM Clientes;</code></pre>
+
+        <div class="trap">
+          <strong>Pregunta trampa típica:</strong><br>
+          “Excel puede sustituir completamente a un SGBD”.
+          ❌ Falso. Excel no ofrece acceso concurrente real ni integridad avanzada.
+        </div>
+
+        <!-- QUIZ -->
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Cuál es una ventaja principal de una base de datos frente a un fichero plano?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Ocupa menos memoria siempre</button>
+          <button class="option" onclick="check(this,true)">Permite acceso concurrente y seguridad</button>
+          <button class="option" onclick="check(this,false)">No necesita software</button>
+          <button class="option" onclick="check(this,false)">No usa relaciones entre datos</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 2 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 2 · 15 min</span>
+
+        <h2>Historia de las Bases de Datos</h2>
+
+        <h3>Años 60</h3>
+
+        <p>
+          Las empresas utilizaban ficheros planos. Los sistemas eran lentos,
+          poco seguros y difíciles de mantener.
+        </p>
+
+        <h3>Años 70-80</h3>
+
+        <p>
+          Edgar F. Codd desarrolló el modelo relacional,
+          revolucionando el almacenamiento de datos mediante tablas.
+        </p>
+
+        <h3>Años 90-2000</h3>
+
+        <p>
+          Aparecen bases de datos distribuidas y orientadas a objetos.
+        </p>
+
+        <h3>Actualidad</h3>
+
+        <p>
+          Surgen las bases de datos NoSQL para Big Data,
+          inteligencia artificial y aplicaciones web masivas.
+        </p>
+
+        <div class="tip">
+          <strong>Curiosidad:</strong><br>
+          SQL sigue siendo uno de los lenguajes más demandados del mercado.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué modelo popularizó Edgar F. Codd?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Modelo jerárquico</button>
+          <button class="option" onclick="check(this,true)">Modelo relacional</button>
+          <button class="option" onclick="check(this,false)">Modelo blockchain</button>
+          <button class="option" onclick="check(this,false)">Modelo gráfico</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 3 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 3 · 20 min</span>
+
+        <h2>SGBD y sus Ventajas</h2>
+
+        <p>
+          Un Sistema de Gestión de Bases de Datos (SGBD)
+          es un software encargado de crear, administrar y proteger bases de datos.
+        </p>
+
+        <h3>Ejemplos populares</h3>
+
+        <ul>
+          <li>MySQL</li>
+          <li>PostgreSQL</li>
+          <li>Oracle</li>
+          <li>Microsoft SQL Server</li>
+        </ul>
+
+        <h3>Ventajas principales</h3>
+
+        <ul>
+          <li><strong>Integridad:</strong> evita inconsistencias.</li>
+          <li><strong>Seguridad:</strong> control de permisos.</li>
+          <li><strong>Escalabilidad:</strong> soporta crecimiento.</li>
+          <li><strong>Acceso concurrente:</strong> múltiples usuarios simultáneos.</li>
+        </ul>
+
+<pre><code>GRANT SELECT ON Clientes TO usuario1;</code></pre>
+
+        <div class="example">
+          Este comando da permisos de lectura sobre la tabla Clientes.
+        </div>
+
+        <div class="trap">
+          Muchos exámenes confunden “Base de Datos” con “SGBD”.
+          La base de datos son los datos.
+          El SGBD es el software que los administra.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué hace un SGBD?
+          </div>
+
+          <button class="option" onclick="check(this,true)">Administra bases de datos</button>
+          <button class="option" onclick="check(this,false)">Solo guarda imágenes</button>
+          <button class="option" onclick="check(this,false)">Sustituye Internet</button>
+          <button class="option" onclick="check(this,false)">Elimina usuarios automáticamente</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 4 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 4 · 25 min</span>
+
+        <h2>Tipos de SGBD</h2>
+
+        <h3>Relacionales (SQL)</h3>
+
+        <p>
+          Organizan la información en tablas relacionadas.
+        </p>
+
+        <ul>
+          <li>Datos estructurados</li>
+          <li>Lenguaje SQL</li>
+          <li>Alta integridad</li>
+        </ul>
+
+        <h3>No Relacionales (NoSQL)</h3>
+
+        <p>
+          Flexibles y preparados para grandes volúmenes de datos.
+        </p>
+
+        <ul>
+          <li>Documentos</li>
+          <li>Grafos</li>
+          <li>Clave-valor</li>
+          <li>Columnas</li>
+        </ul>
+
+        <table>
+          <tr>
+            <th>SQL</th>
+            <th>NoSQL</th>
+          </tr>
+          <tr>
+            <td>Datos estructurados</td>
+            <td>Datos flexibles</td>
+          </tr>
+          <tr>
+            <td>Tablas</td>
+            <td>Documentos/Grafos</td>
+          </tr>
+          <tr>
+            <td>MySQL</td>
+            <td>MongoDB</td>
+          </tr>
+        </table>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué tipo de BD suele utilizar MongoDB?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Relacional</button>
+          <button class="option" onclick="check(this,true)">NoSQL</button>
+          <button class="option" onclick="check(this,false)">Jerárquica clásica</button>
+          <button class="option" onclick="check(this,false)">Fichero plano</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 5 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 5 · 30 min</span>
+
+        <h2>Arquitectura ANSI/SPARC</h2>
+
+        <p>
+          Divide la base de datos en tres niveles de abstracción.
+        </p>
+
+        <h3>Nivel Externo</h3>
+        <p>
+          Cada usuario ve solo la información necesaria.
+        </p>
+
+        <h3>Nivel Conceptual</h3>
+        <p>
+          Representa toda la estructura lógica de la BD.
+        </p>
+
+        <h3>Nivel Interno</h3>
+        <p>
+          Define cómo se almacenan físicamente los datos.
+        </p>
+
+        <div class="example">
+          Si cambias el disco duro del servidor,
+          el usuario no debería notar diferencias.
+          Eso es independencia de datos.
+        </div>
+
+        <div class="tip">
+          <strong>Consejo de examen:</strong><br>
+          Relaciona siempre:
+          Externo → Usuario,
+          Conceptual → Modelo,
+          Interno → Disco físico.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué nivel define el almacenamiento físico?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Externo</button>
+          <button class="option" onclick="check(this,true)">Interno</button>
+          <button class="option" onclick="check(this,false)">Conceptual</button>
+          <button class="option" onclick="check(this,false)">Visual</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 6 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 6 · 20 min</span>
+
+        <h2>Modelo Cliente-Servidor</h2>
+
+        <p>
+          En este modelo, el cliente realiza peticiones
+          y el servidor procesa las consultas.
+        </p>
+
+<pre><code>Cliente ---> Consulta SQL ---> Servidor
+Cliente <--- Resultados ----- Servidor</code></pre>
+
+        <h3>Ventajas</h3>
+
+        <ul>
+          <li>Centralización</li>
+          <li>Seguridad</li>
+          <li>Escalabilidad</li>
+          <li>Acceso multiusuario</li>
+        </ul>
+
+        <div class="example">
+          Cuando usas Instagram, tu móvil es el cliente.
+          Los servidores de Meta procesan las peticiones.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Quién procesa las consultas SQL?
+          </div>
+
+          <button class="option" onclick="check(this,false)">El cliente</button>
+          <button class="option" onclick="check(this,true)">El servidor</button>
+          <button class="option" onclick="check(this,false)">Excel</button>
+          <button class="option" onclick="check(this,false)">El navegador únicamente</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 7 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 7 · 15 min</span>
+
+        <h2>Caso de Estudio: Netflix</h2>
+
+        <p>
+          Netflix utiliza una arquitectura híbrida:
+          bases de datos SQL y NoSQL.
+        </p>
+
+        <h3>¿Por qué?</h3>
+
+        <ul>
+          <li>SQL → transacciones críticas</li>
+          <li>NoSQL → millones de reproducciones</li>
+          <li>Nube → escalabilidad mundial</li>
+        </ul>
+
+        <div class="example">
+          Cassandra permite manejar enormes cantidades de datos
+          distribuidos globalmente.
+        </div>
+
+        <div class="tip">
+          Netflix prioriza:
+          escalabilidad, baja latencia y personalización.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué tipo de arquitectura usa Netflix?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Solo SQL</button>
+          <button class="option" onclick="check(this,false)">Solo Excel</button>
+          <button class="option" onclick="check(this,true)">Híbrida SQL + NoSQL</button>
+          <button class="option" onclick="check(this,false)">Sin bases de datos</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 8 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 8 · 15 min</span>
+
+        <h2>Caso de Estudio: WhatsApp</h2>
+
+        <p>
+          WhatsApp maneja millones de mensajes por minuto
+          y más de 2.000 millones de usuarios.
+        </p>
+
+        <h3>Arquitectura ANSI/SPARC aplicada</h3>
+
+        <ul>
+          <li><strong>Externo:</strong> cada usuario ve sus chats.</li>
+          <li><strong>Conceptual:</strong> usuarios, grupos y mensajes.</li>
+          <li><strong>Interno:</strong> servidores distribuidos.</li>
+        </ul>
+
+        <div class="example">
+          WhatsApp combina SQL y NoSQL para maximizar velocidad y disponibilidad.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué nivel ANSI/SPARC representa los chats visibles del usuario?
+          </div>
+
+          <button class="option" onclick="check(this,true)">Nivel externo</button>
+          <button class="option" onclick="check(this,false)">Nivel interno</button>
+          <button class="option" onclick="check(this,false)">Nivel físico avanzado</button>
+          <button class="option" onclick="check(this,false)">Nivel blockchain</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- BLOQUE 9 -->
+
+    <section class="block">
+
+      <div class="card">
+
+        <span class="tag">Bloque 9 · 20 min</span>
+
+        <h2>Herramientas y Consejos</h2>
+
+        <h3>Herramientas recomendadas</h3>
+
+        <ul>
+          <li>MySQL Workbench</li>
+          <li>MongoDB Atlas</li>
+          <li>PostgreSQL</li>
+          <li>Docker</li>
+        </ul>
+
+        <h3>Consejos para estudiar</h3>
+
+        <ul>
+          <li>Practica SQL todos los días</li>
+          <li>Haz esquemas visuales</li>
+          <li>Relaciona conceptos con apps reales</li>
+          <li>Practica preguntas tipo test</li>
+        </ul>
+
+        <div class="trap">
+          <strong>Mito:</strong> “NoSQL sustituirá completamente SQL”.
+          ❌ Falso. Hoy muchas empresas usan sistemas híbridos.
+        </div>
+
+        <div class="tip">
+          <strong>Consejo final:</strong><br>
+          Memoriza ejemplos reales:
+          Netflix → híbrido,
+          WhatsApp → cliente-servidor + ANSI/SPARC.
+        </div>
+
+        <div class="quiz">
+
+          <div class="question">
+            ¿Qué herramienta se recomienda para practicar SQL?
+          </div>
+
+          <button class="option" onclick="check(this,false)">Photoshop</button>
+          <button class="option" onclick="check(this,true)">MySQL Workbench</button>
+          <button class="option" onclick="check(this,false)">Blender</button>
+          <button class="option" onclick="check(this,false)">Spotify</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="footer-note">
+      Material para ayudarte a estudiar bases de datos. Mucha suerte.
+    </div>
+
+  </main>
+
+  <script>
+
+    const blocks = document.querySelectorAll('.block');
+    const buttons = document.querySelectorAll('.nav-btn');
+
+    function showBlock(index){
+
+      blocks.forEach(block => block.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      blocks[index].classList.add('active');
+      buttons[index].classList.add('active');
+
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      });
+    }
+
+    function check(button, correct){
+
+      const parent = button.parentElement;
+      const options = parent.querySelectorAll('.option');
+
+      options.forEach(opt => opt.disabled = true);
+
+      if(correct){
+        button.classList.add('correct');
+      }else{
+        button.classList.add('wrong');
+
+        options.forEach(opt=>{
+          if(opt.getAttribute('onclick').includes('true')){
+            opt.classList.add('correct');
+          }
+        });
+      }
+
+      const result = document.createElement('div');
+      result.classList.add('result');
+
+      result.innerHTML = correct
+        ? "✅ ¡Correcto!"
+        : "❌ Incorrecto.";
+
+      parent.appendChild(result);
+    }
+
+  </script>
+
+</body>
+</html>

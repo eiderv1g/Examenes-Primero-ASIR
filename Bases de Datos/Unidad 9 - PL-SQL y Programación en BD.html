@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 9 - PL/SQL y Programación en BD</title>
+
+<style>
+
+:root{
+  --bg:#f4fbfd;
+  --sidebar:#0f3d56;
+  --primary:#1483a3;
+  --secondary:#46bdd7;
+  --accent:#82e4db;
+  --card:#ffffff;
+  --text:#1e293b;
+  --muted:#64748b;
+  --success:#22c55e;
+  --danger:#ef4444;
+  --border:#d8edf2;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:330px;
+  background:linear-gradient(180deg,#0f3d56,#167391);
+  color:white;
+  padding:25px 20px;
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  overflow-y:auto;
+  box-shadow:4px 0 16px rgba(0,0,0,.16);
+}
+
+.sidebar h1{
+  font-size:1.7rem;
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.sidebar p{
+  opacity:.92;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.nav-btn{
+  width:100%;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:white;
+  text-align:left;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.25s;
+  font-size:.93rem;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+  background:rgba(255,255,255,.22);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:330px;
+  width:calc(100% - 330px);
+  padding:40px;
+}
+
+.block{
+  display:none;
+  animation:fade .35s ease;
+}
+
+.block.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+
+h2{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:2rem;
+}
+
+h3{
+  color:#0f6880;
+  margin:24px 0 12px;
+}
+
+p{
+  line-height:1.8;
+  margin-bottom:16px;
+}
+
+ul{
+  padding-left:22px;
+  margin:14px 0;
+}
+
+li{
+  margin-bottom:10px;
+  line-height:1.7;
+}
+
+.tag{
+  display:inline-block;
+  background:#dcf8fd;
+  color:#075f75;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.85rem;
+  margin-bottom:16px;
+  font-weight:700;
+}
+
+.example{
+  background:#ebfbff;
+  border-left:5px solid var(--secondary);
+  padding:18px;
+  border-radius:14px;
+  margin:18px 0;
+}
+
+.tip{
+  background:#effff7;
+  border-left:5px solid var(--success);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+.trap{
+  background:#fff3f3;
+  border-left:5px solid var(--danger);
+  padding:18px;
+  border-radius:14px;
+  margin-top:18px;
+}
+
+pre{
+  background:#0f172a;
+  color:#d6f1ff;
+  padding:18px;
+  border-radius:14px;
+  overflow:auto;
+  margin-top:15px;
+}
+
+code{
+  font-family:Consolas, monospace;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0;
+}
+
+th,td{
+  border:1px solid #d8edf2;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:#def8fd;
+  color:#075f75;
+}
+
+.quiz{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:2px dashed #cfe8ef;
+}
+
+.question{
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  border:none;
+  background:#f2fbfd;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.2s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#def7fb;
+}
+
+.option.correct{
+  background:#dcfce7;
+  border-color:#22c55e;
+}
+
+.option.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer-note{
+  margin-top:40px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 9<br>PL/SQL y Programación en BD</h1>
+
+<p>
+Guía interactiva para dominar programación PL/SQL, subprogramas, paquetes, optimización y buenas prácticas profesionales.
+</p>
+
+<button class="nav-btn active" onclick="showBlock(0)">9.1 Qué es PL/SQL</button>
+<button class="nav-btn" onclick="showBlock(1)">9.2 DECLARE · BEGIN · EXCEPTION · END</button>
+<button class="nav-btn" onclick="showBlock(2)">9.3 Variables PL/SQL</button>
+<button class="nav-btn" onclick="showBlock(3)">9.4 Randstad España</button>
+<button class="nav-btn" onclick="showBlock(4)">9.5 Procedimientos y funciones</button>
+<button class="nav-btn" onclick="showBlock(5)">9.6 Manejo de excepciones</button>
+<button class="nav-btn" onclick="showBlock(6)">9.7 Estrategia Banco Santander</button>
+<button class="nav-btn" onclick="showBlock(7)">9.8 Packages</button>
+<button class="nav-btn" onclick="showBlock(8)">9.9 Organización de packages</button>
+<button class="nav-btn" onclick="showBlock(9)">9.10 Ejemplo explicado</button>
+<button class="nav-btn" onclick="showBlock(10)">9.11 Optimización</button>
+<button class="nav-btn" onclick="showBlock(11)">9.12 Herramientas y consejos</button>
+
+</aside>
+
+<main class="main">
+
+<!-- 1 -->
+
+<section class="block active">
+<div class="card">
+
+<span class="tag">Bloque 9.1 · 40 min</span>
+
+<h2>Qué es PL/SQL</h2>
+
+<p>
+PL/SQL es el lenguaje procedural de Oracle que combina SQL con estructuras de programación.
+</p>
+
+<p>
+Permite ejecutar lógica directamente dentro del servidor Oracle.
+</p>
+
+<h3>Ventajas principales</h3>
+
+<ul>
+<li>Reduce tráfico entre aplicación y servidor.</li>
+<li>Mejora rendimiento.</li>
+<li>Centraliza lógica crítica.</li>
+<li>Permite automatización.</li>
+<li>Aumenta seguridad.</li>
+</ul>
+
+<h3>PL/SQL vs SQL</h3>
+
+<table>
+<tr>
+<th>SQL</th>
+<th>PL/SQL</th>
+</tr>
+<tr>
+<td>Manipulación de datos</td>
+<td>Lógica procedural</td>
+</tr>
+<tr>
+<td>Consultas</td>
+<td>Condiciones y bucles</td>
+</tr>
+<tr>
+<td>Sin estructuras complejas</td>
+<td>Variables y excepciones</td>
+</tr>
+</table>
+
+<h3>Estructuras disponibles</h3>
+
+<ul>
+<li>IF</li>
+<li>ELSIF</li>
+<li>LOOP</li>
+<li>WHILE</li>
+<li>FOR</li>
+</ul>
+
+<div class="example">
+PL/SQL permite crear sistemas completos dentro de Oracle.
+</div>
+
+<div class="trap">
+PL/SQL NO sustituye SQL. Lo amplía.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué añade PL/SQL a SQL?
+</div>
+
+<button class="option" onclick="check(this,true)">Lógica procedural</button>
+<button class="option" onclick="check(this,false)">Drivers</button>
+<button class="option" onclick="check(this,false)">HTML</button>
+<button class="option" onclick="check(this,false)">CSS</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 2 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.2 · 45 min</span>
+
+<h2>DECLARE · BEGIN · EXCEPTION · END</h2>
+
+<p>
+Todo bloque PL/SQL sigue una estructura clara.
+</p>
+
+<pre><code>DECLARE
+   -- Variables
+
+BEGIN
+   -- Código principal
+
+EXCEPTION
+   -- Manejo de errores
+
+END;</code></pre>
+
+<h3>DECLARE</h3>
+
+<p>
+Zona opcional para variables, constantes y cursores.
+</p>
+
+<h3>BEGIN</h3>
+
+<p>
+Parte principal del código.
+</p>
+
+<h3>EXCEPTION</h3>
+
+<p>
+Captura errores y evita interrupciones.
+</p>
+
+<h3>END</h3>
+
+<p>
+Final obligatorio del bloque.
+</p>
+
+<h3>Ejemplo completo</h3>
+
+<pre><code>DECLARE
+   v_nombre VARCHAR2(50);
+
+BEGIN
+
+   v_nombre := 'Carlos';
+
+   DBMS_OUTPUT.PUT_LINE(v_nombre);
+
+EXCEPTION
+
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Error');
+
+END;</code></pre>
+
+<div class="tip">
+BEGIN y END son obligatorios.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué sección captura errores?
+</div>
+
+<button class="option" onclick="check(this,false)">DECLARE</button>
+<button class="option" onclick="check(this,false)">BEGIN</button>
+<button class="option" onclick="check(this,true)">EXCEPTION</button>
+<button class="option" onclick="check(this,false)">RETURN</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 3 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.3 · 45 min</span>
+
+<h2>Variables PL/SQL</h2>
+
+<p>
+PL/SQL permite trabajar con variables tipadas.
+</p>
+
+<h3>Tipos habituales</h3>
+
+<ul>
+<li>VARCHAR2</li>
+<li>NUMBER</li>
+<li>DATE</li>
+<li>BOOLEAN</li>
+</ul>
+
+<h3>Declaración básica</h3>
+
+<pre><code>DECLARE
+   v_nombre VARCHAR2(50);
+   v_edad NUMBER;
+BEGIN
+   v_nombre := 'Laura';
+   v_edad := 28;
+END;</code></pre>
+
+<h3>%TYPE</h3>
+
+<p>
+Hereda automáticamente el tipo de una columna.
+</p>
+
+<pre><code>v_salario empleados.salario%TYPE;</code></pre>
+
+<h3>Ventajas de %TYPE</h3>
+
+<ul>
+<li>Evita incompatibilidades.</li>
+<li>Reduce errores.</li>
+<li>Facilita mantenimiento.</li>
+</ul>
+
+<div class="example">
+Si cambia el tipo de la tabla, la variable también se adapta.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace %TYPE?
+</div>
+
+<button class="option" onclick="check(this,true)">Hereda tipos de columnas</button>
+<button class="option" onclick="check(this,false)">Elimina tablas</button>
+<button class="option" onclick="check(this,false)">Crea índices</button>
+<button class="option" onclick="check(this,false)">Cierra Oracle</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 4 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.4 · 40 min</span>
+
+<h2>Empresa real: Randstad España</h2>
+
+<p>
+Randstad automatiza consultas internas mediante bloques PL/SQL.
+</p>
+
+<h3>Objetivo</h3>
+
+<ul>
+<li>Consultar empleados rápidamente.</li>
+<li>Reducir errores.</li>
+<li>Automatizar reporting.</li>
+</ul>
+
+<h3>Bloque usado</h3>
+
+<pre><code>DECLARE
+
+ v_nombre empleados.nombre%TYPE;
+ v_salario empleados.salario%TYPE;
+
+BEGIN
+
+ SELECT nombre, salario
+ INTO v_nombre, v_salario
+ FROM empleados
+ WHERE id = 2;
+
+ DBMS_OUTPUT.PUT_LINE(
+ 'Empleado: ' || v_nombre
+ );
+
+EXCEPTION
+
+ WHEN NO_DATA_FOUND THEN
+  DBMS_OUTPUT.PUT_LINE(
+  'Empleado no encontrado'
+  );
+
+END;</code></pre>
+
+<h3>Beneficios</h3>
+
+<ul>
+<li>Consultas más rápidas.</li>
+<li>Menos errores humanos.</li>
+<li>Lógica centralizada.</li>
+</ul>
+
+<div class="tip">
+SET SERVEROUTPUT ON permite ver mensajes DBMS_OUTPUT.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué excepción aparece si no hay resultados?
+</div>
+
+<button class="option" onclick="check(this,true)">NO_DATA_FOUND</button>
+<button class="option" onclick="check(this,false)">SQL_ERROR</button>
+<button class="option" onclick="check(this,false)">VALUE_EMPTY</button>
+<button class="option" onclick="check(this,false)">NULL_POINTER</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 5 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.5 · 50 min</span>
+
+<h2>Procedimientos y funciones en PL/SQL</h2>
+
+<h3>Procedimientos</h3>
+
+<p>
+Realizan acciones pero no devuelven valor directo.
+</p>
+
+<pre><code>CREATE OR REPLACE PROCEDURE
+mostrar_empleado(p_id IN NUMBER)
+
+AS
+
+ v_nombre empleados.nombre%TYPE;
+
+BEGIN
+
+ SELECT nombre
+ INTO v_nombre
+ FROM empleados
+ WHERE id = p_id;
+
+ DBMS_OUTPUT.PUT_LINE(v_nombre);
+
+END;</code></pre>
+
+<h3>Funciones</h3>
+
+<p>
+Devuelven un valor usando RETURN.
+</p>
+
+<pre><code>CREATE OR REPLACE FUNCTION
+calcular_media
+
+RETURN NUMBER IS
+
+ v_media NUMBER;
+
+BEGIN
+
+ SELECT AVG(salario)
+ INTO v_media
+ FROM empleados;
+
+ RETURN v_media;
+
+END;</code></pre>
+
+<h3>Parámetros</h3>
+
+<table>
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+<tr>
+<td>IN</td>
+<td>Entrada</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>Salida</td>
+</tr>
+<tr>
+<td>IN OUT</td>
+<td>Entrada y salida</td>
+</tr>
+</table>
+
+<div class="trap">
+Las funciones sí pueden usarse dentro de SQL. Los procedimientos no.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué devuelve una función?
+</div>
+
+<button class="option" onclick="check(this,true)">Un valor</button>
+<button class="option" onclick="check(this,false)">Una tabla física</button>
+<button class="option" onclick="check(this,false)">Un trigger</button>
+<button class="option" onclick="check(this,false)">Un índice</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 6 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.6 · 45 min</span>
+
+<h2>Manejo de excepciones</h2>
+
+<p>
+Las excepciones controlan errores sin detener procesos críticos.
+</p>
+
+<h3>Excepciones habituales</h3>
+
+<ul>
+<li>NO_DATA_FOUND</li>
+<li>TOO_MANY_ROWS</li>
+<li>ZERO_DIVIDE</li>
+<li>WHEN OTHERS</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>BEGIN
+
+ SELECT salario
+ INTO v_salario
+ FROM empleados
+ WHERE id = 99;
+
+EXCEPTION
+
+ WHEN NO_DATA_FOUND THEN
+   DBMS_OUTPUT.PUT_LINE(
+   'No existe'
+   );
+
+ WHEN OTHERS THEN
+   DBMS_OUTPUT.PUT_LINE(
+   SQLERRM
+   );
+
+END;</code></pre>
+
+<h3>SQLERRM</h3>
+
+<p>
+Devuelve el mensaje exacto del error.
+</p>
+
+<div class="example">
+Nunca dejes bloques críticos sin EXCEPTION.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué devuelve SQLERRM?
+</div>
+
+<button class="option" onclick="check(this,true)">Mensaje del error</button>
+<button class="option" onclick="check(this,false)">Fecha actual</button>
+<button class="option" onclick="check(this,false)">ID del usuario</button>
+<button class="option" onclick="check(this,false)">Una tabla</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 7 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.7 · 40 min</span>
+
+<h2>Estrategia del Banco Santander</h2>
+
+<p>
+Banco Santander centraliza lógica crítica mediante funciones y procedimientos.
+</p>
+
+<h3>Función financiera</h3>
+
+<pre><code>CREATE OR REPLACE FUNCTION
+comision_promedio
+
+RETURN NUMBER IS
+
+ v_avg NUMBER;
+
+BEGIN
+
+ SELECT AVG(comision)
+ INTO v_avg
+ FROM ventas;
+
+ RETURN v_avg;
+
+EXCEPTION
+
+ WHEN OTHERS THEN
+   RETURN 0;
+
+END;</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Mayor rendimiento.</li>
+<li>Reglas centralizadas.</li>
+<li>Menos errores.</li>
+<li>Procesos reutilizables.</li>
+</ul>
+
+<div class="tip">
+Las funciones son muy usadas en reporting financiero.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué hace RETURN?
+</div>
+
+<button class="option" onclick="check(this,true)">Devuelve un valor</button>
+<button class="option" onclick="check(this,false)">Borra tablas</button>
+<button class="option" onclick="check(this,false)">Cierra Oracle</button>
+<button class="option" onclick="check(this,false)">Abre conexiones</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 8 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.8 · 45 min</span>
+
+<h2>Paquetes (PACKAGES)</h2>
+
+<p>
+Un package agrupa procedimientos, funciones y variables relacionadas.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Organización modular.</li>
+<li>Mejor rendimiento.</li>
+<li>Encapsulamiento.</li>
+<li>Escalabilidad.</li>
+</ul>
+
+<h3>Dos partes</h3>
+
+<table>
+<tr>
+<th>Parte</th>
+<th>Descripción</th>
+</tr>
+<tr>
+<td>Specification</td>
+<td>Interfaz pública</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>Implementación interna</td>
+</tr>
+</table>
+
+<h3>Ejemplo</h3>
+
+<pre><code>CREATE OR REPLACE PACKAGE
+gestion_nominas AS
+
+ PROCEDURE actualizar_salario;
+ FUNCTION obtener_media
+ RETURN NUMBER;
+
+END;</code></pre>
+
+<div class="example">
+Los packages funcionan como módulos profesionales dentro de Oracle.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué contiene el BODY?
+</div>
+
+<button class="option" onclick="check(this,true)">Implementación interna</button>
+<button class="option" onclick="check(this,false)">HTML</button>
+<button class="option" onclick="check(this,false)">CSS</button>
+<button class="option" onclick="check(this,false)">Drivers</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 9 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.9 · 40 min</span>
+
+<h2>Cómo se organizan los paquetes</h2>
+
+<h3>Ejemplos típicos</h3>
+
+<ul>
+<li>gestion_clientes</li>
+<li>gestion_nominas</li>
+<li>auditoria_operaciones</li>
+<li>gestion_stock</li>
+</ul>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Agrupar lógica relacionada.</li>
+<li>Ocultar variables privadas.</li>
+<li>Separar interfaz e implementación.</li>
+<li>Documentar subprogramas.</li>
+</ul>
+
+<h3>Caching</h3>
+
+<p>
+Oracle mantiene packages cargados en memoria para mejorar velocidad.
+</p>
+
+<h3>Herramientas útiles</h3>
+
+<pre><code>USER_OBJECTS
+USER_ERRORS
+ALL_SOURCE</code></pre>
+
+<div class="tip">
+Cambiar el BODY no rompe sistemas externos si la specification sigue igual.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué parte es pública?
+</div>
+
+<button class="option" onclick="check(this,true)">Specification</button>
+<button class="option" onclick="check(this,false)">Body</button>
+<button class="option" onclick="check(this,false)">EXCEPTION</button>
+<button class="option" onclick="check(this,false)">RETURN</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 10 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.10 · 50 min</span>
+
+<h2>Ejemplo explicado de código</h2>
+
+<h3>Package completo</h3>
+
+<pre><code>CREATE OR REPLACE PACKAGE
+gestion_nominas AS
+
+ PROCEDURE actualizar_salario(
+  p_id NUMBER,
+  p_porcentaje NUMBER
+ );
+
+ FUNCTION obtener_media
+ RETURN NUMBER;
+
+END gestion_nominas;</code></pre>
+
+<h3>BODY</h3>
+
+<pre><code>CREATE OR REPLACE PACKAGE BODY
+gestion_nominas AS
+
+ PROCEDURE actualizar_salario(
+  p_id NUMBER,
+  p_porcentaje NUMBER
+ )
+
+ IS
+
+ BEGIN
+
+  UPDATE empleados
+
+  SET salario =
+  salario * (1 + p_porcentaje / 100)
+
+  WHERE id = p_id;
+
+ END;
+
+ FUNCTION obtener_media
+ RETURN NUMBER IS
+
+  v_media NUMBER;
+
+ BEGIN
+
+  SELECT AVG(salario)
+  INTO v_media
+  FROM empleados;
+
+  RETURN v_media;
+
+ END;
+
+END gestion_nominas;</code></pre>
+
+<h3>Análisis</h3>
+
+<ul>
+<li>Specification define interfaz.</li>
+<li>BODY implementa lógica.</li>
+<li>UPDATE modifica salarios.</li>
+<li>AVG calcula media.</li>
+</ul>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué calcula AVG?
+</div>
+
+<button class="option" onclick="check(this,true)">Media</button>
+<button class="option" onclick="check(this,false)">Máximo</button>
+<button class="option" onclick="check(this,false)">Mínimo</button>
+<button class="option" onclick="check(this,false)">Conteo</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 11 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.11 · 55 min</span>
+
+<h2>Optimización y buenas prácticas en PL/SQL</h2>
+
+<h3>Problemas comunes</h3>
+
+<ul>
+<li>Cursores innecesarios.</li>
+<li>Consultas dentro de bucles.</li>
+<li>Demasiados commits.</li>
+<li>Errores sin controlar.</li>
+</ul>
+
+<h3>BULK COLLECT</h3>
+
+<pre><code>SELECT id, precio
+
+BULK COLLECT INTO
+v_ids, v_precios
+
+FROM productos;</code></pre>
+
+<h3>FORALL</h3>
+
+<pre><code>FORALL i IN 1..v_ids.COUNT
+
+ UPDATE productos
+
+ SET precio = v_precios(i) * 1.05
+
+ WHERE id = v_ids(i);</code></pre>
+
+<h3>Auditoría</h3>
+
+<pre><code>CREATE TRIGGER auditar_precios
+
+AFTER UPDATE ON productos
+
+FOR EACH ROW
+
+INSERT INTO log_precios
+(id_producto, precio_anterior,
+precio_nuevo, fecha)
+
+VALUES
+(:OLD.id,
+ :OLD.precio,
+ :NEW.precio,
+ SYSDATE);</code></pre>
+
+<div class="tip">
+FORALL mejora muchísimo rendimiento en operaciones masivas.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué optimiza FORALL?
+</div>
+
+<button class="option" onclick="check(this,true)">Procesamiento masivo</button>
+<button class="option" onclick="check(this,false)">Diseño web</button>
+<button class="option" onclick="check(this,false)">Conexiones HTTP</button>
+<button class="option" onclick="check(this,false)">CSS</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- 12 -->
+
+<section class="block">
+<div class="card">
+
+<span class="tag">Bloque 9.12 · 35 min</span>
+
+<h2>Herramientas y consejos</h2>
+
+<h3>Herramientas profesionales</h3>
+
+<ul>
+<li>Oracle SQL Developer</li>
+<li>TOAD for Oracle</li>
+<li>Oracle LiveSQL</li>
+<li>PL/SQL Profiler</li>
+</ul>
+
+<h3>Consejos clave</h3>
+
+<ul>
+<li>Documenta siempre.</li>
+<li>Usa módulos pequeños.</li>
+<li>Controla excepciones.</li>
+<li>Usa BULK COLLECT.</li>
+<li>Evita commits innecesarios.</li>
+<li>Centraliza auditoría.</li>
+</ul>
+
+<h3>Depuración</h3>
+
+<pre><code>SHOW ERRORS;
+
+SELECT * FROM USER_ERRORS;</code></pre>
+
+<h3>Buenas prácticas de naming</h3>
+
+<table>
+<tr>
+<th>Prefijo</th>
+<th>Uso</th>
+</tr>
+<tr>
+<td>v_</td>
+<td>Variables</td>
+</tr>
+<tr>
+<td>p_</td>
+<td>Parámetros</td>
+</tr>
+<tr>
+<td>c_</td>
+<td>Constantes</td>
+</tr>
+</table>
+
+<div class="trap">
+Un commit por fila puede destruir el rendimiento.
+</div>
+
+<div class="quiz">
+
+<div class="question">
+¿Qué herramienta permite depurar PL/SQL?
+</div>
+
+<button class="option" onclick="check(this,true)">Oracle SQL Developer</button>
+<button class="option" onclick="check(this,false)">Photoshop</button>
+<button class="option" onclick="check(this,false)">Blender</button>
+<button class="option" onclick="check(this,false)">Illustrator</button>
+
+</div>
+
+</div>
+</section>
+
+<div class="footer-note">
+Material para ayudarte a estudiar bases de datos. Mucha suerte.
+</div>
+
+</main>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const buttons = document.querySelectorAll('.nav-btn');
+
+function showBlock(index){
+
+  blocks.forEach(block => block.classList.remove('active'));
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  blocks[index].classList.add('active');
+  buttons[index].classList.add('active');
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+function check(button, correct){
+
+  const parent = button.parentElement;
+  const options = parent.querySelectorAll('.option');
+
+  options.forEach(opt => opt.disabled = true);
+
+  if(correct){
+    button.classList.add('correct');
+  }else{
+    button.classList.add('wrong');
+
+    options.forEach(opt=>{
+      if(opt.getAttribute('onclick').includes('true')){
+        opt.classList.add('correct');
+      }
+    });
+  }
+
+  const result = document.createElement('div');
+  result.classList.add('result');
+
+  result.innerHTML = correct
+    ? "✅ ¡Correcto!"
+    : "❌ Incorrecto.";
+
+  parent.appendChild(result);
+}
+
+</script>
+
+</body>
+</html>
