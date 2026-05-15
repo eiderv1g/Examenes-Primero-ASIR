@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 7 - AWS Lambda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --border:#2a2a45;
+    --text:#ececff;
+    --muted:#b7b7d8;
+    --purple:#9b5cff;
+    --purple2:#6f40ff;
+    --blue:#58a8ff;
+    --green:#39d27b;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#101018,#0a0a13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    border:1px solid transparent;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.menu button:hover{
+    transform:translateX(4px);
+    border-color:var(--purple);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.3rem;
+    margin-bottom:15px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d8d8f2;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    line-height:1.8;
+    margin-bottom:10px;
+    color:#d8d8f2;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+pre{
+    background:#0a0a12;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin:20px 0;
+}
+
+code{
+    color:#9fd4ff;
+    font-family:Consolas,monospace;
+    line-height:1.7;
+}
+
+.tip{
+    background:rgba(88,168,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    color:var(--purple);
+    margin-bottom:20px;
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(57,210,123,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 7<br>
+<span>AWS Lambda</span>
+</div>
+
+<div class="subtitle">
+Computación serverless, funciones Lambda, eventos, automatización y arquitectura moderna en AWS.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. Introducción</button>
+<button onclick="showBlock(1)">2. Qué es Serverless</button>
+<button onclick="showBlock(2)">3. EC2 vs Lambda</button>
+<button onclick="showBlock(3)">4. Funcionamiento</button>
+<button onclick="showBlock(4)">5. Eventos Lambda</button>
+<button onclick="showBlock(5)">6. Lenguajes</button>
+<button onclick="showBlock(6)">7. IAM y permisos</button>
+<button onclick="showBlock(7)">8. CloudWatch</button>
+<button onclick="showBlock(8)">9. Crear Lambda</button>
+<button onclick="showBlock(9)">10. Código Python</button>
+<button onclick="showBlock(10)">11. Automatizar EC2</button>
+<button onclick="showBlock(11)">12. API Gateway</button>
+<button onclick="showBlock(12)">13. Límites y costes</button>
+<button onclick="showBlock(13)">14. Arquitectura moderna</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Introducción a AWS Lambda</h1>
+
+<p>
+AWS Lambda es el servicio serverless de AWS que permite ejecutar código sin administrar servidores.
+</p>
+
+<p>
+En lugar de crear una máquina EC2 completa, simplemente subimos una función y AWS se encarga automáticamente de:
+</p>
+
+<ul>
+<li>Infraestructura</li>
+<li>Escalado</li>
+<li>Disponibilidad</li>
+<li>Ejecución</li>
+<li>Monitorización básica</li>
+</ul>
+
+<h3>Idea principal</h3>
+
+<pre><code>Evento
+↓
+Lambda se activa
+↓
+Ejecuta código
+↓
+Finaliza</code></pre>
+
+<p>
+La función solo existe mientras se ejecuta.
+</p>
+
+<div class="tip">
+Lambda revolucionó muchas arquitecturas modernas porque elimina gran parte de la administración de servidores.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué permite AWS Lambda?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Ejecutar código sin administrar servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear discos EBS</div>
+<div class="option" onclick="checkAnswer(this,false)">Gestionar DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear VPCs únicamente</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. Qué significa Serverless</h2>
+
+<p>
+Serverless NO significa que no existan servidores.
+</p>
+
+<p>
+Significa que los servidores son completamente administrados por AWS y nosotros no tenemos que preocuparnos por ellos.
+</p>
+
+<h3>Qué gestiona AWS</h3>
+
+<ul>
+<li>Sistema operativo</li>
+<li>Parches</li>
+<li>Escalabilidad</li>
+<li>Infraestructura</li>
+<li>Disponibilidad</li>
+</ul>
+
+<h3>Qué hace el desarrollador</h3>
+
+<ul>
+<li>Escribir código</li>
+<li>Subir funciones</li>
+<li>Definir eventos</li>
+</ul>
+
+<div class="warning">
+Pregunta típica: Lambda sigue ejecutándose en servidores físicos, simplemente no los administramos nosotros.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué significa realmente serverless?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">AWS administra los servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">No existen servidores físicos</div>
+<div class="option" onclick="checkAnswer(this,false)">No se usa internet</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo funciona con Linux</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. EC2 vs Lambda</h2>
+
+<table>
+
+<tr>
+<th>Amazon EC2</th>
+<th>AWS Lambda</th>
+</tr>
+
+<tr>
+<td>Gestionas servidores</td>
+<td>AWS gestiona infraestructura</td>
+</tr>
+
+<tr>
+<td>Pago continuo</td>
+<td>Pago por ejecución</td>
+</tr>
+
+<tr>
+<td>Escalado manual</td>
+<td>Escalado automático</td>
+</tr>
+
+<tr>
+<td>Aplicaciones largas</td>
+<td>Eventos rápidos</td>
+</tr>
+
+</table>
+
+<h3>Cuándo usar EC2</h3>
+
+<ul>
+<li>Aplicaciones permanentes</li>
+<li>Control total sistema operativo</li>
+<li>Procesos largos</li>
+</ul>
+
+<h3>Cuándo usar Lambda</h3>
+
+<ul>
+<li>Automatización</li>
+<li>Microservicios</li>
+<li>Procesamiento por eventos</li>
+<li>Escalado automático</li>
+</ul>
+
+<div class="tip">
+Muchas arquitecturas modernas combinan EC2, Lambda y otros servicios.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio escala automáticamente?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">AWS Lambda</div>
+<div class="option" onclick="checkAnswer(this,false)">EC2 manual</div>
+<div class="option" onclick="checkAnswer(this,false)">SSH</div>
+<div class="option" onclick="checkAnswer(this,false)">EBS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Cómo funciona Lambda</h2>
+
+<p>
+Lambda trabaja completamente mediante eventos.
+</p>
+
+<h3>Flujo general</h3>
+
+<pre><code>Se produce un evento
+↓
+AWS detecta el evento
+↓
+Se ejecuta Lambda
+↓
+Lambda ejecuta código
+↓
+Devuelve resultado</code></pre>
+
+<h3>Características importantes</h3>
+
+<ul>
+<li>Ejecución temporal</li>
+<li>Escalado automático</li>
+<li>Alta disponibilidad</li>
+<li>Sin administración servidor</li>
+</ul>
+
+<h3>Tiempo de vida</h3>
+
+<p>
+Una función Lambda no permanece activa permanentemente como EC2.
+</p>
+
+<div class="warning">
+Lambda tiene un límite máximo de ejecución de 15 minutos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué activa normalmente Lambda?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Eventos</div>
+<div class="option" onclick="checkAnswer(this,false)">Un monitor físico</div>
+<div class="option" onclick="checkAnswer(this,false)">Un disco SSD</div>
+<div class="option" onclick="checkAnswer(this,false)">Una GPU local</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Fuentes de eventos Lambda</h2>
+
+<p>
+Muchos servicios AWS pueden activar funciones Lambda automáticamente.
+</p>
+
+<h3>Eventos más utilizados</h3>
+
+<ul>
+<li>Amazon S3</li>
+<li>API Gateway</li>
+<li>CloudWatch</li>
+<li>SNS</li>
+<li>SQS</li>
+<li>DynamoDB</li>
+</ul>
+
+<h3>Ejemplo con S3</h3>
+
+<pre><code>Usuario sube imagen
+↓
+S3 detecta evento
+↓
+Lambda procesa imagen</code></pre>
+
+<h3>Ejemplo con API Gateway</h3>
+
+<pre><code>Petición HTTP
+↓
+API Gateway
+↓
+Lambda ejecuta backend</code></pre>
+
+<div class="tip">
+Las arquitecturas serverless modernas suelen basarse completamente en eventos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio puede activar Lambda al subir archivos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Amazon S3</div>
+<div class="option" onclick="checkAnswer(this,false)">EBS</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. Lenguajes soportados</h2>
+
+<p>
+Lambda soporta múltiples lenguajes de programación.
+</p>
+
+<h3>Lenguajes principales</h3>
+
+<ul>
+<li>Python</li>
+<li>Node.js</li>
+<li>Java</li>
+<li>C#</li>
+<li>Go</li>
+<li>Ruby</li>
+</ul>
+
+<h3>Python</h3>
+
+<p>
+Es uno de los más utilizados por su simplicidad.
+</p>
+
+<h3>Ejemplo básico</h3>
+
+<pre><code>def lambda_handler(event, context):
+
+    return {
+        'statusCode': 200,
+        'body': 'Hola Lambda'
+    }</code></pre>
+
+<div class="warning">
+La función principal suele llamarse lambda_handler.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué lenguaje es muy común en Lambda?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Python</div>
+<div class="option" onclick="checkAnswer(this,false)">HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">CSS</div>
+<div class="option" onclick="checkAnswer(this,false)">SQL puro</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Roles IAM y permisos</h2>
+
+<p>
+Lambda necesita permisos para interactuar con otros servicios AWS.
+</p>
+
+<h3>Cómo obtiene permisos</h3>
+
+<p>
+Mediante roles IAM.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>Lambda
+↓
+Rol IAM
+↓
+Permisos EC2</code></pre>
+
+<h3>Permisos típicos</h3>
+
+<ul>
+<li>Leer buckets S3</li>
+<li>Iniciar EC2</li>
+<li>Detener EC2</li>
+<li>Escribir logs</li>
+</ul>
+
+<div class="warning">
+Sin permisos IAM correctos, Lambda fallará aunque el código esté bien escrito.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué usa Lambda para permisos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Roles IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Elastic IP</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+<div class="option" onclick="checkAnswer(this,false)">Subredes</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Amazon CloudWatch</h2>
+
+<p>
+CloudWatch monitoriza funciones Lambda automáticamente.
+</p>
+
+<h3>Qué registra</h3>
+
+<ul>
+<li>Logs</li>
+<li>Errores</li>
+<li>Tiempo ejecución</li>
+<li>Invocaciones</li>
+<li>Uso memoria</li>
+</ul>
+
+<h3>Ejemplo Python</h3>
+
+<pre><code>print("Lambda iniciada")</code></pre>
+
+<p>
+Ese texto aparecerá en CloudWatch Logs.
+</p>
+
+<h3>Ventaja</h3>
+
+<p>
+Permite depurar problemas rápidamente.
+</p>
+
+<div class="tip">
+CloudWatch es fundamental para detectar errores en arquitecturas serverless.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio almacena logs Lambda?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">CloudWatch</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+<div class="option" onclick="checkAnswer(this,false)">S3 únicamente</div>
+<div class="option" onclick="checkAnswer(this,false)">VPC</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. Crear una función Lambda</h2>
+
+<h3>Paso 1</h3>
+
+<p>
+Entrar al servicio AWS Lambda.
+</p>
+
+<h3>Paso 2</h3>
+
+<p>
+Seleccionar “Create Function”.
+</p>
+
+<h3>Paso 3</h3>
+
+<pre><code>Author from scratch
+Nombre: mi_lambda
+Runtime: Python 3.x</code></pre>
+
+<h3>Paso 4</h3>
+
+<p>
+Elegir rol IAM.
+</p>
+
+<h3>Paso 5</h3>
+
+<p>
+Escribir código y desplegar.
+</p>
+
+<h3>Paso 6</h3>
+
+<p>
+Crear evento de prueba.
+</p>
+
+<div class="tip">
+El editor integrado Lambda permite probar funciones rápidamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué necesitamos para crear Lambda?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Código y runtime</div>
+<div class="option" onclick="checkAnswer(this,false)">Una GPU física</div>
+<div class="option" onclick="checkAnswer(this,false)">Un disco EBS</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront obligatorio</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Ejemplo de código Lambda en Python</h2>
+
+<p>
+Lambda recibe dos parámetros:
+</p>
+
+<ul>
+<li>event → información del evento</li>
+<li>context → información ejecución</li>
+</ul>
+
+<h3>Ejemplo completo</h3>
+
+<pre><code>import json
+
+def lambda_handler(event, context):
+
+    nombre = event['nombre']
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps(
+            f'Hola {nombre}'
+        )
+    }</code></pre>
+
+<h3>Evento de prueba</h3>
+
+<pre><code>{
+  "nombre": "Marcos"
+}</code></pre>
+
+<h3>Resultado</h3>
+
+<pre><code>{
+  "statusCode": 200,
+  "body": "Hola Marcos"
+}</code></pre>
+
+<div class="warning">
+Los eventos normalmente llegan en formato JSON.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué formato suelen usar los eventos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">JSON</div>
+<div class="option" onclick="checkAnswer(this,false)">HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">PDF</div>
+<div class="option" onclick="checkAnswer(this,false)">EXE</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. Automatizar EC2 con Lambda</h2>
+
+<p>
+Uno de los usos más comunes es encender y apagar servidores automáticamente.
+</p>
+
+<h3>Objetivo</h3>
+
+<ul>
+<li>Ahorrar dinero</li>
+<li>Automatizar horarios</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>20:00
+↓
+CloudWatch Event
+↓
+Lambda
+↓
+Stop EC2</code></pre>
+
+<h3>Código ejemplo</h3>
+
+<pre><code>import boto3
+
+ec2 = boto3.client('ec2')
+
+def lambda_handler(event, context):
+
+    ec2.stop_instances(
+        InstanceIds=['i-123456']
+    )</code></pre>
+
+<div class="tip">
+boto3 es la librería oficial Python para AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué librería Python usa AWS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">boto3</div>
+<div class="option" onclick="checkAnswer(this,false)">numpy</div>
+<div class="option" onclick="checkAnswer(this,false)">flask</div>
+<div class="option" onclick="checkAnswer(this,false)">pandas</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. API Gateway y Lambda</h2>
+
+<p>
+API Gateway permite exponer funciones Lambda mediante HTTP.
+</p>
+
+<h3>Arquitectura</h3>
+
+<pre><code>Usuario
+↓
+API Gateway
+↓
+Lambda
+↓
+Respuesta JSON</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Crear APIs REST</li>
+<li>Backend serverless</li>
+<li>Escalabilidad automática</li>
+<li>Pago por uso</li>
+</ul>
+
+<h3>Casos típicos</h3>
+
+<ul>
+<li>APIs móviles</li>
+<li>Aplicaciones SPA</li>
+<li>Microservicios</li>
+</ul>
+
+<div class="warning">
+API Gateway suele ser la puerta de entrada HTTP en arquitecturas serverless.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio expone Lambda vía HTTP?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">API Gateway</div>
+<div class="option" onclick="checkAnswer(this,false)">EBS</div>
+<div class="option" onclick="checkAnswer(this,false)">VPC</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront únicamente</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Límites y costes</h2>
+
+<h3>Límites importantes</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Límite</th>
+</tr>
+
+<tr>
+<td>Tiempo ejecución</td>
+<td>15 minutos</td>
+</tr>
+
+<tr>
+<td>Memoria máxima</td>
+<td>10 GB</td>
+</tr>
+
+<tr>
+<td>Concurrentes</td>
+<td>1000</td>
+</tr>
+
+</table>
+
+<h3>Modelo de precios</h3>
+
+<ul>
+<li>Invocaciones</li>
+<li>Tiempo ejecución</li>
+<li>Memoria utilizada</li>
+</ul>
+
+<h3>Ventaja económica</h3>
+
+<p>
+Si la función no se ejecuta, normalmente no pagamos.
+</p>
+
+<div class="tip">
+Lambda puede ahorrar muchísimo dinero en aplicaciones con tráfico irregular.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Cuál es el máximo tiempo de ejecución?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">15 minutos</div>
+<div class="option" onclick="checkAnswer(this,false)">24 horas</div>
+<div class="option" onclick="checkAnswer(this,false)">5 segundos</div>
+<div class="option" onclick="checkAnswer(this,false)">Ilimitado</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Arquitectura moderna Serverless</h2>
+
+<h3>Ejemplo completo</h3>
+
+<pre><code>Usuario
+↓
+CloudFront
+↓
+S3 (Frontend)
+↓
+API Gateway
+↓
+Lambda
+↓
+DynamoDB / RDS</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalabilidad automática</li>
+<li>Pago por uso</li>
+<li>Alta disponibilidad</li>
+<li>Poca administración</li>
+<li>Arquitectura moderna</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Cold Starts</li>
+<li>Tiempo máximo limitado</li>
+<li>Más complejidad distribuida</li>
+</ul>
+
+<div class="tip">
+Muchas startups modernas funcionan casi completamente con arquitecturas serverless.
+</div>
+
+<div class="warning">
+Lambda no sustituye completamente a EC2; ambos servicios se complementan.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja principal tiene serverless?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Menos administración</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar internet</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar bases de datos</div>
+<div class="option" onclick="checkAnswer(this,false)">No usar programación</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+ blocks.forEach(block => block.classList.remove('active'));
+ menuButtons.forEach(btn => btn.classList.remove('active'));
+
+ blocks[index].classList.add('active');
+ menuButtons[index].classList.add('active');
+
+ window.scrollTo({
+   top:0,
+   behavior:'smooth'
+ });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+ const parent = element.parentElement;
+ const options = parent.querySelectorAll('.option');
+ const result = parent.querySelector('.result');
+
+ options.forEach(opt=>{
+   opt.style.pointerEvents='none';
+ });
+
+ if(isCorrect){
+
+   element.classList.add('correct');
+   result.innerHTML='✔ Correcto';
+   result.style.color='#39d27b';
+
+ }else{
+
+   element.classList.add('wrong');
+   result.innerHTML='✘ Incorrecto';
+   result.style.color='#ff5d73';
+
+ }
+
+}
+
+</script>
+
+</body>
+</html>

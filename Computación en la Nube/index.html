@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMPUTACIÓN EN LA NUBE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --card:#141422;
+    --border:#2a2a45;
+    --text:#ececff;
+    --muted:#b7b7d8;
+    --purple:#9b5cff;
+    --purple2:#6f40ff;
+    --blue:#58a8ff;
+}
+
+body{
+    background:linear-gradient(180deg,#09090f,#0d0d16);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    padding:50px 30px;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+}
+
+header{
+    margin-bottom:50px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:3rem;
+    line-height:1.2;
+    margin-bottom:15px;
+}
+
+h1 span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:1.1rem;
+    line-height:1.8;
+    max-width:850px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:28px;
+    text-decoration:none;
+    color:white;
+    transition:0.25s;
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:linear-gradient(90deg,var(--purple2),var(--blue));
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:var(--purple);
+    box-shadow:0 0 25px rgba(111,64,255,0.25);
+}
+
+.unit{
+    color:var(--blue);
+    font-size:0.9rem;
+    font-weight:600;
+    margin-bottom:10px;
+    letter-spacing:1px;
+}
+
+.card h2{
+    font-size:1.3rem;
+    margin-bottom:15px;
+    line-height:1.5;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:0.97rem;
+}
+
+.footer{
+    margin-top:50px;
+    text-align:center;
+    color:#8080a0;
+    font-size:0.9rem;
+}
+
+@media(max-width:768px){
+
+body{
+    padding:30px 20px;
+}
+
+h1{
+    font-size:2.1rem;
+}
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+}
+
+.boton {
+    display: inline-block;
+    padding: 12px 24px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .boton:hover {
+    background-color: #0056b3;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>☁ COMPUTACIÓN EN LA NUBE</h1>
+
+<p class="subtitle">
+Portal interactivo de estudio sobre AWS, cloud computing, contenedores, escalabilidad, redes, bases de datos y arquitecturas modernas.
+</p>
+
+<a id="return-boton"
+   href="/Examenes-Primero-ASIR/index.html"
+   class="boton">
+   Volver al índice de asignaturas
+  </a>
+
+</header>
+
+<div class="grid">
+
+<a class="card" href="Unidad 1 - Fundamentos de computación en la nube.html">
+
+<div class="unit">UNIDAD 1</div>
+
+<h2>Fundamentos de computación en la nube</h2>
+
+<p>
+Conceptos básicos cloud, modelos de servicio, regiones AWS, disponibilidad y fundamentos esenciales.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 2 - AWS.html">
+
+<div class="unit">UNIDAD 2</div>
+
+<h2>AWS</h2>
+
+<p>
+Introducción a Amazon Web Services, infraestructura cloud y servicios fundamentales de AWS.
+</p>
+
+</a>
+
+<a class="card" href="Unidad3 - Redes y VPC.html">
+
+<div class="unit">UNIDAD 3</div>
+
+<h2>Redes y VPC</h2>
+
+<p>
+Subredes, routing, gateways, direcciones IP, VPC públicas y privadas y arquitectura de red.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 4 - Amazon EC2 y Linux en AWS.html">
+
+<div class="unit">UNIDAD 4</div>
+
+<h2>Amazon EC2 y Linux en AWS</h2>
+
+<p>
+Instancias EC2, administración Linux, SSH, seguridad, almacenamiento y despliegue de servidores.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 5 - Amazon EBS y Amazon S3.html">
+
+<div class="unit">UNIDAD 5</div>
+
+<h2>Amazon EBS y Amazon S3</h2>
+
+<p>
+Almacenamiento persistente, volúmenes EBS, buckets S3, snapshots y gestión de datos cloud.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 6 - Bases de Datos en AWS.html">
+
+<div class="unit">UNIDAD 6</div>
+
+<h2>Bases de Datos en AWS</h2>
+
+<p>
+RDS, bases de datos administradas, disponibilidad, backups, replicación y arquitectura moderna.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 7 - AWS LAMBA.html">
+
+<div class="unit">UNIDAD 7</div>
+
+<h2>AWS Lambda</h2>
+
+<p>
+Computación serverless, funciones Lambda, eventos, automatización y arquitectura sin servidores.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 8 - AWS AWS Elastic Beanstalk.html">
+
+<div class="unit">UNIDAD 8</div>
+
+<h2>AWS Elastic Beanstalk</h2>
+
+<p>
+Despliegue automático de aplicaciones, escalabilidad y administración simplificada en AWS.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 9 - AWS DynamoDB.html">
+
+<div class="unit">UNIDAD 9</div>
+
+<h2>AWS DynamoDB</h2>
+
+<p>
+Bases de datos NoSQL, tablas DynamoDB, escalabilidad horizontal y aplicaciones serverless.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 10 - Escalado y balanceo de carga de su arquitectura.html">
+
+<div class="unit">UNIDAD 10</div>
+
+<h2>Escalado y balanceo de carga</h2>
+
+<p>
+Load Balancers, Auto Scaling, alta disponibilidad y arquitecturas cloud escalables.
+</p>
+
+</a>
+
+<a class="card" href="Unidad 11 - Contenedores.html">
+
+<div class="unit">UNIDAD 11</div>
+
+<h2>Contenedores</h2>
+
+<p>
+Docker, Kubernetes, ECS, EKS, ECR y despliegue moderno de aplicaciones con contenedores.
+</p>
+
+</a>
+
+</div>
+
+<div class="footer">
+COMPUTACIÓN EN LA NUBE · AWS · Arquitecturas Cloud
+</div>
+
+</div>
+
+</body>
+</html>

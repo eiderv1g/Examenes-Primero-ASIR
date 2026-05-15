@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 4 - Amazon EC2 y Linux en AWS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --card2:#1b1b2d;
+    --border:#2a2a45;
+    --text:#ececff;
+    --muted:#b7b7d8;
+    --purple:#9b5cff;
+    --purple2:#6e40ff;
+    --blue:#57a8ff;
+    --green:#39d37a;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#101018,#0a0a13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    border:1px solid transparent;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.menu button:hover{
+    transform:translateX(4px);
+    border-color:var(--purple);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.3rem;
+    margin-bottom:15px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d8d8f2;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    line-height:1.8;
+    margin-bottom:10px;
+    color:#d8d8f2;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+pre{
+    background:#0a0a12;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin:20px 0;
+}
+
+code{
+    color:#9fd4ff;
+    font-family:Consolas,monospace;
+    line-height:1.7;
+}
+
+.tip{
+    background:rgba(87,168,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    color:var(--purple);
+    margin-bottom:20px;
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(57,211,122,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 4<br>
+<span>Amazon EC2 y Linux</span>
+</div>
+
+<div class="subtitle">
+Instancias EC2, Linux en AWS, SSH, RDP, discos EBS y administración de servidores cloud.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. Amazon EC2</button>
+<button onclick="showBlock(1)">2. Instancias EC2</button>
+<button onclick="showBlock(2)">3. Tipos de instancia</button>
+<button onclick="showBlock(3)">4. AMI</button>
+<button onclick="showBlock(4)">5. Crear instancia Linux</button>
+<button onclick="showBlock(5)">6. SSH y PuTTY</button>
+<button onclick="showBlock(6)">7. Elastic IP</button>
+<button onclick="showBlock(7)">8. Windows Server y RDP</button>
+<button onclick="showBlock(8)">9. Amazon EBS</button>
+<button onclick="showBlock(9)">10. Gestión discos Linux</button>
+<button onclick="showBlock(10)">11. Comandos Linux</button>
+<button onclick="showBlock(11)">12. Snapshots</button>
+<button onclick="showBlock(12)">13. Gestión discos Windows</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Amazon EC2</h1>
+
+<p>
+Amazon EC2 (Elastic Compute Cloud) es el servicio de computación de AWS que permite crear servidores virtuales bajo demanda.
+</p>
+
+<p>
+En lugar de comprar un servidor físico real, AWS nos proporciona máquinas virtuales que podemos iniciar, detener, configurar o eliminar en cualquier momento.
+</p>
+
+<h3>¿Por qué se llama Elastic?</h3>
+
+<p>
+La palabra “Elastic” hace referencia a la capacidad de escalar dinámicamente. Esto significa que podemos aumentar o reducir recursos según la carga de trabajo.
+</p>
+
+<ul>
+<li>Crear servidores en minutos</li>
+<li>Escalar automáticamente</li>
+<li>Pagar solo por uso</li>
+<li>No depender de hardware físico</li>
+</ul>
+
+<h3>Casos reales de uso</h3>
+
+<ul>
+<li>Servidores web</li>
+<li>Bases de datos</li>
+<li>Servidores de videojuegos</li>
+<li>Streaming multimedia</li>
+<li>Procesamiento de datos</li>
+<li>Aplicaciones empresariales</li>
+</ul>
+
+<div class="tip">
+EC2 es uno de los servicios más importantes de AWS porque prácticamente cualquier aplicación moderna necesita servidores.
+</div>
+
+<div class="warning">
+Pregunta típica de examen: EC2 NO es almacenamiento. Es computación.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué proporciona Amazon EC2?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Máquinas virtuales en la nube</div>
+<div class="option" onclick="checkAnswer(this,false)">Dominios DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Correos electrónicos</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo almacenamiento</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. Instancias EC2</h2>
+
+<p>
+Una instancia es una máquina virtual que se ejecuta dentro de AWS.
+</p>
+
+<p>
+Cuando lanzamos una instancia EC2 estamos creando un servidor virtual completamente funcional.
+</p>
+
+<h3>Qué incluye una instancia</h3>
+
+<ul>
+<li>Sistema operativo</li>
+<li>CPU virtual</li>
+<li>RAM</li>
+<li>Red</li>
+<li>Dirección IP</li>
+<li>Discos virtuales</li>
+</ul>
+
+<h3>Ciclo de vida</h3>
+
+<table>
+
+<tr>
+<th>Estado</th>
+<th>Descripción</th>
+</tr>
+
+<tr>
+<td>Pending</td>
+<td>Inicializando</td>
+</tr>
+
+<tr>
+<td>Running</td>
+<td>Funcionando</td>
+</tr>
+
+<tr>
+<td>Stopped</td>
+<td>Detenida</td>
+</tr>
+
+<tr>
+<td>Terminated</td>
+<td>Eliminada</td>
+</tr>
+
+</table>
+
+<div class="tip">
+Detener una instancia NO elimina automáticamente los discos EBS asociados.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es una instancia?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Un servidor virtual</div>
+<div class="option" onclick="checkAnswer(this,false)">Una VPC</div>
+<div class="option" onclick="checkAnswer(this,false)">Un firewall</div>
+<div class="option" onclick="checkAnswer(this,false)">Una base de datos</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. Tipos de instancia</h2>
+
+<p>
+El tipo de instancia define el hardware virtual que tendrá el servidor.
+</p>
+
+<h3>Qué determina</h3>
+
+<ul>
+<li>Número de vCPU</li>
+<li>Memoria RAM</li>
+<li>Velocidad de red</li>
+<li>Tipo de almacenamiento</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>t3.micro
+→ Bajo consumo
+→ Free Tier
+→ Ideal para prácticas</code></pre>
+
+<h3>Familias comunes</h3>
+
+<table>
+
+<tr>
+<th>Familia</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>T</td>
+<td>Uso general</td>
+</tr>
+
+<tr>
+<td>C</td>
+<td>Optimizada CPU</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>Optimizada RAM</td>
+</tr>
+
+<tr>
+<td>P</td>
+<td>GPU</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Elegir mal el tipo de instancia puede generar costes innecesarios.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué define el tipo de instancia?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">El hardware virtual</div>
+<div class="option" onclick="checkAnswer(this,false)">La contraseña Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">El dominio DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">El idioma del sistema</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. AMI (Amazon Machine Image)</h2>
+
+<p>
+Una AMI es una plantilla utilizada para crear instancias EC2 rápidamente.
+</p>
+
+<p>
+Incluye sistema operativo, software y configuración inicial.
+</p>
+
+<h3>Contenido típico</h3>
+
+<ul>
+<li>Linux o Windows</li>
+<li>Paquetes instalados</li>
+<li>Configuración del sistema</li>
+<li>Drivers y utilidades</li>
+</ul>
+
+<h3>Ventaja principal</h3>
+
+<p>
+Permite desplegar servidores idénticos de forma consistente.
+</p>
+
+<pre><code>Instancias
+→ Acciones
+→ Imagen y plantillas
+→ Crear imagen</code></pre>
+
+<div class="tip">
+Muchas empresas crean sus propias AMI corporativas con software ya instalado.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es una AMI?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Una plantilla para crear instancias</div>
+<div class="option" onclick="checkAnswer(this,false)">Una IP pública</div>
+<div class="option" onclick="checkAnswer(this,false)">Una VPC</div>
+<div class="option" onclick="checkAnswer(this,false)">Una clave SSH</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Crear una instancia Linux paso a paso</h2>
+
+<h3>Paso 1 → Abrir EC2</h3>
+
+<p>
+Entramos en la consola AWS y buscamos el servicio EC2.
+</p>
+
+<h3>Paso 2 → Launch Instance</h3>
+
+<p>
+Creamos una nueva instancia.
+</p>
+
+<h3>Paso 3 → Configuración</h3>
+
+<pre><code>Nombre → linux_server
+AMI → Amazon Linux
+Tipo → t3.micro
+Clave → vockey
+SSH → permitido
+Disco → 8GB</code></pre>
+
+<h3>Paso 4 → Lanzar instancia</h3>
+
+<p>
+AWS crea automáticamente el servidor virtual.
+</p>
+
+<h3>Paso 5 → Obtener IP pública</h3>
+
+<p>
+La IP pública permite conectarnos remotamente.
+</p>
+
+<div class="warning">
+Sin Security Group permitiendo SSH no podremos conectarnos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué puerto necesita SSH?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">80</div>
+<div class="option" onclick="checkAnswer(this,true)">22</div>
+<div class="option" onclick="checkAnswer(this,false)">443</div>
+<div class="option" onclick="checkAnswer(this,false)">3389</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. SSH y PuTTY</h2>
+
+<p>
+SSH (Secure Shell) permite conectarse remotamente a servidores Linux de forma segura.
+</p>
+
+<h3>Datos necesarios</h3>
+
+<ul>
+<li>IP pública</li>
+<li>Usuario</li>
+<li>Clave privada</li>
+</ul>
+
+<h3>Usuario típico Amazon Linux</h3>
+
+<pre><code>ec2-user</code></pre>
+
+<h3>Conexión Linux/macOS</h3>
+
+<pre><code>chmod 400 clave.pem
+
+ssh -i clave.pem ec2-user@3.229.118.7</code></pre>
+
+<h3>Conexión Windows con PuTTY</h3>
+
+<p>
+PuTTY utiliza archivos .ppk.
+</p>
+
+<p>
+Desde AWS Academy descargamos la clave vockey y la utilizamos para autenticar la conexión.
+</p>
+
+<div class="tip">
+SSH cifra completamente la comunicación entre cliente y servidor.
+</div>
+
+<div class="warning">
+Nunca compartas claves privadas SSH.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué protocolo se utiliza para conectarse a Linux?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">SSH</div>
+<div class="option" onclick="checkAnswer(this,false)">RDP</div>
+<div class="option" onclick="checkAnswer(this,false)">FTP</div>
+<div class="option" onclick="checkAnswer(this,false)">SMTP</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Elastic IP</h2>
+
+<p>
+Las IP públicas normales cambian al detener e iniciar instancias.
+</p>
+
+<p>
+Para evitar esto AWS ofrece Elastic IP.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>IP fija permanente</li>
+<li>Facilita conexiones remotas</li>
+<li>Útil para servidores públicos</li>
+</ul>
+
+<h3>Funcionamiento</h3>
+
+<pre><code>EC2
+→ Elastic IP
+→ Allocate address
+→ Associate address</code></pre>
+
+<div class="warning">
+Las Elastic IP sin usar pueden generar costes.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja tiene una Elastic IP?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">La IP no cambia</div>
+<div class="option" onclick="checkAnswer(this,false)">Aumenta la RAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Instala Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">Crea backups automáticos</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Windows Server y RDP</h2>
+
+<p>
+RDP (Remote Desktop Protocol) permite conectarse gráficamente a servidores Windows.
+</p>
+
+<h3>Configuración típica</h3>
+
+<pre><code>Nombre → windows_server
+AMI → Windows Server
+Tipo → t3.micro o t3.medium
+RDP → permitido
+Puerto → 3389</code></pre>
+
+<h3>Obtener contraseña</h3>
+
+<pre><code>Instancias
+→ Acciones
+→ Seguridad
+→ Obtener contraseña Windows</code></pre>
+
+<h3>Funcionamiento</h3>
+
+<p>
+AWS cifra la contraseña inicial y debemos descifrarla usando nuestra clave privada.
+</p>
+
+<div class="tip">
+RDP permite controlar completamente el escritorio Windows remoto.
+</div>
+
+<div class="warning">
+Abrir RDP a todo internet puede ser peligroso.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué puerto utiliza RDP?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">22</div>
+<div class="option" onclick="checkAnswer(this,false)">80</div>
+<div class="option" onclick="checkAnswer(this,true)">3389</div>
+<div class="option" onclick="checkAnswer(this,false)">25</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. Amazon EBS</h2>
+
+<p>
+Amazon EBS (Elastic Block Store) proporciona almacenamiento persistente para EC2.
+</p>
+
+<p>
+Funciona como discos duros virtuales conectados a instancias.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Persistencia de datos</li>
+<li>Desacoplables</li>
+<li>Snapshots</li>
+<li>Escalables</li>
+<li>Altamente disponibles</li>
+</ul>
+
+<h3>Ventaja importante</h3>
+
+<p>
+Podemos separar sistema operativo y datos en distintos discos.
+</p>
+
+<div class="tip">
+EBS es fundamental en entornos empresariales porque permite reutilizar discos y recuperar datos rápidamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué proporciona EBS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Discos virtuales persistentes</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Usuarios IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Balanceadores</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Gestión de discos en Linux</h2>
+
+<p>
+Después de asociar un volumen EBS, el disco existe físicamente en la instancia, pero aún no está listo para usarse.
+</p>
+
+<p>
+Primero debemos formatearlo y montarlo.
+</p>
+
+<h3>Ver discos</h3>
+
+<pre><code>lsblk</code></pre>
+
+<h3>Ver almacenamiento</h3>
+
+<pre><code>df -m</code></pre>
+
+<h3>Formatear volumen</h3>
+
+<pre><code>sudo mkfs.ext4 /dev/nvme1n1</code></pre>
+
+<h3>Crear punto de montaje</h3>
+
+<pre><code>sudo mkdir /data</code></pre>
+
+<h3>Montar disco</h3>
+
+<pre><code>sudo mount /dev/nvme1n1 /data</code></pre>
+
+<h3>Verificar</h3>
+
+<pre><code>df -m
+lsblk</code></pre>
+
+<div class="warning">
+Si el volumen no está montado, Linux no podrá usarlo aunque esté asociado.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué comando muestra discos Linux?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">lsblk</div>
+<div class="option" onclick="checkAnswer(this,false)">ping</div>
+<div class="option" onclick="checkAnswer(this,false)">mkdir</div>
+<div class="option" onclick="checkAnswer(this,false)">nano</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. Comandos Linux importantes</h2>
+
+<h3>Navegación</h3>
+
+<pre><code>pwd
+ls
+cd /ruta</code></pre>
+
+<h3>Archivos</h3>
+
+<pre><code>touch archivo.txt
+mkdir carpeta
+rm archivo.txt</code></pre>
+
+<h3>Permisos</h3>
+
+<pre><code>chmod 400 clave.pem</code></pre>
+
+<h3>Información sistema</h3>
+
+<pre><code>df -m
+free -m
+top</code></pre>
+
+<h3>Red</h3>
+
+<pre><code>ping google.com
+curl ifconfig.me</code></pre>
+
+<div class="tip">
+Saber comandos Linux básicos es obligatorio para administrar servidores EC2 correctamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué comando muestra el uso de discos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">df -m</div>
+<div class="option" onclick="checkAnswer(this,false)">ping</div>
+<div class="option" onclick="checkAnswer(this,false)">chmod</div>
+<div class="option" onclick="checkAnswer(this,false)">mkdir</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. Snapshots y backups</h2>
+
+<p>
+Un snapshot es una copia de seguridad de un volumen EBS.
+</p>
+
+<p>
+AWS almacena snapshots en S3 internamente.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Recuperación rápida</li>
+<li>Backups automáticos</li>
+<li>Migración de datos</li>
+<li>Clonado de servidores</li>
+</ul>
+
+<h3>Proceso típico</h3>
+
+<pre><code>Volumen
+→ Crear snapshot
+→ Crear nuevo volumen
+→ Asociar a otra instancia</code></pre>
+
+<p>
+Esto permite reutilizar datos fácilmente entre máquinas distintas.
+</p>
+
+<div class="tip">
+Las snapshots son incrementales, por lo que optimizan espacio y costes.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es un snapshot?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Una copia de seguridad de un volumen</div>
+<div class="option" onclick="checkAnswer(this,false)">Una IP pública</div>
+<div class="option" onclick="checkAnswer(this,false)">Un usuario Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">Un Security Group</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Gestión de discos en Windows Server</h2>
+
+<p>
+Windows Server también necesita inicializar y montar discos nuevos.
+</p>
+
+<h3>Proceso</h3>
+
+<ul>
+<li>Crear volumen EBS</li>
+<li>Asociarlo a la instancia</li>
+<li>Abrir Disk Management</li>
+<li>Inicializar disco</li>
+<li>Crear volumen simple</li>
+<li>Formatear</li>
+</ul>
+
+<h3>Resultado</h3>
+
+<p>
+El nuevo disco aparece como una nueva unidad en el explorador.
+</p>
+
+<h3>Snapshots en Windows</h3>
+
+<p>
+Si creamos una snapshot y luego generamos otro volumen a partir de ella, los archivos originales seguirán existiendo.
+</p>
+
+<div class="tip">
+Esto permite crear backups completos de discos Windows rápidamente.
+</div>
+
+<div class="warning">
+Los discos EBS siguen existiendo aunque la instancia esté detenida.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué herramienta Windows se usa para montar discos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Disk Management</div>
+<div class="option" onclick="checkAnswer(this,false)">Paint</div>
+<div class="option" onclick="checkAnswer(this,false)">PowerPoint</div>
+<div class="option" onclick="checkAnswer(this,false)">Bloc de notas</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+    blocks.forEach(block => block.classList.remove('active'));
+    menuButtons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[index].classList.add('active');
+    menuButtons[index].classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+    const parent = element.parentElement;
+    const options = parent.querySelectorAll('.option');
+    const result = parent.querySelector('.result');
+
+    options.forEach(opt=>{
+        opt.style.pointerEvents='none';
+    });
+
+    if(isCorrect){
+
+        element.classList.add('correct');
+        result.innerHTML='✔ Correcto';
+        result.style.color='#39d37a';
+
+    }else{
+
+        element.classList.add('wrong');
+        result.innerHTML='✘ Incorrecto';
+        result.style.color='#ff5d73';
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

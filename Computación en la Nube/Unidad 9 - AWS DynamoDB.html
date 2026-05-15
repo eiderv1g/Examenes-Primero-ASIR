@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 9 - AWS DynamoDB</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --border:#2a2a45;
+    --text:#ececff;
+    --muted:#b7b7d8;
+    --purple:#9b5cff;
+    --purple2:#6f40ff;
+    --blue:#58a8ff;
+    --green:#39d27b;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#101018,#0a0a13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    border:1px solid transparent;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:0.25s;
+}
+
+.menu button:hover{
+    transform:translateX(4px);
+    border-color:var(--purple);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.3rem;
+    margin-bottom:15px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d8d8f2;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    line-height:1.8;
+    margin-bottom:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+pre{
+    background:#0a0a12;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin:20px 0;
+}
+
+code{
+    color:#9fd4ff;
+    font-family:Consolas,monospace;
+    line-height:1.7;
+}
+
+.tip{
+    background:rgba(88,168,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    color:var(--purple);
+    margin-bottom:20px;
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(57,210,123,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+body{
+    flex-direction:column;
+}
+
+.sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+}
+
+.content{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 9<br>
+<span>AWS DynamoDB</span>
+</div>
+
+<div class="subtitle">
+Bases de datos NoSQL, tablas DynamoDB, claves, escalabilidad horizontal y aplicaciones serverless.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. SQL vs NoSQL</button>
+<button onclick="showBlock(1)">2. Qué es DynamoDB</button>
+<button onclick="showBlock(2)">3. Arquitectura NoSQL</button>
+<button onclick="showBlock(3)">4. Tablas e ítems</button>
+<button onclick="showBlock(4)">5. Claves DynamoDB</button>
+<button onclick="showBlock(5)">6. Lecturas y escrituras</button>
+<button onclick="showBlock(6)">7. Escalabilidad</button>
+<button onclick="showBlock(7)">8. Alta disponibilidad</button>
+<button onclick="showBlock(8)">9. Crear tabla</button>
+<button onclick="showBlock(9)">10. Operaciones básicas</button>
+<button onclick="showBlock(10)">11. APIs y JSON</button>
+<button onclick="showBlock(11)">12. DynamoDB + Lambda</button>
+<button onclick="showBlock(12)">13. Costes y seguridad</button>
+<button onclick="showBlock(13)">14. Arquitectura moderna</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Bases de datos SQL vs NoSQL</h1>
+
+<p>
+Antes de entender DynamoDB es fundamental comprender la diferencia entre bases de datos relacionales y no relacionales.
+</p>
+
+<h3>Bases de datos relacionales</h3>
+
+<ul>
+<li>Usan tablas</li>
+<li>Estructura fija</li>
+<li>Lenguaje SQL</li>
+<li>Relaciones complejas</li>
+</ul>
+
+<h3>Ejemplo SQL</h3>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Edad</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Ana</td>
+<td>22</td>
+</tr>
+
+</table>
+
+<h3>Bases de datos NoSQL</h3>
+
+<ul>
+<li>Estructura flexible</li>
+<li>Formato JSON</li>
+<li>Escalabilidad horizontal</li>
+<li>Mayor flexibilidad</li>
+</ul>
+
+<h3>Ejemplo NoSQL</h3>
+
+<pre><code>{
+  "id":1,
+  "nombre":"Ana",
+  "edad":22
+}</code></pre>
+
+<div class="tip">
+SQL suele utilizarse en aplicaciones empresariales complejas. NoSQL destaca en aplicaciones masivas y escalables.
+</div>
+
+<div class="warning">
+Pregunta típica: DynamoDB es NoSQL, NO relacional.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué característica tiene NoSQL?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Esquema flexible</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo tablas rígidas</div>
+<div class="option" onclick="checkAnswer(this,false)">Usar exclusivamente SQL</div>
+<div class="option" onclick="checkAnswer(this,false)">No usar JSON</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. ¿Qué es Amazon DynamoDB?</h2>
+
+<p>
+Amazon DynamoDB es una base de datos NoSQL completamente administrada por AWS.
+</p>
+
+<p>
+Está diseñada para aplicaciones que necesitan:
+</p>
+
+<ul>
+<li>Escalabilidad extrema</li>
+<li>Baja latencia</li>
+<li>Alta disponibilidad</li>
+<li>Rendimiento constante</li>
+</ul>
+
+<h3>Características principales</h3>
+
+<ul>
+<li>Serverless</li>
+<li>NoSQL</li>
+<li>Clave-valor</li>
+<li>Documentos JSON</li>
+<li>Escalado automático</li>
+</ul>
+
+<h3>Qué administra AWS</h3>
+
+<ul>
+<li>Infraestructura</li>
+<li>Servidores</li>
+<li>Replicación</li>
+<li>Parches</li>
+<li>Backups</li>
+</ul>
+
+<div class="tip">
+DynamoDB puede manejar millones de peticiones por segundo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué tipo de base de datos es DynamoDB?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">NoSQL</div>
+<div class="option" onclick="checkAnswer(this,false)">Relacional SQL</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Sistema operativo</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. Arquitectura NoSQL en DynamoDB</h2>
+
+<p>
+DynamoDB utiliza principalmente modelo clave-valor y documentos.
+</p>
+
+<h3>Modelo clave-valor</h3>
+
+<pre><code>Clave → Valor</code></pre>
+
+<h3>Ejemplo</h3>
+
+<pre><code>{
+  "usuario_id":"100",
+  "nombre":"Carlos",
+  "nivel":5
+}</code></pre>
+
+<h3>Ventaja principal</h3>
+
+<p>
+No necesitamos que todos los registros tengan exactamente la misma estructura.
+</p>
+
+<h3>Ejemplo flexible</h3>
+
+<pre><code>{
+  "usuario_id":"200",
+  "nombre":"Laura",
+  "mascota":"Luna"
+}</code></pre>
+
+<p>
+Este registro tiene un atributo extra.
+</p>
+
+<div class="warning">
+En SQL normalmente todas las filas siguen exactamente las mismas columnas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja tiene DynamoDB?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Estructura flexible</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo columnas fijas</div>
+<div class="option" onclick="checkAnswer(this,false)">No almacenar datos</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo usar XML</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Tablas, ítems y atributos</h2>
+
+<p>
+Aunque DynamoDB sea NoSQL, sigue usando el concepto de tablas.
+</p>
+
+<h3>Elementos principales</h3>
+
+<ul>
+<li>Tabla → contenedor principal</li>
+<li>Ítem → registro individual</li>
+<li>Atributo → dato concreto</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>Tabla:
+Usuarios
+
+Ítem:
+{
+  "id":"1",
+  "nombre":"Ana"
+}</code></pre>
+
+<h3>Diferencia importante</h3>
+
+<p>
+En DynamoDB los ítems pueden tener atributos distintos.
+</p>
+
+<div class="tip">
+Un ítem en DynamoDB equivale aproximadamente a una fila SQL.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es un ítem?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Un registro dentro de la tabla</div>
+<div class="option" onclick="checkAnswer(this,false)">Una VPC</div>
+<div class="option" onclick="checkAnswer(this,false)">Una API Gateway</div>
+<div class="option" onclick="checkAnswer(this,false)">Un servidor EC2</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Partition Key y Sort Key</h2>
+
+<h3>Partition Key</h3>
+
+<p>
+Es la clave principal usada para identificar y distribuir datos.
+</p>
+
+<h3>Sort Key</h3>
+
+<p>
+Permite ordenar múltiples registros relacionados.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>{
+ "usuario":"Ana",
+ "fecha":"2026-05-15"
+}</code></pre>
+
+<table>
+
+<tr>
+<th>Clave</th>
+<th>Valor</th>
+</tr>
+
+<tr>
+<td>Partition Key</td>
+<td>usuario</td>
+</tr>
+
+<tr>
+<td>Sort Key</td>
+<td>fecha</td>
+</tr>
+
+</table>
+
+<h3>Importancia</h3>
+
+<p>
+El diseño de claves es fundamental para rendimiento DynamoDB.
+</p>
+
+<div class="warning">
+Una mala elección de claves puede degradar muchísimo el rendimiento.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué permite Sort Key?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Ordenar registros relacionados</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear VPCs</div>
+<div class="option" onclick="checkAnswer(this,false)">Cifrar discos</div>
+<div class="option" onclick="checkAnswer(this,false)">Generar snapshots</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. Operaciones de lectura y escritura</h2>
+
+<p>
+DynamoDB permite operaciones extremadamente rápidas.
+</p>
+
+<h3>Operaciones básicas</h3>
+
+<ul>
+<li>PutItem</li>
+<li>GetItem</li>
+<li>UpdateItem</li>
+<li>DeleteItem</li>
+</ul>
+
+<h3>Ejemplo AWS CLI</h3>
+
+<pre><code>aws dynamodb put-item \
+--table-name Usuarios \
+--item '{
+ "id":{"S":"1"},
+ "nombre":{"S":"Ana"}
+}'</code></pre>
+
+<h3>Lectura</h3>
+
+<pre><code>aws dynamodb get-item \
+--table-name Usuarios \
+--key '{"id":{"S":"1"}}'</code></pre>
+
+<div class="tip">
+DynamoDB responde normalmente en milisegundos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué operación inserta datos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">PutItem</div>
+<div class="option" onclick="checkAnswer(this,false)">DeleteVPC</div>
+<div class="option" onclick="checkAnswer(this,false)">CreateSubnet</div>
+<div class="option" onclick="checkAnswer(this,false)">MountVolume</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Escalabilidad horizontal</h2>
+
+<p>
+DynamoDB está diseñado para escalar horizontalmente.
+</p>
+
+<h3>Escalado horizontal</h3>
+
+<p>
+Añadir más servidores.
+</p>
+
+<h3>Escalado vertical</h3>
+
+<p>
+Añadir más potencia al mismo servidor.
+</p>
+
+<h3>DynamoDB</h3>
+
+<p>
+AWS reparte automáticamente datos entre múltiples nodos.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Mayor rendimiento</li>
+<li>Alta disponibilidad</li>
+<li>Millones de peticiones</li>
+</ul>
+
+<div class="warning">
+SQL tradicional suele escalar verticalmente; DynamoDB destaca en horizontal.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué significa escalado horizontal?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Añadir más servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Más RAM mismo servidor</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear snapshots</div>
+<div class="option" onclick="checkAnswer(this,false)">Usar CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Alta disponibilidad y replicación</h2>
+
+<p>
+DynamoDB replica automáticamente datos entre múltiples Availability Zones.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Tolerancia fallos</li>
+<li>Alta disponibilidad</li>
+<li>Protección automática</li>
+</ul>
+
+<h3>Qué significa Multi-AZ</h3>
+
+<p>
+Los datos existen simultáneamente en varios centros de datos.
+</p>
+
+<h3>Resultado</h3>
+
+<p>
+Si falla un servidor o incluso una AZ, los datos siguen disponibles.
+</p>
+
+<div class="tip">
+AWS administra completamente la replicación interna.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué mejora Multi-AZ?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Disponibilidad</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">SSH</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. Crear una tabla DynamoDB</h2>
+
+<h3>Paso 1</h3>
+
+<p>
+Entrar al servicio DynamoDB.
+</p>
+
+<h3>Paso 2</h3>
+
+<p>
+Seleccionar “Create Table”.
+</p>
+
+<h3>Paso 3</h3>
+
+<pre><code>Table name:
+Usuarios</code></pre>
+
+<h3>Paso 4</h3>
+
+<pre><code>Partition Key:
+id</code></pre>
+
+<h3>Paso 5</h3>
+
+<p>
+Mantener configuración por defecto.
+</p>
+
+<h3>Paso 6</h3>
+
+<p>
+Crear tabla.
+</p>
+
+<div class="tip">
+AWS puede crear tablas DynamoDB en pocos segundos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué necesita obligatoriamente una tabla?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Partition Key</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+<div class="option" onclick="checkAnswer(this,false)">Bucket S3</div>
+<div class="option" onclick="checkAnswer(this,false)">Elastic IP</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Consultas y escaneos</h2>
+
+<h3>Query</h3>
+
+<p>
+Busca datos usando claves.
+</p>
+
+<h3>Scan</h3>
+
+<p>
+Recorre toda la tabla.
+</p>
+
+<table>
+
+<tr>
+<th>Operación</th>
+<th>Rendimiento</th>
+</tr>
+
+<tr>
+<td>Query</td>
+<td>Muy rápido</td>
+</tr>
+
+<tr>
+<td>Scan</td>
+<td>Más lento</td>
+</tr>
+
+</table>
+
+<h3>Ejemplo Query</h3>
+
+<pre><code>aws dynamodb query \
+--table-name Usuarios</code></pre>
+
+<div class="warning">
+Scan puede ser muy costoso en tablas grandes.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué operación es más eficiente?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Query</div>
+<div class="option" onclick="checkAnswer(this,false)">Scan completo</div>
+<div class="option" onclick="checkAnswer(this,false)">DeleteTable</div>
+<div class="option" onclick="checkAnswer(this,false)">FormatDisk</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. APIs y JSON</h2>
+
+<p>
+DynamoDB trabaja muchísimo con APIs y formato JSON.
+</p>
+
+<h3>Qué es una API</h3>
+
+<p>
+Un intermediario que permite comunicación entre programas.
+</p>
+
+<h3>Ejemplo API</h3>
+
+<pre><code>Frontend
+↓
+API
+↓
+DynamoDB</code></pre>
+
+<h3>JSON típico</h3>
+
+<pre><code>{
+ "usuario":"Carlos",
+ "nivel":10,
+ "online":true
+}</code></pre>
+
+<h3>Ventaja</h3>
+
+<p>
+JSON encaja perfectamente con aplicaciones web modernas.
+</p>
+
+<div class="tip">
+Muchas APIs REST modernas usan DynamoDB internamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué formato usa mucho DynamoDB?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">JSON</div>
+<div class="option" onclick="checkAnswer(this,false)">EXE</div>
+<div class="option" onclick="checkAnswer(this,false)">DOCX</div>
+<div class="option" onclick="checkAnswer(this,false)">ISO</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. DynamoDB con Lambda</h2>
+
+<p>
+DynamoDB se integra perfectamente con arquitecturas serverless.
+</p>
+
+<h3>Arquitectura típica</h3>
+
+<pre><code>Usuario
+↓
+API Gateway
+↓
+Lambda
+↓
+DynamoDB</code></pre>
+
+<h3>Ejemplo Python</h3>
+
+<pre><code>import boto3
+
+dynamodb = boto3.resource('dynamodb')
+
+tabla = dynamodb.Table('Usuarios')
+
+tabla.put_item(
+ Item={
+   'id':'1',
+   'nombre':'Ana'
+ })</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalabilidad automática</li>
+<li>Baja latencia</li>
+<li>Pago por uso</li>
+</ul>
+
+<div class="warning">
+Lambda suele usar boto3 para conectarse a DynamoDB.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué librería Python usa AWS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">boto3</div>
+<div class="option" onclick="checkAnswer(this,false)">numpy</div>
+<div class="option" onclick="checkAnswer(this,false)">matplotlib</div>
+<div class="option" onclick="checkAnswer(this,false)">pygame</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Costes y seguridad</h2>
+
+<h3>Factores de coste</h3>
+
+<ul>
+<li>Lecturas</li>
+<li>Escrituras</li>
+<li>Almacenamiento</li>
+<li>Transferencia datos</li>
+</ul>
+
+<h3>Modos capacidad</h3>
+
+<table>
+
+<tr>
+<th>Modo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>On-Demand</td>
+<td>Tráfico variable</td>
+</tr>
+
+<tr>
+<td>Provisioned</td>
+<td>Tráfico predecible</td>
+</tr>
+
+</table>
+
+<h3>Seguridad</h3>
+
+<ul>
+<li>IAM</li>
+<li>Cifrado</li>
+<li>VPC Endpoints</li>
+</ul>
+
+<div class="tip">
+On-Demand simplifica muchísimo aplicaciones impredecibles.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué modo es mejor para tráfico impredecible?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">On-Demand</div>
+<div class="option" onclick="checkAnswer(this,false)">Provisioned fijo</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Arquitectura moderna con DynamoDB</h2>
+
+<h3>Arquitectura típica moderna</h3>
+
+<pre><code>Frontend React
+↓
+API Gateway
+↓
+Lambda
+↓
+DynamoDB</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalabilidad masiva</li>
+<li>Alta disponibilidad</li>
+<li>Arquitectura serverless</li>
+<li>Baja latencia</li>
+<li>Poco mantenimiento</li>
+</ul>
+
+<h3>Casos de uso reales</h3>
+
+<ul>
+<li>Videojuegos online</li>
+<li>Redes sociales</li>
+<li>Apps móviles</li>
+<li>IoT</li>
+</ul>
+
+<div class="tip">
+DynamoDB es extremadamente popular en arquitecturas cloud modernas y aplicaciones serverless.
+</div>
+
+<div class="warning">
+No todas las aplicaciones deben usar NoSQL; depende del tipo de datos y necesidades.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué arquitectura suele usar DynamoDB?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Serverless</div>
+<div class="option" onclick="checkAnswer(this,false)">Mainframes físicos</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo FTP</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo servidores locales</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+ blocks.forEach(block => block.classList.remove('active'));
+ menuButtons.forEach(btn => btn.classList.remove('active'));
+
+ blocks[index].classList.add('active');
+ menuButtons[index].classList.add('active');
+
+ window.scrollTo({
+   top:0,
+   behavior:'smooth'
+ });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+ const parent = element.parentElement;
+ const options = parent.querySelectorAll('.option');
+ const result = parent.querySelector('.result');
+
+ options.forEach(opt=>{
+   opt.style.pointerEvents='none';
+ });
+
+ if(isCorrect){
+
+   element.classList.add('correct');
+   result.innerHTML='✔ Correcto';
+   result.style.color='#39d27b';
+
+ }else{
+
+   element.classList.add('wrong');
+   result.innerHTML='✘ Incorrecto';
+   result.style.color='#ff5d73';
+
+ }
+
+}
+
+</script>
+
+</body>
+</html>

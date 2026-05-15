@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 10 - Escalado y balanceo de carga</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#09090f;
+--sidebar:#10101a;
+--card:#141422;
+--border:#2a2a45;
+--text:#ececff;
+--muted:#b7b7d8;
+--purple:#9b5cff;
+--purple2:#6f40ff;
+--blue:#58a8ff;
+--green:#39d27b;
+--danger:#ff5d73;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'Inter',sans-serif;
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:320px;
+background:linear-gradient(180deg,#101018,#0a0a13);
+border-right:1px solid var(--border);
+padding:25px;
+position:fixed;
+height:100vh;
+overflow-y:auto;
+}
+
+.logo{
+font-family:'Orbitron',sans-serif;
+font-size:1.5rem;
+line-height:1.5;
+margin-bottom:15px;
+}
+
+.logo span{
+color:var(--purple);
+}
+
+.subtitle{
+color:var(--muted);
+line-height:1.7;
+margin-bottom:25px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu button{
+background:var(--card);
+border:1px solid transparent;
+color:white;
+padding:14px;
+border-radius:12px;
+cursor:pointer;
+text-align:left;
+transition:0.25s;
+}
+
+.menu button:hover{
+transform:translateX(4px);
+border-color:var(--purple);
+}
+
+.menu button.active{
+background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+.content{
+margin-left:320px;
+width:calc(100% - 320px);
+padding:40px;
+}
+
+.block{
+display:none;
+animation:fade 0.4s ease;
+}
+
+.block.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.card{
+background:linear-gradient(180deg,var(--card),#101019);
+border:1px solid var(--border);
+border-radius:20px;
+padding:35px;
+margin-bottom:30px;
+}
+
+h1{
+font-family:'Orbitron',sans-serif;
+font-size:2.3rem;
+margin-bottom:15px;
+}
+
+h2{
+font-family:'Orbitron',sans-serif;
+color:var(--purple);
+margin-bottom:25px;
+}
+
+h3{
+color:var(--blue);
+margin-top:30px;
+margin-bottom:15px;
+}
+
+p{
+line-height:1.9;
+color:#d8d8f2;
+margin-bottom:18px;
+}
+
+ul{
+padding-left:25px;
+margin-bottom:20px;
+}
+
+li{
+line-height:1.8;
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+
+th,td{
+border:1px solid var(--border);
+padding:14px;
+text-align:left;
+}
+
+th{
+background:var(--purple2);
+}
+
+pre{
+background:#0a0a12;
+border:1px solid var(--border);
+padding:20px;
+border-radius:12px;
+overflow:auto;
+margin:20px 0;
+}
+
+code{
+color:#9fd4ff;
+font-family:Consolas,monospace;
+line-height:1.7;
+}
+
+.tip{
+background:rgba(88,168,255,0.08);
+border-left:4px solid var(--blue);
+padding:18px;
+border-radius:12px;
+margin:20px 0;
+}
+
+.warning{
+background:rgba(255,93,115,0.08);
+border-left:4px solid var(--danger);
+padding:18px;
+border-radius:12px;
+margin:20px 0;
+}
+
+.quiz{
+margin-top:35px;
+background:#111120;
+border:1px solid var(--border);
+border-radius:18px;
+padding:25px;
+}
+
+.quiz h4{
+color:var(--purple);
+margin-bottom:20px;
+}
+
+.option{
+background:var(--card);
+border:1px solid var(--border);
+padding:14px;
+border-radius:10px;
+margin-bottom:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.option:hover{
+border-color:var(--blue);
+}
+
+.correct{
+background:rgba(57,210,123,0.12);
+border-color:var(--green);
+}
+
+.wrong{
+background:rgba(255,93,115,0.12);
+border-color:var(--danger);
+}
+
+.result{
+margin-top:15px;
+font-weight:bold;
+}
+
+@media(max-width:900px){
+
+body{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.content{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 10<br>
+<span>Escalado y Balanceo</span>
+</div>
+
+<div class="subtitle">
+Alta disponibilidad, Load Balancers, Auto Scaling y arquitecturas escalables en AWS.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. Alta disponibilidad</button>
+<button onclick="showBlock(1)">2. Problema servidor único</button>
+<button onclick="showBlock(2)">3. Balanceo carga</button>
+<button onclick="showBlock(3)">4. Elastic Load Balancing</button>
+<button onclick="showBlock(4)">5. Tipos Load Balancer</button>
+<button onclick="showBlock(5)">6. Auto Scaling</button>
+<button onclick="showBlock(6)">7. Escalado ascendente</button>
+<button onclick="showBlock(7)">8. Escalado vertical</button>
+<button onclick="showBlock(8)">9. Escalado horizontal</button>
+<button onclick="showBlock(9)">10. Arquitectura completa</button>
+<button onclick="showBlock(10)">11. Crear Load Balancer</button>
+<button onclick="showBlock(11)">12. Crear Auto Scaling</button>
+<button onclick="showBlock(12)">13. Monitorización</button>
+<button onclick="showBlock(13)">14. Arquitecturas modernas</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. ¿Qué es la alta disponibilidad?</h1>
+
+<p>
+La alta disponibilidad (High Availability o HA) es un concepto fundamental en cloud computing.
+</p>
+
+<p>
+El objetivo es que una aplicación permanezca funcionando incluso cuando algo falla.
+</p>
+
+<h3>Problema real</h3>
+
+<p>
+Imagina una página web con un único servidor:
+</p>
+
+<pre><code>Usuarios
+↓
+Servidor único</code></pre>
+
+<p>
+Si ese servidor falla:
+</p>
+
+<ul>
+<li>La web deja de funcionar</li>
+<li>Los usuarios no pueden entrar</li>
+<li>La empresa pierde dinero</li>
+</ul>
+
+<h3>Objetivo de HA</h3>
+
+<p>
+Evitar que un único fallo destruya todo el sistema.
+</p>
+
+<h3>Cómo se consigue</h3>
+
+<ul>
+<li>Varios servidores</li>
+<li>Balanceadores</li>
+<li>Replicación</li>
+<li>Auto Scaling</li>
+<li>Redundancia</li>
+</ul>
+
+<div class="tip">
+Las empresas modernas intentan que sus servicios estén disponibles prácticamente 24/7.
+</div>
+
+<div class="warning">
+Pregunta típica: Alta disponibilidad NO significa “nunca falla”, sino minimizar caídas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué busca la alta disponibilidad?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Mantener servicios funcionando</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar internet</div>
+<div class="option" onclick="checkAnswer(this,false)">Aumentar tamaño disco</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. El problema del servidor único</h2>
+
+<p>
+Muchos principiantes imaginan aplicaciones funcionando en un solo servidor.
+</p>
+
+<h3>Ejemplo sencillo</h3>
+
+<pre><code>1000 usuarios
+↓
+1 servidor EC2</code></pre>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Puede saturarse</li>
+<li>Puede quedarse sin RAM</li>
+<li>Puede apagarse</li>
+<li>Puede caerse la aplicación</li>
+</ul>
+
+<h3>Punto único de fallo</h3>
+
+<p>
+Si existe un solo servidor, ese servidor es crítico.
+</p>
+
+<p>
+Cuando falla:
+</p>
+
+<pre><code>Servidor caído
+↓
+Aplicación caída</code></pre>
+
+<h3>Problema de rendimiento</h3>
+
+<p>
+Si demasiados usuarios llegan simultáneamente:
+</p>
+
+<ul>
+<li>La web se vuelve lenta</li>
+<li>Las peticiones tardan</li>
+<li>Puede dejar de responder</li>
+</ul>
+
+<div class="tip">
+Las arquitecturas modernas evitan depender de un único servidor.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es un punto único de fallo?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Un componente cuya caída rompe el sistema</div>
+<div class="option" onclick="checkAnswer(this,false)">Un bucket S3</div>
+<div class="option" onclick="checkAnswer(this,false)">Un DNS secundario</div>
+<div class="option" onclick="checkAnswer(this,false)">Un sistema redundante</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. ¿Qué es el balanceo de carga?</h2>
+
+<p>
+El balanceo de carga consiste en repartir tráfico entre varios servidores.
+</p>
+
+<h3>Sin balanceador</h3>
+
+<pre><code>Usuarios
+↓
+1 EC2 saturada</code></pre>
+
+<h3>Con balanceador</h3>
+
+<pre><code>Usuarios
+↓
+Load Balancer
+↙        ↘
+EC2      EC2</code></pre>
+
+<h3>Qué consigue</h3>
+
+<ul>
+<li>Repartir tráfico</li>
+<li>Evitar saturación</li>
+<li>Mejorar rendimiento</li>
+<li>Mayor disponibilidad</li>
+</ul>
+
+<h3>Explicación sencilla</h3>
+
+<p>
+El balanceador funciona como un “repartidor”.
+</p>
+
+<p>
+Cuando llegan usuarios:
+</p>
+
+<ul>
+<li>Envía unos al servidor 1</li>
+<li>Otros al servidor 2</li>
+<li>Otros al servidor 3</li>
+</ul>
+
+<div class="tip">
+El usuario normalmente ni siquiera sabe qué servidor está atendiendo su petición.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué hace un balanceador?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Distribuir tráfico</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear discos</div>
+<div class="option" onclick="checkAnswer(this,false)">Instalar Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">Gestionar DNS exclusivamente</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Elastic Load Balancing (ELB)</h2>
+
+<p>
+Elastic Load Balancing es el servicio AWS encargado del balanceo de carga.
+</p>
+
+<h3>Qué hace automáticamente</h3>
+
+<ul>
+<li>Distribuir tráfico</li>
+<li>Detectar servidores caídos</li>
+<li>Enviar tráfico solo a servidores sanos</li>
+<li>Escalar automáticamente</li>
+</ul>
+
+<h3>Funcionamiento básico</h3>
+
+<pre><code>Usuario entra web
+↓
+ELB recibe petición
+↓
+ELB decide servidor
+↓
+Servidor responde</code></pre>
+
+<h3>Health Checks</h3>
+
+<p>
+ELB comprueba constantemente si los servidores siguen vivos.
+</p>
+
+<p>
+Si un servidor falla:
+</p>
+
+<pre><code>ELB deja de enviar tráfico</code></pre>
+
+<div class="warning">
+Pregunta típica: ELB mejora disponibilidad porque evita enviar tráfico a servidores rotos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué comprueba ELB automáticamente?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Estado de servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Tamaño discos SSD</div>
+<div class="option" onclick="checkAnswer(this,false)">Usuarios IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Snapshots S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Tipos de Load Balancers</h2>
+
+<h3>Application Load Balancer (ALB)</h3>
+
+<p>
+Trabaja en capa 7 (HTTP/HTTPS).
+</p>
+
+<p>
+Es el más usado actualmente.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Microservicios</li>
+<li>Rutas inteligentes</li>
+<li>HTTP/HTTPS</li>
+</ul>
+
+<h3>Network Load Balancer (NLB)</h3>
+
+<p>
+Trabaja en capa 4.
+</p>
+
+<p>
+Extremadamente rápido.
+</p>
+
+<h3>Classic Load Balancer</h3>
+
+<p>
+Modelo antiguo.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Capa</th>
+</tr>
+
+<tr>
+<td>ALB</td>
+<td>7</td>
+</tr>
+
+<tr>
+<td>NLB</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>CLB</td>
+<td>4 y 7</td>
+</tr>
+
+</table>
+
+<div class="tip">
+ALB suele ser el recomendado para aplicaciones web modernas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué balanceador usa HTTP/HTTPS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">ALB</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. ¿Qué es Auto Scaling?</h2>
+
+<p>
+Auto Scaling permite crear o eliminar servidores automáticamente según demanda.
+</p>
+
+<h3>Problema sin Auto Scaling</h3>
+
+<p>
+Imagina una tienda online:
+</p>
+
+<ul>
+<li>Pocos usuarios normalmente</li>
+<li>Muchísimos usuarios en rebajas</li>
+</ul>
+
+<p>
+Si solo tenemos un servidor:
+</p>
+
+<pre><code>Muchos usuarios
+↓
+Servidor saturado</code></pre>
+
+<h3>Con Auto Scaling</h3>
+
+<pre><code>Muchos usuarios
+↓
+AWS crea nuevas EC2</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalado automático</li>
+<li>Menor coste</li>
+<li>Alta disponibilidad</li>
+<li>Mayor rendimiento</li>
+</ul>
+
+<div class="tip">
+Auto Scaling es una de las herramientas más importantes en AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué hace Auto Scaling?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Crear o eliminar EC2 automáticamente</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Instalar Ubuntu</div>
+<div class="option" onclick="checkAnswer(this,false)">Gestionar buckets S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Escalado ascendente y descendente</h2>
+
+<h3>Escalado ascendente</h3>
+
+<p>
+Cuando aumenta tráfico:
+</p>
+
+<pre><code>2 EC2
+↓
+5 EC2</code></pre>
+
+<p>
+AWS añade servidores automáticamente.
+</p>
+
+<h3>Escalado descendente</h3>
+
+<p>
+Cuando baja tráfico:
+</p>
+
+<pre><code>5 EC2
+↓
+2 EC2</code></pre>
+
+<p>
+AWS elimina servidores sobrantes.
+</p>
+
+<h3>Objetivo</h3>
+
+<ul>
+<li>No quedarse corto</li>
+<li>No pagar de más</li>
+</ul>
+
+<div class="warning">
+El sistema busca equilibrio entre coste y rendimiento.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ocurre en escalado descendente?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Se eliminan servidores sobrantes</div>
+<div class="option" onclick="checkAnswer(this,false)">Se crean más EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">Se crean buckets</div>
+<div class="option" onclick="checkAnswer(this,false)">Se aumenta RAM local</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Escalado vertical vs horizontal</h2>
+
+<h3>Escalado vertical</h3>
+
+<p>
+Consiste en hacer MÁS potente un único servidor.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>2 GB RAM
+↓
+16 GB RAM</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Simple</li>
+<li>Fácil implementar</li>
+</ul>
+
+<h3>Problemas</h3>
+
+<ul>
+<li>Tiene límites</li>
+<li>Si falla el servidor, todo cae</li>
+</ul>
+
+<hr style="margin:30px 0;border-color:#2a2a45;">
+
+<h3>Escalado horizontal</h3>
+
+<p>
+Consiste en añadir MÁS servidores.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>1 servidor
+↓
+10 servidores</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Mayor disponibilidad</li>
+<li>Más escalabilidad</li>
+<li>Más resistencia fallos</li>
+</ul>
+
+<div class="tip">
+AWS utiliza muchísimo el escalado horizontal.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué hace el escalado horizontal?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Añadir más servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Más RAM mismo servidor</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear snapshots</div>
+<div class="option" onclick="checkAnswer(this,false)">Cambiar DNS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. Arquitectura escalable completa</h2>
+
+<h3>Arquitectura moderna</h3>
+
+<pre><code>Usuarios
+↓
+Load Balancer
+↓
+Auto Scaling Group
+↙   ↓   ↘
+EC2 EC2 EC2</code></pre>
+
+<h3>Qué ocurre</h3>
+
+<ul>
+<li>Usuarios llegan</li>
+<li>ELB reparte tráfico</li>
+<li>Auto Scaling añade EC2 si hace falta</li>
+<li>Health Checks detectan fallos</li>
+</ul>
+
+<h3>Resultado</h3>
+
+<ul>
+<li>Alta disponibilidad</li>
+<li>Escalabilidad</li>
+<li>Menos caídas</li>
+</ul>
+
+<div class="tip">
+Esta arquitectura es extremadamente común en AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué componente crea nuevas EC2?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Auto Scaling</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Crear un Load Balancer paso a paso</h2>
+
+<h3>Paso 1</h3>
+
+<p>
+Entrar al servicio EC2.
+</p>
+
+<h3>Paso 2</h3>
+
+<p>
+Ir a:
+</p>
+
+<pre><code>Load Balancers
+→ Create Load Balancer</code></pre>
+
+<h3>Paso 3</h3>
+
+<p>
+Elegir:
+</p>
+
+<pre><code>Application Load Balancer</code></pre>
+
+<h3>Paso 4</h3>
+
+<p>
+Seleccionar VPC y subredes.
+</p>
+
+<h3>Paso 5</h3>
+
+<p>
+Crear Target Group.
+</p>
+
+<h3>Paso 6</h3>
+
+<p>
+Añadir instancias EC2.
+</p>
+
+<div class="warning">
+Sin Target Group el balanceador no sabe a qué servidores enviar tráfico.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué contiene los servidores EC2?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Target Group</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM Group</div>
+<div class="option" onclick="checkAnswer(this,false)">Bucket S3</div>
+<div class="option" onclick="checkAnswer(this,false)">Security Group</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. Crear un Auto Scaling Group</h2>
+
+<h3>Paso 1</h3>
+
+<p>
+Ir a:
+</p>
+
+<pre><code>EC2
+→ Auto Scaling Groups</code></pre>
+
+<h3>Paso 2</h3>
+
+<p>
+Crear Launch Template.
+</p>
+
+<h3>Launch Template</h3>
+
+<p>
+Define cómo serán las nuevas EC2.
+</p>
+
+<h3>Incluye</h3>
+
+<ul>
+<li>AMI</li>
+<li>Tipo instancia</li>
+<li>Security Group</li>
+<li>Clave SSH</li>
+</ul>
+
+<h3>Paso 3</h3>
+
+<p>
+Definir mínimo y máximo:
+</p>
+
+<pre><code>Min: 2
+Max: 6</code></pre>
+
+<h3>Paso 4</h3>
+
+<p>
+Definir reglas CPU.
+</p>
+
+<pre><code>CPU > 70%
+→ Crear EC2</code></pre>
+
+<div class="tip">
+Las políticas de escalado suelen usar métricas CloudWatch.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué define Launch Template?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Cómo serán las nuevas EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS global</div>
+<div class="option" onclick="checkAnswer(this,false)">Buckets S3</div>
+<div class="option" onclick="checkAnswer(this,false)">Usuarios IAM</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. CloudWatch y monitorización</h2>
+
+<p>
+CloudWatch monitoriza servidores y Auto Scaling.
+</p>
+
+<h3>Métricas importantes</h3>
+
+<ul>
+<li>CPU</li>
+<li>RAM</li>
+<li>Red</li>
+<li>Peticiones</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>CPU > 80%
+↓
+CloudWatch alarma
+↓
+Auto Scaling crea EC2</code></pre>
+
+<h3>Ventaja</h3>
+
+<p>
+Todo el proceso puede automatizarse.
+</p>
+
+<div class="warning">
+CloudWatch es fundamental para automatización AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué monitoriza CloudWatch?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Métricas y recursos</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo usuarios IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Costes y optimización</h2>
+
+<h3>Problema típico</h3>
+
+<p>
+Tener demasiados servidores permanentemente cuesta dinero.
+</p>
+
+<h3>Sin escalado</h3>
+
+<pre><code>10 EC2 activas siempre</code></pre>
+
+<p>
+Aunque no haya usuarios.
+</p>
+
+<h3>Con Auto Scaling</h3>
+
+<pre><code>Poco tráfico → 2 EC2
+Mucho tráfico → 10 EC2</code></pre>
+
+<h3>Resultado</h3>
+
+<ul>
+<li>Menor coste</li>
+<li>Más eficiencia</li>
+<li>Mejor rendimiento</li>
+</ul>
+
+<div class="tip">
+AWS está diseñado para pagar solo por lo que realmente usamos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja económica tiene Auto Scaling?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Reduce recursos innecesarios</div>
+<div class="option" onclick="checkAnswer(this,false)">Elimina internet</div>
+<div class="option" onclick="checkAnswer(this,false)">No usar EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar balanceadores</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Arquitecturas modernas AWS</h2>
+
+<h3>Arquitectura típica real</h3>
+
+<pre><code>Usuarios
+↓
+CloudFront
+↓
+Application Load Balancer
+↓
+Auto Scaling Group
+↓
+EC2 privadas
+↓
+RDS Multi-AZ</code></pre>
+
+<h3>Qué aporta cada componente</h3>
+
+<table>
+
+<tr>
+<th>Componente</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>CloudFront</td>
+<td>Distribución global</td>
+</tr>
+
+<tr>
+<td>ALB</td>
+<td>Balanceo tráfico</td>
+</tr>
+
+<tr>
+<td>Auto Scaling</td>
+<td>Escalado automático</td>
+</tr>
+
+<tr>
+<td>RDS</td>
+<td>Base datos</td>
+</tr>
+
+</table>
+
+<h3>Resultado final</h3>
+
+<ul>
+<li>Alta disponibilidad</li>
+<li>Escalabilidad</li>
+<li>Rendimiento</li>
+<li>Automatización</li>
+</ul>
+
+<div class="tip">
+Las aplicaciones grandes modernas suelen utilizar varias capas de redundancia.
+</div>
+
+<div class="warning">
+Escalar bien es uno de los pilares fundamentales del cloud computing.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué componente distribuye tráfico?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Load Balancer</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">EBS</div>
+<div class="option" onclick="checkAnswer(this,false)">Snapshots</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+blocks.forEach(block => block.classList.remove('active'));
+menuButtons.forEach(btn => btn.classList.remove('active'));
+
+blocks[index].classList.add('active');
+menuButtons[index].classList.add('active');
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+function checkAnswer(element,isCorrect){
+
+const parent = element.parentElement;
+const options = parent.querySelectorAll('.option');
+const result = parent.querySelector('.result');
+
+options.forEach(opt=>{
+opt.style.pointerEvents='none';
+});
+
+if(isCorrect){
+
+element.classList.add('correct');
+result.innerHTML='✔ Correcto';
+result.style.color='#39d27b';
+
+}else{
+
+element.classList.add('wrong');
+result.innerHTML='✘ Incorrecto';
+result.style.color='#ff5d73';
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

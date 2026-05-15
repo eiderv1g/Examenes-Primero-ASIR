@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unidad 1 - Fundamentos de computación en la nube</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --card2:#1b1b2d;
+    --border:#2b2b45;
+    --text:#ececff;
+    --muted:#b4b4d4;
+    --purple:#9b5cff;
+    --purple2:#6d3cff;
+    --blue:#4da3ff;
+    --green:#37d67a;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#11111b,#0b0b13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    overflow-y:auto;
+    position:fixed;
+    height:100vh;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.6rem;
+    line-height:1.4;
+    color:white;
+    margin-bottom:10px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:0.95rem;
+    margin-bottom:25px;
+    line-height:1.6;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid transparent;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:0.25s;
+    font-size:0.95rem;
+}
+
+.menu button:hover{
+    border-color:var(--purple);
+    background:var(--card2);
+    transform:translateX(4px);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+    border-color:transparent;
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+    box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.4rem;
+    margin-bottom:10px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+    font-size:1.6rem;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d8d8f3;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    margin-bottom:10px;
+    line-height:1.8;
+    color:#d8d8f3;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    margin-bottom:25px;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+.tip{
+    background:rgba(77,163,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    margin-bottom:20px;
+    color:var(--purple);
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(55,214,122,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.nav-buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+}
+
+.nav-buttons button{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+    color:white;
+    border:none;
+    padding:14px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        UNIDAD 1<br>
+        <span>Computación en la nube</span>
+    </div>
+
+    <div class="subtitle">
+        Plataforma interactiva de estudio para examen tipo test.
+    </div>
+
+    <div class="menu">
+
+        <button class="active" onclick="showBlock(0)">1. Introducción al Cloud</button>
+        <button onclick="showBlock(1)">2. Estructura Web</button>
+        <button onclick="showBlock(2)">3. Qué es la nube</button>
+        <button onclick="showBlock(3)">4. Características Cloud</button>
+        <button onclick="showBlock(4)">5. SaaS</button>
+        <button onclick="showBlock(5)">6. PaaS</button>
+        <button onclick="showBlock(6)">7. IaaS</button>
+        <button onclick="showBlock(7)">8. Comparativa modelos</button>
+        <button onclick="showBlock(8)">9. Nube pública</button>
+        <button onclick="showBlock(9)">10. Nube privada</button>
+        <button onclick="showBlock(10)">11. Nube híbrida</button>
+        <button onclick="showBlock(11)">12. AWS y proveedores</button>
+
+    </div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Introducción al Cloud</h1>
+
+<p>
+La computación en la nube se ha convertido en uno de los pilares fundamentales de la tecnología moderna. Actualmente prácticamente todas las empresas utilizan servicios cloud para almacenar información, ejecutar aplicaciones o proporcionar servicios online.
+</p>
+
+<p>
+El concepto principal consiste en utilizar recursos tecnológicos a través de internet en lugar de depender únicamente de equipos físicos locales.
+</p>
+
+<h3>¿Por qué surgió el cloud?</h3>
+
+<ul>
+<li>Las empresas necesitaban reducir costes de infraestructura.</li>
+<li>Era complicado mantener servidores físicos.</li>
+<li>El crecimiento de internet permitió ofrecer recursos remotamente.</li>
+<li>La demanda de escalabilidad aumentó enormemente.</li>
+</ul>
+
+<div class="tip">
+La nube NO es “algo flotando en internet”. Realmente son enormes centros de datos distribuidos mundialmente.
+</div>
+
+<h3>Conceptos importantes</h3>
+
+<table>
+<tr>
+<th>Concepto</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Escalabilidad</td>
+<td>Aumentar recursos cuando se necesiten.</td>
+</tr>
+
+<tr>
+<td>Elasticidad</td>
+<td>Subir o bajar recursos automáticamente.</td>
+</tr>
+
+<tr>
+<td>Pago por uso</td>
+<td>Solo pagas lo que consumes.</td>
+</tr>
+
+<tr>
+<td>Alta disponibilidad</td>
+<td>Servicios funcionando continuamente.</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Pregunta trampa típica: escalabilidad y elasticidad NO son exactamente lo mismo.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja principal aporta el modelo cloud?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Escalabilidad y acceso remoto</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar internet</div>
+<div class="option" onclick="checkAnswer(this,false)">No usar servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">No necesitar software</div>
+
+<div class="result"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. Estructura de cualquier desarrollo web</h2>
+
+<p>
+Toda aplicación moderna suele dividirse en varias capas para separar responsabilidades.
+</p>
+
+<h3>Cliente</h3>
+
+<p>
+Es el navegador o aplicación que utiliza el usuario. Envía peticiones y muestra respuestas.
+</p>
+
+<h3>Front-end</h3>
+
+<p>
+Parte visual de la aplicación. Incluye botones, formularios, diseño y experiencia de usuario.
+</p>
+
+<h3>Back-end</h3>
+
+<p>
+Procesa la lógica interna de la aplicación.
+</p>
+
+<ul>
+<li>Business layer → lógica de negocio</li>
+<li>Data layer → acceso a datos</li>
+</ul>
+
+<h3>Base de datos</h3>
+
+<p>
+Almacena información de forma persistente.
+</p>
+
+<div class="tip">
+En cloud muchas veces la base de datos está gestionada automáticamente por el proveedor.
+</div>
+
+<h3>Flujo de petición</h3>
+
+<ol style="padding-left:25px;line-height:2;">
+<li>Cliente envía petición</li>
+<li>Servidor procesa datos</li>
+<li>Servidor genera respuesta</li>
+<li>Cliente muestra información</li>
+</ol>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué parte se encarga de la lógica de negocio?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Front-end</div>
+<div class="option" onclick="checkAnswer(this,true)">Back-end</div>
+<div class="option" onclick="checkAnswer(this,false)">Cliente</div>
+<div class="option" onclick="checkAnswer(this,false)">CSS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. Qué es la nube</h2>
+
+<p>
+La computación en la nube es un modelo que permite acceder a recursos informáticos mediante internet.
+</p>
+
+<p>
+En lugar de comprar servidores físicos, las empresas alquilan recursos tecnológicos.
+</p>
+
+<h3>Recursos que puede ofrecer la nube</h3>
+
+<ul>
+<li>Servidores</li>
+<li>Redes</li>
+<li>Bases de datos</li>
+<li>Almacenamiento</li>
+<li>Aplicaciones</li>
+<li>Servicios de IA</li>
+</ul>
+
+<div class="warning">
+Pregunta trampa: cloud NO significa necesariamente “sin servidores”. Los servidores existen, pero están gestionados remotamente.
+</div>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Reducción de costes</li>
+<li>Alta disponibilidad</li>
+<li>Escalabilidad inmediata</li>
+<li>Acceso global</li>
+<li>Flexibilidad</li>
+</ul>
+
+<h3>Desventajas</h3>
+
+<ul>
+<li>Dependencia de internet</li>
+<li>Dependencia del proveedor</li>
+<li>Posibles problemas legales o normativos</li>
+</ul>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué recurso puede ofrecer la nube?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Solo almacenamiento</div>
+<div class="option" onclick="checkAnswer(this,true)">Servidores, redes y bases de datos</div>
+<div class="option" onclick="checkAnswer(this,false)">Únicamente páginas web</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo software local</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Características clave del Cloud</h2>
+
+<h3>Autoservicio bajo demanda</h3>
+
+<p>
+El usuario puede crear recursos sin intervención humana del proveedor.
+</p>
+
+<h3>Acceso por red</h3>
+
+<p>
+Los servicios se acceden desde internet.
+</p>
+
+<h3>Agrupación de recursos</h3>
+
+<p>
+Muchos clientes comparten infraestructura física de forma segura.
+</p>
+
+<h3>Elasticidad</h3>
+
+<p>
+Los recursos aumentan o disminuyen automáticamente.
+</p>
+
+<h3>Pago por uso</h3>
+
+<p>
+El cliente paga únicamente por el consumo real.
+</p>
+
+<div class="tip">
+Elasticidad automática = uno de los conceptos más preguntados en cloud.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué característica permite aumentar recursos automáticamente?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Agrupación</div>
+<div class="option" onclick="checkAnswer(this,true)">Elasticidad</div>
+<div class="option" onclick="checkAnswer(this,false)">Virtualización</div>
+<div class="option" onclick="checkAnswer(this,false)">Back-end</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUES RESTANTES -->
+
+<div class="block">
+<div class="card">
+<h2>5. SaaS</h2>
+
+<p>
+Software as a Service proporciona aplicaciones listas para usar.
+</p>
+
+<ul>
+<li>No requiere instalación compleja</li>
+<li>Todo lo gestiona el proveedor</li>
+<li>Orientado a usuarios finales</li>
+<li>Acceso desde navegador</li>
+</ul>
+
+<h3>Ejemplos</h3>
+
+<ul>
+<li>Gmail</li>
+<li>Google Docs</li>
+<li>Office 365</li>
+</ul>
+
+<div class="warning">
+En SaaS el usuario NO administra sistema operativo ni servidores.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Cuál es un ejemplo de SaaS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Google Docs</div>
+<div class="option" onclick="checkAnswer(this,false)">Amazon EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">Docker</div>
+<div class="option" onclick="checkAnswer(this,false)">VMware ESXi</div>
+
+<div class="result"></div>
+
+</div>
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+<h2>6. PaaS</h2>
+
+<p>
+Platform as a Service proporciona plataformas listas para desarrollar aplicaciones.
+</p>
+
+<ul>
+<li>Ideal para desarrolladores</li>
+<li>El proveedor gestiona infraestructura</li>
+<li>El desarrollador se centra en programar</li>
+</ul>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Despliegue rápido</li>
+<li>Menos mantenimiento</li>
+<li>Mayor productividad</li>
+</ul>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Quién usa principalmente PaaS?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Usuarios domésticos</div>
+<div class="option" onclick="checkAnswer(this,true)">Desarrolladores</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo bancos</div>
+<div class="option" onclick="checkAnswer(this,false)">Clientes SaaS</div>
+
+<div class="result"></div>
+
+</div>
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+<h2>7. IaaS</h2>
+
+<p>
+Infrastructure as a Service proporciona infraestructura virtual.
+</p>
+
+<ul>
+<li>Máximo control</li>
+<li>Mayor responsabilidad técnica</li>
+<li>Administración del sistema operativo</li>
+<li>Configuración de redes y servidores</li>
+</ul>
+
+<div class="tip">
+IaaS es el modelo más flexible.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué modelo ofrece mayor control?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">IaaS</div>
+<div class="option" onclick="checkAnswer(this,false)">SaaS</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">PaaS</div>
+
+<div class="result"></div>
+
+</div>
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+
+<h2>8. Comparativa de modelos</h2>
+
+<table>
+<tr>
+<th>Modelo</th>
+<th>Control</th>
+<th>Facilidad</th>
+</tr>
+
+<tr>
+<td>SaaS</td>
+<td>Bajo</td>
+<td>Muy alta</td>
+</tr>
+
+<tr>
+<td>PaaS</td>
+<td>Medio</td>
+<td>Alta</td>
+</tr>
+
+<tr>
+<td>IaaS</td>
+<td>Muy alto</td>
+<td>Media</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Pregunta clásica: cuanto mayor control tienes, mayor responsabilidad técnica tendrás.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué modelo requiere más administración?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">SaaS</div>
+<div class="option" onclick="checkAnswer(this,false)">PaaS</div>
+<div class="option" onclick="checkAnswer(this,true)">IaaS</div>
+<div class="option" onclick="checkAnswer(this,false)">Ninguno</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+
+<h2>9. Nube pública</h2>
+
+<p>
+La infraestructura pertenece a un proveedor externo.
+</p>
+
+<ul>
+<li>Compartida entre clientes</li>
+<li>Alta escalabilidad</li>
+<li>Pago por uso</li>
+<li>Gran disponibilidad</li>
+</ul>
+
+<h3>Ejemplos</h3>
+
+<ul>
+<li>AWS</li>
+<li>Azure</li>
+<li>Google Cloud</li>
+</ul>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué proveedor pertenece a nube pública?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">AWS</div>
+<div class="option" onclick="checkAnswer(this,false)">Servidor local</div>
+<div class="option" onclick="checkAnswer(this,false)">Intranet</div>
+<div class="option" onclick="checkAnswer(this,false)">NAS doméstico</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+
+<h2>10. Nube privada</h2>
+
+<p>
+La infraestructura pertenece a una única organización.
+</p>
+
+<ul>
+<li>Mayor control</li>
+<li>Más privacidad</li>
+<li>Mayor coste</li>
+<li>Infraestructura dedicada</li>
+</ul>
+
+<div class="warning">
+Las nubes privadas NO siempre son más baratas.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué característica destaca en la nube privada?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Uso compartido masivo</div>
+<div class="option" onclick="checkAnswer(this,true)">Infraestructura dedicada</div>
+<div class="option" onclick="checkAnswer(this,false)">Menor seguridad</div>
+<div class="option" onclick="checkAnswer(this,false)">No usar servidores</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+
+<h2>11. Nube híbrida</h2>
+
+<p>
+Combina nube pública y privada.
+</p>
+
+<ul>
+<li>Flexibilidad</li>
+<li>Escalabilidad</li>
+<li>Mayor complejidad</li>
+<li>Muy usada en empresas grandes</li>
+</ul>
+
+<div class="tip">
+Muchas empresas almacenan datos críticos en privada y usan pública para escalar.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Qué combina una nube híbrida?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Nube pública y privada</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo redes</div>
+<div class="option" onclick="checkAnswer(this,false)">Front-end y CSS</div>
+<div class="option" onclick="checkAnswer(this,false)">Bases de datos locales</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+</div>
+
+<div class="block">
+<div class="card">
+
+<h2>12. AWS y otros proveedores</h2>
+
+<p>
+AWS es el proveedor cloud más conocido y utilizado mundialmente.
+</p>
+
+<h3>Otros proveedores</h3>
+
+<ul>
+<li>Microsoft Azure</li>
+<li>Google Cloud Platform</li>
+<li>Oracle Cloud</li>
+<li>IBM Cloud</li>
+</ul>
+
+<h3>Motivos del éxito de AWS</h3>
+
+<ul>
+<li>Gran catálogo de servicios</li>
+<li>Escalabilidad global</li>
+<li>Alta disponibilidad</li>
+<li>Gran ecosistema</li>
+</ul>
+
+<div class="warning">
+Pregunta típica: AWS NO es el único proveedor cloud.
+</div>
+
+<div class="quiz">
+<h4>Mini-test</h4>
+
+<p>¿Cuál es un proveedor cloud?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Photoshop</div>
+<div class="option" onclick="checkAnswer(this,true)">Google Cloud</div>
+<div class="option" onclick="checkAnswer(this,false)">HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">CSS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+    blocks.forEach(block => block.classList.remove('active'));
+    menuButtons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[index].classList.add('active');
+    menuButtons[index].classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+    const parent = element.parentElement;
+    const options = parent.querySelectorAll('.option');
+    const result = parent.querySelector('.result');
+
+    options.forEach(opt => {
+        opt.style.pointerEvents = 'none';
+    });
+
+    if(isCorrect){
+        element.classList.add('correct');
+        result.innerHTML = "✔ Correcto";
+        result.style.color = "#37d67a";
+    }else{
+        element.classList.add('wrong');
+        result.innerHTML = "✘ Incorrecto";
+        result.style.color = "#ff5d73";
+    }
+
+}
+
+</script>
+
+</body>
+</html>

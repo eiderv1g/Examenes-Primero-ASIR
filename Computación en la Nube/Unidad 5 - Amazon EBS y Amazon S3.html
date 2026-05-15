@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 5 - Amazon EBS y Amazon S3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --card2:#1b1b2d;
+    --border:#2b2b45;
+    --text:#ececff;
+    --muted:#b6b6d8;
+    --purple:#9b5cff;
+    --purple2:#6e40ff;
+    --blue:#57a8ff;
+    --green:#3ad67c;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#101018,#0a0a13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin-bottom:15px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    border:1px solid transparent;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    cursor:pointer;
+    text-align:left;
+    transition:0.25s;
+}
+
+.menu button:hover{
+    transform:translateX(4px);
+    border-color:var(--purple);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.3rem;
+    margin-bottom:15px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d8d8f3;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    line-height:1.8;
+    margin-bottom:10px;
+    color:#d8d8f3;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+pre{
+    background:#0a0a12;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin:20px 0;
+}
+
+code{
+    color:#9fd4ff;
+    font-family:Consolas,monospace;
+    line-height:1.7;
+}
+
+.tip{
+    background:rgba(87,168,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    color:var(--purple);
+    margin-bottom:20px;
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(58,214,124,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 5<br>
+<span>Amazon EBS y S3</span>
+</div>
+
+<div class="subtitle">
+Almacenamiento persistente, discos EBS, buckets S3, snapshots, redundancia y almacenamiento cloud.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. Amazon EBS</button>
+<button onclick="showBlock(1)">2. Características EBS</button>
+<button onclick="showBlock(2)">3. Tipos de volúmenes</button>
+<button onclick="showBlock(3)">4. Snapshots EBS</button>
+<button onclick="showBlock(4)">5. Cifrado y elasticidad</button>
+<button onclick="showBlock(5)">6. Amazon S3</button>
+<button onclick="showBlock(6)">7. Buckets y objetos</button>
+<button onclick="showBlock(7)">8. Clases almacenamiento</button>
+<button onclick="showBlock(8)">9. URLs y acceso</button>
+<button onclick="showBlock(9)">10. Redundancia S3</button>
+<button onclick="showBlock(10)">11. Precios S3</button>
+<button onclick="showBlock(11)">12. Crear bucket</button>
+<button onclick="showBlock(12)">13. Políticas y permisos</button>
+<button onclick="showBlock(13)">14. Práctica S3 completa</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Amazon EBS</h1>
+
+<p>
+Amazon EBS (Elastic Block Store) es el sistema de almacenamiento persistente de AWS diseñado principalmente para instancias EC2.
+</p>
+
+<p>
+Funciona como un disco duro virtual conectado a un servidor cloud.
+</p>
+
+<p>
+Cuando una instancia necesita guardar datos importantes, normalmente utiliza EBS.
+</p>
+
+<h3>Características principales</h3>
+
+<ul>
+<li>Persistencia de datos</li>
+<li>Baja latencia</li>
+<li>Alto rendimiento</li>
+<li>Escalabilidad</li>
+<li>Snapshots automáticas</li>
+<li>Cifrado</li>
+</ul>
+
+<h3>¿Por qué es importante?</h3>
+
+<p>
+Sin almacenamiento persistente, los datos desaparecerían al apagar la instancia.
+</p>
+
+<div class="tip">
+EBS es comparable a un SSD o HDD conectado físicamente a un servidor, pero virtualizado en AWS.
+</div>
+
+<div class="warning">
+Pregunta típica: EBS NO es almacenamiento de objetos. Es almacenamiento en bloques.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué tipo de almacenamiento ofrece EBS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Almacenamiento en bloques</div>
+<div class="option" onclick="checkAnswer(this,false)">Almacenamiento DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">Streaming multimedia</div>
+<div class="option" onclick="checkAnswer(this,false)">Correo electrónico</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. Características de Amazon EBS</h2>
+
+<h3>Persistencia</h3>
+
+<p>
+Los datos permanecen incluso si detenemos la instancia EC2.
+</p>
+
+<h3>Almacenamiento en bloques</h3>
+
+<p>
+El sistema operativo ve EBS como si fuera un disco físico tradicional.
+</p>
+
+<h3>Escalabilidad</h3>
+
+<p>
+Podemos aumentar tamaño y rendimiento sin necesidad de migrar datos manualmente.
+</p>
+
+<h3>Alta disponibilidad</h3>
+
+<p>
+AWS replica automáticamente datos dentro de la misma zona de disponibilidad.
+</p>
+
+<h3>Snapshots</h3>
+
+<p>
+Permiten realizar copias de seguridad rápidas almacenadas en S3.
+</p>
+
+<div class="tip">
+Muchas bases de datos empresariales utilizan EBS por su rendimiento y persistencia.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ocurre con los datos EBS al apagar la instancia?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Permanecen guardados</div>
+<div class="option" onclick="checkAnswer(this,false)">Se eliminan automáticamente</div>
+<div class="option" onclick="checkAnswer(this,false)">Se convierten en snapshots</div>
+<div class="option" onclick="checkAnswer(this,false)">Se envían a Glacier</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. Tipos de volúmenes EBS</h2>
+
+<p>
+AWS ofrece distintos tipos de volúmenes según rendimiento y coste.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>SSD General Purpose</td>
+<td>Uso general</td>
+</tr>
+
+<tr>
+<td>SSD Provisioned IOPS</td>
+<td>Máximo rendimiento</td>
+</tr>
+
+<tr>
+<td>HDD Throughput Optimized</td>
+<td>Acceso secuencial</td>
+</tr>
+
+<tr>
+<td>Cold HDD</td>
+<td>Bajo coste</td>
+</tr>
+
+</table>
+
+<h3>SSD</h3>
+
+<p>
+Ideales para bases de datos y aplicaciones con muchas operaciones por segundo.
+</p>
+
+<h3>HDD</h3>
+
+<p>
+Más económicos para almacenamiento masivo.
+</p>
+
+<div class="warning">
+Pregunta típica: SSD Provisioned IOPS ofrece el mayor rendimiento.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué volumen ofrece más IOPS?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Cold HDD</div>
+<div class="option" onclick="checkAnswer(this,true)">SSD Provisioned IOPS</div>
+<div class="option" onclick="checkAnswer(this,false)">Standard HDD</div>
+<div class="option" onclick="checkAnswer(this,false)">Ninguno</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Snapshots de Amazon EBS</h2>
+
+<p>
+Las snapshots son copias de seguridad puntuales de volúmenes EBS.
+</p>
+
+<p>
+AWS almacena internamente estas snapshots en S3.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Recuperación rápida</li>
+<li>Backups automáticos</li>
+<li>Migración de datos</li>
+<li>Clonado de servidores</li>
+</ul>
+
+<h3>Proceso típico</h3>
+
+<pre><code>Volumen EBS
+→ Crear snapshot
+→ Crear nuevo volumen
+→ Asociar a instancia</code></pre>
+
+<div class="tip">
+Las snapshots son incrementales: solo almacenan cambios nuevos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Dónde se almacenan las snapshots?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Amazon S3</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Cifrado y elasticidad en EBS</h2>
+
+<h3>Cifrado</h3>
+
+<p>
+AWS permite cifrar volúmenes EBS sin coste adicional.
+</p>
+
+<p>
+Esto protege datos incluso si alguien obtiene acceso físico al hardware.
+</p>
+
+<h3>Elasticidad</h3>
+
+<p>
+Podemos aumentar capacidad y rendimiento fácilmente.
+</p>
+
+<pre><code>EC2
+→ Volúmenes
+→ Modificar volumen</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>No detener la instancia</li>
+<li>Escalado rápido</li>
+<li>Mayor flexibilidad</li>
+</ul>
+
+<div class="warning">
+Aumentar tamaño del volumen NO amplía automáticamente el sistema de archivos Linux.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Tiene coste extra el cifrado EBS?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Sí</div>
+<div class="option" onclick="checkAnswer(this,true)">No</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo en Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo en Windows</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. Amazon S3</h2>
+
+<p>
+Amazon S3 (Simple Storage Service) es el sistema de almacenamiento de objetos de AWS.
+</p>
+
+<p>
+Está diseñado para guardar archivos de cualquier tipo de manera extremadamente escalable.
+</p>
+
+<h3>Ejemplos de uso</h3>
+
+<ul>
+<li>Backups</li>
+<li>Imágenes</li>
+<li>Vídeos</li>
+<li>Archivos descargables</li>
+<li>Webs estáticas</li>
+</ul>
+
+<h3>Diferencia clave respecto a EBS</h3>
+
+<table>
+
+<tr>
+<th>EBS</th>
+<th>S3</th>
+</tr>
+
+<tr>
+<td>Bloques</td>
+<td>Objetos</td>
+</tr>
+
+<tr>
+<td>Discos EC2</td>
+<td>Archivos cloud</td>
+</tr>
+
+<tr>
+<td>Baja latencia</td>
+<td>Escalabilidad masiva</td>
+</tr>
+
+</table>
+
+<div class="tip">
+S3 es uno de los servicios más usados de toda AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué tipo de almacenamiento utiliza S3?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Objetos</div>
+<div class="option" onclick="checkAnswer(this,false)">Bloques</div>
+<div class="option" onclick="checkAnswer(this,false)">RAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Streaming</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Buckets y objetos</h2>
+
+<p>
+En S3 los archivos se almacenan como objetos dentro de contenedores llamados buckets.
+</p>
+
+<h3>Bucket</h3>
+
+<p>
+Es el contenedor principal.
+</p>
+
+<h3>Objeto</h3>
+
+<p>
+Es el archivo almacenado.
+</p>
+
+<h3>Ejemplo</h3>
+
+<pre><code>Bucket:
+mi-bucket
+
+Objetos:
+foto.png
+backup.zip
+video.mp4</code></pre>
+
+<h3>Características importantes</h3>
+
+<ul>
+<li>Nombre globalmente único</li>
+<li>Capacidad casi ilimitada</li>
+<li>Objetos hasta 5TB</li>
+</ul>
+
+<div class="warning">
+El nombre del bucket debe ser único en TODO AWS mundialmente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué contiene un bucket?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Objetos</div>
+<div class="option" onclick="checkAnswer(this,false)">CPU</div>
+<div class="option" onclick="checkAnswer(this,false)">Instancias EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">Subredes</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Clases de almacenamiento S3</h2>
+
+<p>
+S3 ofrece varias clases de almacenamiento según frecuencia de acceso y coste.
+</p>
+
+<table>
+
+<tr>
+<th>Clase</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>S3 Standard</td>
+<td>Acceso frecuente</td>
+</tr>
+
+<tr>
+<td>Standard-IA</td>
+<td>Poco acceso</td>
+</tr>
+
+<tr>
+<td>Intelligent Tiering</td>
+<td>Optimización automática</td>
+</tr>
+
+<tr>
+<td>Glacier</td>
+<td>Archivado</td>
+</tr>
+
+<tr>
+<td>Deep Archive</td>
+<td>Archivado extremo</td>
+</tr>
+
+</table>
+
+<h3>Glacier</h3>
+
+<p>
+Muy barato, pero recuperación lenta.
+</p>
+
+<h3>Intelligent Tiering</h3>
+
+<p>
+AWS mueve automáticamente objetos según uso.
+</p>
+
+<div class="tip">
+Elegir mal la clase puede aumentar costes innecesariamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué clase es ideal para archivado barato?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">S3 Standard</div>
+<div class="option" onclick="checkAnswer(this,true)">Glacier</div>
+<div class="option" onclick="checkAnswer(this,false)">Provisioned IOPS</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. URLs y acceso a objetos</h2>
+
+<p>
+Los objetos S3 pueden accederse mediante URL.
+</p>
+
+<h3>Formato path-style</h3>
+
+<pre><code>https://s3.region.amazonaws.com/bucket</code></pre>
+
+<h3>Formato virtual-hosted</h3>
+
+<pre><code>https://bucket.s3.region.amazonaws.com</code></pre>
+
+<p>
+El segundo formato es el más utilizado actualmente.
+</p>
+
+<h3>URLs de objetos</h3>
+
+<pre><code>https://mi-bucket.s3.amazonaws.com/foto.png</code></pre>
+
+<div class="warning">
+Aunque exista URL, los permisos pueden bloquear acceso.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué determina si una URL S3 es accesible?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Los permisos y políticas</div>
+<div class="option" onclick="checkAnswer(this,false)">El nombre del archivo</div>
+<div class="option" onclick="checkAnswer(this,false)">La CPU EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">La RAM</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Redundancia y durabilidad en S3</h2>
+
+<p>
+S3 replica automáticamente objetos en múltiples Availability Zones.
+</p>
+
+<p>
+Esto permite mantener datos disponibles incluso si falla un centro de datos completo.
+</p>
+
+<h3>Durabilidad</h3>
+
+<pre><code>99.999999999%</code></pre>
+
+<p>
+Esto equivale a 11 nueves de durabilidad.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Alta disponibilidad</li>
+<li>Protección ante fallos</li>
+<li>Recuperación automática</li>
+<li>Escalabilidad mundial</li>
+</ul>
+
+<div class="tip">
+La redundancia automática es una de las grandes ventajas de S3.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Dónde replica S3 los datos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Múltiples AZs</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo una instancia</div>
+<div class="option" onclick="checkAnswer(this,false)">Un disco local</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. Precios en Amazon S3</h2>
+
+<p>
+S3 utiliza modelo de pago por uso.
+</p>
+
+<h3>Pagamos por</h3>
+
+<ul>
+<li>GB almacenados</li>
+<li>Transferencia saliente</li>
+<li>Operaciones GET y PUT</li>
+</ul>
+
+<h3>No pagamos por</h3>
+
+<ul>
+<li>Transferencia entrante</li>
+<li>Algunas transferencias internas AWS</li>
+</ul>
+
+<h3>Ejemplo</h3>
+
+<pre><code>100 GB almacenados
++
+5000 peticiones GET
++
+Transferencia internet
+=
+Coste mensual</code></pre>
+
+<div class="warning">
+Las operaciones también generan costes, no solo almacenamiento.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué transferencia suele ser gratuita?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Transferencia entrante</div>
+<div class="option" onclick="checkAnswer(this,false)">Transferencia saliente</div>
+<div class="option" onclick="checkAnswer(this,false)">GET Requests</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. Crear un bucket paso a paso</h2>
+
+<h3>Paso 1</h3>
+
+<p>
+Entrar al servicio S3.
+</p>
+
+<h3>Paso 2</h3>
+
+<p>
+Seleccionar “Create Bucket”.
+</p>
+
+<h3>Paso 3</h3>
+
+<p>
+Elegir nombre único.
+</p>
+
+<pre><code>prueba-bucket-mopc</code></pre>
+
+<h3>Paso 4</h3>
+
+<p>
+Mantener configuración por defecto.
+</p>
+
+<h3>Paso 5</h3>
+
+<p>
+Crear bucket y subir archivos.
+</p>
+
+<h3>Subida de archivos</h3>
+
+<pre><code>Bucket
+→ Upload
+→ Seleccionar archivos
+→ Upload</code></pre>
+
+<div class="tip">
+Arrastrar archivos directamente al bucket es la forma más rápida.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué debe tener el nombre del bucket?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Ser único globalmente</div>
+<div class="option" onclick="checkAnswer(this,false)">Más de 100 caracteres</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo mayúsculas</div>
+<div class="option" onclick="checkAnswer(this,false)">La palabra AWS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Políticas y permisos en S3</h2>
+
+<p>
+Por defecto los buckets son privados.
+</p>
+
+<p>
+Para hacer públicos objetos necesitamos modificar permisos y políticas.
+</p>
+
+<h3>Desbloquear acceso público</h3>
+
+<pre><code>Bucket
+→ Permissions
+→ Block Public Access
+→ Disable</code></pre>
+
+<h3>Política JSON ejemplo</h3>
+
+<pre><code>{
+ "Version":"2012-10-17",
+ "Statement":[
+   {
+     "Effect":"Allow",
+     "Principal":"*",
+     "Action":"s3:GetObject",
+     "Resource":"arn:aws:s3:::mi-bucket/*"
+   }
+ ]
+}</code></pre>
+
+<h3>Explicación</h3>
+
+<ul>
+<li>Allow → permite acceso</li>
+<li>GetObject → leer objetos</li>
+<li>Principal "*" → cualquier usuario</li>
+</ul>
+
+<div class="warning">
+Hacer públicos buckets incorrectamente puede causar fugas de datos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué acción permite leer objetos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">s3:GetObject</div>
+<div class="option" onclick="checkAnswer(this,false)">s3:DeleteBucket</div>
+<div class="option" onclick="checkAnswer(this,false)">ec2:RunInstances</div>
+<div class="option" onclick="checkAnswer(this,false)">iam:CreateUser</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Práctica completa Amazon S3</h2>
+
+<h3>Objetivo</h3>
+
+<p>
+Crear un bucket público capaz de servir archivos mediante URL.
+</p>
+
+<h3>Proceso completo</h3>
+
+<ol style="padding-left:25px;line-height:2;">
+
+<li>Entrar a Amazon S3</li>
+<li>Crear bucket</li>
+<li>Subir archivos</li>
+<li>Desactivar bloqueo público</li>
+<li>Crear política JSON</li>
+<li>Probar URL del objeto</li>
+
+</ol>
+
+<h3>Subida CLI</h3>
+
+<pre><code>aws s3 cp imagen.png s3://mi-bucket/
+
+aws s3 ls
+
+aws s3 sync carpeta/ s3://backup/</code></pre>
+
+<h3>Resultado final</h3>
+
+<p>
+Los archivos pueden visualizarse directamente desde navegador mediante la URL pública.
+</p>
+
+<div class="tip">
+S3 + CloudFront es una combinación extremadamente utilizada para webs modernas.
+</div>
+
+<div class="warning">
+Nunca publiques información sensible en buckets públicos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué comando sube archivos a S3?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">aws s3 cp</div>
+<div class="option" onclick="checkAnswer(this,false)">aws ec2 start</div>
+<div class="option" onclick="checkAnswer(this,false)">mkdir bucket</div>
+<div class="option" onclick="checkAnswer(this,false)">ssh s3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+    blocks.forEach(block => block.classList.remove('active'));
+    menuButtons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[index].classList.add('active');
+    menuButtons[index].classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+    const parent = element.parentElement;
+    const options = parent.querySelectorAll('.option');
+    const result = parent.querySelector('.result');
+
+    options.forEach(opt=>{
+        opt.style.pointerEvents='none';
+    });
+
+    if(isCorrect){
+
+        element.classList.add('correct');
+        result.innerHTML='✔ Correcto';
+        result.style.color='#3ad67c';
+
+    }else{
+
+        element.classList.add('wrong');
+        result.innerHTML='✘ Incorrecto';
+        result.style.color='#ff5d73';
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

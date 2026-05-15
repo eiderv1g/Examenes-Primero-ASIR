@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 2 - AWS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#09090f;
+    --sidebar:#10101a;
+    --card:#141422;
+    --card2:#1b1b2d;
+    --border:#2b2b45;
+    --text:#ececff;
+    --muted:#b9b9d8;
+    --purple:#9b5cff;
+    --purple2:#6d3cff;
+    --blue:#58a6ff;
+    --green:#35d07f;
+    --danger:#ff5d73;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:320px;
+    background:linear-gradient(180deg,#101018,#0b0b13);
+    border-right:1px solid var(--border);
+    padding:25px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.5rem;
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.logo span{
+    color:var(--purple);
+}
+
+.subtitle{
+    color:var(--muted);
+    margin-bottom:25px;
+    line-height:1.7;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.menu button{
+    background:var(--card);
+    border:1px solid transparent;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    text-align:left;
+    cursor:pointer;
+    transition:0.25s;
+    font-size:0.95rem;
+}
+
+.menu button:hover{
+    transform:translateX(4px);
+    border-color:var(--purple);
+}
+
+.menu button.active{
+    background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:320px;
+    width:calc(100% - 320px);
+    padding:40px;
+}
+
+.block{
+    display:none;
+    animation:fade 0.4s ease;
+}
+
+.block.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.card{
+    background:linear-gradient(180deg,var(--card),#101019);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    margin-bottom:30px;
+}
+
+h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:2.4rem;
+    margin-bottom:15px;
+}
+
+h2{
+    font-family:'Orbitron',sans-serif;
+    color:var(--purple);
+    margin-bottom:25px;
+}
+
+h3{
+    color:var(--blue);
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+p{
+    line-height:1.9;
+    color:#d9d9f5;
+    margin-bottom:18px;
+}
+
+ul{
+    padding-left:25px;
+    margin-bottom:20px;
+}
+
+li{
+    line-height:1.8;
+    margin-bottom:10px;
+    color:#d9d9f5;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:20px 0;
+}
+
+th,td{
+    border:1px solid var(--border);
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:var(--purple2);
+}
+
+.tip{
+    background:rgba(88,166,255,0.08);
+    border-left:4px solid var(--blue);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+.warning{
+    background:rgba(255,93,115,0.08);
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:12px;
+    margin:20px 0;
+}
+
+pre{
+    background:#0b0b12;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:12px;
+    overflow:auto;
+    margin:20px 0;
+}
+
+code{
+    color:#9fd4ff;
+    font-family:Consolas,monospace;
+    line-height:1.7;
+}
+
+.quiz{
+    margin-top:35px;
+    background:#111120;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+}
+
+.quiz h4{
+    margin-bottom:20px;
+    color:var(--purple);
+}
+
+.option{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    border-color:var(--blue);
+}
+
+.correct{
+    background:rgba(53,208,127,0.12);
+    border-color:var(--green);
+}
+
+.wrong{
+    background:rgba(255,93,115,0.12);
+    border-color:var(--danger);
+}
+
+.result{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        UNIDAD 2<br>
+        <span>AWS</span>
+    </div>
+
+    <div class="subtitle">
+        Plataforma interactiva para estudiar Amazon Web Services y fundamentos cloud.
+    </div>
+
+    <div class="menu">
+
+        <button class="active" onclick="showBlock(0)">1. Introducción AWS</button>
+        <button onclick="showBlock(1)">2. Historia AWS</button>
+        <button onclick="showBlock(2)">3. AWS líder mundial</button>
+        <button onclick="showBlock(3)">4. Regiones y AZ</button>
+        <button onclick="showBlock(4)">5. Arquitectura AWS</button>
+        <button onclick="showBlock(5)">6. VPC y redes</button>
+        <button onclick="showBlock(6)">7. Amazon EC2</button>
+        <button onclick="showBlock(7)">8. Amazon S3</button>
+        <button onclick="showBlock(8)">9. DynamoDB</button>
+        <button onclick="showBlock(9)">10. AWS Academy</button>
+        <button onclick="showBlock(10)">11. Costes AWS</button>
+        <button onclick="showBlock(11)">12. Free Tier</button>
+        <button onclick="showBlock(12)">13. Calculadora AWS</button>
+        <button onclick="showBlock(13)">14. Seguridad AWS</button>
+        <button onclick="showBlock(14)">15. IAM</button>
+
+    </div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. Introducción a AWS</h1>
+
+<p>
+AWS (Amazon Web Services) es la plataforma cloud de Amazon. Permite utilizar infraestructura tecnológica a través de internet sin necesidad de comprar servidores físicos.
+</p>
+
+<p>
+Actualmente AWS es utilizada por startups, universidades, bancos, empresas multinacionales y gobiernos.
+</p>
+
+<h3>Características principales</h3>
+
+<ul>
+<li>Escalabilidad automática</li>
+<li>Pago por uso</li>
+<li>Infraestructura global</li>
+<li>Alta disponibilidad</li>
+<li>Elasticidad</li>
+<li>Seguridad avanzada</li>
+<li>Más de 200 servicios</li>
+</ul>
+
+<div class="tip">
+AWS revolucionó la informática porque permitió alquilar recursos tecnológicos igual que se paga la electricidad o el agua.
+</div>
+
+<h3>Ventajas reales</h3>
+
+<ul>
+<li>No necesitas comprar hardware</li>
+<li>Despliegue extremadamente rápido</li>
+<li>Alta resiliencia</li>
+<li>Servicios disponibles globalmente</li>
+<li>Automatización avanzada</li>
+</ul>
+
+<div class="warning">
+Pregunta trampa típica: AWS NO es solo almacenamiento. También ofrece redes, IA, seguridad, bases de datos, servidores y mucho más.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué modelo utiliza AWS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Pago por uso</div>
+<div class="option" onclick="checkAnswer(this,false)">Pago único obligatorio</div>
+<div class="option" onclick="checkAnswer(this,false)">Compra permanente de servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Licencia física local</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. Historia y origen de AWS</h2>
+
+<p>
+Entre 2000 y 2002 Amazon necesitaba mejorar su infraestructura tecnológica para soportar el enorme crecimiento de su tienda online.
+</p>
+
+<p>
+Durante ese proceso desarrollaron sistemas internos extremadamente eficientes.
+</p>
+
+<h3>Lanzamiento oficial</h3>
+
+<ul>
+<li>2006 → lanzamiento de AWS</li>
+<li>S3 → almacenamiento cloud</li>
+<li>EC2 → servidores virtuales</li>
+</ul>
+
+<h3>Motivos de su crecimiento</h3>
+
+<ul>
+<li>Fue pionero en cloud computing</li>
+<li>Gran infraestructura global</li>
+<li>Escalabilidad masiva</li>
+<li>Fiabilidad empresarial</li>
+</ul>
+
+<div class="tip">
+Muchas empresas gigantes empezaron usando AWS porque evitaban comprar centros de datos físicos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio apareció en los inicios de AWS?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">TikTok Cloud</div>
+<div class="option" onclick="checkAnswer(this,true)">Amazon EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">Oracle Linux</div>
+<div class="option" onclick="checkAnswer(this,false)">Docker Hub</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. AWS como líder mundial</h2>
+
+<p>
+AWS mantiene la mayor cuota de mercado mundial en cloud computing.
+</p>
+
+<h3>Razones del liderazgo</h3>
+
+<ul>
+<li>Catálogo enorme de servicios</li>
+<li>Gran ecosistema empresarial</li>
+<li>Infraestructura global</li>
+<li>Madurez tecnológica</li>
+<li>Alta seguridad</li>
+</ul>
+
+<h3>Competidores</h3>
+
+<table>
+
+<tr>
+<th>Proveedor</th>
+<th>Especialidad</th>
+</tr>
+
+<tr>
+<td>AWS</td>
+<td>Líder generalista</td>
+</tr>
+
+<tr>
+<td>Azure</td>
+<td>Integración Microsoft</td>
+</tr>
+
+<tr>
+<td>Google Cloud</td>
+<td>IA y Big Data</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Pregunta típica: AWS sigue siendo líder aunque Azure y Google Cloud también tienen gran importancia.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué proveedor lidera actualmente el mercado cloud?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">AWS</div>
+<div class="option" onclick="checkAnswer(this,false)">Photoshop</div>
+<div class="option" onclick="checkAnswer(this,false)">Oracle Access</div>
+<div class="option" onclick="checkAnswer(this,false)">VirtualBox</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. Regiones y Availability Zones</h2>
+
+<p>
+AWS distribuye infraestructura mundialmente mediante regiones y zonas de disponibilidad.
+</p>
+
+<h3>Región</h3>
+
+<p>
+Ubicación geográfica física donde AWS tiene centros de datos.
+</p>
+
+<h3>Availability Zone (AZ)</h3>
+
+<p>
+Centro de datos aislado dentro de una región.
+</p>
+
+<ul>
+<li>Varias AZ por región</li>
+<li>Aislamiento entre AZ</li>
+<li>Baja latencia entre ellas</li>
+</ul>
+
+<h3>Criterios para elegir región</h3>
+
+<ul>
+<li>Latencia</li>
+<li>Precio</li>
+<li>Leyes de protección de datos</li>
+<li>Disponibilidad de servicios</li>
+</ul>
+
+<div class="tip">
+Si un centro de datos falla, otra AZ puede seguir funcionando.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es una AZ?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Un centro de datos dentro de una región</div>
+<div class="option" onclick="checkAnswer(this,false)">Un usuario IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Una base de datos</div>
+<div class="option" onclick="checkAnswer(this,false)">Un firewall local</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Arquitectura básica AWS</h2>
+
+<p>
+Una arquitectura cloud básica suele incluir usuarios, servidores, bases de datos y almacenamiento.
+</p>
+
+<h3>Flujo básico</h3>
+
+<ol style="padding-left:25px;line-height:2;">
+<li>Usuario realiza petición</li>
+<li>La petición entra en la VPC</li>
+<li>EC2 procesa información</li>
+<li>DynamoDB almacena datos</li>
+<li>S3 guarda archivos</li>
+</ol>
+
+<h3>Servicios clave</h3>
+
+<table>
+
+<tr>
+<th>Servicio</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>EC2</td>
+<td>Servidor virtual</td>
+</tr>
+
+<tr>
+<td>S3</td>
+<td>Almacenamiento</td>
+</tr>
+
+<tr>
+<td>DynamoDB</td>
+<td>Base de datos NoSQL</td>
+</tr>
+
+<tr>
+<td>VPC</td>
+<td>Red privada</td>
+</tr>
+
+</table>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio almacena archivos?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">EC2</div>
+<div class="option" onclick="checkAnswer(this,true)">S3</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Route53</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. VPC y redes</h2>
+
+<p>
+VPC significa Virtual Private Cloud.
+</p>
+
+<p>
+Es una red privada virtual dentro de AWS donde desplegamos recursos.
+</p>
+
+<h3>Funciones</h3>
+
+<ul>
+<li>Aislamiento de red</li>
+<li>Configuración IP</li>
+<li>Subredes</li>
+<li>Firewalls</li>
+<li>Control de tráfico</li>
+</ul>
+
+<h3>Conceptos importantes</h3>
+
+<ul>
+<li>Subred pública</li>
+<li>Subred privada</li>
+<li>Internet Gateway</li>
+<li>Security Groups</li>
+</ul>
+
+<pre><code>AWS Console
+→ VPC
+→ Create VPC
+→ Configure CIDR
+→ Crear subredes
+→ Asociar tablas de rutas</code></pre>
+
+<div class="warning">
+Pregunta típica: Security Group funciona como firewall virtual.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio actúa como firewall?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Security Group</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM User</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Amazon EC2</h2>
+
+<p>
+EC2 (Elastic Compute Cloud) proporciona servidores virtuales en AWS.
+</p>
+
+<h3>Qué permite EC2</h3>
+
+<ul>
+<li>Ejecutar aplicaciones</li>
+<li>Instalar sistemas operativos</li>
+<li>Escalar infraestructura</li>
+<li>Automatizar despliegues</li>
+</ul>
+
+<h3>Proceso de creación</h3>
+
+<pre><code>1. Launch Instance
+2. Elegir AMI
+3. Elegir tipo de instancia
+4. Configurar red
+5. Configurar almacenamiento
+6. Crear claves SSH
+7. Lanzar instancia</code></pre>
+
+<h3>Conexión Linux</h3>
+
+<pre><code>chmod 400 clave.pem
+
+ssh -i clave.pem ec2-user@IP_PUBLICA</code></pre>
+
+<div class="tip">
+Las claves .pem son fundamentales para conectarse por SSH.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio proporciona servidores virtuales?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">EC2</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+<div class="option" onclick="checkAnswer(this,false)">Lambda</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. Amazon S3</h2>
+
+<p>
+S3 es el sistema de almacenamiento de objetos de AWS.
+</p>
+
+<h3>Características</h3>
+
+<ul>
+<li>Alta durabilidad</li>
+<li>Escalabilidad automática</li>
+<li>Acceso global</li>
+<li>Ideal para backups</li>
+</ul>
+
+<h3>Conceptos</h3>
+
+<ul>
+<li>Bucket</li>
+<li>Objetos</li>
+<li>Versionado</li>
+<li>Permisos</li>
+</ul>
+
+<pre><code>aws s3 ls
+
+aws s3 cp archivo.txt s3://mi-bucket/
+
+aws s3 sync carpeta/ s3://backup/</code></pre>
+
+<div class="warning">
+Pregunta típica: S3 NO es un disco duro tradicional.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué almacena S3?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">Máquinas virtuales</div>
+<div class="option" onclick="checkAnswer(this,true)">Objetos y archivos</div>
+<div class="option" onclick="checkAnswer(this,false)">Usuarios IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. DynamoDB</h2>
+
+<p>
+DynamoDB es una base de datos NoSQL totalmente administrada.
+</p>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Muy rápida</li>
+<li>Escalable</li>
+<li>Sin servidores</li>
+<li>Alta disponibilidad</li>
+</ul>
+
+<h3>Uso habitual</h3>
+
+<ul>
+<li>Aplicaciones web</li>
+<li>Gaming</li>
+<li>IoT</li>
+<li>Tiempo real</li>
+</ul>
+
+<pre><code>{
+ "usuario":"eider",
+ "nivel":10,
+ "puntos":5000
+}</code></pre>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué tipo de base de datos es DynamoDB?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">NoSQL</div>
+<div class="option" onclick="checkAnswer(this,false)">Relacional Oracle</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+<div class="option" onclick="checkAnswer(this,false)">FTP</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. AWS Academy</h2>
+
+<p>
+AWS Academy es el programa educativo oficial de Amazon.
+</p>
+
+<h3>Objetivos</h3>
+
+<ul>
+<li>Aprender cloud computing</li>
+<li>Practicar con laboratorios reales</li>
+<li>Preparar certificaciones</li>
+<li>Aprender arquitectura cloud</li>
+</ul>
+
+<h3>Cloud Foundations</h3>
+
+<ul>
+<li>Curso inicial oficial</li>
+<li>Fundamentos AWS</li>
+<li>Servicios cloud</li>
+<li>Buenas prácticas</li>
+</ul>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es AWS Academy?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Programa educativo oficial</div>
+<div class="option" onclick="checkAnswer(this,false)">Sistema operativo</div>
+<div class="option" onclick="checkAnswer(this,false)">Antivirus</div>
+<div class="option" onclick="checkAnswer(this,false)">Editor de código</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. Costes y facturación AWS</h2>
+
+<h3>Factores principales</h3>
+
+<ul>
+<li>Cómputo</li>
+<li>Almacenamiento</li>
+<li>Transferencia de datos</li>
+</ul>
+
+<h3>Modelos de precios</h3>
+
+<table>
+
+<tr>
+<th>Modelo</th>
+<th>Uso</th>
+</tr>
+
+<tr>
+<td>On-Demand</td>
+<td>Flexibilidad</td>
+</tr>
+
+<tr>
+<td>Reserved</td>
+<td>Ahorro largo plazo</td>
+</tr>
+
+<tr>
+<td>Spot</td>
+<td>Muy barato</td>
+</tr>
+
+</table>
+
+<div class="warning">
+Spot Instances pueden apagarse automáticamente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué modelo ofrece mayor descuento?</p>
+
+<div class="option" onclick="checkAnswer(this,false)">On Demand</div>
+<div class="option" onclick="checkAnswer(this,true)">Spot Instance</div>
+<div class="option" onclick="checkAnswer(this,false)">Free Tier</div>
+<div class="option" onclick="checkAnswer(this,false)">DNS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. Free Tier</h2>
+
+<p>
+AWS Free Tier permite aprender y practicar gratuitamente.
+</p>
+
+<ul>
+<li>Límites mensuales</li>
+<li>Algunos servicios gratuitos siempre</li>
+<li>Otros solo 12 meses</li>
+</ul>
+
+<div class="warning">
+Superar los límites genera costes reales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ocurre si superas el Free Tier?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Te cobran</div>
+<div class="option" onclick="checkAnswer(this,false)">AWS se bloquea</div>
+<div class="option" onclick="checkAnswer(this,false)">Pierdes la cuenta</div>
+<div class="option" onclick="checkAnswer(this,false)">Nada</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Calculadora AWS</h2>
+
+<p>
+AWS Pricing Calculator permite estimar costes antes de desplegar infraestructura.
+</p>
+
+<h3>Permite</h3>
+
+<ul>
+<li>Diseñar presupuestos</li>
+<li>Comparar configuraciones</li>
+<li>Calcular costes mensuales</li>
+<li>Optimizar recursos</li>
+</ul>
+
+<pre><code>EC2 → 30€
+S3 → 10€
+Transferencia → 5€
+
+Total estimado → 45€</code></pre>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Para qué sirve AWS Calculator?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Estimar costes</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear usuarios</div>
+<div class="option" onclick="checkAnswer(this,false)">Programar Java</div>
+<div class="option" onclick="checkAnswer(this,false)">Editar imágenes</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Seguridad en AWS</h2>
+
+<p>
+AWS utiliza el modelo de responsabilidad compartida.
+</p>
+
+<h3>AWS gestiona</h3>
+
+<ul>
+<li>Hardware</li>
+<li>Centros de datos</li>
+<li>Infraestructura física</li>
+</ul>
+
+<h3>Cliente gestiona</h3>
+
+<ul>
+<li>Datos</li>
+<li>Usuarios</li>
+<li>Configuraciones</li>
+<li>Firewall</li>
+</ul>
+
+<div class="tip">
+Regla rápida: si es físico → AWS | si es configuración → cliente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Quién gestiona el sistema operativo en EC2?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Cliente</div>
+<div class="option" onclick="checkAnswer(this,false)">AWS</div>
+<div class="option" onclick="checkAnswer(this,false)">Google</div>
+<div class="option" onclick="checkAnswer(this,false)">Nadie</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 15 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>15. IAM</h2>
+
+<p>
+IAM (Identity and Access Management) controla accesos y permisos.
+</p>
+
+<h3>Componentes</h3>
+
+<ul>
+<li>Usuarios</li>
+<li>Grupos</li>
+<li>Roles</li>
+<li>Políticas</li>
+</ul>
+
+<h3>Políticas JSON</h3>
+
+<pre><code>{
+ "Version":"2012-10-17",
+ "Statement":[
+   {
+     "Effect":"Allow",
+     "Action":"s3:ListBucket",
+     "Resource":"*"
+   }
+ ]
+}</code></pre>
+
+<h3>Buenas prácticas</h3>
+
+<ul>
+<li>Usar MFA</li>
+<li>No usar root diariamente</li>
+<li>Aplicar mínimo privilegio</li>
+<li>Rotar claves</li>
+</ul>
+
+<div class="warning">
+Pregunta típica: IAM es gratuito dentro de AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿En qué formato están escritas las políticas IAM?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">JSON</div>
+<div class="option" onclick="checkAnswer(this,false)">HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">CSS</div>
+<div class="option" onclick="checkAnswer(this,false)">XML</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+    blocks.forEach(block => block.classList.remove('active'));
+    menuButtons.forEach(btn => btn.classList.remove('active'));
+
+    blocks[index].classList.add('active');
+    menuButtons[index].classList.add('active');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+
+}
+
+function checkAnswer(element,isCorrect){
+
+    const parent = element.parentElement;
+    const options = parent.querySelectorAll('.option');
+    const result = parent.querySelector('.result');
+
+    options.forEach(opt=>{
+        opt.style.pointerEvents='none';
+    });
+
+    if(isCorrect){
+
+        element.classList.add('correct');
+        result.innerHTML='✔ Correcto';
+        result.style.color='#35d07f';
+
+    }else{
+
+        element.classList.add('wrong');
+        result.innerHTML='✘ Incorrecto';
+        result.style.color='#ff5d73';
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

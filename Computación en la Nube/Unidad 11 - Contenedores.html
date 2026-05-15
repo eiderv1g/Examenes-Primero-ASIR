@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad 11 - Contenedores</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#09090f;
+--sidebar:#10101a;
+--card:#141422;
+--border:#2a2a45;
+--text:#ececff;
+--muted:#b7b7d8;
+--purple:#9b5cff;
+--purple2:#6f40ff;
+--blue:#58a8ff;
+--green:#39d27b;
+--danger:#ff5d73;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'Inter',sans-serif;
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:320px;
+background:linear-gradient(180deg,#101018,#0a0a13);
+border-right:1px solid var(--border);
+padding:25px;
+position:fixed;
+height:100vh;
+overflow-y:auto;
+}
+
+.logo{
+font-family:'Orbitron',sans-serif;
+font-size:1.5rem;
+line-height:1.5;
+margin-bottom:15px;
+}
+
+.logo span{
+color:var(--purple);
+}
+
+.subtitle{
+color:var(--muted);
+line-height:1.7;
+margin-bottom:25px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu button{
+background:var(--card);
+border:1px solid transparent;
+color:white;
+padding:14px;
+border-radius:12px;
+cursor:pointer;
+text-align:left;
+transition:0.25s;
+}
+
+.menu button:hover{
+transform:translateX(4px);
+border-color:var(--purple);
+}
+
+.menu button.active{
+background:linear-gradient(90deg,var(--purple2),var(--purple));
+}
+
+.content{
+margin-left:320px;
+width:calc(100% - 320px);
+padding:40px;
+}
+
+.block{
+display:none;
+animation:fade 0.4s ease;
+}
+
+.block.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.card{
+background:linear-gradient(180deg,var(--card),#101019);
+border:1px solid var(--border);
+border-radius:20px;
+padding:35px;
+margin-bottom:30px;
+}
+
+h1{
+font-family:'Orbitron',sans-serif;
+font-size:2.3rem;
+margin-bottom:15px;
+}
+
+h2{
+font-family:'Orbitron',sans-serif;
+color:var(--purple);
+margin-bottom:25px;
+}
+
+h3{
+color:var(--blue);
+margin-top:30px;
+margin-bottom:15px;
+}
+
+p{
+line-height:1.9;
+color:#d8d8f2;
+margin-bottom:18px;
+}
+
+ul{
+padding-left:25px;
+margin-bottom:20px;
+}
+
+li{
+line-height:1.8;
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+}
+
+th,td{
+border:1px solid var(--border);
+padding:14px;
+text-align:left;
+}
+
+th{
+background:var(--purple2);
+}
+
+pre{
+background:#0a0a12;
+border:1px solid var(--border);
+padding:20px;
+border-radius:12px;
+overflow:auto;
+margin:20px 0;
+}
+
+code{
+color:#9fd4ff;
+font-family:Consolas,monospace;
+line-height:1.7;
+}
+
+.tip{
+background:rgba(88,168,255,0.08);
+border-left:4px solid var(--blue);
+padding:18px;
+border-radius:12px;
+margin:20px 0;
+}
+
+.warning{
+background:rgba(255,93,115,0.08);
+border-left:4px solid var(--danger);
+padding:18px;
+border-radius:12px;
+margin:20px 0;
+}
+
+.quiz{
+margin-top:35px;
+background:#111120;
+border:1px solid var(--border);
+border-radius:18px;
+padding:25px;
+}
+
+.quiz h4{
+color:var(--purple);
+margin-bottom:20px;
+}
+
+.option{
+background:var(--card);
+border:1px solid var(--border);
+padding:14px;
+border-radius:10px;
+margin-bottom:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.option:hover{
+border-color:var(--blue);
+}
+
+.correct{
+background:rgba(57,210,123,0.12);
+border-color:var(--green);
+}
+
+.wrong{
+background:rgba(255,93,115,0.12);
+border-color:var(--danger);
+}
+
+.result{
+margin-top:15px;
+font-weight:bold;
+}
+
+@media(max-width:900px){
+
+body{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.content{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+UNIDAD 11<br>
+<span>Contenedores</span>
+</div>
+
+<div class="subtitle">
+Docker, Kubernetes, ECS, EKS, ECR y fundamentos de contenedores explicados desde cero.
+</div>
+
+<div class="menu">
+
+<button class="active" onclick="showBlock(0)">1. ¿Qué es un contenedor?</button>
+<button onclick="showBlock(1)">2. Problema tradicional</button>
+<button onclick="showBlock(2)">3. Máquina virtual vs contenedor</button>
+<button onclick="showBlock(3)">4. Docker explicado</button>
+<button onclick="showBlock(4)">5. Imágenes y contenedores</button>
+<button onclick="showBlock(5)">6. Docker paso a paso</button>
+<button onclick="showBlock(6)">7. Dockerfile</button>
+<button onclick="showBlock(7)">8. Kubernetes</button>
+<button onclick="showBlock(8)">9. Microservicios</button>
+<button onclick="showBlock(9)">10. Amazon ECS</button>
+<button onclick="showBlock(10)">11. AWS Fargate</button>
+<button onclick="showBlock(11)">12. Amazon EKS</button>
+<button onclick="showBlock(12)">13. Amazon ECR</button>
+<button onclick="showBlock(13)">14. Arquitectura moderna</button>
+
+</div>
+
+</div>
+
+<div class="content">
+
+<!-- BLOQUE 1 -->
+
+<div class="block active">
+
+<div class="card">
+
+<h1>1. ¿Qué es un contenedor?</h1>
+
+<p>
+Un contenedor es una forma moderna de ejecutar aplicaciones de manera aislada y portable.
+</p>
+
+<p>
+La idea principal es:
+</p>
+
+<pre><code>Aplicación
++ dependencias
++ configuración
+=
+Contenedor</code></pre>
+
+<h3>¿Qué significa esto?</h3>
+
+<p>
+Un contenedor incluye TODO lo necesario para ejecutar una aplicación:
+</p>
+
+<ul>
+<li>Código</li>
+<li>Librerías</li>
+<li>Dependencias</li>
+<li>Configuración</li>
+<li>Variables entorno</li>
+</ul>
+
+<h3>Problema clásico</h3>
+
+<p>
+Antes ocurría muchísimo:
+</p>
+
+<pre><code>"En mi ordenador funciona"</code></pre>
+
+<p>
+Pero al mover la aplicación:
+</p>
+
+<ul>
+<li>Faltaban librerías</li>
+<li>Versiones distintas</li>
+<li>Errores configuración</li>
+</ul>
+
+<h3>Con contenedores</h3>
+
+<p>
+La aplicación funciona igual en cualquier lugar.
+</p>
+
+<div class="tip">
+Los contenedores permiten mover aplicaciones fácilmente entre ordenadores, servidores y cloud.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué incluye un contenedor?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Aplicación y dependencias</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo HTML</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo el sistema operativo</div>
+<div class="option" onclick="checkAnswer(this,false)">Solo imágenes</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 2 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>2. El problema tradicional de las aplicaciones</h2>
+
+<p>
+Antes de Docker, desplegar aplicaciones era complicado.
+</p>
+
+<h3>Ejemplo real</h3>
+
+<p>
+Un desarrollador crea aplicación Node.js:
+</p>
+
+<pre><code>Versión Node.js = 18</code></pre>
+
+<p>
+Pero el servidor tiene:
+</p>
+
+<pre><code>Versión Node.js = 14</code></pre>
+
+<h3>Resultado</h3>
+
+<ul>
+<li>Errores</li>
+<li>Dependencias incompatibles</li>
+<li>Aplicación rota</li>
+</ul>
+
+<h3>Otro problema</h3>
+
+<p>
+Dos aplicaciones pueden necesitar versiones distintas.
+</p>
+
+<pre><code>Aplicación A → Python 3.8
+Aplicación B → Python 3.11</code></pre>
+
+<p>
+Esto genera conflictos.
+</p>
+
+<h3>Los contenedores solucionan esto</h3>
+
+<p>
+Cada aplicación tiene SU propio entorno aislado.
+</p>
+
+<div class="warning">
+Pregunta típica: los contenedores aíslan aplicaciones y dependencias.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué problema solucionan los contenedores?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Conflictos dependencias</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar internet</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear discos SSD</div>
+<div class="option" onclick="checkAnswer(this,false)">Gestionar DNS</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 3 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>3. Máquinas virtuales vs contenedores</h2>
+
+<h3>Máquina virtual (VM)</h3>
+
+<p>
+Una máquina virtual incluye:
+</p>
+
+<ul>
+<li>Sistema operativo completo</li>
+<li>Kernel propio</li>
+<li>Aplicaciones</li>
+</ul>
+
+<h3>Problema</h3>
+
+<ul>
+<li>Pesadas</li>
+<li>Lentas</li>
+<li>Consumen mucha RAM</li>
+</ul>
+
+<h3>Contenedor</h3>
+
+<p>
+El contenedor comparte el kernel del sistema operativo host.
+</p>
+
+<p>
+Por eso:
+</p>
+
+<ul>
+<li>Es más ligero</li>
+<li>Arranca rápido</li>
+<li>Consume menos recursos</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Máquina Virtual</th>
+<th>Contenedor</th>
+</tr>
+
+<tr>
+<td>Sistema operativo completo</td>
+<td>Comparte kernel</td>
+</tr>
+
+<tr>
+<td>Más pesada</td>
+<td>Más ligera</td>
+</tr>
+
+<tr>
+<td>Arranque lento</td>
+<td>Arranque rápido</td>
+</tr>
+
+</table>
+
+<div class="tip">
+Un mismo servidor puede ejecutar muchísimos más contenedores que máquinas virtuales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja tiene un contenedor?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Consume menos recursos</div>
+<div class="option" onclick="checkAnswer(this,false)">Necesita más RAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Usa más discos</div>
+<div class="option" onclick="checkAnswer(this,false)">Es más lento</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 4 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>4. ¿Qué es Docker?</h2>
+
+<p>
+Docker es la plataforma más famosa para trabajar con contenedores.
+</p>
+
+<h3>Qué permite Docker</h3>
+
+<ul>
+<li>Crear contenedores</li>
+<li>Ejecutar contenedores</li>
+<li>Compartir aplicaciones</li>
+<li>Desplegar rápidamente</li>
+</ul>
+
+<h3>Idea simple</h3>
+
+<pre><code>Docker
+↓
+Gestiona contenedores</code></pre>
+
+<h3>Qué hace Docker internamente</h3>
+
+<ul>
+<li>Aísla procesos</li>
+<li>Gestiona redes</li>
+<li>Gestiona imágenes</li>
+<li>Ejecuta aplicaciones</li>
+</ul>
+
+<h3>Comandos básicos</h3>
+
+<pre><code>docker run
+docker build
+docker ps
+docker stop</code></pre>
+
+<div class="warning">
+Docker NO es un contenedor; es la plataforma que los administra.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es Docker?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Plataforma de contenedores</div>
+<div class="option" onclick="checkAnswer(this,false)">Sistema operativo</div>
+<div class="option" onclick="checkAnswer(this,false)">Base de datos</div>
+<div class="option" onclick="checkAnswer(this,false)">Firewall</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 5 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>5. Imágenes y contenedores</h2>
+
+<h3>Imagen Docker</h3>
+
+<p>
+Una imagen es como una plantilla.
+</p>
+
+<p>
+Contiene:
+</p>
+
+<ul>
+<li>Aplicación</li>
+<li>Dependencias</li>
+<li>Configuración</li>
+</ul>
+
+<h3>Contenedor</h3>
+
+<p>
+Es una instancia en ejecución de una imagen.
+</p>
+
+<h3>Ejemplo fácil</h3>
+
+<pre><code>Imagen = receta
+Contenedor = comida preparada</code></pre>
+
+<h3>Flujo normal</h3>
+
+<pre><code>Dockerfile
+↓
+Imagen
+↓
+Contenedor</code></pre>
+
+<div class="tip">
+Puedes crear muchísimos contenedores desde una misma imagen.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué es una imagen Docker?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Plantilla para crear contenedores</div>
+<div class="option" onclick="checkAnswer(this,false)">Máquina virtual completa</div>
+<div class="option" onclick="checkAnswer(this,false)">Disco duro físico</div>
+<div class="option" onclick="checkAnswer(this,false)">Balanceador carga</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 6 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>6. Docker paso a paso</h2>
+
+<h3>Ejecutar un contenedor</h3>
+
+<pre><code>docker run nginx</code></pre>
+
+<h3>Qué ocurre</h3>
+
+<ul>
+<li>Docker descarga imagen</li>
+<li>Crea contenedor</li>
+<li>Ejecuta NGINX</li>
+</ul>
+
+<h3>Ver contenedores activos</h3>
+
+<pre><code>docker ps</code></pre>
+
+<h3>Detener contenedor</h3>
+
+<pre><code>docker stop ID_CONTENEDOR</code></pre>
+
+<h3>Eliminar contenedor</h3>
+
+<pre><code>docker rm ID_CONTENEDOR</code></pre>
+
+<h3>Ver imágenes</h3>
+
+<pre><code>docker images</code></pre>
+
+<div class="tip">
+Docker Hub es el repositorio más famoso de imágenes Docker.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué comando muestra contenedores activos?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">docker ps</div>
+<div class="option" onclick="checkAnswer(this,false)">docker create vpc</div>
+<div class="option" onclick="checkAnswer(this,false)">docker dns</div>
+<div class="option" onclick="checkAnswer(this,false)">docker subnet</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 7 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>7. Dockerfile explicado desde cero</h2>
+
+<p>
+Un Dockerfile es un archivo con instrucciones para crear imágenes.
+</p>
+
+<h3>Ejemplo sencillo</h3>
+
+<pre><code>FROM node:18
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+CMD ["node", "app.js"]</code></pre>
+
+<h3>Explicación línea por línea</h3>
+
+<h3>FROM</h3>
+
+<p>
+Indica imagen base.
+</p>
+
+<pre><code>FROM node:18</code></pre>
+
+<p>
+Usa Node.js versión 18.
+</p>
+
+<h3>WORKDIR</h3>
+
+<p>
+Define carpeta trabajo.
+</p>
+
+<h3>COPY</h3>
+
+<p>
+Copia archivos aplicación.
+</p>
+
+<h3>RUN</h3>
+
+<p>
+Ejecuta comandos.
+</p>
+
+<h3>CMD</h3>
+
+<p>
+Comando inicial del contenedor.
+</p>
+
+<h3>Construir imagen</h3>
+
+<pre><code>docker build -t miapp .</code></pre>
+
+<h3>Ejecutar imagen</h3>
+
+<pre><code>docker run miapp</code></pre>
+
+<div class="warning">
+Dockerfile es uno de los conceptos MÁS importantes del tema.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué hace COPY?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Copiar archivos al contenedor</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear VPC</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar imágenes</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear balanceadores</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 8 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>8. ¿Qué es Kubernetes?</h2>
+
+<p>
+Cuando tenemos MUCHOS contenedores, administrarlos manualmente es difícil.
+</p>
+
+<h3>Problema</h3>
+
+<p>
+Imagina:
+</p>
+
+<ul>
+<li>100 contenedores</li>
+<li>Múltiples servidores</li>
+<li>Muchos usuarios</li>
+</ul>
+
+<h3>Kubernetes</h3>
+
+<p>
+Es una plataforma para coordinar contenedores automáticamente.
+</p>
+
+<h3>Qué hace Kubernetes</h3>
+
+<ul>
+<li>Escalado automático</li>
+<li>Distribución carga</li>
+<li>Reinicio automático</li>
+<li>Orquestación contenedores</li>
+</ul>
+
+<h3>Qué significa orquestación</h3>
+
+<p>
+Coordinar automáticamente muchos contenedores.
+</p>
+
+<div class="tip">
+Docker ejecuta contenedores. Kubernetes coordina MUCHOS contenedores.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué hace Kubernetes?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Orquestar contenedores</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear discos físicos</div>
+<div class="option" onclick="checkAnswer(this,false)">Gestionar DNS únicamente</div>
+<div class="option" onclick="checkAnswer(this,false)">Crear usuarios IAM</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 9 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>9. Monolitos vs microservicios</h2>
+
+<h3>Aplicación monolítica</h3>
+
+<p>
+Toda la aplicación está junta.
+</p>
+
+<pre><code>Frontend
++ backend
++ base datos
+=
+Gran aplicación única</code></pre>
+
+<h3>Problema</h3>
+
+<ul>
+<li>Difícil escalar</li>
+<li>Difícil actualizar</li>
+<li>Difícil mantener</li>
+</ul>
+
+<h3>Microservicios</h3>
+
+<p>
+La aplicación se divide en pequeñas partes.
+</p>
+
+<pre><code>Servicio usuarios
+Servicio pagos
+Servicio productos
+Servicio login</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalado independiente</li>
+<li>Más flexible</li>
+<li>Más fácil actualizar</li>
+</ul>
+
+<div class="tip">
+Los contenedores y microservicios suelen ir juntos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja tienen microservicios?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Escalar partes independientes</div>
+<div class="option" onclick="checkAnswer(this,false)">Usar un único servidor enorme</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar APIs</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar contenedores</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 10 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>10. Amazon ECS</h2>
+
+<p>
+Amazon ECS (Elastic Container Service) es el servicio AWS para ejecutar contenedores Docker.
+</p>
+
+<h3>Qué hace ECS</h3>
+
+<ul>
+<li>Gestiona contenedores</li>
+<li>Escala automáticamente</li>
+<li>Distribuye carga</li>
+<li>Coordina despliegues</li>
+</ul>
+
+<h3>Funcionamiento</h3>
+
+<pre><code>Docker containers
+↓
+Amazon ECS
+↓
+EC2 o Fargate</code></pre>
+
+<h3>Ventaja</h3>
+
+<p>
+AWS administra gran parte de la infraestructura.
+</p>
+
+<div class="tip">
+ECS simplifica muchísimo ejecutar contenedores en AWS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio ejecuta contenedores en AWS?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Amazon ECS</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 11 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>11. AWS Fargate explicado fácil</h2>
+
+<p>
+Fargate es una tecnología serverless para contenedores.
+</p>
+
+<h3>Problema clásico</h3>
+
+<p>
+Con ECS tradicional:
+</p>
+
+<ul>
+<li>Debes administrar EC2</li>
+<li>Escalar servidores</li>
+<li>Gestionar capacidad</li>
+</ul>
+
+<h3>Con Fargate</h3>
+
+<p>
+AWS administra servidores automáticamente.
+</p>
+
+<h3>Solo haces esto</h3>
+
+<pre><code>Subir contenedor
+↓
+Ejecutar</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Menos administración</li>
+<li>Escalado automático</li>
+<li>Modelo serverless</li>
+</ul>
+
+<div class="warning">
+Fargate NO elimina ECS; funciona junto con ECS.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué ventaja tiene Fargate?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">No administrar servidores</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar Docker</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar internet</div>
+<div class="option" onclick="checkAnswer(this,false)">Eliminar Kubernetes</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 12 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>12. Amazon EKS</h2>
+
+<p>
+Amazon EKS es el servicio Kubernetes administrado de AWS.
+</p>
+
+<h3>Qué hace</h3>
+
+<ul>
+<li>Ejecutar Kubernetes</li>
+<li>Administrar clusters</li>
+<li>Escalar nodos</li>
+<li>Integrarse con AWS</li>
+</ul>
+
+<h3>Diferencia ECS vs EKS</h3>
+
+<table>
+
+<tr>
+<th>ECS</th>
+<th>EKS</th>
+</tr>
+
+<tr>
+<td>Tecnología AWS</td>
+<td>Kubernetes estándar</td>
+</tr>
+
+<tr>
+<td>Más sencillo</td>
+<td>Más complejo</td>
+</tr>
+
+<tr>
+<td>Más fácil aprender</td>
+<td>Más flexible</td>
+</tr>
+
+</table>
+
+<h3>Importante</h3>
+
+<p>
+EKS usa Kubernetes real.
+</p>
+
+<div class="tip">
+Muchas empresas grandes utilizan Kubernetes por portabilidad.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué servicio usa Kubernetes?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Amazon EKS</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudFront</div>
+<div class="option" onclick="checkAnswer(this,false)">Route 53</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 13 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>13. Amazon ECR</h2>
+
+<p>
+Amazon ECR (Elastic Container Registry) es un repositorio de imágenes Docker.
+</p>
+
+<h3>Qué almacena</h3>
+
+<ul>
+<li>Imágenes Docker</li>
+<li>Versiones aplicaciones</li>
+<li>Contenedores privados</li>
+</ul>
+
+<h3>Flujo típico</h3>
+
+<pre><code>Docker build
+↓
+Imagen Docker
+↓
+Subir a ECR
+↓
+ECS descarga imagen</code></pre>
+
+<h3>Comandos básicos</h3>
+
+<pre><code>docker build -t app .
+
+docker push ecr-url/app</code></pre>
+
+<div class="tip">
+ECR funciona como “GitHub de imágenes Docker”.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué almacena ECR?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Imágenes Docker</div>
+<div class="option" onclick="checkAnswer(this,false)">Usuarios IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">Balanceadores</div>
+<div class="option" onclick="checkAnswer(this,false)">Subredes VPC</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BLOQUE 14 -->
+
+<div class="block">
+
+<div class="card">
+
+<h2>14. Arquitectura moderna con contenedores</h2>
+
+<h3>Arquitectura moderna típica</h3>
+
+<pre><code>Usuario
+↓
+Load Balancer
+↓
+ECS / Kubernetes
+↓
+Contenedores Docker
+↓
+Base de datos</code></pre>
+
+<h3>Ventajas</h3>
+
+<ul>
+<li>Escalabilidad</li>
+<li>Portabilidad</li>
+<li>Alta disponibilidad</li>
+<li>Automatización</li>
+<li>Despliegue rápido</li>
+</ul>
+
+<h3>Qué usan muchas empresas</h3>
+
+<ul>
+<li>Docker</li>
+<li>Kubernetes</li>
+<li>Microservicios</li>
+<li>CI/CD</li>
+</ul>
+
+<h3>Idea final importante</h3>
+
+<p>
+Los contenedores cambiaron completamente la forma moderna de desplegar aplicaciones.
+</p>
+
+<div class="tip">
+Actualmente Docker y Kubernetes son tecnologías fundamentales en cloud computing.
+</div>
+
+<div class="warning">
+Docker, Kubernetes y ECS son conceptos MUY preguntados en entrevistas cloud.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<p>¿Qué tecnología coordina contenedores a gran escala?</p>
+
+<div class="option" onclick="checkAnswer(this,true)">Kubernetes</div>
+<div class="option" onclick="checkAnswer(this,false)">S3</div>
+<div class="option" onclick="checkAnswer(this,false)">IAM</div>
+<div class="option" onclick="checkAnswer(this,false)">CloudWatch</div>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const blocks = document.querySelectorAll('.block');
+const menuButtons = document.querySelectorAll('.menu button');
+
+function showBlock(index){
+
+blocks.forEach(block => block.classList.remove('active'));
+menuButtons.forEach(btn => btn.classList.remove('active'));
+
+blocks[index].classList.add('active');
+menuButtons[index].classList.add('active');
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+function checkAnswer(element,isCorrect){
+
+const parent = element.parentElement;
+const options = parent.querySelectorAll('.option');
+const result = parent.querySelector('.result');
+
+options.forEach(opt=>{
+opt.style.pointerEvents='none';
+});
+
+if(isCorrect){
+
+element.classList.add('correct');
+result.innerHTML='✔ Correcto';
+result.style.color='#39d27b';
+
+}else{
+
+element.classList.add('wrong');
+result.innerHTML='✘ Incorrecto';
+result.style.color='#ff5d73';
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
