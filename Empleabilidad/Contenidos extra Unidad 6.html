@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 6 · REPASO</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --success:#edf8f1;
+  --warning:#fff4e5;
+  --info:#eef6ff;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-right:1px solid #e5e7eb;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:26px;
+}
+
+.nav-link{
+  display:block;
+  padding:12px 16px;
+  border-radius:14px;
+  text-decoration:none;
+  color:var(--text);
+  margin-bottom:8px;
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3b34,#345349);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--primary);
+  margin-bottom:16px;
+}
+
+.block h3{
+  color:var(--primary);
+  margin-top:28px;
+  margin-bottom:14px;
+}
+
+.block p{
+  line-height:1.9;
+  margin-bottom:18px;
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:0.85rem;
+  margin-bottom:22px;
+  font-weight:600;
+}
+
+ul{
+  padding-left:22px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th,td{
+  border:1px solid #e5e7eb;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+.tip{
+  background:var(--success);
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.trap{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:34px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:22px;
+  padding:24px;
+}
+
+.option{
+  display:block;
+  padding:12px;
+  background:#f3f4f6;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  border:none;
+  background:var(--primary);
+  color:white;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  margin-top:10px;
+  font-weight:600;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+@media(max-width:1000px){
+
+body{
+  flex-direction:column;
+}
+
+.sidebar{
+  width:100%;
+  height:auto;
+  position:relative;
+}
+
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
+
+.hero{
+  padding:36px;
+}
+
+.hero h2{
+  font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<h1>Unidad 6</h1>
+<p>REPASO · Jornada, salario y nómina</p>
+
+<a class="nav-link" href="#b1">6.1 Jornada laboral</a>
+<a class="nav-link" href="#b2">6.2 Descansos</a>
+<a class="nav-link" href="#b3">6.3 Jornadas especiales</a>
+<a class="nav-link" href="#b4">6.4 Horas extraordinarias</a>
+<a class="nav-link" href="#b5">6.5 Conciliación</a>
+<a class="nav-link" href="#b6">6.6 Permisos</a>
+<a class="nav-link" href="#b7">6.7 Vacaciones</a>
+<a class="nav-link" href="#b8">6.8 Calendario laboral</a>
+<a class="nav-link" href="#b9">6.9 Recibo salarial</a>
+<a class="nav-link" href="#b10">6.10 Partes nómina</a>
+<a class="nav-link" href="#b11">6.11 Devengo y deducciones</a>
+<a class="nav-link" href="#b12">6.12 IRPF</a>
+<a class="nav-link" href="#b13">6.13 Declaración renta</a>
+<a class="nav-link" href="#b14">6.14 Bases cotización</a>
+<a class="nav-link" href="#b15">6.15 Salario</a>
+<a class="nav-link" href="#b16">6.16 IPREM y FOGASA</a>
+
+</aside>
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 6 · REPASO</h2>
+
+<p>
+Repaso completo y ampliado sobre jornada laboral,
+descansos, nóminas, salario, permisos,
+cotización, IRPF y Seguridad Social.
+Incluye explicaciones detalladas, ejemplos reales,
+preguntas trampa típicas de examen,
+tablas comparativas y mini-tests interactivos.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.1 La jornada laboral</h2>
+
+<p>
+La jornada laboral es el tiempo que dedica el trabajador
+a prestar servicios a la empresa.
+Está regulada en el Estatuto de los Trabajadores
+y en el convenio colectivo.
+</p>
+
+<h3>Límites generales</h3>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>Límite</th>
+</tr>
+
+<tr>
+<td>Jornada máxima semanal</td>
+<td>40 horas semanales de promedio anual</td>
+</tr>
+
+<tr>
+<td>Jornada diaria</td>
+<td>Máximo 9 horas ordinarias</td>
+</tr>
+
+</table>
+
+<h3>Tipos de jornada</h3>
+
+<ul>
+<li>Continua.</li>
+<li>Partida.</li>
+<li>Nocturna.</li>
+<li>Por turnos.</li>
+</ul>
+
+<div class="example">
+📌 Una jornada continua suele incluir
+un descanso breve dentro del horario.
+</div>
+
+<div class="trap">
+⚠️ Las 40 horas semanales son promedio anual,
+no necesariamente todas las semanas.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Cuál es la jornada máxima semanal ordinaria?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+50 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+40 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+60 horas
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>6.2 Descansos</h2>
+
+<p>
+Los descansos son obligatorios y protegen
+la salud física y mental del trabajador.
+</p>
+
+<table>
+
+<tr>
+<th>Descanso</th>
+<th>Duración mínima</th>
+</tr>
+
+<tr>
+<td>Entre jornadas</td>
+<td>12 horas</td>
+</tr>
+
+<tr>
+<td>Descanso semanal</td>
+<td>1 día y medio</td>
+</tr>
+
+<tr>
+<td>Descanso jornada continua</td>
+<td>15 minutos</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Los menores de edad tienen descansos mayores.
+</div>
+
+<div class="trap">
+⚠️ El descanso del bocadillo
+no siempre se considera tiempo trabajado.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Cuántas horas deben pasar entre jornadas?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+8 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+12 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+24 horas
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.3 Jornadas especiales</h2>
+
+<p>
+Algunos sectores tienen regulación especial
+por la peligrosidad o características del trabajo.
+</p>
+
+<ul>
+<li>Transporte.</li>
+<li>Trabajos nocturnos.</li>
+<li>Minería.</li>
+<li>Hostelería.</li>
+<li>Guardias sanitarias.</li>
+</ul>
+
+<div class="tip">
+💡 El trabajo nocturno suele incluir plus salarial.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué jornada suele tener regulación especial?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Oficina común
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Trabajo nocturno
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Vacaciones
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>6.4 Horas extraordinarias</h2>
+
+<p>
+Las horas extraordinarias son las realizadas
+por encima de la jornada ordinaria.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>Voluntarias</td>
+<td>Generalmente opcionales</td>
+</tr>
+
+<tr>
+<td>Fuerza mayor</td>
+<td>Obligatorias por emergencias</td>
+</tr>
+
+</table>
+
+<h3>Límite</h3>
+
+<p>
+Máximo 80 horas extraordinarias al año,
+excepto las de fuerza mayor.
+</p>
+
+<div class="trap">
+⚠️ Los trabajadores a tiempo parcial
+no pueden hacer horas extra normales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Cuál es el límite anual general?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+40 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+80 horas
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+120 horas
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>6.5 Conciliación</h2>
+
+<p>
+La conciliación busca compatibilizar
+vida laboral y personal.
+</p>
+
+<ul>
+<li>Reducción de jornada.</li>
+<li>Teletrabajo.</li>
+<li>Permisos.</li>
+<li>Adaptación horaria.</li>
+</ul>
+
+<div class="tip">
+💡 La conciliación favorece igualdad y bienestar.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué favorece la conciliación?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Más sanciones
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Compatibilizar vida personal y laboral
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Eliminar vacaciones
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<span class="study-time">⏱️ 50 min</span>
+
+<h2>6.6 Todos los tipos de permiso</h2>
+
+<p>
+Los permisos laborales permiten ausentarse del trabajo
+manteniendo normalmente el salario.
+</p>
+
+<table>
+
+<tr>
+<th>Permiso</th>
+<th>Duración orientativa</th>
+</tr>
+
+<tr>
+<td>Matrimonio</td>
+<td>15 días</td>
+</tr>
+
+<tr>
+<td>Fallecimiento familiar</td>
+<td>2-4 días</td>
+</tr>
+
+<tr>
+<td>Mudanza</td>
+<td>1 día</td>
+</tr>
+
+<tr>
+<td>Exámenes prenatales</td>
+<td>Tiempo necesario</td>
+</tr>
+
+</table>
+
+<h3>Otros permisos importantes</h3>
+
+<ul>
+<li>Lactancia.</li>
+<li>Deber público.</li>
+<li>Formación.</li>
+<li>Violencia de género.</li>
+</ul>
+
+<div class="trap">
+⚠️ Los convenios pueden mejorar permisos legales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Cuántos días suele durar el permiso por matrimonio?</p>
+
+<label class="option">
+<input type="radio" name="q6">
+5 días
+</label>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+15 días
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+30 días
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>6.7 Vacaciones</h2>
+
+<p>
+Las vacaciones anuales retribuidas
+son un derecho irrenunciable.
+</p>
+
+<ul>
+<li>Mínimo 30 días naturales al año.</li>
+<li>No pueden sustituirse por dinero.</li>
+<li>Se fijan de común acuerdo.</li>
+</ul>
+
+<div class="trap">
+⚠️ Salvo fin de contrato,
+las vacaciones no disfrutadas no se pagan.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Cuál es el mínimo anual?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+15 días
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+30 días naturales
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+45 días
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>6.8 Calendario laboral y festivos</h2>
+
+<p>
+Cada empresa debe elaborar anualmente
+el calendario laboral.
+</p>
+
+<ul>
+<li>Festivos nacionales.</li>
+<li>Autonómicos.</li>
+<li>Locales.</li>
+<li>Vacaciones.</li>
+</ul>
+
+<div class="tip">
+💡 El calendario debe estar visible.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué incluye el calendario laboral?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Solo salarios
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Festivos y jornada
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Solo vacaciones
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.9 El recibo individual de salarios</h2>
+
+<p>
+La nómina es el documento
+que justifica el pago del salario.
+</p>
+
+<ul>
+<li>Acredita pagos.</li>
+<li>Refleja cotizaciones.</li>
+<li>Muestra retenciones.</li>
+</ul>
+
+<div class="example">
+📌 La empresa debe entregar nómina al trabajador.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué acredita la nómina?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Vacaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Pago del salario
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Despidos
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>6.10 Partes de la nómina</h2>
+
+<table>
+
+<tr>
+<th>Parte</th>
+<th>Contenido</th>
+</tr>
+
+<tr>
+<td>Encabezado</td>
+<td>Datos empresa y trabajador</td>
+</tr>
+
+<tr>
+<td>Devengos</td>
+<td>Percepciones salariales</td>
+</tr>
+
+<tr>
+<td>Deducciones</td>
+<td>Descuentos obligatorios</td>
+</tr>
+
+<tr>
+<td>Líquido</td>
+<td>Cantidad final a cobrar</td>
+</tr>
+
+</table>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Dónde aparece el salario bruto?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Deducciones
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+Devengos
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Pie de firma
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block" id="b11">
+
+<span class="study-time">⏱️ 45 min</span>
+
+<h2>6.11 Devengo y deducciones</h2>
+
+<p>
+Los devengos son cantidades que percibe el trabajador.
+Las deducciones son descuentos legales.
+</p>
+
+<table>
+
+<tr>
+<th>Devengos</th>
+<th>Deducciones</th>
+</tr>
+
+<tr>
+<td>Salario base</td>
+<td>Seguridad Social</td>
+</tr>
+
+<tr>
+<td>Complementos</td>
+<td>IRPF</td>
+</tr>
+
+<tr>
+<td>Horas extra</td>
+<td>Anticipos</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ Salario bruto ≠ salario neto.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué resta dinero al salario?</p>
+
+<label class="option">
+<input type="radio" name="q11">
+Devengos
+</label>
+
+<label class="option">
+<input type="radio" name="q11" data-correct="true">
+Deducciones
+</label>
+
+<label class="option">
+<input type="radio" name="q11">
+Vacaciones
+</label>
+
+<button onclick="checkQuiz('q11', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 12 -->
+
+<section class="block" id="b12">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.12 IRPF</h2>
+
+<p>
+El IRPF es el impuesto sobre la renta.
+La empresa retiene parte del salario
+para ingresarlo a Hacienda.
+</p>
+
+<ul>
+<li>Depende del salario.</li>
+<li>Depende de situación familiar.</li>
+<li>Se regulariza en la renta.</li>
+</ul>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué significa IRPF?</p>
+
+<label class="option">
+<input type="radio" name="q12">
+Impuesto laboral profesional
+</label>
+
+<label class="option">
+<input type="radio" name="q12" data-correct="true">
+Impuesto sobre la renta de las personas físicas
+</label>
+
+<label class="option">
+<input type="radio" name="q12">
+Ingreso regulador profesional
+</label>
+
+<button onclick="checkQuiz('q12', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 13 -->
+
+<section class="block" id="b13">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.13 Declaración de la renta</h2>
+
+<p>
+La declaración de la renta regulariza
+la situación tributaria anual.
+</p>
+
+<ul>
+<li>Se comparan retenciones e impuestos reales.</li>
+<li>Puede salir a devolver o pagar.</li>
+</ul>
+
+<div class="tip">
+💡 No todas las personas están obligadas.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué regulariza la declaración?</p>
+
+<label class="option">
+<input type="radio" name="q13">
+Vacaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q13" data-correct="true">
+Situación tributaria anual
+</label>
+
+<label class="option">
+<input type="radio" name="q13">
+Contratos
+</label>
+
+<button onclick="checkQuiz('q13', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 14 -->
+
+<section class="block" id="b14">
+
+<span class="study-time">⏱️ 50 min</span>
+
+<h2>6.14 Bases de cotización y cálculo de deducciones</h2>
+
+<p>
+Las bases de cotización determinan
+cuánto se cotiza a la Seguridad Social.
+</p>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Finalidad</th>
+</tr>
+
+<tr>
+<td>Base contingencias comunes</td>
+<td>Prestaciones generales</td>
+</tr>
+
+<tr>
+<td>Base profesionales</td>
+<td>Accidentes y desempleo</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ Cotizar más puede mejorar prestaciones futuras.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué determina la base de cotización?</p>
+
+<label class="option">
+<input type="radio" name="q14">
+Vacaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q14" data-correct="true">
+Cuánto se cotiza
+</label>
+
+<label class="option">
+<input type="radio" name="q14">
+Jornada laboral
+</label>
+
+<button onclick="checkQuiz('q14', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 15 -->
+
+<section class="block" id="b15">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>6.15 El salario</h2>
+
+<p>
+El salario es la retribución económica
+por el trabajo realizado.
+</p>
+
+<h3>Tipos</h3>
+
+<ul>
+<li>Salario base.</li>
+<li>Complementos.</li>
+<li>Pagas extra.</li>
+<li>Salario en especie.</li>
+</ul>
+
+<div class="tip">
+💡 El salario mínimo se denomina SMI.
+</div>
+
+<div class="trap">
+⚠️ El salario en especie tiene límites legales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test</h3>
+
+<p>¿Qué es el salario?</p>
+
+<label class="option">
+<input type="radio" name="q15">
+Un permiso
+</label>
+
+<label class="option">
+<input type="radio" name="q15" data-correct="true">
+Retribución por trabajar
+</label>
+
+<label class="option">
+<input type="radio" name="q15">
+Una sanción
+</label>
+
+<button onclick="checkQuiz('q15', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 16 -->
+
+<section class="block" id="b16">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>6.16 IPREM y FOGASA</h2>
+
+<h3>IPREM</h3>
+
+<p>
+El IPREM es un indicador utilizado
+para calcular ayudas y subvenciones.
+</p>
+
+<h3>FOGASA</h3>
+
+<p>
+El Fondo de Garantía Salarial
+paga salarios o indemnizaciones
+cuando la empresa es insolvente.
+</p>
+
+<table>
+
+<tr>
+<th>Concepto</th>
+<th>Función</th>
+</tr>
+
+<tr>
+<td>IPREM</td>
+<td>Referencia ayudas públicas</td>
+</tr>
+
+<tr>
+<td>FOGASA</td>
+<td>Garantiza salarios e indemnizaciones</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ IPREM y SMI NO son lo mismo.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test final</h3>
+
+<p>¿Qué hace FOGASA?</p>
+
+<label class="option">
+<input type="radio" name="q16">
+Gestiona vacaciones
+</label>
+
+<label class="option">
+<input type="radio" name="q16" data-correct="true">
+Garantiza salarios si la empresa no paga
+</label>
+
+<label class="option">
+<input type="radio" name="q16">
+Aprueba contratos
+</label>
+
+<button onclick="checkQuiz('q16', this)">Corregir</button>
+<div class="result"></div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 6 · REPASO · Jornada, salario y nómina
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+const options = document.getElementsByName(questionName);
+const result = button.nextElementSibling;
+
+let correct = false;
+let selected = false;
+
+options.forEach(option => {
+
+if(option.checked){
+
+selected = true;
+
+if(option.dataset.correct === "true"){
+correct = true;
+}
+}
+});
+
+if(!selected){
+
+result.innerHTML = "⚠️ Selecciona una respuesta";
+result.style.color = "#d97706";
+return;
+}
+
+if(correct){
+
+result.innerHTML = "✅ Correcto";
+result.style.color = "green";
+
+}else{
+
+result.innerHTML = "❌ Incorrecto";
+result.style.color = "red";
+}
+}
+
+</script>
+
+</body>
+</html>
