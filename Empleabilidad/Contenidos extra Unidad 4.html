@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 4 · REPASO</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --success:#edf8f1;
+  --warning:#fff4e5;
+  --info:#eef6ff;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  border-right:1px solid #e5e7eb;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  margin-bottom:10px;
+  font-size:1.8rem;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:26px;
+}
+
+.nav-link{
+  display:block;
+  padding:13px 16px;
+  margin-bottom:10px;
+  border-radius:16px;
+  text-decoration:none;
+  color:var(--text);
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3b34,#345349);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  line-height:1.9;
+  max-width:1000px;
+}
+
+/* BLOCKS */
+
+.block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:36px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--primary);
+  margin-bottom:16px;
+  font-size:2rem;
+}
+
+.block h3{
+  color:var(--primary);
+  margin-top:28px;
+  margin-bottom:12px;
+}
+
+.block p{
+  line-height:1.9;
+  margin-bottom:18px;
+}
+
+.study-time{
+  display:inline-block;
+  background:var(--accent);
+  color:var(--primary);
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:0.85rem;
+  margin-bottom:24px;
+  font-weight:600;
+}
+
+ul{
+  padding-left:22px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+}
+
+th, td{
+  border:1px solid #e5e7eb;
+  padding:14px;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+.tip{
+  background:var(--success);
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.trap{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:34px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:22px;
+  padding:24px;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  border:none;
+  background:var(--primary);
+  color:white;
+  padding:12px 22px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:600;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 4</h1>
+<p>REPASO · Relación laboral y convenio colectivo</p>
+
+<a class="nav-link" href="#b1">4.1 RD Legislativo 2/2015</a>
+<a class="nav-link" href="#b2">4.1 Derecho del trabajo</a>
+<a class="nav-link" href="#b3">4.2 Relación laboral normal</a>
+<a class="nav-link" href="#b4">4.3 Relación laboral excluida</a>
+<a class="nav-link" href="#b5">4.4 Relación laboral especial</a>
+<a class="nav-link" href="#b6">4.5 Constitución, leyes y reglamentos</a>
+<a class="nav-link" href="#b7">4.6 Autonomía colectiva y costumbres</a>
+<a class="nav-link" href="#b8">4.7 Principios generales</a>
+<a class="nav-link" href="#b9">4.8 Jurisprudencia y normativa internacional</a>
+<a class="nav-link" href="#b10">4.9 Aplicación de normas laborales</a>
+<a class="nav-link" href="#b11">4.10 Convenio colectivo</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 4 · REPASO</h2>
+
+<p>
+Repaso completo y ampliado sobre relación laboral,
+fuentes del derecho laboral, jerarquía normativa
+y convenio colectivo.
+Incluye explicaciones detalladas, tablas comparativas,
+ejemplos reales, preguntas trampa frecuentes de examen
+y mini-tests interactivos al final de cada bloque.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<span class="study-time">⏱️ 25 min</span>
+
+<h2>4.1 Real Decreto Legislativo 2/2015</h2>
+
+<p>
+El Real Decreto Legislativo 2/2015 aprueba el texto refundido
+del Estatuto de los Trabajadores.
+Es la norma básica del derecho laboral español.
+</p>
+
+<h3>¿Por qué es tan importante?</h3>
+
+<ul>
+<li>Regula los derechos y deberes laborales.</li>
+<li>Define qué es una relación laboral.</li>
+<li>Establece jornadas, vacaciones y salarios.</li>
+<li>Regula contratos y despidos.</li>
+<li>Sirve de referencia para convenios colectivos.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Norma</th>
+<th>Importancia</th>
+</tr>
+
+<tr>
+<td>Constitución Española</td>
+<td>Norma suprema</td>
+</tr>
+
+<tr>
+<td>Estatuto de los Trabajadores</td>
+<td>Norma básica laboral</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 En exámenes suele preguntarse:
+“¿Cuál es la norma básica laboral?”
+→ Estatuto de los Trabajadores.
+</div>
+
+<div class="trap">
+⚠️ Error típico:
+confundir Estatuto de los Trabajadores
+con convenio colectivo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué norma regula principalmente las relaciones laborales?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+Convenio colectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+Estatuto de los Trabajadores
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Código Civil
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>4.1 El derecho del trabajo</h2>
+
+<p>
+El derecho del trabajo es el conjunto de normas
+que regulan las relaciones entre trabajadores,
+empresarios y Estado.
+</p>
+
+<h3>¿Qué protege?</h3>
+
+<ul>
+<li>Derechos laborales.</li>
+<li>Condiciones dignas.</li>
+<li>Igualdad y no discriminación.</li>
+<li>Seguridad jurídica.</li>
+<li>Negociación colectiva.</li>
+</ul>
+
+<h3>Objetivos</h3>
+
+<p>
+El derecho laboral busca equilibrar la relación
+entre empresa y trabajador,
+ya que normalmente el empresario
+tiene mayor poder económico.
+</p>
+
+<div class="example">
+📌 Gracias al derecho laboral existen:
+vacaciones, salario mínimo y límites de jornada.
+</div>
+
+<div class="trap">
+⚠️ Pregunta trampa:
+el derecho laboral NO regula amistades,
+solo relaciones laborales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué regula el derecho del trabajo?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Relaciones familiares
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Relaciones entre trabajadores y empresarios
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Relaciones internacionales
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>4.2 Relación laboral. Normal</h2>
+
+<p>
+La relación laboral normal es aquella regulada
+por el Estatuto de los Trabajadores.
+</p>
+
+<h3>Características fundamentales</h3>
+
+<table>
+
+<tr>
+<th>Elemento</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Voluntariedad</td>
+<td>El trabajador acepta libremente</td>
+</tr>
+
+<tr>
+<td>Remuneración</td>
+<td>Existe salario</td>
+</tr>
+
+<tr>
+<td>Dependencia</td>
+<td>El trabajador sigue órdenes</td>
+</tr>
+
+<tr>
+<td>Ajenidad</td>
+<td>El empresario asume riesgos</td>
+</tr>
+
+<tr>
+<td>Personalidad</td>
+<td>El trabajo lo realiza esa persona</td>
+</tr>
+
+</table>
+
+<div class="example">
+📌 Un camarero contratado en un restaurante
+tiene relación laboral normal.
+</div>
+
+<div class="trap">
+⚠️ Si una persona asume el riesgo económico,
+puede no existir relación laboral.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa ajenidad?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+El trabajador manda
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+El empresario asume riesgos y beneficios
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+No existe salario
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 4 -->
+
+<section class="block" id="b4">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>4.3 Relación laboral. Excluida</h2>
+
+<p>
+Las relaciones laborales excluidas
+NO se regulan por el Estatuto de los Trabajadores.
+</p>
+
+<h3>Ejemplos</h3>
+
+<ul>
+<li>Funcionarios públicos.</li>
+<li>Trabajos familiares hasta segundo grado.</li>
+<li>Trabajos por amistad o buena vecindad.</li>
+<li>Consejeros de sociedades.</li>
+<li>Prestaciones personales obligatorias.</li>
+</ul>
+
+<div class="tip">
+💡 Clave de examen:
+“trabajo familiar” suele estar excluido.
+</div>
+
+<div class="trap">
+⚠️ Pregunta frecuente:
+un familiar SÍ puede tener relación laboral
+si existe contrato real y salario demostrado.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es una relación excluida?</p>
+
+<label class="option">
+<input type="radio" name="q4">
+Dependiente de tienda
+</label>
+
+<label class="option">
+<input type="radio" name="q4" data-correct="true">
+Funcionario público
+</label>
+
+<label class="option">
+<input type="radio" name="q4">
+Cocinero contratado
+</label>
+
+<button onclick="checkQuiz('q4', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 5 -->
+
+<section class="block" id="b5">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>4.4 Relación laboral. Especial</h2>
+
+<p>
+Son relaciones laborales con regulación específica.
+Se aplican normas especiales por las características del trabajo.
+</p>
+
+<h3>Ejemplos importantes</h3>
+
+<ul>
+<li>Alta dirección.</li>
+<li>Servicio del hogar familiar.</li>
+<li>Deportistas profesionales.</li>
+<li>Penados en prisión.</li>
+<li>Abogados en despachos.</li>
+<li>Médicos residentes.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Motivo especial</th>
+</tr>
+
+<tr>
+<td>Alta dirección</td>
+<td>Gran responsabilidad</td>
+</tr>
+
+<tr>
+<td>Deportistas</td>
+<td>Actividad específica</td>
+</tr>
+
+<tr>
+<td>Hogar familiar</td>
+<td>Ámbito privado</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ Especial NO significa excluida.
+Sí existe relación laboral.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué relación es especial?</p>
+
+<label class="option">
+<input type="radio" name="q5">
+Funcionario
+</label>
+
+<label class="option">
+<input type="radio" name="q5" data-correct="true">
+Deportista profesional
+</label>
+
+<label class="option">
+<input type="radio" name="q5">
+Trabajo por amistad
+</label>
+
+<button onclick="checkQuiz('q5', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 6 -->
+
+<section class="block" id="b6">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>4.5 Jerarquía normativa. Constitución, leyes y reglamentos</h2>
+
+<p>
+La jerarquía normativa organiza las normas según su importancia.
+Una norma inferior nunca puede contradecir a una superior.
+</p>
+
+<table>
+
+<tr>
+<th>Nivel</th>
+<th>Norma</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Constitución Española</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Leyes</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Reglamentos</td>
+</tr>
+
+</table>
+
+<h3>Tipos de leyes</h3>
+
+<ul>
+<li>Ley Orgánica.</li>
+<li>Ley Ordinaria.</li>
+<li>Real Decreto-Ley.</li>
+<li>Real Decreto Legislativo.</li>
+</ul>
+
+<div class="example">
+📌 El Estatuto de los Trabajadores
+es un Real Decreto Legislativo.
+</div>
+
+<div class="trap">
+⚠️ Un reglamento nunca puede ir contra una ley.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Cuál es la norma suprema?</p>
+
+<label class="option">
+<input type="radio" name="q6" data-correct="true">
+Constitución Española
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Convenio colectivo
+</label>
+
+<label class="option">
+<input type="radio" name="q6">
+Contrato
+</label>
+
+<button onclick="checkQuiz('q6', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 7 -->
+
+<section class="block" id="b7">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>4.6 Autonomía colectiva, usos y costumbres</h2>
+
+<p>
+La autonomía colectiva permite negociar convenios colectivos.
+Los usos y costumbres completan vacíos legales.
+</p>
+
+<h3>Características de la costumbre</h3>
+
+<ul>
+<li>Debe repetirse en el tiempo.</li>
+<li>No puede ser ilegal.</li>
+<li>Debe demostrarse.</li>
+<li>Debe estar vinculada a una profesión.</li>
+</ul>
+
+<div class="example">
+📌 Cobrar el salario el día 30
+puede convertirse en costumbre.
+</div>
+
+<div class="trap">
+⚠️ La costumbre NO puede ir contra la ley.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué concreta normalmente la autonomía colectiva?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+La Constitución
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Convenios colectivos
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Sentencias penales
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 8 -->
+
+<section class="block" id="b8">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>4.7 Principios generales del derecho</h2>
+
+<p>
+Son criterios fundamentales para interpretar
+y aplicar normas laborales.
+</p>
+
+<table>
+
+<tr>
+<th>Principio</th>
+<th>Significado</th>
+</tr>
+
+<tr>
+<td>Pro-operario</td>
+<td>Interpretación favorable al trabajador</td>
+</tr>
+
+<tr>
+<td>Norma más favorable</td>
+<td>Se aplica la mejor norma</td>
+</tr>
+
+<tr>
+<td>Irrenunciabilidad</td>
+<td>No pueden renunciarse derechos</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Si existen dudas interpretativas,
+se favorece al trabajador.
+</div>
+
+<div class="trap">
+⚠️ Un trabajador NO puede renunciar
+legalmente a vacaciones mínimas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa irrenunciabilidad?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Renunciar al salario
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+No poder renunciar a derechos mínimos
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Elegir convenio
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 9 -->
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>4.8 Jurisprudencia y normativa internacional</h2>
+
+<p>
+La jurisprudencia es el criterio repetido del Tribunal Supremo.
+Ayuda a interpretar normas.
+</p>
+
+<h3>Normativa internacional</h3>
+
+<ul>
+<li>Normativa UE.</li>
+<li>Tratados internacionales.</li>
+<li>Convenios OIT.</li>
+</ul>
+
+<div class="example">
+📌 La Unión Europea puede aprobar directivas laborales.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué es la jurisprudencia?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Un convenio
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Criterio del Tribunal Supremo
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Una costumbre
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 10 -->
+
+<section class="block" id="b10">
+
+<span class="study-time">⏱️ 45 min</span>
+
+<h2>4.9 Principios de aplicación de las normas laborales</h2>
+
+<p>
+Existen cinco principios fundamentales.
+</p>
+
+<table>
+
+<tr>
+<th>Principio</th>
+<th>Idea clave</th>
+</tr>
+
+<tr>
+<td>Norma mínima</td>
+<td>Solo se puede mejorar</td>
+</tr>
+
+<tr>
+<td>Norma más favorable</td>
+<td>Se aplica la mejor</td>
+</tr>
+
+<tr>
+<td>In dubio pro operario</td>
+<td>Duda favorable al trabajador</td>
+</tr>
+
+<tr>
+<td>Condición más beneficiosa</td>
+<td>Ventajas adquiridas se mantienen</td>
+</tr>
+
+<tr>
+<td>Irrenunciabilidad</td>
+<td>No renunciar a derechos mínimos</td>
+</tr>
+
+</table>
+
+<div class="example">
+📌 Si un trabajador tiene más vacaciones
+por costumbre, pueden mantenerse.
+</div>
+
+<div class="trap">
+⚠️ “Condición más beneficiosa”
+NO puede eliminarse fácilmente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa “in dubio pro operario”?</p>
+
+<label class="option">
+<input type="radio" name="q10">
+Aplicar convenio europeo
+</label>
+
+<label class="option">
+<input type="radio" name="q10" data-correct="true">
+Interpretar dudas a favor del trabajador
+</label>
+
+<label class="option">
+<input type="radio" name="q10">
+Eliminar derechos
+</label>
+
+<button onclick="checkQuiz('q10', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 11 -->
+
+<section class="block" id="b11">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>4.10 El convenio colectivo</h2>
+
+<p>
+El convenio colectivo es el acuerdo negociado
+entre representantes de trabajadores y empresarios.
+</p>
+
+<h3>¿Qué regula?</h3>
+
+<ul>
+<li>Salarios.</li>
+<li>Horarios.</li>
+<li>Vacaciones.</li>
+<li>Permisos.</li>
+<li>Plus y complementos.</li>
+<li>Medidas disciplinarias.</li>
+</ul>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Ámbito</th>
+</tr>
+
+<tr>
+<td>Sectorial</td>
+<td>Todo un sector</td>
+</tr>
+
+<tr>
+<td>Empresa</td>
+<td>Una empresa concreta</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 El convenio mejora normalmente
+el mínimo legal.
+</div>
+
+<div class="trap">
+⚠️ Un contrato individual no puede empeorar
+un convenio colectivo.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Quién negocia un convenio colectivo?</p>
+
+<label class="option">
+<input type="radio" name="q11">
+Solo el Gobierno
+</label>
+
+<label class="option">
+<input type="radio" name="q11" data-correct="true">
+Trabajadores y empresarios
+</label>
+
+<label class="option">
+<input type="radio" name="q11">
+Solo jueces
+</label>
+
+<button onclick="checkQuiz('q11', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 4 · REPASO · Relación laboral y convenio colectivo
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>
