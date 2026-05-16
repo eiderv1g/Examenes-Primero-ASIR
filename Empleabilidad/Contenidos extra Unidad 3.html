@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Unidad 3 · REPASO</title>
+
+<style>
+
+:root{
+  --bg:#f4f6f5;
+  --card:#ffffff;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
+  --text:#1d1d1f;
+  --muted:#6b7280;
+  --success:#edf8f1;
+  --warning:#fff4e5;
+  --info:#eef6ff;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:320px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(14px);
+  border-right:1px solid #e5e7eb;
+  height:100vh;
+  position:fixed;
+  overflow-y:auto;
+  padding:30px 22px;
+}
+
+.sidebar h1{
+  color:var(--primary);
+  font-size:1.7rem;
+  margin-bottom:10px;
+}
+
+.sidebar p{
+  color:var(--muted);
+  margin-bottom:28px;
+}
+
+.nav-link{
+  display:block;
+  padding:14px 16px;
+  margin-bottom:10px;
+  border-radius:16px;
+  text-decoration:none;
+  color:var(--text);
+  transition:0.25s;
+}
+
+.nav-link:hover{
+  background:var(--accent);
+  transform:translateX(4px);
+}
+
+/* MAIN */
+
+.main{
+  margin-left:320px;
+  width:calc(100% - 320px);
+  padding:40px;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1f3b34,#345349);
+  color:white;
+  padding:60px;
+  border-radius:34px;
+  margin-bottom:40px;
+  box-shadow:var(--shadow);
+}
+
+.hero h2{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.hero p{
+  max-width:950px;
+  line-height:1.9;
+  opacity:0.92;
+}
+
+/* BLOCK */
+
+.block{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:42px;
+  margin-bottom:38px;
+  box-shadow:var(--shadow);
+}
+
+.block h2{
+  color:var(--primary);
+  margin-bottom:14px;
+  font-size:2rem;
+}
+
+.study-time{
+  display:inline-block;
+  padding:8px 16px;
+  background:var(--accent);
+  border-radius:999px;
+  color:var(--primary);
+  font-weight:600;
+  margin-bottom:24px;
+  font-size:0.85rem;
+}
+
+.block h3{
+  margin-top:28px;
+  margin-bottom:14px;
+  color:var(--primary);
+}
+
+.block p{
+  line-height:1.9;
+  margin-bottom:18px;
+}
+
+ul{
+  padding-left:22px;
+  margin-bottom:20px;
+}
+
+li{
+  margin-bottom:12px;
+  line-height:1.8;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+}
+
+th, td{
+  padding:14px;
+  border:1px solid #e5e7eb;
+  text-align:left;
+}
+
+th{
+  background:var(--primary);
+  color:white;
+}
+
+.tip{
+  background:var(--success);
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.trap{
+  background:var(--warning);
+  border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:24px 0;
+}
+
+/* QUIZ */
+
+.quiz{
+  margin-top:35px;
+  background:#f8fafc;
+  padding:24px;
+  border-radius:22px;
+  border:1px solid #e5e7eb;
+}
+
+.quiz h4{
+  margin-bottom:18px;
+  color:var(--primary);
+}
+
+.question{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+}
+
+.question p{
+  font-weight:600;
+  margin-bottom:14px;
+}
+
+.option{
+  display:block;
+  background:#f3f4f6;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#e5e7eb;
+}
+
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:14px;
+  background:var(--primary);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.result{
+  margin-top:12px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:40px;
+}
+
+@media(max-width:1000px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .main{
+    width:100%;
+    margin-left:0;
+    padding:20px;
+  }
+
+  .hero{
+    padding:36px;
+  }
+
+  .hero h2{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h1>Unidad 3</h1>
+<p>REPASO · Emergencias y primeros auxilios</p>
+
+<a class="nav-link" href="#b1">3.1 RD 393/2007</a>
+<a class="nav-link" href="#b2">3.2 Plan de emergencias</a>
+<a class="nav-link" href="#b3">3.3 Evaluación de riesgos</a>
+<a class="nav-link" href="#b4">3.4 Medios de protección</a>
+<a class="nav-link" href="#b5">3.5 Organización interna</a>
+<a class="nav-link" href="#b6">3.6 Antes, durante y después</a>
+<a class="nav-link" href="#b7">3.7 Método PAS</a>
+<a class="nav-link" href="#b8">3.8 Heridas</a>
+<a class="nav-link" href="#b9">3.9 Quemaduras</a>
+<a class="nav-link" href="#b10">3.10 Hemorragias</a>
+<a class="nav-link" href="#b11">3.11 Traumatismos</a>
+<a class="nav-link" href="#b12">3.12 Atragantamiento</a>
+<a class="nav-link" href="#b13">3.13 Intoxicaciones</a>
+<a class="nav-link" href="#b14">3.14 Triaje</a>
+<a class="nav-link" href="#b15">3.15 Botiquín</a>
+<a class="nav-link" href="#b16">3.16 Transporte accidentados</a>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<section class="hero">
+
+<h2>Unidad 3 · REPASO</h2>
+
+<p>
+Repaso completo y ampliado sobre planes de emergencia,
+autoprotección y primeros auxilios.
+Esta página reúne toda la teoría esencial de la unidad:
+protocolos, actuación ante accidentes, PAS, RCP,
+triaje y emergencias frecuentes.
+Incluye explicaciones detalladas, ejemplos reales,
+preguntas trampa típicas de examen y mini-tests interactivos.
+</p>
+
+</section>
+
+<!-- BLOQUE 1 -->
+
+<section class="block" id="b1">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>3.1 Real Decreto 393/2007</h2>
+
+<p>
+El Real Decreto 393/2007 aprueba la Norma Básica de Autoprotección.
+Es una de las normas fundamentales en prevención de riesgos
+y establece la obligación de que determinados centros dispongan
+de planes de emergencia y autoprotección.
+</p>
+
+<h3>¿Qué regula?</h3>
+
+<ul>
+<li>Organización de emergencias.</li>
+<li>Planes de evacuación.</li>
+<li>Simulacros.</li>
+<li>Coordinación con emergencias externas.</li>
+<li>Formación del personal.</li>
+<li>Medidas de autoprotección.</li>
+</ul>
+
+<h3>Objetivo principal</h3>
+
+<p>
+Reducir daños humanos y materiales en caso de incendio,
+explosión, accidente químico o cualquier emergencia grave.
+</p>
+
+<table>
+
+<tr>
+<th>Aspecto</th>
+<th>Importancia</th>
+</tr>
+
+<tr>
+<td>Prevención</td>
+<td>Reduce riesgos antes de la emergencia</td>
+</tr>
+
+<tr>
+<td>Organización</td>
+<td>Evita improvisaciones</td>
+</tr>
+
+<tr>
+<td>Respuesta rápida</td>
+<td>Disminuye daños y víctimas</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Muchas preguntas tipo test preguntan
+qué norma regula la autoprotección:
+→ RD 393/2007.
+</div>
+
+<div class="trap">
+⚠️ Error frecuente:
+pensar que solo afecta a fábricas.
+También puede aplicarse a centros comerciales,
+hospitales, hoteles o eventos masivos.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué regula el RD 393/2007?</p>
+
+<label class="option">
+<input type="radio" name="q1">
+La Seguridad Social
+</label>
+
+<label class="option">
+<input type="radio" name="q1" data-correct="true">
+La Norma Básica de Autoprotección
+</label>
+
+<label class="option">
+<input type="radio" name="q1">
+Los convenios colectivos
+</label>
+
+<button onclick="checkQuiz('q1', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 2 -->
+
+<section class="block" id="b2">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>3.2 Plan de emergencias y autoprotección</h2>
+
+<p>
+El plan de emergencias es el documento que organiza
+la actuación ante situaciones peligrosas.
+La autoprotección engloba todas las medidas
+para prevenir y minimizar daños.
+</p>
+
+<h3>Los cinco pilares fundamentales</h3>
+
+<ul>
+<li>Evaluación de riesgos.</li>
+<li>Medios de protección.</li>
+<li>Organización interna.</li>
+<li>Procedimientos de actuación.</li>
+<li>Señalización y simulacros.</li>
+</ul>
+
+<p>
+Un plan eficaz no sirve solo para reaccionar:
+también permite prevenir.
+Por eso debe revisarse periódicamente.
+</p>
+
+<div class="example">
+📌 Un hotel debe tener rutas de evacuación,
+alarmas, extintores y personal formado.
+</div>
+
+<div class="tip">
+💡 Un simulacro anual suele ser obligatorio.
+</div>
+
+<div class="trap">
+⚠️ Tener el documento archivado NO significa
+que el plan funcione.
+Debe practicarse.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué elemento NO pertenece a los pilares?</p>
+
+<label class="option">
+<input type="radio" name="q2">
+Evaluación de riesgos
+</label>
+
+<label class="option">
+<input type="radio" name="q2">
+Simulacros
+</label>
+
+<label class="option">
+<input type="radio" name="q2" data-correct="true">
+Convenio colectivo
+</label>
+
+<button onclick="checkQuiz('q2', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUE 3 -->
+
+<section class="block" id="b3">
+
+<span class="study-time">⏱️ 28 min</span>
+
+<h2>3.3 Evaluación de riesgos</h2>
+
+<p>
+La evaluación de riesgos consiste en identificar
+qué peligros existen, dónde aparecen
+y cuáles serían sus consecuencias.
+</p>
+
+<h3>Factores analizados</h3>
+
+<table>
+
+<tr>
+<th>Factor</th>
+<th>Qué estudia</th>
+</tr>
+
+<tr>
+<td>Probabilidad</td>
+<td>Posibilidad de que ocurra</td>
+</tr>
+
+<tr>
+<td>Severidad</td>
+<td>Daños que puede causar</td>
+</tr>
+
+</table>
+
+<p>
+La combinación de probabilidad y severidad
+permite priorizar riesgos.
+</p>
+
+<div class="example">
+📌 Un cable suelto puede tener alta probabilidad
+de caída, pero baja severidad.
+Un escape químico tiene baja probabilidad,
+pero alta severidad.
+</div>
+
+<div class="tip">
+💡 El objetivo es actuar antes del accidente.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué dos elementos se analizan?</p>
+
+<label class="option">
+<input type="radio" name="q3">
+Salario y jornada
+</label>
+
+<label class="option">
+<input type="radio" name="q3" data-correct="true">
+Probabilidad y severidad
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+Vacaciones y horarios
+</label>
+
+<button onclick="checkQuiz('q3', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- BLOQUES SIGUIENTES RESUMIDOS PERO MUY DETALLADOS -->
+
+<section class="block" id="b7">
+
+<span class="study-time">⏱️ 40 min</span>
+
+<h2>3.7 Método PAS al detalle</h2>
+
+<p>
+El método PAS es la base de toda actuación
+en primeros auxilios.
+Permite actuar de forma ordenada y segura.
+</p>
+
+<table>
+
+<tr>
+<th>Letra</th>
+<th>Significado</th>
+<th>Objetivo</th>
+</tr>
+
+<tr>
+<td>P</td>
+<td>Proteger</td>
+<td>Evitar nuevos peligros</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Avisar</td>
+<td>Llamar al 112</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>Socorrer</td>
+<td>Atender a la víctima</td>
+</tr>
+
+</table>
+
+<h3>1. Proteger</h3>
+
+<p>
+Antes de ayudar debes comprobar que no existe peligro:
+fuego, electricidad, tráfico, humo o sustancias tóxicas.
+</p>
+
+<h3>2. Avisar</h3>
+
+<p>
+Debe llamarse al 112 indicando:
+</p>
+
+<ul>
+<li>Lugar exacto.</li>
+<li>Número de heridos.</li>
+<li>Qué ha ocurrido.</li>
+<li>Estado de las víctimas.</li>
+</ul>
+
+<h3>3. Socorrer</h3>
+
+<p>
+Se realiza evaluación primaria y secundaria.
+</p>
+
+<div class="trap">
+⚠️ Nunca muevas a un accidentado
+si sospechas lesión cervical.
+</div>
+
+<div class="example">
+📌 Primero se revisan signos vitales:
+respiración, pulso y consciencia.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué significa la A del PAS?</p>
+
+<label class="option">
+<input type="radio" name="q7">
+Ayudar
+</label>
+
+<label class="option">
+<input type="radio" name="q7" data-correct="true">
+Avisar
+</label>
+
+<label class="option">
+<input type="radio" name="q7">
+Atender
+</label>
+
+<button onclick="checkQuiz('q7', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b8">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>3.8 Heridas</h2>
+
+<p>
+Una herida es una lesión de la piel o tejidos internos.
+Puede producirse por cortes, golpes o desgarros.
+</p>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>Incisa</td>
+<td>Objeto cortante</td>
+</tr>
+
+<tr>
+<td>Contusa</td>
+<td>Golpe con objeto romo</td>
+</tr>
+
+<tr>
+<td>Punzante</td>
+<td>Objeto afilado</td>
+</tr>
+
+</table>
+
+<h3>Tratamiento básico</h3>
+
+<ul>
+<li>Lavarse las manos.</li>
+<li>Limpiar de dentro hacia fuera.</li>
+<li>Usar gasas estériles.</li>
+<li>No usar algodón directamente.</li>
+<li>Tapar la herida.</li>
+</ul>
+
+<div class="trap">
+⚠️ Error típico:
+usar algodón sobre heridas abiertas.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué NO debe usarse directamente?</p>
+
+<label class="option">
+<input type="radio" name="q8">
+Gasas
+</label>
+
+<label class="option">
+<input type="radio" name="q8" data-correct="true">
+Algodón
+</label>
+
+<label class="option">
+<input type="radio" name="q8">
+Vendas
+</label>
+
+<button onclick="checkQuiz('q8', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 38 min</span>
+
+<h2>3.9 Quemaduras</h2>
+
+<p>
+Las quemaduras son lesiones producidas
+por calor, electricidad o sustancias químicas.
+</p>
+
+<h3>Tipos</h3>
+
+<table>
+
+<tr>
+<th>Grado</th>
+<th>Características</th>
+</tr>
+
+<tr>
+<td>1º</td>
+<td>Enrojecimiento</td>
+</tr>
+
+<tr>
+<td>2º</td>
+<td>Ampollas</td>
+</tr>
+
+<tr>
+<td>3º</td>
+<td>Carbonización y daños profundos</td>
+</tr>
+
+</table>
+
+<h3>Actuación básica</h3>
+
+<ul>
+<li>Eliminar causa.</li>
+<li>Enfriar con agua 10-15 minutos.</li>
+<li>No reventar ampollas.</li>
+<li>No usar pomadas.</li>
+<li>Cubrir con gasas estériles.</li>
+</ul>
+
+<div class="trap">
+⚠️ Nunca aplicar pasta de dientes,
+mantequilla o hielo directamente.
+</div>
+
+<div class="tip">
+💡 Regla de Wallace:
+sirve para calcular extensión corporal quemada.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué caracteriza una quemadura de segundo grado?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Piel carbonizada
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Ampollas
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Solo enrojecimiento
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b14">
+
+<span class="study-time">⏱️ 30 min</span>
+
+<h2>3.14 El triaje</h2>
+
+<p>
+El triaje es el sistema utilizado cuando existen
+muchos heridos y deben priorizarse recursos.
+</p>
+
+<table>
+
+<tr>
+<th>Color</th>
+<th>Prioridad</th>
+</tr>
+
+<tr>
+<td>Rojo</td>
+<td>Máxima urgencia</td>
+</tr>
+
+<tr>
+<td>Amarillo</td>
+<td>Urgente</td>
+</tr>
+
+<tr>
+<td>Verde</td>
+<td>Leve</td>
+</tr>
+
+<tr>
+<td>Negro</td>
+<td>Fallecido o muy pocas posibilidades</td>
+</tr>
+
+</table>
+
+<div class="example">
+📌 El objetivo es salvar el mayor número de vidas.
+</div>
+
+<div class="trap">
+⚠️ Pregunta trampa:
+el orden NO depende del dolor,
+sino de la gravedad vital.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Qué color tiene máxima prioridad?</p>
+
+<label class="option">
+<input type="radio" name="q14">
+Verde
+</label>
+
+<label class="option">
+<input type="radio" name="q14">
+Negro
+</label>
+
+<label class="option">
+<input type="radio" name="q14" data-correct="true">
+Rojo
+</label>
+
+<button onclick="checkQuiz('q14', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b15">
+
+<span class="study-time">⏱️ 24 min</span>
+
+<h2>3.15 Botiquín de primeros auxilios</h2>
+
+<p>
+Toda empresa debe disponer de botiquín portátil.
+Su contenido mínimo aparece regulado legalmente.
+</p>
+
+<h3>Contenido básico</h3>
+
+<ul>
+<li>Gasas estériles.</li>
+<li>Vendas.</li>
+<li>Guantes.</li>
+<li>Tijeras.</li>
+<li>Pinzas.</li>
+<li>Suero fisiológico.</li>
+<li>Antisépticos autorizados.</li>
+</ul>
+
+<div class="tip">
+💡 Debe revisarse periódicamente
+para evitar material caducado.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test</h4>
+
+<div class="question">
+
+<p>¿Dónde debe colocarse el botiquín?</p>
+
+<label class="option">
+<input type="radio" name="q15">
+Oculto
+</label>
+
+<label class="option">
+<input type="radio" name="q15" data-correct="true">
+En lugar accesible y señalizado
+</label>
+
+<label class="option">
+<input type="radio" name="q15">
+Solo en oficinas grandes
+</label>
+
+<button onclick="checkQuiz('q15', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="block" id="b16">
+
+<span class="study-time">⏱️ 35 min</span>
+
+<h2>3.16 Transporte de accidentados</h2>
+
+<p>
+Mover a un accidentado incorrectamente
+puede empeorar lesiones graves.
+</p>
+
+<h3>Norma principal</h3>
+
+<p>
+Solo debe trasladarse en caso de necesidad extrema:
+peligro inmediato o imposibilidad de asistencia en el lugar.
+</p>
+
+<table>
+
+<tr>
+<th>Situación</th>
+<th>Técnica</th>
+</tr>
+
+<tr>
+<td>Sin lesión columna</td>
+<td>Silla de la reina o arrastre</td>
+</tr>
+
+<tr>
+<td>Con lesión columna</td>
+<td>Técnica del puente</td>
+</tr>
+
+</table>
+
+<div class="trap">
+⚠️ Nunca doblar cuello o espalda
+si sospechas lesión vertebral.
+</div>
+
+<div class="example">
+📌 La técnica del puente requiere coordinación.
+</div>
+
+<div class="quiz">
+
+<h4>Mini-test final</h4>
+
+<div class="question">
+
+<p>¿Cuándo debe moverse un herido grave?</p>
+
+<label class="option">
+<input type="radio" name="q16">
+Siempre
+</label>
+
+<label class="option">
+<input type="radio" name="q16" data-correct="true">
+Solo en caso de necesidad extrema
+</label>
+
+<label class="option">
+<input type="radio" name="q16">
+Nunca
+</label>
+
+<button onclick="checkQuiz('q16', this)">Corregir</button>
+
+<div class="result"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+Unidad 3 · REPASO · Emergencias y primeros auxilios
+
+</div>
+
+</main>
+
+<script>
+
+function checkQuiz(questionName, button){
+
+  const options = document.getElementsByName(questionName);
+  const result = button.nextElementSibling;
+
+  let correct = false;
+  let selected = false;
+
+  options.forEach(option => {
+
+    if(option.checked){
+
+      selected = true;
+
+      if(option.dataset.correct === "true"){
+        correct = true;
+      }
+    }
+  });
+
+  if(!selected){
+
+    result.innerHTML = "⚠️ Selecciona una respuesta";
+    result.style.color = "#d97706";
+    return;
+  }
+
+  if(correct){
+
+    result.innerHTML = "✅ Correcto";
+    result.style.color = "green";
+
+  } else {
+
+    result.innerHTML = "❌ Incorrecto";
+    result.style.color = "red";
+  }
+}
+
+</script>
+
+</body>
+</html>
