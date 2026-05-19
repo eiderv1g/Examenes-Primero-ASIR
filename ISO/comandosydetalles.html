@@ -1,0 +1,747 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>COMANDOS ISO</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(130, 106, 158);
+		background-color: #090611;
+		
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(15, 6, 26);
+	color: rgb(216, 198, 221);
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="36583986-e476-8050-8377-f97cba42aae5" class="page sans"><header><div class="page-header-icon undefined"><img class="icon notion-static-icon" src="https://www.notion.so/icons/alien-pixel_purple.svg"/></div><h1 class="page-title" dir="auto">COMANDOS ISO</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="36583986-e476-80ae-9a29-e4bb038bf4cc" class=""><code>ping</code> → Es una herramienta de red usada para comprobar si un dispositivo es alcanzable en una red y medir el tiempo de respuesta.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80fc-af37-f40fd788e160"/></div><div style="display:contents" dir="auto"><h1 id="36583986-e476-8049-a6e0-e7c8612c31e8" class="">LINUX</h1></div><div style="display:contents" dir="auto"><p id="36583986-e476-8017-bc12-e6b7e8f31504" class=""><code>uname -a</code> → Nos muestra <strong>información completa sobre el sistema operativo y el kernel</strong>. <code>uname</code> significa <em>Unix Name</em> y la opción <code>-a</code> significa <em>all</em> (todo).</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80c8-b781-ec96eeaa4baf"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-802b-8434-f668e943b45d" class=""><code>dmesg</code> → El comando <code>dmesg</code> en sistemas Linux muestra los <strong>mensajes del buffer del kernel.</strong> Es necesario ejecutarlo con <code>sudo</code>.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80b5-a92e-da8d146dd3a4"/></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80a4-b949-ca61a52cc96d"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80bb-ab20-c5a10bf11775" class=""><code>ip a</code> → Significa “IP adress” y sirve para mostrar las interfaces de red y sus direcciones IP.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8057-83ff-c315eb8e829b"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8063-8104-facca2dc371c" class=""><code>df -h</code> → Ver espacio en disco</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80e9-9d85-ffffc0772d06"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8004-9ff4-fd563538ef9a" class=""><code>fdisk -l</code> → Información detallada sobre particiones</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8079-baa1-d2ff74120fb8"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-805d-b6d7-f3fab2110609" class=""><code>man hier</code> → Muestra la página del manual que describe el estándar de jerarquía del sistema de archivos (FHS). <code>hier</code> viene de <strong>hierarchy (jerarquía)</strong> y describe directorios como:</p></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8001-97c8-d39e42c6564a" class="bulleted-list"><li style="list-style-type:disc"><code>/bin</code> → comandos básicos del sistema</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-807e-babc-db74091bf20e" class="bulleted-list"><li style="list-style-type:disc"><code>/etc</code> → archivos de configuración</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80ae-a1ca-fcaf0b25178f" class="bulleted-list"><li style="list-style-type:disc"><code>/home</code> → carpetas de usuarios</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80b5-bdd9-ce2a673d849f" class="bulleted-list"><li style="list-style-type:disc"><code>/var</code> → archivos variables (logs, colas, etc.)</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8042-860c-ced688092904" class="bulleted-list"><li style="list-style-type:disc"><code>/usr</code> → programas y recursos del sistema</li></ul></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80e5-8f74-c5155978120f"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80eb-b159-e3a12790983c" class=""><code>ls -l</code> → Lista archivos y carpetas en formato detallado.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8014-8957-dfda58908377"/></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-8097-a033-f5aa57ce87ae" class="">Volúmenes lógicos y particiones</h4></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8050-8e51-c7aef038b52d" class="bulleted-list"><li style="list-style-type:disc"><code>lsblk</code>→ Muestra los discos y particiones conectados al sistema. Se usa para identificar el disco donde vamos a trabajar.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-809c-ab00-f16ed682a5ac" class="bulleted-list"><li style="list-style-type:disc"><code>fdisk</code>→ Herramienta para crear, eliminar o modificar particiones en un disco.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8004-8076-fa61fd753f5e" class="bulleted-list"><li style="list-style-type:disc"><code>pvcreate</code>→ Inicializa una partición o disco como <strong>volumen físico (PV)</strong> para poder usarlo con LVM.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8023-bf5c-fa479faffb44" class="bulleted-list"><li style="list-style-type:disc"><code>pvs</code>→ Muestra información sobre los <strong>volúmenes físicos</strong> existentes.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80a5-bdce-d2006f5c96a3" class="bulleted-list"><li style="list-style-type:disc"><code>vgcreate</code>→ Crea un <strong>grupo de volúmenes (VG)</strong> uniendo uno o varios volúmenes físicos.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8054-b340-cdce7adea8cc" class="bulleted-list"><li style="list-style-type:disc"><code>vgs</code>→ Muestra información sobre los <strong>grupos de volúmenes</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-806a-999f-f9c69c822199" class="bulleted-list"><li style="list-style-type:disc"><code>lvcreate</code>→ Crea un <strong>volumen lógico (LV)</strong> dentro de un grupo de volúmenes.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-804c-9c4b-db7e2e964212" class="bulleted-list"><li style="list-style-type:disc"><code>lvs</code>→ Muestra información sobre los <strong>volúmenes lógicos</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80ea-89f0-dafa570a89ec" class="bulleted-list"><li style="list-style-type:disc"><code>mkfs.ext4</code>→ Crea un sistema de archivos <strong>ext4</strong> en una partición o volumen lógico. Formato</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80b9-8a91-e3d758f2690c" class="bulleted-list"><li style="list-style-type:disc"><code>mount</code>→ Monta un sistema de archivos para que el sistema operativo pueda acceder a él.</li></ul></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8011-8b39-ef8976726cf0"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80b3-a61d-e298cc5af887" class=""><br/><code>mdadm</code> → Es la utilidad estándar de Linux para administrar arreglos RAID por software mediante el subsistema mdadm.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8084-9e69-f66b4e0f5fb2" class=""><code>apt update</code> → sirve para actualizar la lista de paquetes disponibles desde los repositorios. Se usa en distribuciones basadas en Debian.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80d1-856a-da9bdf0187c2" class=""><code>apt upgrade</code> → Instala las actualizaciones</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8016-93ee-cefb58c66020"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8015-8a12-eb0fa1d420f1" class=""><code>apt install ufw</code> → Instala el firewall</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80c4-8c3e-ccbfc66d4c06" class=""><code>ufw enable</code> → Activa el <strong>firewall</strong>.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-804c-a1fd-c8fa37546b1f" class=""><code>ufw status</code> → Comprueba el estado del firewall</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-806e-9d99-e87245560763" class=""><code>ufw disable</code> → desactiva el firewall</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8031-aa99-e249eff3cf7f"/></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-8029-ade1-f28d126921ef" class="">Monitorización</h4></div><div style="display:contents" dir="auto"><p id="36583986-e476-80b8-bb00-d976294bc163" class=""><code>top</code> → Herramienta de monitorización en tiempo real que muestra los procesos activos y el uso de recursos del sistema en distribuciones basadas en Linux.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8010-a863-dc9a7180d134" class=""><code>htop</code> → Herramienta interactiva y mejorada para monitorizar procesos en sistemas basados en Linux. Es una alternativa más visual y fácil de usar que top.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80c3-95da-f69858120456" class=""><code>btop</code> → Herramienta moderna de monitorización de recursos en sistemas basados en Linux. Es la evolución de bashtop y bpytop, con una interfaz mucho más visual, fluida y completa.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8026-98c3-fdffa710aa41" class=""><code>glances</code> → Herramienta avanzada de monitorización integral para sistemas basados en Linux. A diferencia de top, htop o btop, muestra muchísima información en una sola pantalla y puede funcionar incluso en modo cliente-servidor para monitorizar equipos remotos.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8084-8aea-ecb73caac795" class=""><code>free</code> → Muestra información sobre el uso de memoria RAM y swap.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80c1-9391-f5f36e168a14" class=""><strong>grafana</strong> → Es una <strong>plataforma</strong> de visualización y monitoreo usada para mostrar métricas, logs y datos en tiempo real mediante dashboards.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80b6-8e78-ff63475d0610" class=""><code>journalctl</code> → En systemd se utiliza para ver y consultar los registros (logs) del sistema almacenados por <code>systemd-journald</code>, permitiendo filtrar eventos por servicio, fecha, usuario, prioridad o arranque del sistema.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-808a-a293-fe0a8c30ec8f"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80a6-a6ae-d9472d5e9ed6" class=""><code>ss -tulnp</code> → Muestra los puertos y conexiones de red activas del sistema, incluyendo sockets TCP y UDP en escucha, junto con el proceso y PID asociado a cada puerto.<br/></p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80fa-9301-e8a15bd9dfb4"/></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-8044-838c-eb573a666ca9" class="">Gestión de hardware</h4></div><div style="display:contents" dir="auto"><p id="36583986-e476-8083-8203-e4ad879dcd94" class=""><code>lscpu</code> → Información sobre la cpu</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-808b-955a-e22c86ec17a5" class=""><code>lshw</code> → Información sobre el hardware</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-805d-8259-e46c94eab1c8" class=""><code>ps</code> → Información sobre los procesos en ejecución</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8058-9dcb-fd428a83373e" class=""><code>ps aux</code> → Procesos de todos los usuarios, procesos sin terminar y la información detallada</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8012-9cc4-fde3b16a56b4" class=""><code>sar -u 1 5</code> → Muestra el uso de CPU del sistema cada 1 segundo durante 5 intervalos, indicando porcentajes de uso en usuario, sistema, espera (<code>iowait</code>) e inactividad (<code>idle</code>).<br/><br/></p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80d1-8f2d-fa650331ec47"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8093-84fc-e744f7b82b47" class=""><code>cut</code> → Sirve para extraer partes específicas de texto de archivos o salidas de comandos.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80af-87c8-c73091bebc90" class=""><code>awk</code> → Sirve para procesar y analizar texto por columnas y patrones.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8061-95ee-f19caee3602a" class=""><code>cat</code> → Sirve para mostrar, unir y crear archivos de texto.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-8047-ad01-e6dd2f72250e" class=""><code>grep</code> → Busca y/o filtra texto dentro de archivos o en la salida de otros comandos.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-805b-8676-fbb58e3610b9"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8093-83dd-d2562b9f9aee" class=""><code>cp -r /home/usuario/Documentos /media/usuario/backup_docs</code> → Copia de forma recursiva la carpeta <code>Documentos</code> y todo su contenido (subdirectorios y archivos) desde <code>/home/usuario/</code> hacia <code>/media/usuario/backup_docs</code>.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8034-8a37-dc22b9d5fb95"/></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-80eb-8618-d340f5e1c5dd" class="">Permisos y usuarios</h4></div><div style="display:contents" dir="auto"><p id="36583986-e476-809e-8cd8-cb2107b40210" class=""><code>chmod</code> → cambia los<strong> permisos </strong>de acceso (lectura, escritura y ejecución) de archivos o carpetas.</p></div><div style="display:contents" dir="ltr"><table id="36583986-e476-8068-84f6-c29e5891a570" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36583986-e476-80c6-8160-d78bcb3f203b"><th id="hf[`" class="simple-table-header-color simple-table-header">Número</th><th id="camS" class="simple-table-header-color simple-table-header">Permiso</th><th id="m[vv" class="simple-table-header-color simple-table-header">Significado</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36583986-e476-80a8-8a91-eac4d6620547"><td id="hf[`" class="">0</td><td id="camS" class=""><code>---</code></td><td id="m[vv" class="">Sin permisos</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-807b-b971-dbbc0f053574"><td id="hf[`" class="">1</td><td id="camS" class=""><code>--x</code></td><td id="m[vv" class="">Ejecutar</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-806d-9268-ed80c0167504"><td id="hf[`" class="">2</td><td id="camS" class=""><code>-w-</code></td><td id="m[vv" class="">Escribir</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-80f3-a762-d24782faa800"><td id="hf[`" class="">3</td><td id="camS" class=""><code>-wx</code></td><td id="m[vv" class="">Escribir + ejecutar</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-80e6-b087-c8f9e4ec740e"><td id="hf[`" class="">4</td><td id="camS" class=""><code>r--</code></td><td id="m[vv" class="">Leer</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-802e-8c1a-cdfaa71f0797"><td id="hf[`" class="">5</td><td id="camS" class=""><code>r-x</code></td><td id="m[vv" class="">Leer + ejecutar</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-80ec-a73d-da99ce76e295"><td id="hf[`" class="">6</td><td id="camS" class=""><code>rw-</code></td><td id="m[vv" class="">Leer + escribir</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-808d-909d-ee3cc60fc65d"><td id="hf[`" class="">7</td><td id="camS" class=""><code>rwx</code></td><td id="m[vv" class="">Leer + escribir + ejecutar</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="36583986-e476-8095-8b7f-f1e70c41e774" class=""><code>chown</code> → cambia el <strong>propietario</strong> de un archivo o directorio.</p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80e5-b819-f8871e6520a5" class=""><code>chgrp</code> → cambia el <strong>grupo</strong> asociado a un archivo o directorio.</p></div><div style="display:contents" dir="ltr"><table id="36583986-e476-80e1-abff-e60ce57dffe8" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36583986-e476-8060-9341-f4915b8271e0"><th id="VkQR" class="simple-table-header-color simple-table-header">Letra</th><th id="C~[]" class="simple-table-header-color simple-table-header">Significado</th><th id="@KD\" class="simple-table-header-color simple-table-header">Valor</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36583986-e476-8061-a978-e11550f40853"><td id="VkQR" class=""><code>r</code></td><td id="C~[]" class="">Lectura (read)</td><td id="@KD\" class="">4</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-8021-99f8-caf073554c1a"><td id="VkQR" class=""><code>w</code></td><td id="C~[]" class="">Escritura (write)</td><td id="@KD\" class="">2</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-8064-b2a0-c57cc3ce2e91"><td id="VkQR" class=""><code>x</code></td><td id="C~[]" class="">Ejecución (execute)</td><td id="@KD\" class="">1</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-803d-bae0-f51c0f03201a"><td id="VkQR" class=""><code>-</code></td><td id="C~[]" class="">Sin permiso</td><td id="@KD\" class="">0</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80da-92ab-fa3e7bfb2f90" class="bulleted-list"><li style="list-style-type:disc"><code>rwx</code> → propietario</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80a6-ae4e-d60634d4ac8e" class="bulleted-list"><li style="list-style-type:disc"><code>r-x</code> → grupo</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-804d-b0a7-ff205d3af8fa" class="bulleted-list"><li style="list-style-type:disc"><code>r--</code> → otros</li></ul></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8097-acf2-ecbd795b6d36"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8067-a552-f8b3b0b469a9" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80d3-b0ed-c58a1e70e383"/></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80a9-835d-ecd39d4b3c5b"/></div><div style="display:contents" dir="auto"><h1 id="36583986-e476-8010-967c-cdf9dfabbd46" class="">WINDOWS</h1></div><div style="display:contents" dir="auto"><p id="36583986-e476-8075-a4a5-f8ddaf6d3e8f" class=""><code>ipconfig /all</code> → ver/configurar información completa sobre la red.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8071-b3cb-fc0bb986b579"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80e7-bce8-d62151f7b1a8" class=""><code>mbr2gpt</code> → Es una herramienta incluida en Windows 10/11 y Windows Server para convertir discos MBR (Master Boot Record) a GPT (GUID Partition Table). </p></div><div style="display:contents" dir="auto"><ul id="36583986-e476-806b-93a5-cf6d6c7e6bfb" class="bulleted-list"><li style="list-style-type:disc"> <code>/validate</code> → comprueba la compatibilidad, NO convierte el disco.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-809b-9022-e19e731ba4aa" class="bulleted-list"><li style="list-style-type:disc"><code>/convert</code> → lo convierte.</li></ul></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8060-8607-e8f84f9ce967"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8034-b314-c64178dc77dd" class=""><code>diskmgmt.msc</code> → Abre la herramienta de <strong>Administración de discos en Microsoft Windows</strong>.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80bc-901c-e68594c67ee5"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80ba-a6c2-e25b401ee348" class=""><code>Get-FileHash</code> → Es un comando de PowerShell usado para <strong>calcular el hash de un archivo.</strong></p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80fb-8aff-ee7841ee4b5b" class=""><strong>Algoritmos hash comunes:</strong></p></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8050-87b2-ee45e94baf71" class="bulleted-list"><li style="list-style-type:disc">MD5 (obsoleto, inseguro)</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80b6-96e4-e4b7cccef178" class="bulleted-list"><li style="list-style-type:disc">SHA-1 (obsoleto)</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80c5-8e7c-fcb03525505a" class="bulleted-list"><li style="list-style-type:disc">SHA-256 / SHA-512 (seguros y recomendados)</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-809b-a557-d5970a6a8bb9" class="bulleted-list"><li style="list-style-type:disc">bcrypt, scrypt, Argon2 (especiales para contraseñas)</li></ul></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80d4-8e42-d420d9797e28"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-801b-9ba8-e5e90d8b91c1" class=""><code>GetProcess</code>→ En PowerShell, permite ver los procesos en ejecución</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8011-8e0c-c4962643e677"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8056-a95d-ef9b2add393e" class=""><code>GetCounter -ListSet *</code> → En PowerShell, <code>GetCounter</code>sirve para consultar métricas de rendimiento del sistema. <code>-ListSet *</code> muestra <strong>todos los conjuntos de contadores de rendimiento </strong>disponibles en Microsoft Windows.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8031-abf5-d398aaead843"/></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-8054-b96c-de399deb580c" class="">Registro y análisis de sucesos</h4></div><div style="display:contents" dir="auto"><p id="36583986-e476-805c-b9ab-e87fd03a003c" class=""><code>Get-WinEvent</code> → es un comando de PowerShell usado para leer eventos y logs de Microsoft Windows.</p></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8082-8585-f38d4e01f4d7" class="bulleted-list"><li style="list-style-type:disc"><code>Get-WinEvent -LogName system</code> → Obtiene los eventos del registro <strong>Sistema</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-802d-a25c-f838ddd01d68" class="bulleted-list"><li style="list-style-type:disc"><code>|</code> → Pipe → Envía el resultado al siguiente comando.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-804c-8401-e75a2201541e" class="bulleted-list"><li style="list-style-type:disc"><code>where { }</code> → Filtra los eventos según una condición.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80e4-81be-ddd42fa96ec2" class="bulleted-list"><li style="list-style-type:disc"><code>$_</code> → Representa cada evento individual.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8047-8bac-d5a3349ec231" class="bulleted-list"><li style="list-style-type:disc"><code>eq &quot;Error&quot;</code> → Filtra eventos de nivel <strong>Error</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8082-ad32-c7e64d4eeb4a" class="bulleted-list"><li style="list-style-type:disc"><code>or</code> → Operador lógico <strong>O</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8073-a978-d81826ce9035" class="bulleted-list"><li style="list-style-type:disc"><code>eq &quot;Crítico&quot;</code> → Filtra eventos de nivel <strong>Crítico</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80ac-881e-dbdd67c181e4" class="bulleted-list"><li style="list-style-type:disc"><code>and</code> → Operador lógico <strong>Y</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80d4-87ee-ed004065405e" class="bulleted-list"><li style="list-style-type:disc"><code>ge (get-date).AddHours(-24)</code> → Muestra solo eventos de las <strong>últimas 24 horas</strong>.</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8072-bad0-eb616bc3abdc" class="bulleted-list"><li style="list-style-type:disc"><code>get-date</code> → Fecha actual</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-8008-a9e2-c80829da7e0f" class="bulleted-list"><li style="list-style-type:disc"><code>.AddHours(-24)</code> → Resta 24 horas</li></ul></div><div style="display:contents" dir="auto"><ul id="36583986-e476-80c3-b003-c131c9ff2d44" class="bulleted-list"><li style="list-style-type:disc"><code>ge</code> → Mayor o igual que</li></ul></div><div style="display:contents" dir="auto"><h4 id="36583986-e476-8032-9bc7-c7d50d5dd8c5" class="">Ejemplos de eventos importantes</h4></div><div style="display:contents" dir="ltr"><table id="36583986-e476-80e3-a3ab-f7772fdcbcb0" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36583986-e476-80a5-95bb-eaf38660d92e"><th id="{y&lt;t" class="simple-table-header-color simple-table-header">ID</th><th id="lBHn" class="simple-table-header-color simple-table-header">Significado</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36583986-e476-80cb-9b16-d0591bd4dbd1"><td id="{y&lt;t" class="">4624</td><td id="lBHn" class="">Inicio de sesión exitoso</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-80e2-94b7-cba21b0dd2bc"><td id="{y&lt;t" class="">4625</td><td id="lBHn" class="">Login fallido</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-80d8-929b-fbde3e0bbf8f"><td id="{y&lt;t" class="">6005</td><td id="lBHn" class="">Inicio del Event Log</td></tr></div><div style="display:contents" dir="ltr"><tr id="36583986-e476-8049-9d9c-ea45dc41ab79"><td id="{y&lt;t" class="">6006</td><td id="lBHn" class="">Apagado del sistema</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80d6-b09a-d3e307ca6379"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80fe-972f-c242c8300396" class=""><code>Copy-Item -Path &#x27;C:\Users\Usuario\Documentos&#x27; -Destination &#x27;D:\Backup\Documentos&#x27; -Recurse -Force</code> → (PowerShell) copia toda la carpeta <code>Documentos</code> y su contenido (incluyendo subcarpetas, archivos ocultos y de sistema) desde <code>C:\Users\Usuario\Documentos</code> hacia <code>D:\Backup\Documentos</code>, sobrescribiendo archivos existentes si es necesario gracias a <code>-Force</code>.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8081-9954-c8d4168d4ede"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80e0-807c-c2e337033e24" class=""><code>Compress-Archive</code> → Se utiliza para comprimir archivos y carpetas en un archivo <code>.zip</code> desde PowerShell.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80f5-a250-e743626008a8"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80c4-8d50-c6fb2c59c6c7" class=""><code>Select-Object</code> → Se utiliza para seleccionar propiedades específicas de objetos o limitar la cantidad de resultados mostrados en la salida de un comando.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8016-9bae-c9204049b406"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8074-9f14-d4dcb5dba1c7" class=""><code>Get-Service</code> → Muestra la lista de servicios del sistema Windows, incluyendo información como nombre, estado (Running/Stopped) y tipo de servicio.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8027-9a60-c706c5d8a62a"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80e1-8ddd-c3cf3ba16485" class=""><code>Sort-Object CPU -Descending</code> → Ordena objetos según el valor de la propiedad <code>CPU</code> de mayor a menor, normalmente para mostrar primero los procesos que más CPU consumen.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-80f8-bdbc-e7e353358651"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8083-9e5f-c7dc0fbb9184" class=""><code>Test-Connection</code> → Se utiliza para comprobar la conectividad de red hacia un equipo o dirección IP, funcionando de forma similar al comando <code>ping</code>.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-808b-871f-c5a6de751a08"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80b8-90e9-e3184278f044" class=""><code>Get-NetTCPConnection</code> → Muestra las conexiones TCP activas del sistema, incluyendo direcciones IP locales/remotas, puertos, estado de la conexión y proceso asociado.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-800c-a84e-e95170b35ae0"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-80dd-bd5a-c9b76cf250cb" class=""><code>Get-NetAdapter</code> → Muestra los adaptadores de red del sistema Windows, incluyendo nombre, estado, velocidad, dirección MAC y tipo de interfaz de red.</p></div><div style="display:contents" dir="auto"><hr id="36583986-e476-8050-bb1a-c5e12a8b1e14"/></div><div style="display:contents" dir="auto"><p id="36583986-e476-8093-b252-f0a8f71d228f" class=""><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p></div><div style="display:contents" dir="auto"><p id="36583986-e476-80b1-816b-d490da851e6d" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
