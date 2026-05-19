@@ -4,22 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unidad 7.1 - Contenido extra</title>
+<title>Unidad 7.1 · REPASO II</title>
 
 <style>
 
 :root{
-  --bg:#f5f5f7;
+  --bg:#f4f6f5;
   --card:#ffffff;
-  --primary:#243b53;
-  --secondary:#eef4fb;
-  --accent:#dce8f7;
+  --primary:#1f3b34;
+  --secondary:#6f857c;
+  --accent:#dce8e2;
   --text:#1d1d1f;
-  --muted:#6e6e73;
-  --success:#eefaf1;
-  --warning:#fff7e8;
-  --shadow:0 12px 30px rgba(0,0,0,0.06);
-  --radius:28px;
+  --muted:#6b7280;
+  --success:#edf8f1;
+  --warning:#fff4e5;
+  --info:#eef6ff;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --radius:24px;
 }
 
 *{
@@ -44,20 +45,18 @@ body{
   height:100vh;
   overflow-y:auto;
   background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(18px);
+  backdrop-filter:blur(12px);
   border-right:1px solid #e5e7eb;
-  padding:32px 22px;
+  padding:30px 22px;
 }
 
 .sidebar h1{
-  font-size:1.8rem;
   color:var(--primary);
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .sidebar p{
   color:var(--muted);
-  line-height:1.7;
   margin-bottom:24px;
 }
 
@@ -65,15 +64,15 @@ body{
   display:block;
   text-decoration:none;
   color:var(--text);
-  padding:14px;
-  border-radius:16px;
-  margin-bottom:10px;
+  padding:12px 16px;
+  border-radius:14px;
+  margin-bottom:8px;
   transition:0.25s;
 }
 
 .nav-link:hover{
   background:var(--accent);
-  transform:translateX(4px);
+  transform:translateX(5px);
 }
 
 /* MAIN */
@@ -81,21 +80,21 @@ body{
 .main{
   margin-left:320px;
   width:calc(100% - 320px);
-  padding:42px;
+  padding:40px;
 }
 
 .hero{
-  background:linear-gradient(135deg,#243b53,#486581);
+  background:linear-gradient(135deg,#1f3b34,#35544b);
   color:white;
-  border-radius:36px;
   padding:60px;
+  border-radius:34px;
   margin-bottom:40px;
   box-shadow:var(--shadow);
 }
 
 .hero h2{
   font-size:3rem;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
 
 .hero p{
@@ -103,46 +102,43 @@ body{
   max-width:1000px;
 }
 
-/* BLOCKS */
-
-.study-block{
-  background:var(--card);
-  border-radius:var(--radius);
+.block{
+  background:white;
+  border-radius:24px;
   padding:42px;
   margin-bottom:36px;
   box-shadow:var(--shadow);
 }
 
-.study-block h2{
+.block h2{
   color:var(--primary);
   margin-bottom:18px;
-  font-size:2rem;
 }
 
-.study-block h3{
-  margin-top:28px;
-  margin-bottom:12px;
+.block h3{
   color:var(--primary);
+  margin-top:28px;
+  margin-bottom:14px;
+}
+
+.block p{
+  line-height:1.9;
+  margin-bottom:18px;
 }
 
 .study-time{
   display:inline-block;
   background:var(--accent);
   color:var(--primary);
-  padding:8px 18px;
+  padding:8px 16px;
   border-radius:999px;
-  font-weight:700;
   font-size:0.85rem;
-  margin-bottom:20px;
-}
-
-.study-block p{
-  line-height:1.9;
-  margin-bottom:16px;
+  font-weight:600;
+  margin-bottom:22px;
 }
 
 ul{
-  padding-left:24px;
+  padding-left:22px;
   margin-bottom:20px;
 }
 
@@ -151,90 +147,64 @@ li{
   line-height:1.8;
 }
 
-/* TABLE */
-
 table{
   width:100%;
   border-collapse:collapse;
-  margin:24px 0;
-  overflow:hidden;
-  border-radius:18px;
+  margin-top:18px;
+}
+
+th,td{
+  border:1px solid #e5e7eb;
+  padding:14px;
+  text-align:left;
 }
 
 th{
   background:var(--primary);
   color:white;
-  padding:16px;
-  text-align:left;
 }
 
-td{
-  background:#fafafa;
-  padding:16px;
-  border-bottom:1px solid #ececec;
-  line-height:1.7;
-}
-
-/* BOXES */
-
-.tip-box,
-.example-box,
-.trap-box{
-  padding:20px;
-  border-radius:18px;
-  margin:24px 0;
-  line-height:1.8;
-}
-
-.tip-box{
+.tip{
   background:var(--success);
-  border-left:5px solid #2f855a;
+  border-left:5px solid #16a34a;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
 }
 
-.example-box{
-  background:#eef5ff;
-  border-left:5px solid #3b82f6;
-}
-
-.trap-box{
+.trap{
   background:var(--warning);
   border-left:5px solid #f59e0b;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
+}
+
+.example{
+  background:var(--info);
+  border-left:5px solid #2563eb;
+  padding:18px;
+  border-radius:14px;
+  margin:22px 0;
 }
 
 /* QUIZ */
 
 .quiz{
-  margin-top:30px;
-  border-radius:24px;
-  background:#fafafa;
+  margin-top:34px;
+  background:#f8fafc;
   border:1px solid #e5e7eb;
+  border-radius:22px;
   padding:24px;
-}
-
-.quiz h4{
-  margin-bottom:18px;
-  color:var(--primary);
-}
-
-.question{
-  background:white;
-  border-radius:18px;
-  padding:24px;
-}
-
-.question p{
-  font-weight:700;
-  margin-bottom:18px;
 }
 
 .option{
   display:block;
+  padding:12px;
   background:#f3f4f6;
-  padding:14px;
-  border-radius:14px;
-  margin-bottom:12px;
+  border-radius:12px;
+  margin-bottom:10px;
   cursor:pointer;
-  transition:0.2s;
 }
 
 .option:hover{
@@ -242,22 +212,20 @@ td{
 }
 
 button{
+  border:none;
   background:var(--primary);
   color:white;
-  border:none;
   padding:12px 22px;
   border-radius:14px;
   cursor:pointer;
-  font-weight:700;
   margin-top:10px;
+  font-weight:600;
 }
 
 .result{
-  margin-top:14px;
+  margin-top:12px;
   font-weight:700;
 }
-
-/* FOOTER */
 
 .footer{
   text-align:center;
@@ -265,33 +233,32 @@ button{
   padding:40px;
 }
 
-/* RESPONSIVE */
-
 @media(max-width:1000px){
 
-  body{
-    flex-direction:column;
-  }
+body{
+  flex-direction:column;
+}
 
-  .sidebar{
-    width:100%;
-    position:relative;
-    height:auto;
-  }
+.sidebar{
+  width:100%;
+  height:auto;
+  position:relative;
+}
 
-  .main{
-    margin-left:0;
-    width:100%;
-    padding:20px;
-  }
+.main{
+  margin-left:0;
+  width:100%;
+  padding:20px;
+}
 
-  .hero{
-    padding:36px;
-  }
+.hero{
+  padding:36px;
+}
 
-  .hero h2{
-    font-size:2rem;
-  }
+.hero h2{
+  font-size:2rem;
+}
+
 }
 
 </style>
@@ -299,138 +266,127 @@ button{
 
 <body>
 
-<!-- SIDEBAR -->
-
 <aside class="sidebar">
 
 <h1>Unidad 7.1</h1>
+<p>REPASO II · Despidos y conflictos laborales</p>
 
-<p>Inspección de trabajo y representación de los trabajadores</p>
-
-<a class="nav-link" href="#b1">7.1 Inspección de Trabajo</a>
-<a class="nav-link" href="#b2">7.2 Delegados y comité</a>
-<a class="nav-link" href="#b3">7.3 Elecciones y garantías</a>
-<a class="nav-link" href="#b4">7.4 Sindicatos</a>
-<a class="nav-link" href="#b5">7.5 Libertad sindical</a>
-<a class="nav-link" href="#b6">7.6 Conflicto laboral</a>
-<a class="nav-link" href="#b7">7.7 Huelga</a>
-<a class="nav-link" href="#b8">7.8 Cierre patronal</a>
+<a class="nav-link" href="#b1">7.14 Reclamación judicial</a>
+<a class="nav-link" href="#b2">7.15 Despido disciplinario</a>
+<a class="nav-link" href="#b3">7.16 Causas objetivas</a>
+<a class="nav-link" href="#b4">7.17 Despido colectivo</a>
+<a class="nav-link" href="#b5">7.18 Procedimiento colectivo</a>
+<a class="nav-link" href="#b6">7.19 Actuaciones ante despido</a>
+<a class="nav-link" href="#b7">7.20 Caso práctico</a>
+<a class="nav-link" href="#b8">7.21 Finiquito</a>
+<a class="nav-link" href="#b9">7.22 Resoluciones extrajudiciales</a>
 
 </aside>
-
-<!-- MAIN -->
 
 <main class="main">
 
 <section class="hero">
 
-<h2>Unidad 7.1 · Contenido extra</h2>
+<h2>Unidad 7.1 · REPASO II</h2>
 
 <p>
-Aprende cómo funcionan la Inspección de Trabajo,
-la representación de los trabajadores,
-los sindicatos y los conflictos laborales.
-Esta unidad incluye explicaciones detalladas,
-tablas comparativas, ejemplos reales,
-preguntas trampa y mini-test al final de cada bloque.
+Repaso completo y ampliado sobre despidos,
+extinción contractual, reclamaciones judiciales,
+finiquito y resolución de conflictos laborales.
+Incluye ejemplos reales, procedimientos paso a paso,
+tablas comparativas, preguntas trampa frecuentes
+y mini-tests interactivos en todos los bloques.
 </p>
 
 </section>
 
-<!-- BLOQUE 1 -->
+<section class="block" id="b1">
 
-<section class="study-block" id="b1">
+<span class="study-time">⏱️ 40 min</span>
 
-<span class="study-time">⏱️ 25 min</span>
-
-<h2>7.1 Inspección de Trabajo</h2>
+<h2>7.14 Resultado de una reclamación judicial</h2>
 
 <p>
-La Inspección de Trabajo y Seguridad Social es el organismo encargado de vigilar
-que empresas y trabajadores cumplan la normativa laboral.
-</p>
-
-<h3>Funciones principales</h3>
-
-<ul>
-<li>Controlar el cumplimiento de la legislación laboral.</li>
-<li>Supervisar prevención de riesgos laborales.</li>
-<li>Controlar cotizaciones y Seguridad Social.</li>
-<li>Detectar fraude laboral.</li>
-<li>Imponer sanciones.</li>
-<li>Asesorar a empresas y trabajadores.</li>
-</ul>
-
-<h3>Capacidad inspectora</h3>
-
-<p>
-Los inspectores pueden acceder libremente a centros de trabajo,
-revisar documentación y entrevistar trabajadores.
+Cuando un trabajador impugna un despido,
+el juez puede calificarlo de tres maneras:
+procedente, improcedente o nulo.
 </p>
 
 <table>
 
 <tr>
-<th>Función</th>
-<th>Objetivo</th>
+<th>Resultado</th>
+<th>Consecuencia</th>
 </tr>
 
 <tr>
-<td>Vigilancia y control</td>
-<td>Comprobar cumplimiento legal</td>
+<td>Procedente</td>
+<td>El despido es válido</td>
 </tr>
 
 <tr>
-<td>Asesoramiento</td>
-<td>Informar sobre derechos y obligaciones</td>
+<td>Improcedente</td>
+<td>Readmisión o indemnización</td>
 </tr>
 
 <tr>
-<td>Sanción</td>
-<td>Corregir irregularidades</td>
-</tr>
-
-<tr>
-<td>Mediación</td>
-<td>Intervenir en conflictos laborales</td>
+<td>Nulo</td>
+<td>Readmisión obligatoria</td>
 </tr>
 
 </table>
 
-<div class="example-box">
-<strong>Ejemplo:</strong>
-La Inspección puede sancionar a una empresa por tener trabajadores sin contrato.
-</div>
+<h3>Despido procedente</h3>
 
-<div class="tip-box">
-Las denuncias ante Inspección pueden realizarse por trabajadores o sindicatos.
-</div>
+<p>
+Significa que el empresario ha demostrado
+las causas del despido y ha seguido el procedimiento legal.
+</p>
 
-<div class="trap-box">
-La Inspección NO necesita avisar previamente para realizar visitas.
+<h3>Despido improcedente</h3>
+
+<p>
+Se produce cuando las causas no quedan demostradas
+o existen errores formales.
+La empresa puede:
+</p>
+
+<ul>
+<li>Readmitir al trabajador.</li>
+<li>Indemnizarle.</li>
+</ul>
+
+<h3>Despido nulo</h3>
+
+<p>
+Ocurre cuando existe discriminación,
+vulneración de derechos fundamentales,
+embarazo o maternidad protegida.
+</p>
+
+<div class="trap">
+⚠️ Improcedente NO significa automáticamente nulo.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Cuál es una función de la Inspección de Trabajo?</p>
+<p>¿Qué ocurre en un despido nulo?</p>
 
 <label class="option">
 <input type="radio" name="q1">
-Negociar convenios colectivos
+Solo indemnización
 </label>
 
 <label class="option">
 <input type="radio" name="q1" data-correct="true">
-Vigilar el cumplimiento de la normativa laboral
+Readmisión obligatoria
 </label>
 
 <label class="option">
 <input type="radio" name="q1">
-Elegir delegados sindicales
+Pérdida definitiva del empleo
 </label>
 
 <button onclick="checkQuiz('q1', this)">Corregir</button>
@@ -439,110 +395,81 @@ Elegir delegados sindicales
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 2 -->
+<section class="block" id="b2">
 
-<section class="study-block" id="b2">
+<span class="study-time">⏱️ 55 min</span>
 
-<span class="study-time">⏱️ 30 min</span>
-
-<h2>7.2 Delegados de personal y comité de empresa</h2>
+<h2>7.15 El despido disciplinario</h2>
 
 <p>
-Los trabajadores tienen derecho a estar representados dentro de la empresa.
+Es la extinción del contrato
+por incumplimientos graves y culpables del trabajador.
 </p>
 
-<h3>Delegados de personal</h3>
+<h3>Causas principales</h3>
 
 <ul>
-<li>Empresas entre 6 y 49 trabajadores.</li>
-<li>Hasta 30 trabajadores → 1 delegado.</li>
-<li>De 31 a 49 trabajadores → 3 delegados.</li>
+<li>Faltas repetidas de asistencia.</li>
+<li>Impuntualidad reiterada.</li>
+<li>Desobediencia.</li>
+<li>Ofensas verbales o físicas.</li>
+<li>Abuso de confianza.</li>
+<li>Baja voluntaria del rendimiento.</li>
+<li>Embriaguez habitual.</li>
+<li>Acoso laboral o sexual.</li>
 </ul>
 
-<h3>Comité de empresa</h3>
-
-<p>
-Existe en empresas o centros con 50 o más trabajadores.
-</p>
+<h3>Requisitos formales</h3>
 
 <table>
 
 <tr>
-<th>Nº trabajadores</th>
-<th>Representantes</th>
+<th>Documento</th>
+<th>Contenido</th>
 </tr>
 
 <tr>
-<td>50 a 100</td>
-<td>5</td>
+<td>Carta despido</td>
+<td>Hechos y fecha efectos</td>
 </tr>
 
 <tr>
-<td>101 a 250</td>
-<td>9</td>
-</tr>
-
-<tr>
-<td>251 a 500</td>
-<td>13</td>
-</tr>
-
-<tr>
-<td>501 a 750</td>
-<td>17</td>
+<td>Convenio</td>
+<td>Puede añadir requisitos</td>
 </tr>
 
 </table>
 
-<h3>Funciones</h3>
-
-<ul>
-<li>Recibir información económica.</li>
-<li>Controlar condiciones laborales.</li>
-<li>Participar en decisiones.</li>
-<li>Mediar en conflictos.</li>
-<li>Negociar con la empresa.</li>
-</ul>
-
-<div class="example-box">
-Un comité puede emitir informes cuando la empresa pretende despedir trabajadores.
+<div class="example">
+📌 Llegar tarde ocasionalmente
+no suele justificar despido disciplinario.
 </div>
 
-<div class="tip-box">
-Delegados y comité tienen funciones similares,
-pero cambia el tamaño de empresa donde actúan.
-</div>
-
-<div class="trap-box">
-Los representantes NO dirigen la empresa;
-participan y defienden intereses laborales.
+<div class="trap">
+⚠️ El empresario debe probar las faltas.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿En qué empresas existe comité de empresa?</p>
+<p>¿Qué documento es obligatorio?</p>
 
 <label class="option">
 <input type="radio" name="q2">
-Menos de 10 trabajadores
+Nómina
 </label>
 
 <label class="option">
 <input type="radio" name="q2" data-correct="true">
-50 o más trabajadores
+Carta de despido
 </label>
 
 <label class="option">
 <input type="radio" name="q2">
-Solo empresas públicas
+Contrato nuevo
 </label>
 
 <button onclick="checkQuiz('q2', this)">Corregir</button>
@@ -551,95 +478,90 @@ Solo empresas públicas
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 3 -->
+<section class="block" id="b3">
 
-<section class="study-block" id="b3">
+<span class="study-time">⏱️ 50 min</span>
 
-<span class="study-time">⏱️ 28 min</span>
+<h2>7.16 Extinción por causas objetivas</h2>
 
-<h2>7.3 Elecciones y garantías de los representantes</h2>
+<p>
+El despido objetivo se basa
+en circunstancias relacionadas
+con la empresa o el trabajador.
+</p>
 
-<h3>Procedimiento electoral</h3>
+<h3>Causas relacionadas con trabajador</h3>
 
 <ul>
-<li>Promueven elecciones sindicatos o trabajadores.</li>
-<li>Debe comunicarse a la autoridad laboral.</li>
-<li>Se constituye una mesa electoral.</li>
-<li>La votación es libre y secreta.</li>
+<li>Ineptitud sobrevenida.</li>
+<li>Falta de adaptación técnica.</li>
 </ul>
 
-<h3>Requisitos</h3>
+<h3>Causas empresariales</h3>
+
+<ul>
+<li>Económicas.</li>
+<li>Técnicas.</li>
+<li>Organizativas.</li>
+<li>Productivas.</li>
+</ul>
 
 <table>
 
 <tr>
-<th>Condición</th>
-<th>Electores</th>
-<th>Elegibles</th>
+<th>Requisito</th>
+<th>Obligación</th>
 </tr>
 
 <tr>
-<td>Edad</td>
-<td>16 años</td>
-<td>18 años</td>
+<td>Preaviso</td>
+<td>15 días</td>
 </tr>
 
 <tr>
-<td>Antigüedad</td>
-<td>1 mes</td>
-<td>6 meses</td>
+<td>Indemnización</td>
+<td>20 días/año</td>
+</tr>
+
+<tr>
+<td>Carta</td>
+<td>Obligatoria</td>
 </tr>
 
 </table>
 
-<h3>Garantías</h3>
-
-<ul>
-<li>No ser discriminados.</li>
-<li>Protección frente a despidos.</li>
-<li>Crédito horario sindical.</li>
-<li>Libre expresión de opiniones.</li>
-<li>Prioridad de permanencia en despidos colectivos.</li>
-</ul>
-
-<div class="example-box">
-Un representante despedido improcedentemente puede elegir entre readmisión o indemnización.
+<div class="tip">
+💡 El trabajador tiene derecho
+a 6 horas semanales
+para buscar empleo.
 </div>
 
-<div class="tip-box">
-El crédito horario permite dedicar tiempo laboral a funciones representativas.
-</div>
-
-<div class="trap-box">
-No cualquier trabajador puede presentarse:
-hay requisitos mínimos de edad y antigüedad.
+<div class="trap">
+⚠️ No respetar formalidades
+puede provocar improcedencia.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Cómo debe ser la votación de representantes?</p>
+<p>¿Qué indemnización corresponde?</p>
 
 <label class="option">
 <input type="radio" name="q3">
-Pública
-</label>
-
-<label class="option">
-<input type="radio" name="q3">
-Solo online
+33 días/año
 </label>
 
 <label class="option">
 <input type="radio" name="q3" data-correct="true">
-Libre, directa y secreta
+20 días/año
+</label>
+
+<label class="option">
+<input type="radio" name="q3">
+45 días/año
 </label>
 
 <button onclick="checkQuiz('q3', this)">Corregir</button>
@@ -648,94 +570,77 @@ Libre, directa y secreta
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 4 -->
+<section class="block" id="b4">
 
-<section class="study-block" id="b4">
+<span class="study-time">⏱️ 45 min</span>
 
-<span class="study-time">⏱️ 28 min</span>
-
-<h2>7.4 Sindicatos</h2>
+<h2>7.17 El despido colectivo</h2>
 
 <p>
-Los sindicatos son organizaciones que defienden los intereses laborales,
-económicos y sociales de los trabajadores.
+El despido colectivo afecta
+a un número importante de trabajadores.
 </p>
 
-<h3>Funciones</h3>
+<h3>Causas</h3>
 
 <ul>
-<li>Negociar convenios colectivos.</li>
-<li>Representar trabajadores.</li>
-<li>Defender derechos laborales.</li>
-<li>Participar en conflictos colectivos.</li>
-<li>Promover elecciones sindicales.</li>
+<li>Económicas.</li>
+<li>Técnicas.</li>
+<li>Organizativas.</li>
+<li>Producción.</li>
 </ul>
 
-<h3>Financiación</h3>
-
-<ul>
-<li>Cuotas de afiliados.</li>
-<li>Subvenciones públicas.</li>
-</ul>
-
-<h3>Sindicatos más representativos</h3>
+<h3>Cuándo existe despido colectivo</h3>
 
 <table>
 
 <tr>
-<th>Ámbito</th>
-<th>Representatividad</th>
+<th>Plantilla</th>
+<th>Afectación</th>
 </tr>
 
 <tr>
-<td>Estatal</td>
+<td>Menos de 100</td>
+<td>10 trabajadores</td>
+</tr>
+
+<tr>
+<td>100-300</td>
 <td>10%</td>
 </tr>
 
 <tr>
-<td>Autonómico</td>
-<td>15% y 1.500 representantes</td>
+<td>Más de 300</td>
+<td>30 trabajadores</td>
 </tr>
 
 </table>
 
-<div class="example-box">
-CCOO y UGT son sindicatos de ámbito estatal.
-</div>
-
-<div class="tip-box">
-Los sindicatos pueden intervenir en negociaciones colectivas.
-</div>
-
-<div class="trap-box">
-Afiliarse a un sindicato es voluntario.
+<div class="trap">
+⚠️ Debe analizarse periodo de 90 días.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Cuál es una función de los sindicatos?</p>
+<p>¿Qué causa puede justificar despido colectivo?</p>
 
 <label class="option">
 <input type="radio" name="q4">
-Imponer sanciones administrativas
+Vacaciones
 </label>
 
 <label class="option">
 <input type="radio" name="q4" data-correct="true">
-Defender intereses de los trabajadores
+Causas económicas
 </label>
 
 <label class="option">
 <input type="radio" name="q4">
-Aprobar leyes laborales
+Baja médica aislada
 </label>
 
 <button onclick="checkQuiz('q4', this)">Corregir</button>
@@ -744,74 +649,65 @@ Aprobar leyes laborales
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 5 -->
+<section class="block" id="b5">
 
-<section class="study-block" id="b5">
+<span class="study-time">⏱️ 45 min</span>
 
-<span class="study-time">⏱️ 24 min</span>
-
-<h2>7.5 Libertad sindical</h2>
+<h2>7.18 El procedimiento colectivo</h2>
 
 <p>
-La libertad sindical es un derecho fundamental reconocido en el artículo 28.1 de la Constitución Española.
+El despido colectivo requiere
+un procedimiento específico.
 </p>
 
-<h3>Incluye:</h3>
+<h3>Fases</h3>
+
+<ol>
+<li>Comunicación autoridad laboral.</li>
+<li>Periodo consultas.</li>
+<li>Negociación representantes.</li>
+<li>Resolución final.</li>
+</ol>
+
+<h3>Periodo de consultas</h3>
 
 <ul>
-<li>Crear sindicatos.</li>
-<li>Afiliarse libremente.</li>
-<li>No afiliarse.</li>
-<li>Crear confederaciones sindicales.</li>
+<li>Duración máxima 30 días.</li>
+<li>Busca acuerdo.</li>
+<li>Participan representantes.</li>
 </ul>
 
-<h3>¿Quién puede ejercerla?</h3>
-
-<ul>
-<li>Trabajadores asalariados.</li>
-<li>Funcionarios públicos.</li>
-</ul>
-
-<h3>Limitaciones</h3>
-
-<ul>
-<li>Jueces y fiscales no pueden sindicarse.</li>
-<li>Fuerzas armadas tienen restricciones.</li>
-</ul>
-
-<div class="example-box">
-Nadie puede ser obligado a afiliarse a un sindicato.
+<div class="example">
+📌 Puede pactarse recolocación
+o reducción de despidos.
 </div>
 
-<div class="trap-box">
-Libertad sindical también significa derecho a NO sindicarse.
+<div class="trap">
+⚠️ No negociar correctamente
+puede invalidar el procedimiento.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Qué implica la libertad sindical?</p>
+<p>¿Cuál es la finalidad del periodo de consultas?</p>
 
 <label class="option">
 <input type="radio" name="q5">
-Obligación de afiliarse
+Despedir automáticamente
 </label>
 
 <label class="option">
 <input type="radio" name="q5" data-correct="true">
-Derecho a afiliarse libremente
+Intentar alcanzar acuerdo
 </label>
 
 <label class="option">
 <input type="radio" name="q5">
-Prohibición de sindicatos
+Evitar cartas de despido
 </label>
 
 <button onclick="checkQuiz('q5', this)">Corregir</button>
@@ -820,89 +716,79 @@ Prohibición de sindicatos
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 6 -->
+<section class="block" id="b6">
 
-<section class="study-block" id="b6">
+<span class="study-time">⏱️ 40 min</span>
 
-<span class="study-time">⏱️ 24 min</span>
-
-<h2>7.6 Conflicto laboral</h2>
+<h2>7.19 Actuaciones ante un despido</h2>
 
 <p>
-Un conflicto laboral es una discrepancia entre trabajadores y empresarios.
+El trabajador puede reclamar judicialmente
+si considera injusto el despido.
 </p>
 
-<h3>Tipos</h3>
+<h3>Pasos</h3>
 
 <table>
 
 <tr>
-<th>Tipo</th>
-<th>Características</th>
+<th>Fase</th>
+<th>Acción</th>
 </tr>
 
 <tr>
-<td>Individual</td>
-<td>Afecta a un trabajador concreto</td>
+<td>1</td>
+<td>Papeleta SMAC</td>
 </tr>
 
 <tr>
-<td>Colectivo</td>
-<td>Afecta a un grupo de trabajadores</td>
+<td>2</td>
+<td>Conciliación</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Demanda judicial</td>
 </tr>
 
 </table>
 
-<h3>Conflicto colectivo</h3>
+<h3>Plazo</h3>
 
-<ul>
-<li>Interpretación de normas.</li>
-<li>Aplicación de convenios.</li>
-<li>Modificación de condiciones laborales.</li>
-</ul>
+<p>
+El trabajador dispone de 20 días hábiles.
+</p>
 
-<h3>Formas de resolución</h3>
-
-<ul>
-<li>Negociación.</li>
-<li>Mediación.</li>
-<li>Arbitraje.</li>
-<li>Conciliación.</li>
-</ul>
-
-<div class="tip-box">
-La mediación busca acuerdo con ayuda de una tercera persona neutral.
+<div class="tip">
+💡 El SMAC intenta evitar juicio.
 </div>
 
-<div class="trap-box">
-No todos los conflictos terminan en huelga.
+<div class="trap">
+⚠️ Superar el plazo
+puede impedir reclamar.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Qué caracteriza un conflicto colectivo?</p>
+<p>¿Cuántos días existen para reclamar?</p>
 
 <label class="option">
 <input type="radio" name="q6">
-Afecta solo a un trabajador
+10 días
 </label>
 
 <label class="option">
 <input type="radio" name="q6" data-correct="true">
-Afecta a un grupo de trabajadores
+20 días
 </label>
 
 <label class="option">
 <input type="radio" name="q6">
-Es siempre ilegal
+60 días
 </label>
 
 <button onclick="checkQuiz('q6', this)">Corregir</button>
@@ -911,91 +797,64 @@ Es siempre ilegal
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 7 -->
+<section class="block" id="b7">
 
-<section class="study-block" id="b7">
+<span class="study-time">⏱️ 35 min</span>
 
-<span class="study-time">⏱️ 30 min</span>
-
-<h2>7.7 La huelga</h2>
+<h2>7.20 Caso práctico</h2>
 
 <p>
-La huelga es un derecho fundamental de los trabajadores.
-Consiste en la suspensión colectiva del trabajo como medida de presión.
+El caso práctico del documento
+explica un abandono del puesto
+tras impagos salariales.
 </p>
 
-<h3>Requisitos de huelga legal</h3>
+<h3>¿Qué ocurrió?</h3>
 
 <ul>
-<li>Acuerdo expreso.</li>
-<li>Comunicación al empresario y autoridad laboral.</li>
-<li>Comité de huelga.</li>
-<li>Respeto a servicios mínimos.</li>
+<li>Trabajador deja de acudir.</li>
+<li>No preavisa.</li>
+<li>Empresa despide por faltas asistencia.</li>
 </ul>
 
-<h3>¿Quién puede convocarla?</h3>
-
-<ul>
-<li>Representantes de los trabajadores.</li>
-<li>Trabajadores mediante acuerdo.</li>
-</ul>
-
-<h3>Plazo de comunicación</h3>
+<h3>Conclusión jurídica</h3>
 
 <p>
-Debe avisarse con al menos 5 días de antelación.
+No fue dimisión correcta,
+sino abandono del puesto.
 </p>
 
-<h3>Contenido obligatorio</h3>
-
-<ul>
-<li>Objetivos de la huelga.</li>
-<li>Fecha de inicio.</li>
-<li>Gestiones previas.</li>
-<li>Composición del comité de huelga.</li>
-</ul>
-
-<h3>Aspectos importantes</h3>
-
-<ul>
-<li>El empresario NO puede sustituir huelguistas.</li>
-<li>Los trabajadores pueden informar y recaudar fondos.</li>
-<li>El contrato queda suspendido temporalmente.</li>
-</ul>
-
-<div class="example-box">
-En servicios esenciales pueden imponerse servicios mínimos.
+<div class="example">
+📌 El trabajador debería haber demandado
+por impagos reiterados.
 </div>
 
-<div class="trap-box">
-Durante la huelga no se cobra salario.
+<div class="trap">
+⚠️ Dejar de ir al trabajo sin avisar
+puede perjudicar gravemente.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Puede la empresa sustituir trabajadores en huelga?</p>
+<p>¿Qué hizo incorrectamente el trabajador?</p>
 
 <label class="option">
 <input type="radio" name="q7">
-Sí, libremente
+Cobrar salario
 </label>
 
 <label class="option">
 <input type="radio" name="q7" data-correct="true">
-No, salvo excepciones legales
+Abandonar sin preaviso
 </label>
 
 <label class="option">
 <input type="radio" name="q7">
-Solo en empresas privadas
+Demandar judicialmente
 </label>
 
 <button onclick="checkQuiz('q7', this)">Corregir</button>
@@ -1004,74 +863,83 @@ Solo en empresas privadas
 
 </div>
 
-</div>
-
 </section>
 
-<!-- BLOQUE 8 -->
+<section class="block" id="b8">
 
-<section class="study-block" id="b8">
+<span class="study-time">⏱️ 45 min</span>
 
-<span class="study-time">⏱️ 22 min</span>
-
-<h2>7.8 El cierre patronal</h2>
+<h2>7.21 Finiquito</h2>
 
 <p>
-El cierre patronal es una medida de presión utilizada por empresarios.
-Consiste en cerrar temporalmente el centro de trabajo.
+El finiquito liquida cantidades pendientes
+cuando termina la relación laboral.
 </p>
 
-<h3>Cuándo puede producirse</h3>
+<h3>Incluye</h3>
 
-<ul>
-<li>Peligro para personas o bienes.</li>
-<li>Ocupación ilegal del centro.</li>
-<li>Imposibilidad grave de producción.</li>
-</ul>
+<table>
 
-<h3>Consecuencias</h3>
+<tr>
+<th>Concepto</th>
+<th>Contenido</th>
+</tr>
 
-<ul>
-<li>Suspensión de actividad.</li>
-<li>No se pagan salarios.</li>
-<li>Debe comunicarse a la autoridad laboral.</li>
-</ul>
+<tr>
+<td>Salario pendiente</td>
+<td>Días trabajados</td>
+</tr>
 
-<h3>Plazo de comunicación</h3>
+<tr>
+<td>Pagas extra</td>
+<td>Parte proporcional</td>
+</tr>
 
-<p>
-La empresa debe avisar en 12 horas.
-</p>
+<tr>
+<td>Vacaciones</td>
+<td>No disfrutadas</td>
+</tr>
 
-<div class="tip-box">
-El cierre patronal tiene regulación legal estricta.
+<tr>
+<td>Horas extra</td>
+<td>No cobradas</td>
+</tr>
+
+<tr>
+<td>Indemnización</td>
+<td>Si corresponde</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Finiquito e indemnización NO son lo mismo.
 </div>
 
-<div class="trap-box">
-El cierre patronal NO puede utilizarse arbitrariamente.
+<div class="trap">
+⚠️ Firmar “no conforme”
+puede ser recomendable si hay dudas.
 </div>
 
 <div class="quiz">
 
-<h4>Mini-test final</h4>
+<h3>Mini-test</h3>
 
-<div class="question">
-
-<p>¿Qué ocurre con el salario durante el cierre patronal?</p>
+<p>¿Qué suele incluir el finiquito?</p>
 
 <label class="option">
 <input type="radio" name="q8">
-Se paga normalmente
+Solo salario base
 </label>
 
 <label class="option">
 <input type="radio" name="q8" data-correct="true">
-Se suspende el pago salarial
+Vacaciones y pagas pendientes
 </label>
 
 <label class="option">
 <input type="radio" name="q8">
-Lo paga el sindicato
+Nuevas vacaciones
 </label>
 
 <button onclick="checkQuiz('q8', this)">Corregir</button>
@@ -1080,13 +948,103 @@ Lo paga el sindicato
 
 </div>
 
+</section>
+
+<section class="block" id="b9">
+
+<span class="study-time">⏱️ 45 min</span>
+
+<h2>7.22 Resoluciones extrajudiciales de conflictos</h2>
+
+<p>
+Existen mecanismos alternativos
+para resolver conflictos laborales
+sin llegar a juicio.
+</p>
+
+<h3>Conciliación</h3>
+
+<p>
+Un conciliador ayuda a alcanzar acuerdo.
+</p>
+
+<h3>Mediación</h3>
+
+<p>
+El mediador facilita diálogo,
+pero no impone decisión.
+</p>
+
+<h3>Arbitraje</h3>
+
+<p>
+El árbitro sí toma decisión vinculante.
+</p>
+
+<table>
+
+<tr>
+<th>Mecanismo</th>
+<th>Decisión vinculante</th>
+</tr>
+
+<tr>
+<td>Conciliación</td>
+<td>No</td>
+</tr>
+
+<tr>
+<td>Mediación</td>
+<td>No</td>
+</tr>
+
+<tr>
+<td>Arbitraje</td>
+<td>Sí</td>
+</tr>
+
+</table>
+
+<div class="tip">
+💡 Estos mecanismos suelen ser más rápidos.
+</div>
+
+<div class="trap">
+⚠️ Mediación y arbitraje NO son iguales.
+</div>
+
+<div class="quiz">
+
+<h3>Mini-test final</h3>
+
+<p>¿Qué mecanismo tiene decisión obligatoria?</p>
+
+<label class="option">
+<input type="radio" name="q9">
+Mediación
+</label>
+
+<label class="option">
+<input type="radio" name="q9">
+Conciliación
+</label>
+
+<label class="option">
+<input type="radio" name="q9" data-correct="true">
+Arbitraje
+</label>
+
+<button onclick="checkQuiz('q9', this)">Corregir</button>
+
+<div class="result"></div>
+
 </div>
 
 </section>
 
 <div class="footer">
 
-Basado en documentos y resúmenes personales. A darle caña.
+Unidad 7.1 · REPASO II · Despidos y conflictos laborales
 
 </div>
 
@@ -1096,41 +1054,41 @@ Basado en documentos y resúmenes personales. A darle caña.
 
 function checkQuiz(questionName, button){
 
-  const options = document.getElementsByName(questionName);
-  const result = button.nextElementSibling;
+const options = document.getElementsByName(questionName);
+const result = button.nextElementSibling;
 
-  let correct = false;
-  let selected = false;
+let correct = false;
+let selected = false;
 
-  options.forEach(option => {
+options.forEach(option => {
 
-    if(option.checked){
+if(option.checked){
 
-      selected = true;
+selected = true;
 
-      if(option.dataset.correct === "true"){
-        correct = true;
-      }
-    }
-  });
+if(option.dataset.correct === "true"){
+correct = true;
+}
+}
+});
 
-  if(!selected){
+if(!selected){
 
-    result.innerHTML = "⚠️ Selecciona una respuesta";
-    result.style.color = "#d97706";
-    return;
-  }
+result.innerHTML = "⚠️ Selecciona una respuesta";
+result.style.color = "#d97706";
+return;
+}
 
-  if(correct){
+if(correct){
 
-    result.innerHTML = "✅ Correcto";
-    result.style.color = "green";
+result.innerHTML = "✅ Correcto";
+result.style.color = "green";
 
-  }else{
+}else{
 
-    result.innerHTML = "❌ Incorrecto";
-    result.style.color = "red";
-  }
+result.innerHTML = "❌ Incorrecto";
+result.style.color = "red";
+}
 }
 
 </script>
