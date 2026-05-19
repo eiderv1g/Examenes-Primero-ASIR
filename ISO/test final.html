@@ -213,6 +213,7 @@ Incluye explicación de cada respuesta correcta.
 </p>
 
 <div class="stats">
+  
 <div class="badge">70 preguntas</div>
 <div class="badge">Corrección inmediata</div>
 <div class="badge">Explicaciones incluidas</div>
@@ -244,279 +245,711 @@ TEST FINAL — Implantación de Sistemas Operativos
 
 <script>
 
-const questions = [
+
+const originalQuestions = [
+
+/* ========= PREGUNTA 1 ========= */
 
 {
-q:"¿Qué es el núcleo (kernel) de un sistema operativo?",
+q:"1. ¿Qué es el núcleo (kernel) de un sistema operativo?",
 options:[
 "Un programa de ofimática",
 "El componente que gestiona hardware, procesos y recursos",
 "Un antivirus integrado"
 ],
 answer:1,
-explanation:"El kernel es el núcleo del sistema operativo y controla hardware, memoria, procesos y recursos del sistema."
+explanation:"El kernel es el núcleo del sistema operativo y se encarga de gestionar hardware, memoria, procesos y recursos."
 },
 
+/* ========= PREGUNTA 2 ========= */
+
 {
-q:"¿Qué comando permite ver la versión del núcleo en Linux?",
-options:["ping","uname -r","sysinfo"],
+q:"2. ¿Qué comando permite ver la versión del núcleo en Linux?",
+options:[
+"ping",
+"uname -r",
+"sysinfo"
+],
 answer:1,
-explanation:"uname -r muestra la versión exacta del kernel Linux cargado."
+explanation:"uname -r muestra la versión actual del kernel Linux instalado."
 },
 
+/* ========= PREGUNTA 3 ========= */
+
 {
-q:"¿Qué utilidad muestra mensajes del arranque relacionados con el kernel?",
-options:["dmesg","sudo start-kernel","bootmsg"],
+q:"3. ¿Qué utilidad muestra mensajes del arranque relacionados con el kernel?",
+options:[
+"dmesg",
+"sudo start-kernel",
+"bootmsg"
+],
 answer:0,
-explanation:"dmesg muestra mensajes del kernel y eventos detectados durante el arranque."
+explanation:"dmesg muestra mensajes generados por el kernel durante el arranque y funcionamiento del sistema."
 },
 
+/* ========= PREGUNTA 4 ========= */
+
 {
-q:"¿Qué es un hipervisor?",
+q:"4. ¿Qué es un hipervisor?",
 options:[
 "Un servidor DNS",
 "Un software que permite ejecutar máquinas virtuales",
 "Una herramienta para editar particiones"
 ],
 answer:1,
-explanation:"El hipervisor crea y administra máquinas virtuales sobre un sistema físico."
+explanation:"Un hipervisor administra y ejecuta máquinas virtuales sobre hardware físico."
 },
 
+/* ========= PREGUNTA 5 ========= */
+
 {
-q:"¿Qué programa se usa para virtualización en tu práctica?",
-options:["Photoshop","VirtualBox","Premiere"],
+q:"5. ¿Qué programa se usa para virtualización en tu práctica?",
+options:[
+"Photoshop",
+"VirtualBox",
+"Premiere"
+],
 answer:1,
-explanation:"VirtualBox es uno de los hipervisores más usados en entornos educativos."
+explanation:"VirtualBox es una herramienta de virtualización utilizada para crear máquinas virtuales."
 },
 
+/* ========= PREGUNTA 6 ========= */
+
 {
-q:"¿Qué debes instalar para tener un servidor Linux funcional?",
-options:["Ubuntu Server","Windows XP","Android OS"],
+q:"6. ¿Qué debes instalar para tener un servidor Linux funcional?",
+options:[
+"Ubuntu Server",
+"Windows XP",
+"Android OS"
+],
 answer:0,
-explanation:"Ubuntu Server está diseñado específicamente para entornos servidor."
+explanation:"Ubuntu Server es una distribución Linux diseñada específicamente para entornos servidor y administración de servicios."
 },
 
+/* ========= PREGUNTA 7 ========= */
+
 {
-q:"UEFI es…",
+q:"7. UEFI es…",
 options:[
 "La versión moderna del BIOS",
 "Un sistema de archivos de Linux",
 "Un servicio de impresión"
 ],
 answer:0,
-explanation:"UEFI reemplaza al BIOS clásico ofreciendo más funciones y soporte moderno."
+explanation:"UEFI reemplaza al BIOS tradicional y añade soporte moderno para hardware, seguridad y discos GPT."
 },
 
+/* ========= PREGUNTA 8 ========= */
+
 {
-q:"MBR y GPT se usan para…",
+q:"8. MBR y GPT se usan para…",
 options:[
 "Crear usuarios",
 "Organizar particiones en un disco",
 "Configurar redes inalámbricas"
 ],
 answer:1,
-explanation:"MBR y GPT son esquemas de particionado de discos."
+explanation:"MBR y GPT son sistemas de particionado utilizados para organizar discos y sus particiones."
 },
 
+/* ========= PREGUNTA 9 ========= */
+
 {
-q:"¿Qué gestor de arranque es común en Linux moderno?",
-options:["GRUB","SYSBOOT","UBOOT"],
+q:"9. ¿Qué gestor de arranque es común en Linux moderno?",
+options:[
+"GRUB",
+"SYSBOOT",
+"UBOOT"
+],
 answer:0,
-explanation:"GRUB es el bootloader estándar en muchas distribuciones Linux."
+explanation:"GRUB es el bootloader más utilizado actualmente en distribuciones Linux modernas."
 },
 
+/* ========= PREGUNTA 10 ========= */
+
 {
-q:"En modo Bridge, la máquina virtual…",
+q:"10. En modo Bridge, la máquina virtual…",
 options:[
 "No tiene IP",
 "Se conecta a la red como un dispositivo más con su propia IP",
 "Solo se comunica consigo misma"
 ],
 answer:1,
-explanation:"Bridge conecta la VM directamente a la red física."
+explanation:"El modo Bridge conecta la máquina virtual directamente a la red física como un equipo independiente."
 },
 
+/* ========= PREGUNTA 11 ========= */
+
 {
-q:"Ping sirve para…",
+q:"11. Ping sirve para…",
 options:[
 "Instalar actualizaciones",
 "Probar conectividad entre dos dispositivos",
 "Crear cuentas de usuario"
 ],
 answer:1,
-explanation:"Ping verifica conectividad usando ICMP."
+explanation:"Ping verifica conectividad de red entre dispositivos utilizando paquetes ICMP."
 },
 
+/* ========= PREGUNTA 12 ========= */
+
 {
-q:"¿Qué herramienta crea un USB de instalación de Windows 10?",
+q:"12. ¿Qué herramienta crea un USB de instalación de Windows 10?",
 options:[
 "Media Creation Tool",
 "winusb.exe",
 "usbmaker"
 ],
 answer:0,
-explanation:"Media Creation Tool es la utilidad oficial de Microsoft."
+explanation:"Media Creation Tool es la herramienta oficial de Microsoft para crear medios de instalación de Windows."
 },
 
+/* ========= PREGUNTA 13 ========= */
+
 {
-q:"¿Para qué sirve mbr2gpt /validate durante una instalación?",
+q:"13. ¿Para qué sirve mbr2gpt /validate durante una instalación?",
 options:[
 "Para crear un usuario nuevo",
 "Para comprobar si un disco MBR puede convertirse a GPT",
 "Para borrar el disco duro"
 ],
 answer:1,
-explanation:"Valida si el disco cumple requisitos para conversión GPT."
+explanation:"mbr2gpt /validate verifica si un disco cumple los requisitos para convertirse de MBR a GPT."
 },
 
+/* ========= PREGUNTA 14 ========= */
+
 {
-q:"¿Qué es WSL en Windows?",
+q:"14. ¿Qué es WSL en Windows?",
 options:[
 "Un servidor web",
 "Un subsistema que permite ejecutar Linux dentro de Windows",
 "Un gestor de particiones"
 ],
 answer:1,
-explanation:"WSL integra Linux dentro de Windows sin máquina virtual completa."
+explanation:"WSL (Windows Subsystem for Linux) permite ejecutar distribuciones Linux dentro de Windows."
 },
 
+/* ========= PREGUNTA 15 ========= */
+
 {
-q:"Si creas un usuario local en Windows y lo añades al grupo Usuarios de Escritorio remoto...",
+q:"15. Si creas un usuario local en Windows y lo añades al grupo “Usuarios de Escritorio remoto”, podrás…",
 options:[
 "Instalar actualizaciones",
 "Conectarte por RDP con ese usuario",
 "Usarlo solo en modo seguro"
 ],
 answer:1,
-explanation:"Ese grupo permite acceso remoto mediante RDP."
+explanation:"Ese grupo permite que el usuario pueda acceder remotamente mediante Remote Desktop Protocol (RDP)."
 },
 
+/* ========= PREGUNTA 16 ========= */
+
 {
-q:"¿Qué se instala en Windows Server para gestionar dominios?",
+q:"16. ¿Qué se instala en Windows Server para gestionar dominios?",
 options:[
 "DHCP",
 "Active Directory Domain Services",
 "Hyper-V"
 ],
 answer:1,
-explanation:"AD DS proporciona autenticación y gestión de dominios."
+explanation:"Active Directory Domain Services (AD DS) permite gestionar dominios, usuarios, grupos y autenticación centralizada."
 },
 
+/* ========= PREGUNTA 17 ========= */
+
 {
-q:"¿Qué directorio suele almacenar archivos de configuración del sistema?",
-options:["/etc","/home","/tmp"],
+q:"17. En un entorno con Active Directory, una carpeta “Perfiles” suele usarse para…",
+options:[
+"Guardar fondos de pantalla",
+"Almacenar perfiles móviles o directorios personales de usuarios del dominio",
+"Compartir vídeos"
+],
+answer:1,
+explanation:"La carpeta Perfiles suele almacenar perfiles móviles y directorios personales asociados a usuarios del dominio."
+},
+
+/* ========= PREGUNTA 18 ========= */
+
+{
+q:"18. ¿Qué muestra el comando ls -l /?",
+options:[
+"El contenido de la carpeta personal del usuario",
+"Los directorios principales del sistema Linux",
+"Los procesos en ejecución"
+],
+answer:1,
+explanation:"ls -l / muestra los directorios principales ubicados en la raíz del sistema Linux."
+},
+
+/* ========= PREGUNTA 19 ========= */
+
+{
+q:"19. ¿Qué directorio suele almacenar archivos de configuración del sistema?",
+options:[
+"/etc",
+"/home",
+"/tmp"
+],
 answer:0,
-explanation:"/etc almacena configuraciones globales en Linux."
+explanation:"/etc contiene la mayoría de archivos de configuración global del sistema Linux."
 },
 
+/* ========= PREGUNTA 20 ========= */
+
 {
-q:"¿Qué herramienta se usa para crear particiones en un disco?",
+q:"20. ¿Qué comando te permite consultar la jerarquía estándar del sistema de archivos (FHS)?",
+options:[
+"man list",
+"man hier",
+"man root"
+],
+answer:1,
+explanation:"man hier muestra la jerarquía estándar del sistema de archivos Linux (Filesystem Hierarchy Standard)."
+},
+
+/* ========= PREGUNTA 21 ========= */
+
+{
+q:"21. ¿Qué herramienta se usa para crear particiones en un disco?",
 options:[
 "fdisk o gparted",
 "ssh",
 "mkhome"
 ],
 answer:0,
-explanation:"fdisk y gparted son herramientas de particionado."
+explanation:"fdisk y gparted son herramientas utilizadas para crear y administrar particiones."
 },
 
+/* ========= PREGUNTA 22 ========= */
+
 {
-q:"¿Qué hace el comando pvcreate?",
+q:"22. ¿Qué hace el comando pvcreate?",
 options:[
 "Crea un archivo de texto vacío",
 "Convierte una partición en un volumen físico para LVM",
 "Crea un RAID 5 automáticamente"
 ],
 answer:1,
-explanation:"pvcreate inicializa discos para LVM."
+explanation:"pvcreate inicializa una partición o disco para ser usado como Physical Volume en LVM."
 },
 
+/* ========= PREGUNTA 23 ========= */
+
 {
-q:"¿Para qué sirve vgcreate?",
+q:"23. ¿Para qué sirve vgcreate?",
 options:[
 "Crear un nuevo usuario",
 "Crear un grupo de volúmenes a partir de varios PV",
 "Crear un directorio compartido"
 ],
 answer:1,
-explanation:"vgcreate crea un Volume Group."
+explanation:"vgcreate crea un Volume Group agrupando varios Physical Volumes."
 },
 
+/* ========= PREGUNTA 24 ========= */
+
 {
-q:"¿Qué permite lvcreate?",
+q:"24. ¿Qué permite lvcreate?",
 options:[
 "Crear un volumen lógico dentro del grupo de volúmenes",
 "Instalar paquetes",
 "Cambiar permisos de usuario"
 ],
 answer:0,
-explanation:"lvcreate crea volúmenes lógicos en LVM."
+explanation:"lvcreate crea volúmenes lógicos dentro de un Volume Group en LVM."
 },
 
+/* ========= PREGUNTA 25 ========= */
+
 {
-q:"¿Qué característica tiene RAID 5?",
+q:"25. ¿Qué debes hacer antes de montar un LV o RAID en un directorio?",
 options:[
-"Copias idénticas de todos los discos",
-"Divide datos + paridad distribuida permitiendo fallo de 1 disco",
+"Cambiar el hostname",
+"Formatearlo con un sistema de archivos (por ejemplo, mkfs.ext4)",
+"Reiniciar el ordenador"
+],
+answer:1,
+explanation:"Antes de montar un volumen o RAID es necesario formatearlo con un sistema de archivos compatible."
+},
+
+/* ========= PREGUNTA 26 ========= */
+
+{
+q:"26. Si añades tres discos de 1GB a una VM Linux y quieres RAID 5, usas el comando:",
+options:[
+"mdadm --create /dev/md0 --level=5 --raid-devices=3 <discos>",
+"raid --new",
+"create-raid5 /dev/md0"
+],
+answer:0,
+explanation:"Ese comando crea un RAID 5 usando mdadm especificando nivel RAID y número de discos."
+},
+
+/* ========= PREGUNTA 27 ========= */
+
+{
+q:"27. ¿Qué característica tiene RAID 5?",
+options:[
+"Copias idénticas (mirroring) de todos los discos",
+"Divide datos + paridad distribuida, permitiendo que falle 1 disco",
 "No ofrece tolerancia a fallos"
 ],
 answer:1,
-explanation:"RAID 5 combina rendimiento y tolerancia a un fallo."
+explanation:"RAID 5 distribuye datos y paridad entre discos permitiendo tolerancia al fallo de un disco."
 },
 
-{
-q:"¿Dónde se encuentran los directorios personales de los usuarios?",
-options:["/home","/root","/user"],
-answer:0,
-explanation:"Los usuarios normales almacenan datos en /home."
-},
+/* ========= PREGUNTA 28 ========= */
 
 {
-q:"¿Para qué se utiliza mdadm en Linux?",
+q:"28. ¿Qué comando formatea un RAID recién creado para poder usarlo?",
 options:[
-"Gestionar impresoras",
-"Administrar RAID por software",
-"Configurar cortafuegos"
+"mkraid.ext4",
+"mkfs.ext4 /dev/md0",
+"format-raid /dev/md0"
 ],
 answer:1,
-explanation:"mdadm administra arrays RAID software."
+explanation:"mkfs.ext4 crea un sistema de archivos EXT4 sobre el dispositivo RAID."
 },
 
+/* ========= PREGUNTA 29 ========= */
+
 {
-q:"¿Qué comando muestra procesos en tiempo real?",
-options:["top","df","du","uptime"],
+q:"29. ¿Qué debes hacer para usar el RAID 5 tras formatearlo?",
+options:[
+"Compilar el kernel",
+"Montarlo en un directorio (por ejemplo, /mnt/raid5)",
+"Desinstalar mdadm"
+],
+answer:1,
+explanation:"Tras formatear el RAID, debe montarse en un directorio para acceder a su contenido."
+},
+
+/* ========= PREGUNTA 30 ========= */
+
+{
+q:"30. ¿Dónde se encuentran los directorios personales de los usuarios?",
+options:[
+"/home",
+"/root",
+"/user"
+],
 answer:0,
-explanation:"top muestra procesos dinámicamente."
+explanation:"En Linux, los directorios personales de usuarios normales se almacenan habitualmente en /home."
 },
+/* ========= PREGUNTA 31 ========= */
 
 {
-q:"¿Qué ventaja tiene htop frente a top?",
+q:"31. ¿Para qué se utiliza el paquete mdadm en Linux?",
+options:[
+"Para gestionar impresoras de red",
+"Para administrar RAID por software",
+"Para configurar cortafuegos"
+],
+answer:1,
+explanation:"mdadm es la herramienta estándar en Linux para crear y administrar arrays RAID por software."
+},
+
+/* ========= PREGUNTA 32 ========= */
+
+{
+q:"32. ¿Qué comando instala mdadm en una distro basada en Debian/Ubuntu?",
+options:[
+"sudo apt-get update && sudo apt-get install -y mdadm",
+"sudo yum install mdadm",
+"sudo install mdadm"
+],
+answer:0,
+explanation:"apt-get install mdadm instala el paquete mdadm en sistemas Debian/Ubuntu."
+},
+
+/* ========= PREGUNTA 33 ========= */
+
+{
+q:"33. Si quieres crear un RAID 5 en /dev/md0 con los discos /dev/sdb /dev/sdc /dev/sdd, ¿qué comando es correcto?",
+options:[
+"mdadm --create /dev/md0 --level=1 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd",
+"mdadm --create /dev/md0 --level=5 --raid-devices=3 /dev/sdb /dev/sdc /dev/sdd",
+"mdadm --new-raid5 /dev/md0 /dev/sdb /dev/sdc /dev/sdd"
+],
+answer:1,
+explanation:"El parámetro --level=5 crea un RAID 5 utilizando tres discos."
+},
+
+/* ========= PREGUNTA 34 ========= */
+
+{
+q:"34. Después de crear un RAID en /dev/md0, ¿qué debes hacer para poder almacenar datos en él?",
+options:[
+"Ejecutar mkfs.ext4 /dev/md0 para formatearlo",
+"Ejecutar fsaeraid /dev/md0",
+"Reiniciar el sistema para que se formatee solo"
+],
+answer:0,
+explanation:"El RAID debe formatearse con un sistema de archivos antes de utilizarse."
+},
+
+/* ========= PREGUNTA 35 ========= */
+
+{
+q:"35. ¿Qué comando te muestra información detallada de un array RAID concreto, como nivel, discos y estado?",
+options:[
+"mdadm --detail /dev/md0",
+"raidstatus /dev/md0",
+"cat /etc/raid.conf"
+],
+answer:0,
+explanation:"mdadm --detail muestra información detallada sobre un array RAID específico."
+},
+
+/* ========= PREGUNTA 36 ========= */
+
+{
+q:"36. En PowerShell, ¿qué hace este comando? Copy-Item -Path 'C:\\Users\\Usuario\\Documentos' -Destination 'D:\\Backup\\Documentos' -Recurse -Force",
+options:[
+"Copia solo los archivos modificados hoy",
+"Copia toda la carpeta Documentos, con subcarpetas, sobrescribiendo si es necesario",
+"Mueve la carpeta Documentos a D:\\Backup"
+],
+answer:1,
+explanation:"Copy-Item con -Recurse copia carpetas completas y -Force sobrescribe si es necesario."
+},
+
+/* ========= PREGUNTA 37 ========= */
+
+{
+q:"37. ¿Qué comando en PowerShell crea un archivo ZIP con el contenido de una carpeta?",
+options:[
+"New-ZipFile",
+"Compress-Archive",
+"Zip-Item"
+],
+answer:1,
+explanation:"Compress-Archive es el cmdlet oficial para crear archivos ZIP en PowerShell."
+},
+
+/* ========= PREGUNTA 38 ========= */
+
+{
+q:"38. En el ejemplo, ¿qué hace este comando? Compress-Archive -Path 'C:\\Users\\Usuario\\Documentos' -DestinationPath 'D:\\Backup\\Backup_Documentos.zip'",
+options:[
+"Crea un ZIP con la carpeta Documentos en la ruta indicada",
+"Descomprime un ZIP en la carpeta Documentos",
+"Sincroniza Documentos con D:\\Backup"
+],
+answer:0,
+explanation:"Compress-Archive comprime la carpeta especificada dentro de un archivo ZIP."
+},
+
+/* ========= PREGUNTA 39 ========= */
+
+{
+q:"39. En Linux, ¿qué hace el comando siguiente? cp -r /home/usuario/Documentos /media/usuario/backup_docs",
+options:[
+"Copia solo los archivos de texto",
+"Copia recursivamente la carpeta Documentos al destino",
+"Mueve la carpeta Documentos y borra el original"
+],
+answer:1,
+explanation:"El parámetro -r permite copiar carpetas y subdirectorios recursivamente."
+},
+
+/* ========= PREGUNTA 40 ========= */
+
+{
+q:"40. En Linux, ¿qué comando permite cambiar los permisos de un archivo usando la notación numérica (por ejemplo, 755)?",
+options:[
+"chmod",
+"chown",
+"chgrp"
+],
+answer:0,
+explanation:"chmod modifica permisos utilizando notación numérica o simbólica."
+},
+
+/* ========= PREGUNTA 41 ========= */
+
+{
+q:"41. Si ejecutas chmod 750 fichero, ¿qué permisos tiene el grupo sobre ese archivo?",
+options:[
+"Solo lectura",
+"Lectura y ejecución",
+"Lectura, escritura y ejecución"
+],
+answer:1,
+explanation:"El número 5 equivale a lectura (4) + ejecución (1)."
+},
+
+/* ========= PREGUNTA 42 ========= */
+
+{
+q:"42. En la salida de ls -l, ¿qué indica la primera columna, por ejemplo -rwxr-xr--?",
+options:[
+"El tamaño del archivo",
+"El tipo de archivo y los permisos de propietario, grupo y otros",
+"El nombre del propietario y del grupo"
+],
+answer:1,
+explanation:"La primera columna indica tipo de archivo y permisos."
+},
+
+/* ========= PREGUNTA 43 ========= */
+
+{
+q:"43. ¿Cuál de las siguientes letras representa el permiso de ejecución en Linux?",
+options:[
+"r",
+"w",
+"x"
+],
+answer:2,
+explanation:"La letra x representa permiso de ejecución."
+},
+
+/* ========= PREGUNTA 44 ========= */
+
+{
+q:"44. ¿Qué ocurre al ejecutar sudo ufw enable en Ubuntu?",
+options:[
+"Activa el firewall y aplica las reglas configuradas",
+"Elimina todas las reglas",
+"Reinicia la red",
+"Permite todo el tráfico"
+],
+answer:0,
+explanation:"ufw enable activa el firewall UFW con las reglas configuradas."
+},
+
+/* ========= PREGUNTA 45 ========= */
+
+{
+q:"45. ¿Qué efecto tiene sudo ufw allow ssh?",
+options:[
+"Bloquea SSH",
+"Reinicia el servicio SSH",
+"Permite conexiones entrantes al puerto SSH",
+"Elimina reglas"
+],
+answer:2,
+explanation:"La regla allow ssh permite tráfico entrante SSH."
+},
+
+/* ========= PREGUNTA 46 ========= */
+
+{
+q:"46. ¿Qué comando permite ver reglas activas numeradas en UFW?",
+options:[
+"ufw show",
+"ufw list",
+"ufw status",
+"ufw status numbered"
+],
+answer:3,
+explanation:"ufw status numbered muestra reglas activas con numeración."
+},
+
+/* ========= PREGUNTA 47 ========= */
+
+{
+q:"47. ¿Qué ocurre si ejecutas sudo ufw disable?",
+options:[
+"Se desactiva el firewall completamente",
+"Se eliminan reglas",
+"Se bloquea todo el tráfico",
+"Solo desactiva SSH"
+],
+answer:0,
+explanation:"ufw disable desactiva completamente el firewall."
+},
+
+/* ========= PREGUNTA 48 ========= */
+
+{
+q:"48. El comando journalctl -u sshd permite:",
+options:[
+"Ver CPU",
+"Ver usuarios",
+"Ver red",
+"Ver logs del servicio SSH"
+],
+answer:3,
+explanation:"journalctl -u sshd muestra logs relacionados con el servicio SSH."
+},
+
+/* ========= PREGUNTA 49 ========= */
+
+{
+q:"49. En Windows, el Visor de Eventos permite:",
+options:[
+"Crear usuarios",
+"Monitorizar CPU",
+"Ejecutar scripts",
+"Analizar registros del sistema"
+],
+answer:3,
+explanation:"El Visor de Eventos permite consultar logs y eventos del sistema."
+},
+
+/* ========= PREGUNTA 50 ========= */
+
+{
+q:"50. ¿Qué comando en Linux muestra procesos en tiempo real?",
+options:[
+"top",
+"df",
+"du",
+"uptime"
+],
+answer:0,
+explanation:"top muestra procesos y recursos en tiempo real."
+},
+
+/* ========= PREGUNTA 51 ========= */
+
+{
+q:"51. ¿Qué ventaja tiene htop frente a top?",
 options:[
 "Consume más CPU",
-"Interfaz interactiva y visual",
+"Interfaz interactiva y más visual",
 "No muestra procesos",
 "No permite ordenar"
 ],
 answer:1,
-explanation:"htop es más visual y manejable."
+explanation:"htop ofrece una interfaz visual más cómoda e interactiva."
 },
 
+/* ========= PREGUNTA 52 ========= */
+
 {
-q:"¿Qué comando permite ver memoria RAM rápidamente?",
-options:["top","ps","free","uptime"],
+q:"52. ¿Qué comando permite ver memoria RAM rápidamente?",
+options:[
+"top",
+"ps",
+"free",
+"uptime"
+],
 answer:2,
-explanation:"free muestra memoria RAM y swap."
+explanation:"free muestra memoria RAM y swap disponibles."
 },
 
+/* ========= PREGUNTA 53 ========= */
+
 {
-q:"¿Qué herramienta es más completa como dashboard de monitorización?",
-options:["top","free","glances","ps"],
+q:"53. ¿Qué herramienta es más completa como dashboard de monitorización en Linux?",
+options:[
+"top",
+"free",
+"glances",
+"ps"
+],
 answer:2,
-explanation:"glances integra múltiples métricas visualmente."
+explanation:"glances integra múltiples métricas en un dashboard completo."
 },
 
+/* ========= PREGUNTA 54 ========= */
+
 {
-q:"¿Qué muestra ps aux?",
+q:"54. El comando ps aux muestra:",
 options:[
 "Disco",
 "Lista completa de procesos",
@@ -524,11 +957,13 @@ options:[
 "Usuarios"
 ],
 answer:1,
-explanation:"ps aux lista procesos activos."
+explanation:"ps aux muestra todos los procesos activos del sistema."
 },
 
+/* ========= PREGUNTA 55 ========= */
+
 {
-q:"¿Qué muestra df -h?",
+q:"55. ¿Qué muestra df -h?",
 options:[
 "RAM",
 "CPU",
@@ -536,11 +971,13 @@ options:[
 "Procesos"
 ],
 answer:2,
-explanation:"df -h muestra uso de disco en formato legible."
+explanation:"df -h muestra el uso del espacio en disco en formato legible."
 },
 
+/* ========= PREGUNTA 56 ========= */
+
 {
-q:"¿Qué indica uptime?",
+q:"56. ¿Qué indica uptime?",
 options:[
 "Disco",
 "Tiempo encendido y carga media",
@@ -548,11 +985,13 @@ options:[
 "Red"
 ],
 answer:1,
-explanation:"uptime muestra tiempo activo y load average."
+explanation:"uptime muestra tiempo activo y carga media del sistema."
 },
 
+/* ========= PREGUNTA 57 ========= */
+
 {
-q:"¿Qué comando muestra puertos abiertos en Linux?",
+q:"57. ¿Qué comando muestra puertos abiertos en Linux?",
 options:[
 "dir",
 "ping",
@@ -560,11 +999,27 @@ options:[
 "ss -tulnp"
 ],
 answer:3,
-explanation:"ss -tulnp muestra sockets y puertos abiertos."
+explanation:"ss -tulnp muestra puertos abiertos y sockets activos."
 },
 
+/* ========= PREGUNTA 58 ========= */
+
 {
-q:"¿Qué hace Get-Process en PowerShell?",
+q:"58. ¿Qué hace sar -u 1 5?",
+options:[
+"Muestra estadísticas de CPU en intervalos",
+"Muestra disco",
+"Muestra usuarios",
+"Muestra red"
+],
+answer:0,
+explanation:"sar -u monitoriza estadísticas de CPU durante varios intervalos."
+},
+
+/* ========= PREGUNTA 59 ========= */
+
+{
+q:"59. ¿Qué hace Get-Process en PowerShell?",
 options:[
 "Ver red",
 "Listar procesos activos",
@@ -572,11 +1027,41 @@ options:[
 "Ver usuarios"
 ],
 answer:1,
-explanation:"Get-Process muestra procesos en Windows."
+explanation:"Get-Process muestra procesos activos en Windows."
 },
 
+/* ========= PREGUNTA 60 ========= */
+
 {
-q:"¿Qué muestra Get-Service?",
+q:"60. Sort-Object CPU -Descending sirve para:",
+options:[
+"Borrar procesos",
+"Ordenar procesos por uso de CPU descendente",
+"Reiniciar procesos",
+"Filtrar memoria"
+],
+answer:1,
+explanation:"Sort-Object CPU -Descending ordena procesos según uso de CPU."
+},
+
+/* ========= PREGUNTA 61 ========= */
+
+{
+q:"61. ¿Qué hace Select-Object -First 10?",
+options:[
+"Selecciona últimos",
+"Filtra errores",
+"Selecciona los primeros elementos",
+"Ordena"
+],
+answer:2,
+explanation:"Select-Object -First selecciona los primeros elementos de una lista."
+},
+
+/* ========= PREGUNTA 62 ========= */
+
+{
+q:"62. ¿Qué muestra Get-Service?",
 options:[
 "Estado de servicios del sistema",
 "Usuarios",
@@ -584,11 +1069,13 @@ options:[
 "Disco"
 ],
 answer:0,
-explanation:"Get-Service lista servicios y su estado."
+explanation:"Get-Service muestra servicios instalados y su estado."
 },
 
+/* ========= PREGUNTA 63 ========= */
+
 {
-q:"¿Qué mide Get-Counter '\\Processor(_Total)% Processor Time'?",
+q:"63. ¿Qué mide Get-Counter '\\Processor(_Total)% Processor Time'?",
 options:[
 "RAM",
 "Uso de CPU",
@@ -596,11 +1083,13 @@ options:[
 "Red"
 ],
 answer:1,
-explanation:"Ese contador mide utilización total de CPU."
+explanation:"Ese contador mide el uso total de CPU."
 },
 
+/* ========= PREGUNTA 64 ========= */
+
 {
-q:"¿Qué mide Get-Counter '\\Memory\\Available MBytes'?",
+q:"64. ¿Qué mide Get-Counter '\\Memory\\Available MBytes'?",
 options:[
 "CPU",
 "Disco",
@@ -608,11 +1097,13 @@ options:[
 "Red"
 ],
 answer:2,
-explanation:"Muestra memoria RAM libre."
+explanation:"Muestra la memoria RAM disponible."
 },
 
+/* ========= PREGUNTA 65 ========= */
+
 {
-q:"¿Qué hace Test-Connection google.es?",
+q:"65. ¿Qué hace Test-Connection google.es?",
 options:[
 "Ver CPU",
 "Ver RAM",
@@ -620,11 +1111,13 @@ options:[
 "Ver disco"
 ],
 answer:2,
-explanation:"Test-Connection funciona como ping."
+explanation:"Test-Connection verifica conectividad de red como ping."
 },
 
+/* ========= PREGUNTA 66 ========= */
+
 {
-q:"¿Qué muestra Get-NetTCPConnection?",
+q:"66. ¿Qué muestra Get-NetTCPConnection?",
 options:[
 "Conexiones TCP activas",
 "Usuarios",
@@ -632,11 +1125,13 @@ options:[
 "RAM"
 ],
 answer:0,
-explanation:"Muestra conexiones TCP del sistema."
+explanation:"Get-NetTCPConnection muestra conexiones TCP activas."
 },
 
+/* ========= PREGUNTA 67 ========= */
+
 {
-q:"¿Qué muestra Get-NetAdapter?",
+q:"67. ¿Qué muestra Get-NetAdapter?",
 options:[
 "CPU",
 "RAM",
@@ -644,11 +1139,27 @@ options:[
 "Disco"
 ],
 answer:2,
-explanation:"Lista adaptadores e interfaces de red."
+explanation:"Get-NetAdapter lista adaptadores e interfaces de red."
 },
 
+/* ========= PREGUNTA 68 ========= */
+
 {
-q:"¿Qué hace who en Linux?",
+q:"68. ¿Qué hace Get-WinEvent -LogName System?",
+options:[
+"Reinicia sistema",
+"Ver procesos",
+"Mostrar eventos del sistema",
+"Crear logs"
+],
+answer:2,
+explanation:"Get-WinEvent muestra eventos registrados en logs del sistema."
+},
+
+/* ========= PREGUNTA 69 ========= */
+
+{
+q:"69. ¿Qué hace who en Linux?",
 options:[
 "CPU",
 "Usuarios conectados",
@@ -656,90 +1167,134 @@ options:[
 "Red"
 ],
 answer:1,
-explanation:"who muestra usuarios conectados."
-}
+explanation:"who muestra usuarios actualmente conectados."
+},
 
+/* ========= PREGUNTA 70 ========= */
+
+{
+q:"70. ¿Qué hace df -h / | tail -n 1?",
+options:[
+"RAM",
+"CPU",
+"Muestra uso de disco de la raíz",
+"Red"
+],
+answer:2,
+explanation:"Ese comando muestra el uso de espacio de la partición raíz."
+},
 ];
 
-// duplicar preguntas para llegar a ~70
-while(questions.length < 70){
-  questions.push({...questions[questions.length % 40]});
-}
-
-function shuffle(array){
-  for(let i=array.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
-  }
-}
-
-shuffle(questions);
-
-const container=document.getElementById("quizContainer");
+/* ========================================= */
+/* NO MODIFICAR DESDE AQUÍ */
+/* ========================================= */
 
 let answered=0;
 let correctCount=0;
 
-questions.forEach((q,index)=>{
+function shuffle(array){
 
-  const card=document.createElement("div");
-  card.className="question-card";
+  for(let i=array.length-1;i>0;i--){
 
-  card.innerHTML=`
-    <h2>Pregunta ${index+1}</h2>
-    <div class="question">${q.q}</div>
-    <div class="options"></div>
-    <div class="explanation">${q.explanation}</div>
-  `;
+    const j=Math.floor(Math.random()*(i+1));
 
-  const optionsDiv=card.querySelector(".options");
-  const explanation=card.querySelector(".explanation");
+    [array[i],array[j]]=[array[j],array[i]];
 
-  q.options.forEach((opt,optIndex)=>{
+  }
 
-    const btn=document.createElement("button");
-    btn.innerText=opt;
+}
 
-    btn.onclick=()=>{
+function loadQuiz(random=false){
 
-      if(card.dataset.answered) return;
+  const container=document.getElementById("quizContainer");
 
-      card.dataset.answered=true;
+  container.innerHTML="";
 
-      answered++;
+  answered=0;
+  correctCount=0;
 
-      if(optIndex===q.answer){
-        btn.classList.add("correct");
-        correctCount++;
-      }else{
-        btn.classList.add("incorrect");
-        optionsDiv.children[q.answer].classList.add("correct");
-      }
+  updateScore();
 
-      explanation.style.display="block";
+  let quiz=[...originalQuestions];
 
-      updateScore();
+  if(random){
+    shuffle(quiz);
+  }
 
-    };
+  quiz.forEach((q,index)=>{
 
-    optionsDiv.appendChild(btn);
+    const card=document.createElement("div");
+
+    card.className="question-card";
+
+    card.innerHTML=`
+      <h2>Pregunta ${index+1}</h2>
+      <div class="question">${q.q}</div>
+      <div class="options"></div>
+      <div class="explanation">${q.explanation}</div>
+    `;
+
+    const optionsDiv=card.querySelector(".options");
+
+    const explanation=card.querySelector(".explanation");
+
+    q.options.forEach((opt,optIndex)=>{
+
+      const btn=document.createElement("button");
+
+      btn.innerText=opt;
+
+      btn.onclick=()=>{
+
+        if(card.dataset.answered) return;
+
+        card.dataset.answered=true;
+
+        answered++;
+
+        if(optIndex===q.answer){
+
+          btn.classList.add("correct");
+
+          correctCount++;
+
+        }else{
+
+          btn.classList.add("incorrect");
+
+          optionsDiv.children[q.answer].classList.add("correct");
+
+        }
+
+        explanation.style.display="block";
+
+        updateScore();
+
+      };
+
+      optionsDiv.appendChild(btn);
+
+    });
+
+    container.appendChild(card);
 
   });
 
-  container.appendChild(card);
-
-});
+}
 
 function updateScore(){
 
   document.getElementById("scoreText").innerText=
   `${correctCount} correctas de ${answered} respondidas`;
 
-  const percent=(answered/questions.length)*100;
+  const percent=(answered/originalQuestions.length)*100;
 
   document.getElementById("progressBar").style.width=
   percent+"%";
+
 }
+
+loadQuiz(false);
 
 </script>
 
