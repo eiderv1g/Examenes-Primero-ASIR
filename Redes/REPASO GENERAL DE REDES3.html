@@ -1,0 +1,2243 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>REPASO GENERAL DE REDES</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+		:root {
+			--bg: #020817;
+			--bg2: #07111f;
+			--panel: rgba(10, 20, 35, 0.78);
+
+			--text: #f4f7ff;
+			--muted: #8ba3c7;
+
+			--primary: #00ffb3;
+			--primary-soft: rgba(0, 255, 179, .12);
+
+			--danger: #ff4d88;
+			--danger-soft: rgba(255, 77, 136, .12);
+
+			--border: rgba(0, 255, 179, .12);
+
+			--shadow:
+				0 0 0 1px rgba(0, 255, 179, .05),
+				0 10px 40px rgba(0, 0, 0, .55);
+
+			--radius: 20px;
+		}
+
+		/* =========================
+   BASE
+   ========================= */
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			background:
+				radial-gradient(circle at top left, rgba(0, 255, 179, .08), transparent 25%),
+				radial-gradient(circle at bottom right, rgba(0, 174, 255, .08), transparent 25%),
+				linear-gradient(135deg, #020817 0%, #07111f 100%);
+			color: var(--text);
+			min-height: 100vh;
+			padding: 40px;
+			line-height: 1.7;
+		}
+
+		/* =========================
+   SCROLLBAR
+   ========================= */
+
+		::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: #020817;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: linear-gradient(var(--primary), #00cfff);
+			border-radius: 20px;
+		}
+
+		/* =========================
+   MAIN CONTAINER
+   ========================= */
+
+		.page {
+			max-width: 1200px;
+			margin: auto;
+		}
+
+		/* =========================
+   HEADINGS
+   ========================= */
+
+		h1 {
+			font-size: 3rem;
+			font-weight: 700;
+			margin-bottom: 25px;
+			color: var(--primary);
+			text-shadow: 0 0 12px rgba(0, 255, 179, .35);
+		}
+
+		h2 {
+			font-size: 2rem;
+			margin-top: 50px;
+			margin-bottom: 20px;
+			color: var(--primary);
+			text-shadow: 0 0 8px rgba(0, 255, 179, .25);
+		}
+
+		h3 {
+			font-size: 1.4rem;
+			margin-top: 35px;
+			margin-bottom: 14px;
+			color: #dffcff;
+		}
+
+		h4 {
+			font-size: 1.1rem;
+			margin-top: 25px;
+			margin-bottom: 10px;
+			color: #a7f3ff;
+		}
+
+		/* =========================
+   CARDS / SECTIONS
+   ========================= */
+
+		section,
+		.callout,
+		.simple-table,
+		.code,
+		blockquote {
+			background: var(--panel);
+			backdrop-filter: blur(14px);
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+		}
+
+		/* =========================
+   TEXT
+   ========================= */
+
+		p {
+			margin: 14px 0;
+			color: var(--text);
+		}
+
+		li {
+			margin: 10px 0;
+			color: var(--text);
+		}
+
+		strong {
+			color: var(--primary);
+		}
+
+		em {
+			color: #8ad9ff;
+		}
+
+		/* =========================
+   LINKS
+   ========================= */
+
+		a {
+			color: var(--primary);
+			text-decoration: none;
+			transition: .2s;
+		}
+
+		a:hover {
+			text-shadow: 0 0 8px rgba(0, 255, 179, .5);
+		}
+
+		/* =========================
+   CODE BLOCKS
+   ========================= */
+
+		code {
+			font-family: 'JetBrains Mono', monospace;
+			background: rgba(0, 255, 179, .08);
+			color: var(--primary);
+			padding: 4px 8px;
+			border-radius: 8px;
+			font-size: .95rem;
+		}
+
+		pre {
+			overflow-x: auto;
+		}
+
+		.code {
+			margin: 20px 0;
+			padding: 20px;
+			border-left: 4px solid var(--primary);
+		}
+
+		.code code {
+			background: none;
+			padding: 0;
+		}
+
+		/* =========================
+   TABLES
+   ========================= */
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			overflow: hidden;
+			margin: 25px 0;
+		}
+
+		th {
+			background: rgba(0, 255, 179, .1);
+			color: var(--primary);
+			font-weight: 600;
+			padding: 16px;
+		}
+
+		td {
+			padding: 16px;
+			border-top: 1px solid rgba(255, 255, 255, .06);
+			color: var(--text);
+		}
+
+		tr:hover {
+			background: rgba(255, 255, 255, .03);
+		}
+
+		/* =========================
+   LISTS
+   ========================= */
+
+		ul,
+		ol {
+			padding-left: 25px;
+			margin: 20px 0;
+		}
+
+		ul li::marker {
+			color: var(--primary);
+		}
+
+		/* =========================
+   HR
+   ========================= */
+
+		hr {
+			border: none;
+			height: 1px;
+			margin: 40px 0;
+			background: linear-gradient(to right,
+					transparent,
+					rgba(0, 255, 179, .5),
+					transparent);
+		}
+
+		/* =========================
+   BLOCKQUOTES / CALLOUTS
+   ========================= */
+
+		blockquote {
+			padding: 20px;
+			border-left: 4px solid var(--primary);
+			margin: 25px 0;
+		}
+
+		.callout {
+			padding: 22px;
+			margin: 25px 0;
+		}
+
+		/* =========================
+   IMAGES
+   ========================= */
+
+		img {
+			max-width: 100%;
+			border-radius: 16px;
+			border: 1px solid rgba(255, 255, 255, .06);
+		}
+
+		/* =========================
+   PAGE TITLE ICON
+   ========================= */
+
+		.page-header-icon {
+			margin-bottom: 15px;
+		}
+
+		.page-header-icon img {
+			width: 70px;
+			filter:
+				drop-shadow(0 0 10px rgba(0, 255, 179, .45));
+		}
+
+		/* =========================
+   SPECIAL EFFECTS
+   ========================= */
+
+		h1::after {
+			content: "";
+			display: block;
+			width: 120px;
+			height: 4px;
+			margin-top: 14px;
+			border-radius: 999px;
+			background: linear-gradient(90deg,
+					var(--primary),
+					transparent);
+		}
+
+		/* =========================
+   RESPONSIVE
+   ========================= */
+
+		@media(max-width:900px) {
+
+			body {
+				padding: 20px;
+			}
+
+			h1 {
+				font-size: 2.2rem;
+			}
+
+			h2 {
+				font-size: 1.6rem;
+			}
+
+			table {
+				display: block;
+				overflow-x: auto;
+			}
+
+		}
+	</style>
+</head>
+
+<body>
+	<article id="36683986-e476-8025-abad-d5416b2f13b3" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon notion-static-icon"
+					src="https://www.notion.so/icons/crab_green.svg" /></div>
+			<h1 class="page-title" dir="auto">REPASO GENERAL DE REDES</h1>
+			<p class="page-description" dir="auto"></p>
+		</header>
+		<div class="page-body">
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-809d-9697-f80b9ba2d5b0" class="">CONCEPTOS BÁSICOS DE REDES</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-808f-9a23-c83ad2ffc5f0" class="">IPV4</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80e8-8f8d-ca2a0e99708f" class="">Protocolo de direccionamiento que identifica
+					dispositivos en una red mediante direcciones de 32 bits divididas en 4 octetos →
+					<code>192.168.1.10</code></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8029-9078-f2967e1844d1" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80c1-8065-c9e66711804f" class="">Subnetting</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-806c-9fc5-f29fd947bb5d" class="">Técnica para dividir una red grande en subredes
+					más pequeñas para mejorar organización y rendimiento. </p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-809e-a566-f849e7f729c7" class="">→ <em>Ejemplo: </em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80fb-bc8c-f1f0d2540a5d" class="">Imagina que tienes una red grande llamada
+					<code>192.168.1.0/24</code>. Esa red puede tener hasta <strong>254 dispositivos</strong> conectados
+					(hosts). El <strong>subnetting</strong> consiste en “partir” esa red en redes más pequeñas para
+					organizar mejor los equipos, mejorar seguridad y evitar demasiado tráfico.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805b-8c2d-ce2e84a5f49c" class="">La máscara <code>/24</code> significa:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8053-8cde-d6db6087beec" class="">255.255.255.0255.255.255.0255.255.255.0</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80be-a182-f0cfa577bddd" class="">Eso deja 8 bits para hosts, así que:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d1-883c-c5d05f6e14d2" class="">28−2=2542^8 - 2 = 25428−2=254</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8052-90a4-f05df2d40cf7" class="">(Se restan 2 porque una IP es la dirección de red
+					y otra es broadcast).</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80c6-a7fa-ce4c0bc4527e" class="">Si dividimos la red en <strong>2
+						subredes</strong>, “tomamos” 1 bit de hosts y pasamos a <code>/25</code>:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-801c-8d0c-c7386fc0e0d2" class="">255.255.255.128255.255.255.128255.255.255.128</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8097-a45a-fb22c098f31a" class="">Ahora quedan 7 bits para hosts:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8063-9e7f-ee3e0c08ef90" class="">27−2=1262^7 - 2 = 12627−2=126</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805f-a6a3-c0480b1f8908" class="">Por tanto obtenemos:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80be-bc58-da4ced608274" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Subred 1:</strong> <code>192.168.1.0/25</code>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80be-b501-f5cd18866309" class="bulleted-list">
+								<li style="list-style-type:circle">Red: <code>192.168.1.0</code></li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-803e-9ea8-cf79097714f1" class="bulleted-list">
+								<li style="list-style-type:circle">Hosts válidos:
+									<code>192.168.1.1 – 192.168.1.126</code></li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-805a-9b66-c232cc35c6f6" class="bulleted-list">
+								<li style="list-style-type:circle">Broadcast: <code>192.168.1.127</code></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8076-a5ee-e80777d4293a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Subred 2:</strong> <code>192.168.1.128/25</code>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-807a-993f-c106659e0319" class="bulleted-list">
+								<li style="list-style-type:circle">Red: <code>192.168.1.128</code></li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80e2-a591-c74284e59f7e" class="bulleted-list">
+								<li style="list-style-type:circle">Hosts válidos:
+									<code>192.168.1.129 – 192.168.1.254</code></li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-809e-ba26-c81048754b44" class="bulleted-list">
+								<li style="list-style-type:circle">Broadcast: <code>192.168.1.255</code></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8085-8fe1-cdc8415ab41e" class="">Así, en vez de una sola red con 254 equipos,
+					tienes dos redes separadas con 126 equipos cada una.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8090-b8f9-c83beb38c341" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80d7-8cdd-f5c36dcb4a31" class="">Clases</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800b-b6e5-c3f244274fca" class="">Forma antigua de clasificar redes IPv4 según el
+					rango de direcciones y tamaño: </p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-800b-8b5d-c73e833292bc" class="bulleted-list">
+					<li style="list-style-type:disc">A (<code>1.0.0.0–126.0.0.0</code>) </li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a4-9d46-fca2e9ceff65" class="bulleted-list">
+					<li style="list-style-type:disc">B (<code>128.0.0.0–191.255.0.0</code>)</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8023-b591-d68875c0c744" class="bulleted-list">
+					<li style="list-style-type:disc">C (<code>192.0.0.0–223.255.255.0</code>)</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8025-bf12-cd81c58e3e20" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80b8-b439-eeb586c20d3e" class="">Máscaras</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80c9-a5d3-fc2977885f2f" class="">Indican qué parte de una IP corresponde a la red y
+					cuál a los hosts. </p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8032-bdcb-ec1257a1d4cb" class="">→ Ejemplo: <code>255.255.255.0</code> o
+					<code>/24</code>.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80bc-8607-c5d5e30fab8e" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80cc-9e76-d36af0ad92d8" class="">Subredes/ Hosts</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8075-a629-fadcd7e04963" class="">Una <strong>subred</strong> es una parte más
+					pequeña creada a partir de una red principal para organizar mejor los dispositivos. Los
+					<strong>hosts</strong> son los equipos conectados dentro de esa subred, como ordenadores, móviles o
+					impresoras.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80a2-b3df-d8a0e99053fe" class=""><br />Por ejemplo, la red
+					<code>192.168.1.0/24</code> tiene 256 direcciones totales, pero solo 254 pueden usarse para hosts
+					porque una IP identifica la red (<code>192.168.1.0</code>) y otra se reserva para broadcast
+					(<code>192.168.1.255</code>). Los hosts utilizables serían desde <code>192.168.1.1</code> hasta
+					<code>192.168.1.254</code>.<br /></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80f5-ac58-ed8ab54c981e" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8015-a71f-d562f9f7e025" class=""><strong>IPs Excepciones</strong>: </h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-809c-9684-c50ad4384ee4" class="">Direcciones reservadas con funciones especiales,
+					como <code>127.0.0.1</code> (loopback), <code>0.0.0.0</code> (red por defecto) o
+					<code>255.255.255.255</code> (broadcast).</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80bd-93a3-f3bb806147b5" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-806c-80fc-f9ea3011b764" class="">IPv6 Abreviación</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805a-8786-d996967e5812" class="">Las direcciones IPv6 son muy largas porque usan
+					128 bits y se escriben en 8 bloques hexadecimales separados por <code>:</code>. Para hacerlas más
+					fáciles de leer, existen dos reglas de abreviación:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-8030-916a-c22e5eda3471" class="numbered-list" start="1">
+					<li><strong>Eliminar ceros a la izquierda</strong> en cada bloque.</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-80a7-a047-d8a61a518849" class="numbered-list" start="2">
+					<li><strong>Reemplazar bloques consecutivos de </strong><code><strong>0000</strong></code><strong>
+							por </strong><code><strong>::</strong></code>, pero solo una vez por dirección.</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-805c-a1bb-f8699d647edc" class="bulleted-list">
+					<li style="list-style-type:disc"><code>fe80:0000:0000:0000:02aa:00ff:fe28:9c5a</code> →
+						<code>fe80::2aa:ff:fe28:9c5a</code></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80c3-a9f0-d94cf0d375fc" class="bulleted-list">
+					<li style="list-style-type:disc"><code>2001:0db8:0000:0000:0000:ff00:0042:8329</code> →
+						<code>2001:db8::ff00:42:8329</code></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-807d-a558-e05cf9dc1dfd" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8037-a370-e9d62287eaf8" class="">Modelo OSI y PDU</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8043-9224-e812adfb2abf" class="">El <strong>Modelo OSI</strong> organiza la
+					comunicación de red en <strong>7 capas</strong>, donde cada una tiene una función específica. Cada
+					capa maneja una <strong>PDU (Protocol Data Unit)</strong> distinta y utiliza ciertos protocolos.</p>
+			</div>
+			<div style="display:contents" dir="ltr">
+				<table id="36683986-e476-8094-9ed9-dc5ecb23b67b" class="simple-table">
+					<thead class="simple-table-header">
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80db-ad1f-e474e9caf264">
+								<th id="JDjn" class="simple-table-header-color simple-table-header">Capa</th>
+								<th id="rHn@" class="simple-table-header-color simple-table-header">Función</th>
+								<th id="uGnF" class="simple-table-header-color simple-table-header">PDU</th>
+								<th id="U&gt;=U" class="simple-table-header-color simple-table-header">Protocolos /
+									Ejemplos</th>
+							</tr>
+						</div>
+					</thead>
+					<tbody>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80aa-a72a-ff07dca3d7ec">
+								<td id="JDjn" class=""><strong>7. Aplicación</strong></td>
+								<td id="rHn@" class="">Interfaz entre el usuario y la red; ofrece servicios de red a las
+									aplicaciones.</td>
+								<td id="uGnF" class="">Datos</td>
+								<td id="U&gt;=U" class="">HTTP, HTTPS, FTP, SMTP, DNS</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8018-99eb-ee81cca92b36">
+								<td id="JDjn" class=""><strong>6. Presentación</strong></td>
+								<td id="rHn@" class="">Traduce formatos de datos, cifrado y compresión.</td>
+								<td id="uGnF" class="">Datos</td>
+								<td id="U&gt;=U" class="">SSL/TLS, JPEG, ASCII, MPEG</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80f9-9a7f-f885162426c9">
+								<td id="JDjn" class=""><strong>5. Sesión</strong></td>
+								<td id="rHn@" class="">Establece, mantiene y cierra sesiones de comunicación.</td>
+								<td id="uGnF" class="">Datos</td>
+								<td id="U&gt;=U" class="">NetBIOS, RPC, PPTP</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8057-b728-fb3b3c0af26f">
+								<td id="JDjn" class=""><strong>4. Transporte</strong></td>
+								<td id="rHn@" class="">Controla el envío de datos extremo a extremo y la fiabilidad.
+								</td>
+								<td id="uGnF" class="">Segmento (TCP) / Datagrama (UDP)</td>
+								<td id="U&gt;=U" class="">TCP, UDP</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80bc-af29-e2027c2a5287">
+								<td id="JDjn" class=""><strong>3. Red</strong></td>
+								<td id="rHn@" class="">Se encarga del direccionamiento lógico y el enrutamiento.</td>
+								<td id="uGnF" class="">Paquete</td>
+								<td id="U&gt;=U" class="">IPv4, IPv6, ICMP, OSPF</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-801e-9cd9-c92e1cc64cb9">
+								<td id="JDjn" class=""><strong>2. Enlace de Datos</strong></td>
+								<td id="rHn@" class="">Controla el acceso al medio y la comunicación entre dispositivos
+									de la misma red.</td>
+								<td id="uGnF" class="">Trama</td>
+								<td id="U&gt;=U" class="">Ethernet, Wi-Fi (802.11), PPP, MAC</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80f9-9053-c7cdad8164a5">
+								<td id="JDjn" class=""><strong>1. Física</strong></td>
+								<td id="rHn@" class="">Transmite bits por medios físicos como cables o señales.</td>
+								<td id="uGnF" class="">Bits</td>
+								<td id="U&gt;=U" class="">RJ45, fibra óptica, USB, Bluetooth</td>
+							</tr>
+						</div>
+					</tbody>
+				</table>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80d6-b03a-eac956255748" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-80fb-8115-ecd797a17962" class="">Modelo TCP/IP</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-806b-90f0-c8d68c2f9fe6" class="">El <strong>Modelo TCP/IP</strong> es el modelo
+					usado en Internet y organiza la comunicación en <strong>4 capas</strong>. Cada capa cumple una
+					función específica y utiliza distintos protocolos.</p>
+			</div>
+			<div style="display:contents" dir="ltr">
+				<table id="36683986-e476-80b7-a63d-f81c6b66bd37" class="simple-table">
+					<thead class="simple-table-header">
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8050-a8f1-f2a5363e1ac7">
+								<th id="Y=tf" class="simple-table-header-color simple-table-header">Capa</th>
+								<th id="`y&gt;i" class="simple-table-header-color simple-table-header">Función</th>
+								<th id="ugRO" class="simple-table-header-color simple-table-header">PDU</th>
+								<th id="cRpd" class="simple-table-header-color simple-table-header">Protocolos /
+									Ejemplos</th>
+							</tr>
+						</div>
+					</thead>
+					<tbody>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-800b-b2fc-ca0d5df38e7e">
+								<td id="Y=tf" class=""><strong>4. Aplicación</strong></td>
+								<td id="`y&gt;i" class="">Proporciona servicios de red a las aplicaciones del usuario.
+								</td>
+								<td id="ugRO" class="">Datos</td>
+								<td id="cRpd" class="">HTTP, HTTPS, FTP, DNS, SMTP, DHCP</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8081-b152-ee4a59cb4259">
+								<td id="Y=tf" class=""><strong>3. Transporte</strong></td>
+								<td id="`y&gt;i" class="">Gestiona la comunicación entre dispositivos y la fiabilidad de
+									los datos.</td>
+								<td id="ugRO" class="">Segmento (TCP) / Datagrama (UDP)</td>
+								<td id="cRpd" class="">TCP, UDP</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8006-9fbe-f36dba9cdcc1">
+								<td id="Y=tf" class=""><strong>2. Internet</strong></td>
+								<td id="`y&gt;i" class="">Se encarga del direccionamiento lógico y el enrutamiento entre
+									redes.</td>
+								<td id="ugRO" class="">Paquete</td>
+								<td id="cRpd" class="">IPv4, IPv6, ICMP, ARP</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80c7-9796-f7571aec0759">
+								<td id="Y=tf" class=""><strong>1. Acceso a la Red</strong></td>
+								<td id="`y&gt;i" class="">Controla la transmisión física de datos en la red local.</td>
+								<td id="ugRO" class="">Trama / Bits</td>
+								<td id="cRpd" class="">Ethernet, Wi-Fi, PPP, MAC</td>
+							</tr>
+						</div>
+					</tbody>
+				</table>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8075-aaee-f12d3d1968ce" class="">Relación con OSI</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8042-a591-f67a29d00324" class="">El modelo TCP/IP simplifica el OSI:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-808b-8f31-f1448d37ae87" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Aplicación TCP/IP</strong> = Capas 7, 6 y 5 de OSI</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8058-abab-ca494d520bec" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Transporte TCP/IP</strong> = Capa 4 de OSI</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e3-a508-ceeda7da1e20" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Internet TCP/IP</strong> = Capa 3 de OSI</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8014-abf7-dc393a209652" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Acceso a la Red TCP/IP</strong> = Capas 2 y 1 de OSI</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80a5-805c-dd3b682e9bd0" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-80e0-95c9-d9b3c9f66941" class="">Detección y comprobación de errores en redes
+				</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800c-8cc7-c7c8d48fcc6c" class="">Cuando los datos viajan por una red pueden
+					producirse errores por ruido, interferencias o fallos físicos. Para comprobar que la información
+					llegue correctamente, distintas capas del modelo OSI realizan verificaciones.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-803f-9258-d407bd5e4757" class="">En Ethernet, la información viaja dentro de una
+					<strong>trama</strong> formada por cabecera, datos y un trailer:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+					integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+					crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+					integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+					crossorigin="anonymous" referrerPolicy="no-referrer" />
+				<pre id="36683986-e476-8030-b381-d2065f0af77f"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">| Cabecera | Datos | Trailer |</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8098-b40d-e396f46bf8d7" class="">El trailer contiene el <strong>FCS (Frame Check
+						Sequence)</strong>, un valor que sirve para detectar errores en la transmisión. Ese valor se
+					calcula usando:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8001-9e64-ec4a81956ddf" class=""><em><strong>CRC</strong></em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8073-ae5c-dca28e2d271b" class="">El emisor calcula el CRC antes de enviar la trama
+					y el receptor lo vuelve a calcular al recibirla. Si ambos resultados coinciden, la trama es válida;
+					si no coinciden, significa que algún bit cambió durante el envío.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8033-9ce1-e68fd46c0958" class="">En la <strong>Capa 2 (Enlace de Datos)</strong> se
+					usan CRC y FCS para detectar errores de bits en toda la trama Ethernet.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-803a-9bcb-f2db570cfc76"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">| Header Ethernet | Datos | FCS |</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8084-a9f3-c388f9c89b2c" class="">En la <strong>Capa 3 (Red)</strong>, IP utiliza un
+					checksum que solo verifica la cabecera IP, comprobando que datos como la IP origen, destino o TTL no
+					se hayan corrompido.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8071-95c0-ea239434ac16"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">| Cabecera IP |</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-803c-acf1-fb8cb6697e0c" class="">En la <strong>Capa 4 (Transporte)</strong>, TCP y
+					UDP usan checksum para comprobar tanto la cabecera como los datos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80e3-a69e-c7bdf605eeee"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">| Header TCP/UDP | Datos |</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-807f-9301-e432529b8775" class="">TCP además puede reenviar paquetes perdidos y
+					garantizar que lleguen en el orden correcto, mientras que UDP solo verifica errores pero prioriza la
+					velocidad.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8026-b3b6-fcb650415400" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8090-b77e-d2a54d0166b8" class="">Redes</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8052-aaea-fc7157d3f038" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WAN (Wide Area Network)</strong>: Red de área amplia que
+						conecta dispositivos o redes a grandes distancias, incluso entre países.<em>Ejemplo:
+							Internet.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8012-9b91-ff8d2f2539c9" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>CAN (Campus Area Network)</strong>: Red que conecta varios
+						edificios dentro de un campus o institución.<em>Ejemplo: la red de una universidad.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80d7-8333-e8657459ba62" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>PAN (Personal Area Network)</strong>: Red de corto alcance
+						para dispositivos personales.<em>Ejemplo: conexión Bluetooth entre móvil y auriculares.</em>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-809a-8074-f0dabcd50a29" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>LAN (Local Area Network)</strong>: Red local que conecta
+						dispositivos en un área pequeña como una casa, oficina o aula.<em>Ejemplo: red Wi-Fi de
+							casa.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e9-ac60-fce914bcd350" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>MAN (Metropolitan Area Network)</strong>: Red que cubre una
+						ciudad o zona metropolitana.<em>Ejemplo: red que conecta varias sedes de una empresa en una
+							misma ciudad.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80dd-b60a-c1536ae2dc49" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>VLAN (Virtual Local Area Network)</strong>: División lógica
+						de una LAN para separar dispositivos aunque estén conectados al mismo switch físico.<em>Ejemplo:
+							separar la red de alumnos y profesores.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-800f-a9f6-c38b7451f6bc" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WLAN (Wireless Local Area Network)</strong>: LAN
+						inalámbrica que usa Wi-Fi para conectar dispositivos sin cables.<em>Ejemplo: red Wi-Fi de una
+							cafetería.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-806f-88a4-f2f72dc5603f" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80c8-8c36-e98b0dbe8050" class="">Perturbaciones (Interferencias)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-808a-a63e-e067c309a67e" class="">Las perturbaciones son alteraciones que afectan a
+					la señal durante la transmisión de datos y pueden provocar errores en la comunicación.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80dd-9219-c8857e485c73" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Ruido</strong>: Señales externas no deseadas que
+						interfieren con la transmisión.<em>Ejemplo: interferencias eléctricas en un cable de red.</em>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8079-a983-cd1a838d255f" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Atenuación</strong>: Pérdida de intensidad de la señal a
+						medida que recorre una distancia.<em>Ejemplo: una señal Wi-Fi débil lejos del router.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8034-9c0b-cd09a522dbeb" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Distorsión</strong>: Alteración de la forma original de la
+						señal durante la transmisión.<em>Ejemplo: datos que llegan modificados por interferencias o
+							retrasos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8036-a174-e92fcc9453e1" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8026-aa8a-fc87d9d0cb8b" class="">Modos de transmisión</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8026-a6fc-f136075750f2" class="">Los modos de transmisión indican cómo se envían y
+					reciben los datos entre dispositivos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a3-a4a8-db75eb6f5a8e" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Simplex</strong>: La comunicación va en un solo
+						sentido.<em>Ejemplo: una televisión recibe señal pero no envía información.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8004-ad92-f45ec2a340f4" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Half-duplex</strong>: La comunicación va en ambos sentidos,
+						pero no al mismo tiempo.<em>Ejemplo: un walkie-talkie.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e1-a005-d422b4eae887" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Full-duplex</strong>: La comunicación ocurre en ambos
+						sentidos simultáneamente.<em>Ejemplo: una llamada telefónica o una red Ethernet moderna.</em>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80e3-b44f-c1fd6425f7ef" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8076-81d4-f18e77da1a57" class="">Cables Ethernet</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8073-a03b-f2d7d9512502" class="">Cables Ethernet RJ45</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80f9-b8d5-ddea2d603f95" class="">Los cables Ethernet con conector
+					<strong>RJ45</strong> se usan en redes LAN para conectar dispositivos como ordenadores, switches y
+					routers. Funcionan bajo el estándar:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8080-920d-ea7246390ecf"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Ethernet (IEEE 802.3)</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80c2-a6aa-f966be0555b6" class="">Existen distintos tipos de cable según el nivel de
+					protección frente a interferencias:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8035-bb43-d1e262768f74" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>UTP (Unshielded Twisted Pair)</strong>: cable sin blindaje.
+						Es el más común y económico.<em>Ejemplo: redes domésticas y oficinas.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-805d-81aa-f78d76d4b2b2" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>STP (Shielded Twisted Pair)</strong>: cable con blindaje
+						metálico para reducir interferencias.<em>Ejemplo: entornos industriales.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a9-a9d6-d3c9ca0fc69c" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>FTP (Foiled Twisted Pair)</strong>: cable con una lámina
+						metálica que protege todos los pares internos.<em>Ejemplo: oficinas con muchos dispositivos
+							electrónicos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8066-a13e-faa078f1524f" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>SFTP (Shielded Foiled Twisted Pair)</strong>: combina malla
+						y lámina de protección para máxima reducción de ruido.<em>Ejemplo: centros de datos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8066-8f6d-e4e6e0cf4365" class="">Categorías de cable Ethernet</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8005-b794-d4a91af453ae" class="">Las categorías indican la velocidad y el ancho de
+					banda que soporta el cable.</p>
+			</div>
+			<div style="display:contents" dir="ltr">
+				<table id="36683986-e476-80a7-8bd2-fe29da799fd7" class="simple-table">
+					<thead class="simple-table-header">
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-807e-8109-d0c2224cc03c">
+								<th id="w&gt;Lo" class="simple-table-header-color simple-table-header">Categoría</th>
+								<th id=":jzr" class="simple-table-header-color simple-table-header">Velocidad máxima
+								</th>
+								<th id="\UFs" class="simple-table-header-color simple-table-header">Ancho de banda</th>
+								<th id="BM\b" class="simple-table-header-color simple-table-header">Distancia
+									recomendada</th>
+							</tr>
+						</div>
+					</thead>
+					<tbody>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8087-9123-ecba9d020a90">
+								<td id="w&gt;Lo" class="">Cat5</td>
+								<td id=":jzr" class="">100 Mbps</td>
+								<td id="\UFs" class="">100 MHz</td>
+								<td id="BM\b" class="">100 m</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8083-bb47-c83249878e2b">
+								<td id="w&gt;Lo" class="">Cat5e</td>
+								<td id=":jzr" class="">1 Gbps</td>
+								<td id="\UFs" class="">100 MHz</td>
+								<td id="BM\b" class="">100 m</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8079-abbf-f61f3c3fb0b3">
+								<td id="w&gt;Lo" class="">Cat6</td>
+								<td id=":jzr" class="">1–10 Gbps</td>
+								<td id="\UFs" class="">250 MHz</td>
+								<td id="BM\b" class="">100 m (1 Gbps) / 55 m (10 Gbps)</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8062-84eb-d927271efe41">
+								<td id="w&gt;Lo" class="">Cat6a</td>
+								<td id=":jzr" class="">10 Gbps</td>
+								<td id="\UFs" class="">500 MHz</td>
+								<td id="BM\b" class="">100 m</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8084-a373-fa384885020c">
+								<td id="w&gt;Lo" class="">Cat7</td>
+								<td id=":jzr" class="">10 Gbps</td>
+								<td id="\UFs" class="">600 MHz</td>
+								<td id="BM\b" class="">100 m</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80a9-a9cd-e50ccb54139e">
+								<td id="w&gt;Lo" class="">Cat7a</td>
+								<td id=":jzr" class="">10 Gbps</td>
+								<td id="\UFs" class="">1000 MHz</td>
+								<td id="BM\b" class="">100 m</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80ba-9dc3-cf49e257052f">
+								<td id="w&gt;Lo" class="">Cat8</td>
+								<td id=":jzr" class="">25–40 Gbps</td>
+								<td id="\UFs" class="">2000 MHz</td>
+								<td id="BM\b" class="">30 m</td>
+							</tr>
+						</div>
+					</tbody>
+				</table>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-803e-838b-df1ae1171dfd" class="">Cuanto mayor es la categoría, mayor velocidad y
+					mejor protección frente a interferencias ofrece el cable.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8001-913f-d5606215cb17" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-80ee-b106-e3aefbec2777" class="">Cables de fibra óptica</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8075-b079-ea30ea46bcec" class="">Los cables de fibra óptica transmiten datos
+					mediante pulsos de luz en lugar de electricidad. Están formados por hilos de vidrio o fibra,
+					recubrimientos plásticos y materiales de refuerzo como kevlar, lo que les permite alcanzar grandes
+					velocidades y largas distancias con muy poca interferencia.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d7-997b-f30a8d3403bd" class="">Sus principales ventajas son:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8070-9174-d1cbfd67f011" class="bulleted-list">
+					<li style="list-style-type:disc">Mayor velocidad de transmisión.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8080-b8e9-d4c6704bc298" class="bulleted-list">
+					<li style="list-style-type:disc">Menor pérdida de señal.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8022-bed7-c3ba59720ecf" class="bulleted-list">
+					<li style="list-style-type:disc">Inmunidad a interferencias electromagnéticas.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8079-9f5e-d912349591ff" class="bulleted-list">
+					<li style="list-style-type:disc">Mayor seguridad y estabilidad.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8019-a2cd-efd044c6ba85" class="">Tipos de fibra óptica</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8027-b2ce-d5836927384a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Monomodo (Single Mode)</strong>: utiliza un solo camino de
+						luz, lo que permite transmitir datos a largas distancias y altas velocidades. Tiene un núcleo
+						muy fino y suele ser más cara.<em>Ejemplo: conexiones entre ciudades o redes de proveedores de
+							Internet.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80cf-a338-e854c28262c5" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Multimodo (Multi Mode)</strong>: utiliza varios caminos de
+						luz al mismo tiempo. Es más económica, pero funciona mejor en distancias cortas porque la señal
+						se dispersa más fácilmente.<em>Ejemplo: redes internas de edificios o centros de datos.</em>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-80be-be5c-f5c4b30ceedc" class="">Tipos de fibra monomodo</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8019-bb37-d366d310da7e" class="">La fibra <strong>monomodo</strong> utiliza un
+					único haz de luz, lo que permite transmitir datos a grandes distancias con muy poca pérdida de
+					señal.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80b7-ab78-fb1f84204960" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>OS1</strong>: fibra monomodo diseñada para interiores,
+						normalmente usada en edificios y redes internas.<em>Ejemplo: cableado de fibra dentro de
+							oficinas o centros de datos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8007-9244-e1062d89fddb" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>OS2</strong>: fibra monomodo para exteriores y largas
+						distancias. Tiene menor atenuación y mayor rendimiento.<em>Ejemplo: conexiones entre ciudades o
+							redes de operadores.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8038-9aff-e1cefb7f8776" class="">Tipos de fibra multimodo</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80fd-a5ce-c51d5dd0432a" class="">La fibra <strong>multimodo</strong> permite varios
+					caminos de luz simultáneos. Es más económica y se usa principalmente en distancias cortas.</p>
+			</div>
+			<div style="display:contents" dir="ltr">
+				<table id="36683986-e476-8022-97f0-e44f10fcd763" class="simple-table">
+					<thead class="simple-table-header">
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80c0-a1a4-cf534c3d5d4c">
+								<th id="oa@o" class="simple-table-header-color simple-table-header">Tipo</th>
+								<th id="kUUH" class="simple-table-header-color simple-table-header">Distancia /
+									Velocidad</th>
+								<th id="O`sp" class="simple-table-header-color simple-table-header">Características</th>
+							</tr>
+						</div>
+					</thead>
+					<tbody>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8098-8548-f198e92826ef">
+								<td id="oa@o" class="">OM1</td>
+								<td id="kUUH" class="">300 m – 1 Gbps</td>
+								<td id="O`sp" class="">Fibra multimodo básica y antigua</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8059-b6ba-d7b5e995d02d">
+								<td id="oa@o" class="">OM2</td>
+								<td id="kUUH" class="">600 m – 1 Gbps</td>
+								<td id="O`sp" class="">Mayor alcance que OM1</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-801e-800d-c1de37f0773f">
+								<td id="oa@o" class="">OM3</td>
+								<td id="kUUH" class="">300 m – 10 Gbps</td>
+								<td id="O`sp" class="">Optimizada para altas velocidades</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-80b9-9adf-ecfa1ea909ad">
+								<td id="oa@o" class="">OM4</td>
+								<td id="kUUH" class="">550 m – 10/40 Gbps</td>
+								<td id="O`sp" class="">Mejor rendimiento y alcance</td>
+							</tr>
+						</div>
+						<div style="display:contents" dir="ltr">
+							<tr id="36683986-e476-8057-a4a2-d27f8eaf4a21">
+								<td id="oa@o" class="">OM5</td>
+								<td id="kUUH" class="">550 m – 40/100 Gbps</td>
+								<td id="O`sp" class="">Más eficiente y preparada para mayores velocidades</td>
+							</tr>
+						</div>
+					</tbody>
+				</table>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-80a6-ba8e-f0ae24560472" class="">Conectores de fibra óptica</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800b-acdb-dadc2c31433f" class="">Los conectores unen los cables de fibra a
+					dispositivos de red.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8092-b094-cc376409d722" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>ST (Straight Tip)</strong>: conector redondo y antiguo que
+						funciona girándolo para fijarlo.<em>Ejemplo: instalaciones antiguas de fibra.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80eb-8ce9-cba569735a75" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>SC (Subscriber Connector)</strong>: conector cuadrado de
+						presión, muy utilizado en telecomunicaciones.<em>Ejemplo: routers de fibra FTTH.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ba-956b-ffe842418ac3" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>LC (Lucent Connector)</strong>: conector pequeño tipo clip,
+						muy usado actualmente por su tamaño reducido.<em>Ejemplo: switches y centros de datos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-807d-8e0b-d873e6341f46" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-808a-96ce-d757dd756335" class="">Dispositivos para comunicaciones</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80de-8aec-c022d985b66a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Router</strong>: Dispositivo que conecta diferentes redes y
+						dirige los paquetes de datos hacia su destino usando direcciones IP. Trabaja principalmente en
+						la <strong>Capa 3 (Red)</strong>.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-8092-8617-f18d0002c33e" class=""><em>Ejemplo: el router de casa que
+									conecta la red local a Internet.</em></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-809d-ba66-d9810503ed69" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Hub</strong>: Dispositivo antiguo que enviaba la
+						información a todos los equipos conectados sin distinguir destinatarios. Trabaja en la
+						<strong>Capa 1 (Física)</strong> y actualmente está obsoleto por ser poco eficiente.<div
+							style="display:contents" dir="auto">
+							<p id="36683986-e476-801f-b1e1-de968bc99cb6" class=""><em>Ejemplo: antiguas redes Ethernet
+									compartidas.</em></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-806c-890b-f4382b81f3f1" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Switch</strong>: Dispositivo que conecta equipos dentro de
+						una LAN y envía los datos solo al dispositivo correcto usando direcciones MAC. Trabaja en la
+						<strong>Capa 2 (Enlace de Datos)</strong>.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-80c5-81c3-c0f64ab3b263" class=""><em>Ejemplo: conexión de varios PCs en
+									una oficina.</em></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ee-8be0-d182cebb4bd4" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Switch Capa 3</strong>: Switch avanzado que además de
+						funciones de switching puede realizar enrutamiento entre redes o VLANs utilizando IP. Combina
+						funciones de Capa 2 y Capa 3.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-803f-b42f-f7437d04398f" class=""><em>Ejemplo: comunicación entre
+									distintas VLANs en una empresa.</em></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-809c-8435-c330e3c4ba2c" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>AP (Access Point)</strong>: Punto de acceso que permite
+						conectar dispositivos inalámbricos a una red cableada mediante Wi-Fi.<div
+							style="display:contents" dir="auto">
+							<p id="36683986-e476-8072-90cf-fb577c986600" class=""><em>Ejemplo: un punto Wi-Fi en una
+									oficina o universidad.</em></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80b9-8783-e688c05c1c27" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-809b-89a2-d22d83e55a07" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-80ad-84a7-f5b8a31c9ce0" class="">Topologías de red</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8059-b8cd-c429b6cce62d" class="">Las topologías de red describen la forma en que
+					los dispositivos están conectados dentro de una red.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-8018-9f6c-c25edc18cae9" class="numbered-list" start="1">
+					<li><strong>Estrella</strong>: Todos los dispositivos se conectan a un punto central, normalmente un
+						switch o router. Es la topología más utilizada porque si un equipo falla, el resto sigue
+						funcionando.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-8045-9ed9-e008bfe890f0" class=""><em>Ejemplo: redes Ethernet actuales
+									en oficinas y casas.</em></p>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-806a-9d27-f864b08127b8" class="numbered-list" start="2">
+					<li><strong>Árbol</strong>: Estructura jerárquica formada por varias redes en estrella conectadas
+						entre sí. Facilita la expansión de grandes redes.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-8095-a244-df08deb4236d" class=""><em>Ejemplo: red de una universidad
+									con varios edificios y departamentos.</em></p>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-80cf-8d14-d0875da6087d" class="numbered-list" start="3">
+					<li><strong>Malla</strong>: Cada dispositivo puede conectarse con varios o todos los demás,
+						ofreciendo gran redundancia y tolerancia a fallos.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-8076-8921-c63bc6cd82e3" class=""><em>Ejemplo: redes de proveedores de
+									Internet.</em></p>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-80d8-afe8-e1a34d1454c4" class="numbered-list" start="4">
+					<li><strong>Bus</strong>: Todos los dispositivos comparten un único cable principal. Fue común en
+						redes antiguas pero actualmente casi no se utiliza.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-80d2-85c1-cb1026b4b620" class=""><em>Ejemplo: antiguas redes Ethernet
+									coaxiales.</em></p>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ol type="1" id="36683986-e476-80c3-bad0-fea3bd956ff7" class="numbered-list" start="5">
+					<li><strong>Anillo</strong>: Los dispositivos se conectan formando un círculo y los datos viajan de
+						un equipo a otro hasta llegar al destino.<div style="display:contents" dir="auto">
+							<p id="36683986-e476-805d-99d8-c7a93c049c93" class=""><em>Ejemplo: redes Token Ring.</em>
+							</p>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8084-8a4d-ef60d9698d64" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80ac-b363-c0685cb3e96f" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8026-a103-d53cf7d8964e" class="">Estándares IEEE 802.X</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-802c-9e5a-c91d709223e0" class="">IEEE 802.11 — Wi-Fi</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-809b-81b2-e8478b4df583" class="">Estándar para redes inalámbricas WLAN. Define cómo
+					se comunican los dispositivos mediante Wi-Fi.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8038-8dd4-c402884c3748" class=""><em>Ejemplo: conexión inalámbrica de móviles y
+						portátiles a un router.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80ab-b396-c1e31eb4814f" class="">IEEE 802.3 — Ethernet</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805b-a455-f0f7dec728b9" class="">Estándar para redes Ethernet cableadas. Define
+					transmisión de datos, cableado y velocidades en redes LAN.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8053-a54a-ea573906faec" class=""><em>Ejemplo: conexión por cable RJ45 entre un PC y
+						un switch.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80f1-98c6-f0eb521156ad" class="">IEEE 802.15.1 — Bluetooth</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80bb-9fc0-c62820005d8d" class="">Estándar para redes PAN de corto alcance mediante
+					Bluetooth.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-809c-9889-f4d2b4a01209" class=""><em>Ejemplo: conexión entre auriculares
+						inalámbricos y un móvil.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80e8-9284-ffb1cbc05544" class="">IEEE 802.16 — WiMAX</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-807d-a374-ce3f27ad152d" class="">Estándar de comunicación inalámbrica de largo
+					alcance usado para acceso a Internet metropolitano.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805b-99f0-ceeca17e7775" class=""><em>Ejemplo: cobertura inalámbrica en zonas
+						rurales o grandes ciudades.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8080-8e68-c633ab535cb5" class="">IEEE 802.1Q — Dot1Q / Trunk</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80a9-8237-c719507b21d0" class="">Estándar usado en enlaces Trunk para etiquetar
+					VLANs dentro de una misma conexión física mediante encapsulación Dot1Q.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800c-8601-e1425113f3b6" class=""><em>Ejemplo: comunicación de varias VLANs entre
+						switches.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ca-bda5-c898f86b7cab" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8009-b880-fed3199a51eb" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-802c-86ef-ed7922f21e2b" class="">Wi-Fi</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ab-b752-d9333b4c4457" class="">Wi-Fi es una tecnología inalámbrica basada en el
+					estándar:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8015-9ec9-df4713b6dd85"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">IEEE 802.11</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ff-a2bc-ce29e48ac166" class="">Permite conectar dispositivos a una red sin usar
+					cables mediante ondas de radio.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8095-9b46-c8c24fc8d407" class="">Las bandas más utilizadas son:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-805e-bb5c-c588b535c4f3" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>2.4 GHz</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8061-84bf-efbcf67b1146" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>5 GHz</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-804b-95e8-f7e781a99e9c" class="">La banda <strong>2.4 GHz</strong> ofrece mayor
+					alcance y puede atravesar mejor paredes y obstáculos, aunque tiene menor velocidad y suele sufrir
+					más interferencias porque muchos dispositivos la utilizan.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800a-a5d1-ef832649f8ce" class=""><em>→ Ejemplo: redes domésticas con dispositivos
+						alejados del router.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8026-b5f7-fa38c3c49d41" class="">La banda <strong>5 GHz</strong> ofrece mayor
+					velocidad y menor interferencia, pero tiene menos alcance y atraviesa peor los obstáculos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80de-906a-c8557b20704f" class=""><em>→ Ejemplo: streaming, videojuegos online o
+						conexiones de alta velocidad cerca del router.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8054-bf10-e46cb4a994cc" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80d7-8dc7-fc9eb40f64fb" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8037-a835-fcf43efd4fc6" class="">Seguridad</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8073-8af2-c2c7b5c99801" class="">La seguridad de una red Wi-Fi no depende de la
+					frecuencia utilizada (2.4 GHz o 5 GHz), sino del tipo de cifrado y autenticación configurados en la
+					red.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8058-8b21-c29332458604" class="">Los principales protocolos de seguridad Wi-Fi son:
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a3-a7b8-feca7f6f3adb" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WEP (Wired Equivalent Privacy)</strong>: sistema antiguo y
+						poco seguro. Sus claves pueden romperse fácilmente, por lo que actualmente está obsoleto.<br />→
+						<em>Ejemplo: redes Wi-Fi antiguas.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8047-956e-d7369c05e3ba" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WPA (Wi-Fi Protected Access)</strong>: mejora de WEP que
+						añadió mayor seguridad mediante cifrado dinámico.<br />→ <em>Ejemplo: primeras redes Wi-Fi
+							domésticas seguras.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8097-902b-f4bef3f6570f" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WPA2</strong>: estándar más utilizado durante muchos años.
+						Usa cifrado AES y ofrece una seguridad mucho mayor.<br />→ <em>Ejemplo: la mayoría de routers
+							domésticos modernos.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80f0-bdd0-de40e13bbceb" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>WPA3</strong>: versión más reciente y segura. Mejora la
+						protección frente a ataques de fuerza bruta y aumenta la privacidad de la conexión.<br />→
+						<em>Ejemplo: routers y dispositivos Wi-Fi actuales de última generación.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80f1-8129-e44aa1caee01" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8026-9d27-f664460bd986" class="">PROTOCOLOS (OJITO A ESTA)</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8087-b540-c0dcdafc1ee5" class="">RIP (Routing Information Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80f7-8ff4-cbbe3ca86073" class="">Protocolo de enrutamiento dinámico que elige la
+					ruta con menor número de saltos. Su límite es 15 saltos; 16 significa red inalcanzable. Funciona
+					enviando periódicamente tablas de rutas a otros routers.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-808d-b08e-ea15751aaab3" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3 (Red)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80bc-b1fb-f1b1ec69bf2e" class="bulleted-list">
+					<li style="list-style-type:disc">Transporte: <strong>UDP 520</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a2-9bdb-eb2f3a14be6e" class="bulleted-list">
+					<li style="list-style-type:disc">Tipo: <strong>IGP (Interior Gateway Protocol)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d4-a0eb-d3eea0491a72" class=""><em>Ejemplo: pequeñas redes internas con pocos
+						routers.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80ed-be6a-c7340639c0cd" class="">OSPF (Open Shortest Path First)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8021-9949-dc1032190062" class="">Protocolo de enrutamiento que calcula la ruta más
+					corta usando el algoritmo de Dijkstra (SPF). Los routers comparten información del estado de la red
+					para encontrar la mejor ruta.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8008-b3f0-e34a831171a8" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8028-aa1e-fac261643458" class="bulleted-list">
+					<li style="list-style-type:disc">Protocolo IP: <strong>89</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e9-ae7f-f6b4e1f70af6" class="bulleted-list">
+					<li style="list-style-type:disc">Tipo: <strong>IGP</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-808c-8598-fb2a68ba361f" class=""><em>Ejemplo: redes empresariales grandes.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8002-b3c1-f94b9a924c82" class="">EIGRP (Enhanced Interior Gateway Routing
+					Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8042-9ce3-fa3550c34a80" class="">Protocolo de Cisco híbrido que selecciona la mejor
+					ruta según ancho de banda, retardo y otros factores. Usa el algoritmo DUAL para converger
+					rápidamente.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8074-a4be-ffac155d1b6a" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-804f-a2ec-fd9fd2ecf3d9" class="bulleted-list">
+					<li style="list-style-type:disc">Protocolo IP: <strong>88</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ca-a8b4-f442679762d2" class="bulleted-list">
+					<li style="list-style-type:disc">Compatible con: <strong>IPv4 e IPv6</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d5-b61a-c149a9fdecd3" class=""><em>Ejemplo: redes Cisco corporativas.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8022-a2f1-fd9d410b33df" class="">BGP (Border Gateway Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ba-9454-e89145a8246c" class="">Protocolo usado para intercambiar rutas entre
+					Sistemas Autónomos (AS) en Internet. Funciona mediante relaciones de “peering” entre routers.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8074-8d77-d5403ffd12f8" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 4 / Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8089-8c12-f018bba3205a" class="bulleted-list">
+					<li style="list-style-type:disc">Transporte: <strong>TCP 179</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8034-9aa0-dc64221c32a7" class="bulleted-list">
+					<li style="list-style-type:disc">Tipo: <strong>EGP (Exterior Gateway Protocol)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8090-9f06-ff49243e27eb" class=""><em>Ejemplo: comunicación entre proveedores de
+						Internet.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80c4-949d-f6caa3143399" class="">DNS (Domain Name System)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-803a-85c3-eb777e0a7e40" class="">Traduce nombres de dominio en direcciones IP.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80a3-b3e7-d8d1ce1b942b"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">google.com → 142.250.x.x</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8045-b188-d6799e9ed32c" class="">Usa distintos registros como:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80be-967f-f2e041ee4fdd" class="bulleted-list">
+					<li style="list-style-type:disc">A → IPv4</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8091-b2ac-e7560cbd8417" class="bulleted-list">
+					<li style="list-style-type:disc">AAAA → IPv6</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-801e-a47e-cc5fdd020b53" class="bulleted-list">
+					<li style="list-style-type:disc">MX → correo</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-804c-ab32-d9a5e03b7aed" class="bulleted-list">
+					<li style="list-style-type:disc">CNAME → alias</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-806b-90ed-ea068f84d247" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-807a-a948-e4c1fa7a09ec" class="bulleted-list">
+					<li style="list-style-type:disc">Puertos: <strong>UDP/TCP 53</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ba-bbb1-dd258d4884ad" class=""><em>Ejemplo: acceder a una página web usando un
+						nombre en vez de una IP.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8046-ad83-f88ff5232028" class="">HTTP / HTTPS</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d7-8eb6-d732cf01544c" class="">Protocolos usados para navegar por páginas web.
+					HTTP transmite información y HTTPS añade cifrado SSL/TLS para seguridad.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e9-be4c-f07c1ebadf94" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-809b-8e2c-cd0b9f330cda" class="bulleted-list">
+					<li style="list-style-type:disc">Puertos:<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-8070-974b-c74108eb2e4b" class="bulleted-list">
+								<li style="list-style-type:circle">HTTP → 80</li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-801e-bcc8-d44666a60b35" class="bulleted-list">
+								<li style="list-style-type:circle">HTTPS → 443</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-802d-a9dd-c4df82a3deaa" class=""><em>Ejemplo: navegación web.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8048-8594-de3029b2ce19" class="">IP (IPv4 / IPv6)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-804d-9f0c-f10e9b999556" class="">Protocolo encargado del direccionamiento lógico y
+					envío de paquetes entre redes.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80b9-b574-f18a4ef4c4fa" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3 (Red)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-801c-aeef-d2b245b93935" class=""><em>Ejemplo: asignar IPs a dispositivos.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80e8-8c01-d7ada7f723be" class="">ICMP (Internet Control Message Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8011-adb5-d55a4318cf52" class="">Protocolo usado para diagnóstico y control de
+					errores. No transporta datos de usuario.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80e1-9428-ff91d6d6d5bf"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">ping → Echo Request / Echo Reply</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-800d-a177-f9a53e411cce" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ed-9e2a-c86f9c7e76ee" class="bulleted-list">
+					<li style="list-style-type:disc">No orientado a conexión.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805f-94fc-c90950923201" class=""><em>Ejemplo: comando ping.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8003-b1ef-ff52d212b30c" class="">DHCP (Dynamic Host Configuration Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-807b-aa38-db6f9ee985a3" class="">Asigna automáticamente direcciones IP y otros
+					parámetros de red.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-806f-9895-ddf75516747b" class="">Proceso:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80e1-8d64-d2fb38ca66a5" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">DORA:
+Discover → Offer → Request → Acknowledge</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80f8-b77a-f78d370e3fa9" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8096-a3dc-df94604ae97d" class="bulleted-list">
+					<li style="list-style-type:disc">Puertos:<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80cb-a4ad-faabd63d890b" class="bulleted-list">
+								<li style="list-style-type:circle">UDP 67</li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80f6-a50a-ed36ce99ce66" class="bulleted-list">
+								<li style="list-style-type:circle">UDP 68</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-802d-b213-c725686f28c0" class=""><em>Ejemplo: un móvil conectándose al Wi-Fi y
+						obteniendo IP automática.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8074-a38a-ea8c76e87103" class="">Telnet / SSH</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8033-8dab-e7bfe1634969" class="">Protocolos para administración remota de
+					dispositivos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8081-85d2-df70e82f0fd5" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Telnet</strong> transmite datos sin cifrar.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80b4-ad02-ed78cf231623" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>SSH</strong> cifra toda la comunicación.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80eb-95a0-f786b4800e65" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8042-8036-d860036e9e73" class="bulleted-list">
+					<li style="list-style-type:disc">Puertos:<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-8002-b7f7-c31255409f2a" class="bulleted-list">
+								<li style="list-style-type:circle">Telnet → 23</li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80c2-8a3f-fb426b0625f6" class="bulleted-list">
+								<li style="list-style-type:circle">SSH → 22</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80de-9844-fed9db0eb001" class=""><em>Ejemplo: configurar un router
+						remotamente.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8064-8348-cc2c1cd1ac6e" class="">SMTP / IMAP / POP3</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8037-bfef-ed11b0abcfca" class="">Protocolos de correo electrónico.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-804c-b54c-e05ad7b48797" class="bulleted-list">
+					<li style="list-style-type:disc">SMTP → envío de correos.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-804b-aa61-f77bd817c7e4" class="bulleted-list">
+					<li style="list-style-type:disc">IMAP → sincronización del correo con el servidor.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8057-8be1-ffa2bb85e475" class="bulleted-list">
+					<li style="list-style-type:disc">POP3 → descarga correos al dispositivo.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ab-9b68-dd1973ae4aba" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ef-903d-c69996ea3207" class=""><em>Ejemplo: Gmail o Outlook.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80af-b409-f0d107232689" class="">TCP (Transmission Control Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80d6-aa0a-f84ae3fbbba8" class="">Protocolo orientado a conexión que garantiza
+					entrega correcta y ordenada de datos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80e5-9931-d562b819cf14" class="">Establece conexión mediante:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80aa-93c9-f08496b2af12"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">SYN → SYN-ACK → ACK</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8055-b99d-c91bc42965af" class="">(Three-Way Handshake)</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-807c-abfa-d354206f04ec" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 4 (Transporte)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80b1-8209-cad129f36048" class=""><em>Ejemplo: navegación web o transferencia de
+						archivos.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8011-a089-f7874517d0e0" class="">UDP (User Datagram Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80bc-82d0-d7aaf2b9a867" class="">Protocolo no orientado a conexión. Envía datos
+					rápidamente sin confirmar entrega.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80f8-862c-cc1072c3c3e6" class="bulleted-list">
+					<li style="list-style-type:disc">Menor latencia.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8019-b56a-ff0ab9c63576" class="bulleted-list">
+					<li style="list-style-type:disc">Más rápido pero menos fiable.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8088-aa6c-d6511ac3daab" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 4</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-802f-912e-d16764a256a2" class=""><em>Ejemplo: streaming, videojuegos o
+						videollamadas.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80a1-b1a5-d1588febae5b" class="">FTP / SFTP</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80f6-a6a1-e1240248aa24" class="">Protocolos de transferencia de archivos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a1-b438-cc00fcd31fa3" class="bulleted-list">
+					<li style="list-style-type:disc">FTP → sin cifrado.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80af-b064-ee70c48244a5" class="bulleted-list">
+					<li style="list-style-type:disc">SFTP → transferencia segura mediante SSH.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80e7-8070-c1ea2b39cccd" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Aplicación</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ce-89c1-f06c998f970b" class="bulleted-list">
+					<li style="list-style-type:disc">Puertos:<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80ac-a204-e0727dbc5e76" class="bulleted-list">
+								<li style="list-style-type:circle">FTP → 21</li>
+							</ul>
+						</div>
+						<div style="display:contents" dir="auto">
+							<ul id="36683986-e476-80be-8745-e667f261511c" class="bulleted-list">
+								<li style="list-style-type:circle">SFTP → 22</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-805a-8e84-c6eecd9f00e0" class=""><em>Ejemplo: subir archivos a un servidor.</em>
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8000-b75b-c625b43add00" class="">ARP / RARP</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80b5-ae2a-cb75da08aa53" class="">ARP relaciona direcciones IP con direcciones MAC
+					dentro de una LAN.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8006-827c-e8d3f1829d73"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">IP → MAC</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8021-8655-eb82bb4c34a6" class="">RARP hacía el proceso inverso y actualmente está
+					obsoleto.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8036-8555-c0de409f4334" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 2 y 3</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8013-9b0b-dd2c08a04770" class=""><em>Ejemplo: un PC buscando la MAC del
+						gateway.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8069-8ffc-d309b78d4ee4" class="">STP (Spanning Tree Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8013-b24c-d9f6769ba0c1" class="">Protocolo que evita bucles entre switches. Elige
+					un switch principal llamado Root Bridge y bloquea enlaces redundantes.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80f2-860e-cf3b7dd41fe4" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 2</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ce-8b74-c434e64595e8" class="bulleted-list">
+					<li style="list-style-type:disc">IEEE: <strong>802.1D</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-806c-ab39-d245e1be989f" class="bulleted-list">
+					<li style="list-style-type:disc">Variante rápida: <strong>RSTP (802.1w)</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ab-ad3a-ec6041a8984f" class=""><em>Ejemplo: redes con varios switches
+						conectados.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-80b1-beb3-d530f4e98c6e" class="">VTP (VLAN Trunking Protocol)</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8011-b59b-ded2c8fd5f5b" class="">Protocolo Cisco que distribuye automáticamente
+					información de VLANs entre switches mediante enlaces trunk.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8067-a081-f96ac1ffd7e9" class="">Modos:</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80d7-af23-f47c73c24ddc" class="bulleted-list">
+					<li style="list-style-type:disc">Server</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8065-a437-cd37d380e448" class="bulleted-list">
+					<li style="list-style-type:disc">Client</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80af-b9a5-c7d8bd66089b" class="bulleted-list">
+					<li style="list-style-type:disc">Transparent</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80f6-ac46-c7a7a23aca75" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 2</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8046-99d0-f425aa5dc3d1" class=""><em>Ejemplo: creación automática de VLANs en
+						varios switches.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h3 id="36683986-e476-8076-a0ee-e03cab1c3eb5" class="">NAT / PAT</h3>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8006-8ab6-f64f43812826" class="">Tecnologías que traducen direcciones IP privadas a
+					públicas.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8006-9b50-c4f6a4e060ba" class="bulleted-list">
+					<li style="list-style-type:disc">NAT → traducción IP ↔ IP</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8096-9fc6-d7eaf957d227" class="bulleted-list">
+					<li style="list-style-type:disc">PAT → varias IP privadas comparten una IP pública usando puertos.
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-806d-a290-c7d27c054148"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">IP privada ↔ IP pública</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8039-a95a-ebfc31ab3d2c" class="bulleted-list">
+					<li style="list-style-type:disc">Capa: <strong>Capa 3</strong></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8028-930b-c4a6ef9a14f2" class=""><em>Ejemplo: varios dispositivos de casa usando
+						una sola IP pública.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80c7-8f8f-f2b0bfe99b4e" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8053-ac43-e435a91ea6da" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8072-a66b-cfd277d69f76" class="">Comandos de terminal</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8048-96a4-ff13dc6abda7" class="">Ping</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8017-8b6e-e21f5d129cd6" class="">Comprueba conectividad enviando paquetes ICMP.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8035-8b67-ed6e38f72ffb"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">ping8.8.8.8</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ce-a7ef-f61b538515e6" class=""><em>Capa 3.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-80f9-ad89-e94d59c4977d" class="">Tracert / Traceroute</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8066-a6fb-ef4879f5372a" class="">Muestra la ruta que siguen los paquetes hasta el
+					destino.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-802f-b7f0-f6f5f610c75b"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">tracert google.com</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-800e-a5b9-ca3d1db9be2e" class=""><em>Capa 3.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-80bb-9178-d8796f8481fe" class="">Ipconfig</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-803b-b5e2-c765662955a6" class="">Muestra la configuración IP del equipo.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-80f9-83ad-df351a1d86d9"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">ipconfig</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-801b-9ae3-c1e21c41aa71" class=""><em>Capas 3 y 7.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<h4 id="36683986-e476-8047-947d-debdb432d73a" class="">Netstat</h4>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80ea-879a-cae6ccca3d95" class="">Muestra conexiones y puertos abiertos.</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<pre id="36683986-e476-8007-82ec-e6b7a4e6afcd"
+					class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">netstat-an</code></pre>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-8091-91f5-ceab91fb1e12" class=""><em>Capa 4.</em></p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-80cd-b4db-e8e02bf04c8e" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-8058-82af-ee42713278c2" class="">Tier de proveedores de INternet (ISP)</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-807c-aebd-e51a9c1b7997" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tier 1</strong>: Proveedores globales que forman el núcleo
+						de Internet. No pagan tránsito porque intercambian tráfico entre ellos directamente
+						(peering).<em>Ejemplo: grandes operadores internacionales.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8021-b5aa-ccdde3d27a90" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tier 2</strong>: Proveedores que combinan peering con
+						compra de tránsito a Tier 1 para llegar a otras redes.<em>Ejemplo: operadores nacionales o
+							grandes empresas de telecomunicaciones.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80a0-b77d-cbd864df880f" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tier 3</strong>: Proveedores locales que compran acceso a
+						Tier 1 o Tier 2 para ofrecer Internet a usuarios finales.<em>Ejemplo: ISP regionales.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80db-bf33-ee3397bf0288" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tier 4</strong>: Redes internas o pequeñas compañías que
+						dependen completamente de otros ISP para conectarse a Internet.<em>Ejemplo: redes de pequeñas
+							empresas o comunidades.</em></li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80b8-9cec-f3ec3806210a" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-809e-8de3-d53182d4947b" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<h2 id="36683986-e476-803e-a25c-ddc4f7ca6d18" class="">Herramientas</h2>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-807e-bba1-d83bd3285146" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Crimpadora</strong>: herramienta para colocar conectores
+						RJ45.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8021-9d02-e2903befe5a5" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Pelacables</strong>: retira el recubrimiento del cable.
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-805e-8cba-db40d7bb9660" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Cortacables</strong>: corta cables de red o fibra.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ad-984b-cefd05bfdf42" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tester de red</strong>: comprueba conexiones RJ45.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80d4-af58-e1fafc4db5f1" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Certificador de cableado (Fluke)</strong>: verifica calidad
+						y rendimiento del cableado.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8077-8fa3-c40bd4eea2df" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>OTDR</strong>: analiza y detecta fallos en fibra óptica.
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80ea-9b0c-f84a27ae256d" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Voltímetro / Multímetro</strong>: mide voltaje, corriente y
+						resistencia.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80fd-b951-d179e589e661" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Tuercas y tornillos enjaulados</strong>: fijan equipos en
+						racks.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-802f-9472-d5f6246f13b5" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Fusionadora de fibra</strong>: une o repara cables de fibra
+						óptica.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-802c-a7c8-ce30c271b9b7" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Puntero láser</strong>: ayuda a identificar fibras ópticas.
+					</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-80b5-8aa2-e9110186e1a0" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Destornilladores / taladro / guías pasacables</strong>:
+						herramientas de instalación física.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-800e-8b1c-c4fb230112bf" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Canaletas / Patch Panels / regletas /
+							ventiladores</strong>: organización y gestión del cableado y energía.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8022-ba93-f27e470a5ef4" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Racks</strong>: armarios para montar equipos de red.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<ul id="36683986-e476-8027-9e1c-dcf09daa8254" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Ropa de seguridad</strong>: protección personal como casco,
+						botas, guantes o gafas.</li>
+				</ul>
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80e8-9696-c1df951a233e" class="">
+				</p>
+			</div>
+			<div style="display:contents" dir="auto">
+				<hr id="36683986-e476-8056-9f71-d67b8a19c98b" />
+			</div>
+			<div style="display:contents" dir="auto">
+				<p id="36683986-e476-80f2-9afe-e105288d396c" class="">
+				</p>
+			</div>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
