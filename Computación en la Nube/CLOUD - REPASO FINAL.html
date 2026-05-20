@@ -1,0 +1,803 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CLOUD - REPASO FINAL </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background-color: rgb(235, 235, 235);
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+	color:rgb(6, 161, 172)
+}
+h4{
+	color:#eb5757
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="36683986-e476-8016-be51-cfb0a8dc8c5f" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">☁️</span></div><h1 class="page-title" dir="auto">CLOUD - REPASO FINAL </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h4 id="36683986-e476-8069-a7b7-e3838ddeab31" class="">Cloud Computing</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-802c-9796-efd518ff912c" class="">La computación en la nube es un modelo que permite acceder a recursos informáticos mediante internet. Ventajas → <em>Escalabilidad, Elasticidad, Pago por uso y Alta Disponibilidad.</em></p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8025-a87a-f3f7861c21c9"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8027-afd0-ddad29fe530f" class="">SaaS</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80f6-b19a-c1f8eb7772ff" class=""><strong>Software as a Service</strong> proporciona aplicaciones listas para usar. Está orientado a usuarios finales y todo lo gestiona el proveedor. (<em>Gmail, Office 365</em>)</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-809f-ad5f-d5f0c412b911" class="">PaaS</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80fa-a1a7-c3b56bd8bff9" class=""><strong>Platform as a Service</strong> proporciona plataformas listas para desarrollar aplicaciones. Ideal para desarrolladores. (<em>Heroku</em>)</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8023-91b7-de4d7e6b927c" class="">IaaS</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8062-a3c7-dd8b98c89bf1" class=""><strong>Infrastructure as a Service</strong> proporciona infraestructura virtual, máximo control. Es el modelo más flexible. (<em>AWS, Azure</em>)</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8021-9059-cb0290ae522c"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-802b-925f-e70a0c21c562" class="">AWS</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8092-b200-cb167759d115" class=""><strong>AWS (Amazon Web Services) (2006) </strong>es la plataforma cloud de Amazon. Permite utilizar infraestructura tecnológica a través de internet sin necesidad de comprar servidores físicos.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80e5-aaf7-e8d60fc59efc"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80e7-bd51-f37abd5daa77" class="">Región</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8095-8ae9-fcf732d541a1" class="">Ubicación geográfica física donde AWS tiene centros de datos.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80f8-bc87-f7413facddfa" class="">Availability Zone (AZ)</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-804a-85a3-ea7976fb28d7" class="">Centro de datos aislado dentro de una región.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-805b-b215-e2f2a8c08bd0"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8043-b6f0-dde7cecc80a6" class="">Puertos</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8014-ba01-f3f53c4a17e1" class="bulleted-list"><li style="list-style-type:disc"><strong>80</strong> → HTTP</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-802d-8d01-c8b179f888cb" class="bulleted-list"><li style="list-style-type:disc"><strong>443</strong> → HTTPS</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80cb-823b-dbdbbcbe330f" class="bulleted-list"><li style="list-style-type:disc"><strong>22</strong> → SSH</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8064-982b-cde55f0ee992" class="bulleted-list"><li style="list-style-type:disc"><strong>3389</strong> → RDP</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-806c-890c-f8259bc148ca" class="bulleted-list"><li style="list-style-type:disc"><strong>25</strong> → SMTP</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80e2-bba9-c1f0ebd11b08" class="bulleted-list"><li style="list-style-type:disc"><strong>5432</strong> → PostgreSQL</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-801f-a91f-ce871b057dfd" class="bulleted-list"><li style="list-style-type:disc"><strong>3306</strong> → MySQL</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8074-a167-ed9b915c055a"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-805c-a233-e78acc860a68" class="">SSH</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8049-b92e-eeb659bcbcc6" class="">SSH permite conectarse remotamente a servidores Linux de forma segura. Puedes hacerlo mediante PuTTY, que usa archivos .ppk</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-808f-a8a9-d96268ea5a4d" class="">RDP</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80c3-93ac-eca0a3eab5c9" class="">RDP (<em>Remote Desktop Protocol</em>) permite conectarse gráficamente a servidores Windows.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8082-bef1-f7747a2aa815"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80fe-b577-c5c5fd2a49c3" class="">CIDR</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8078-80f2-f925e61362e7" class="">CIDR permite dividir direcciones IP de forma eficiente. La parte después de la barra indica cuántos bits pertenecen a la red.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="36683986-e476-807e-8783-c01f8f36b290" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">192.168.1.0/24
+--------------------------------
+2^8 = 256 IPs totales
+256 - 2 = 254 utilizables</code></pre></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8069-8fd0-e1bff7552ae8"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80d5-a3a6-d6880b77a76a" class="">Direcciones IP Privadas</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80b2-89d5-d28d94eb3119" class="bulleted-list"><li style="list-style-type:disc">Rango <code>10.0.0.0/8</code> → grandes empresas y CLoud</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8003-99a4-ef38c911013b" class="bulleted-list"><li style="list-style-type:disc">Rango <code>172.16.0.0/12</code> → rede medianas</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8056-ba7c-cac1e26b7569" class="bulleted-list"><li style="list-style-type:disc">Rango <code>192.68.0.0/16</code> → Hogar y oficinas</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80a1-b236-e961f4e3fd93"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8024-9db9-e310d5d84796" class="">Amazon VPC</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80c6-a37a-d6afa5f0fd25" class="">Amazon VPC (<em>Virtual Private Cloud</em>) permite crear redes virtuales privadas dentro de AWS → <em>Es como tener tu propia red aislada dentro de la nube.</em></p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80a5-9b5d-cf3b423e93e8" class="bulleted-list"><li style="list-style-type:disc">Una VPC pertenece a una región</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8006-b2bd-e153f383679e" class="bulleted-list"><li style="list-style-type:disc">Puede abarcar varias AZ</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8050-adfc-e03c5fa1aafb" class="bulleted-list"><li style="list-style-type:disc">Las subredes pertenecen a una sola AZ</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8039-b908-d0b888529936"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80a9-b7da-f638c94cd393" class="">Security Group</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80b6-9ae7-c4b5029f65f9" class="">Los Security Groups funcionan como firewalls virtuales a nivel de instancia. Son <em>Stateful</em>, permiten tráfico de entrada y salida, solo reglas ALLOW y se aplican a EC2 y recursos concretos</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80d5-9822-ee7e7892c480" class="">ACLs de red</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80a4-8f48-c401d646917d" class="">Las NACL (Network ACL) actúan como firewall a nivel de subred. Son <em>Stateless</em>, controlan entrada y salida, permiten reglas ALLOW y DENY y protegen subredes completas.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80f6-90f5-ea7969bfefd2"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-803d-a7eb-cc0bd55e04ea" class="">Route 53</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80ac-bec5-e48ba5be8339" class="">Amazon Route 53 es el servicio<strong> DNS </strong>de AWS. Su función principal es traducir nombres de dominio en direcciones IP. Tipos de routing:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-808f-935a-e7f0d0fc2fc2" class="bulleted-list"><li style="list-style-type:disc">Simple</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-806e-9979-ed600ba01ffb" class="bulleted-list"><li style="list-style-type:disc">Weighted</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8025-85a6-c1369b643506" class="bulleted-list"><li style="list-style-type:disc">Latency</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80cb-ae80-fd9cc29f8092" class="bulleted-list"><li style="list-style-type:disc">Geolocation</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-806d-9d8d-f95ad1d7110a" class="bulleted-list"><li style="list-style-type:disc">Failover</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8077-8771-de6153c41c82"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8027-b96a-df221f918e48" class="">CloudFront</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8029-94a9-f101cdf74be3" class="">CloudFront es la <strong>CDN</strong> (<em>Content Delivery Network</em>) de AWS. Una CDN distribuye contenido mediante servidores repartidos mundialmente.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80bf-b779-c815f501eca7"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8059-967d-eab8ecc8fd0b" class="">Contenedores</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-806c-9eb5-fe5709d086eb" class="">Un contenedor es una forma moderna de ejecutar aplicaciones de manera aislada y portable. Incluye TODO lo necesario para ejecutar una aplicación (<em>código, librerías, dependencias, configuración, variables de entorno…</em>)</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80f7-8236-e7cc65dfbb95" class="">→ Cada aplicación tiene SU propio entorno aislado. L<em>os contenedores aíslan aplicaciones y dependencias.</em></p></div><div style="display:contents" dir="ltr"><table id="36683986-e476-80ee-9a7c-c219f1b50cc5" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36683986-e476-8067-8034-ca0341a0e21e"><th id="fklf" class="simple-table-header-color simple-table-header">Máquina Virtual</th><th id="Wh=c" class="simple-table-header-color simple-table-header">Contenedor</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36683986-e476-8010-b7dc-cce84fcc8e44"><td id="fklf" class="">Sistema operativo completo</td><td id="Wh=c" class="">Comparte kernel</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-80f5-bda6-d247c33edc52"><td id="fklf" class="">Más pesada</td><td id="Wh=c" class="">Más ligera</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-8023-bdff-feb88770025d"><td id="fklf" class="">Arranque lento</td><td id="Wh=c" class="">Arranque rápido</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="36683986-e476-804d-90c3-e56f8b9a99ce"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-8076-8f49-cea1d718a6df" class="">🔵 AMAZON EC2</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-8038-9188-d02543aeea54" class=""><strong>Amazon EC2 (</strong><em><strong>Elastic Compute Cloud</strong></em><strong>)</strong> es el servicio de computación de AWS que permite crear servidores virtuales bajo demanda. Es computación.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80b9-b02e-ef8cb04ffdae" class="">→ <em>En lugar de comprar un servidor físico real, AWS nos proporciona máquinas virtuales que podemos iniciar, detener, configurar o eliminar en cualquier momento.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80a7-84ea-d8affcbb4aee" class="">Instancias</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8087-8a74-faddb5354890" class="">Una instancia es una máquina virtual que se ejecuta dentro de AWS. Familias comunes:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8045-9b9e-f4a3c0c25bb4" class="bulleted-list"><li style="list-style-type:disc"><strong>T</strong> (como Amazon EC2 T3 <code>t3.micro</code>) son económicas y de uso general con CPU “burstable”, ideales para webs pequeñas y testing.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-804a-9919-f1d6b53861db" class="bulleted-list"><li style="list-style-type:disc"><strong>C</strong> (como Amazon EC2 C5 <code>c5.large</code>) están optimizadas para alto rendimiento de CPU, ideales para procesamiento intensivo y cálculo.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8025-9fee-f8b017959200" class="bulleted-list"><li style="list-style-type:disc"><strong>R</strong> (como Amazon EC2 R5 <code>r5.large</code>) están optimizadas para gran cantidad de RAM, ideales para bases de datos y caché.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8056-9d07-f4576ab547f8" class="bulleted-list"><li style="list-style-type:disc"><strong>P</strong> (como Amazon EC2 P3 <code>p3.2xlarge</code>) incluyen GPUs potentes y están pensadas para IA, machine learning y renderizado gráfico.</li></ul></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80c7-8b58-dd695554d488" class="">AMI</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-802c-adf3-ea7154a8ff70" class="">Una AMI (<em>AmazonMachine Image</em>) es una plantilla utilizada para crear instancias EC2 rápidamente. Incluye sistema operativo, software y configuración inicial.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80ff-9e47-ebf2577bc936" class="">Elastic IP</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-805d-ba41-e0b339b74e83" class="">Las IP públicas normales cambian al detener e iniciar instancias. Para evitar esto AWS ofrece Elastic IP. Esto puede ahorrar muchos costes no deseados.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80df-a203-d073f36d0671"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-802d-8068-eae96f1e87eb" class="">Comandos en Linux</h4></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" integrity="sha512-whYhDwtTmlC/NpZlCr6PSsAaLOrfjVg/iXAnC4H/dtiHawpShhT2SlIMbpIhT/IL/NrpdMm+Hq2C13+VKpHTYw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="36683986-e476-8025-be98-e81cf4e323bc" class="code code-wrap"><code class="language-bash" style="white-space:pre-wrap;word-break:break-all">#GESTIÓN DE DISCOS ----------------------------------------------------------------
+lsblk #ver info de los discos
+df -m #ver almacenamiento
+sudo mkfs.ext4 #formatear volumen 
+sudo mkdir /data # crear punto de montaje (/data)
+sudo mount #montar disco
+
+# OTROS COMANDOS ÚTILES -----------------------------------------------------------
+pwd #mostrar ruta de la carpeta actual
+ls #significa list y muestra los archivos y carpetas del directorio actual.
+cd /ruta #te lleva a /ruta
+touch archivo.txt #crear archivos vacíos nuevos
+mkdir carpeta #crea el directorio &quot;carpeta&quot;
+rm archivo.txt #borra archivo.txt
+chmod 400 clave.pem #da permisos de solo lectura al propietario sobre clave.pem
+free -m #muestra el uso de memoria RAM y swap del sistema en MB (megabytes)
+top #muestra en tiempo real los procesos activos del sistema y el consumo de recursos.
+curl ifconfig.me #hace una petición web y devuelve tu dirección IP pública actual</code></pre></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8023-89fb-cfeb870d2d7b"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-805a-be7a-e478ec6298d3" class="">🔵 AMAZON EBS</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-80e4-9507-ea92e03eea59" class=""><strong>Amazon EBS (</strong><em><strong>Elastic Block Store</strong></em><strong>)</strong> es el sistema de almacenamiento persistente de AWS diseñado principalmente para instancias EC2. Funciona como un disco duro virtual conectado a un servidor cloud. Características:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8006-863b-fc2bcf94be3c" class="bulleted-list"><li style="list-style-type:disc">Persistencia</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-807a-928b-c6cc1a617d0f" class="bulleted-list"><li style="list-style-type:disc">Almacenamiento en bloques</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80ce-b6ce-e22799b75106" class="bulleted-list"><li style="list-style-type:disc">Escalabilidad</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80ad-a25a-cead1ca4a19f" class="bulleted-list"><li style="list-style-type:disc">Alta disponibilidad</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-800f-a71d-c13c0b5c7650" class="bulleted-list"><li style="list-style-type:disc">Snapshots</li></ul></div><div style="display:contents" dir="auto"><p id="36683986-e476-8097-a973-dccb1d18b547" class="">→ <em>Cuando una instancia necesita guardar datos importantes, normalmente utiliza EBS.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8020-b5c6-f05957f2157c" class="">→ <em>EBS es comparable a un SSD o HDD conectado físicamente a un servidor, pero virtualizado en AWS.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-807a-88d4-d02772b19bed" class="">→ <em>Muchas bases de datos empresariales utilizan EBS por su rendimiento y persistencia.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80c1-a21f-d8b176c550e5" class="">→ <em>AWS permite cifrar volúmenes EBS sin coste adicional</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80f2-9d96-c32f16c63bed" class="">Snapshot</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8010-9209-fe77d977d59e" class="">Un snapshot es una copia de seguridad de un volumen EBS. AWS almacena snapshots en S3 internamente. → <em>Las snapshots son incrementales, por lo que optimizan espacio y costes.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-808b-ba0b-e5ab44cfd85c" class="">Tipos de volúmenes EBS</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80c6-872f-cc04f28a3484" class="bulleted-list"><li style="list-style-type:disc"><strong>SSD General Purpose</strong> → uso general</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8045-b701-c2a9f7a2c596" class="bulleted-list"><li style="list-style-type:disc"><strong>SSD Provisioned IOPS</strong> → Máximo rendimiento</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80c6-86b4-d21031cef324" class="bulleted-list"><li style="list-style-type:disc"><strong>HDD Throughput Optimized</strong> → Acceso secuencial</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-809d-a31d-faa07f1d5303" class="bulleted-list"><li style="list-style-type:disc"><strong>Cold HDD → </strong>Bajo coste</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80a9-902e-f78059747c9e"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-80de-9b78-dca4914b2158" class="">🔵 AMAZON S3</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-8024-8f1f-d7f74c729dec" class=""><strong>Amazon S3 (</strong><em><strong>Simple Storage Service</strong></em><strong>)</strong> es el sistema de almacenamiento de <strong>objetos</strong> de AWS. Está diseñado para guardar archivos de cualquier tipo de manera extremadamente escalable.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80cd-8202-e6deb001f34d" class="">→ <em>Los objetos S3 pueden accederse mediante URL en formato path style, virtual-hosted (la más usada actualmente) y URL de objetos.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8074-bbad-e016d4de32ad" class="">→ <em>S3 replica automáticamente objetos en múltiples Availability Zones. Esto permite mantener datos disponibles incluso si falla un centro de datos completo.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8055-a61e-d4145c6b2639" class="">→ <em>Durabilidad =</em> <code>99.999999999%</code></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-809e-881f-e18a11a8f47f" class="">→ <em>Amazon S3 usa un modelo de pago por uso</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80e5-ad96-ccb6628f93f5" class="">Buckets y objetos</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-805e-910d-df501a269f37" class="">En S3 los archivos se almacenan como objetos dentro de contenedores llamados buckets.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80bf-b1a0-fe5da1d35c64" class="">→ <em>Por defecto, los buckets son privados. Para hacer públicos objetos necesitamos modificar permisos y políticas. Estas están en formato JSON.</em><div class="indented"><div style="display:contents" dir="auto"><ul id="36683986-e476-80f9-af13-c4fa714601a1" class="bulleted-list"><li style="list-style-type:disc"><em>Allow → permite acceso</em></li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8089-bc1a-f892764a4ad4" class="bulleted-list"><li style="list-style-type:disc"><em>GetObject → leer objetos</em></li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80a2-a913-c99ad1d5b9b8" class="bulleted-list"><li style="list-style-type:disc"><em>Principal &quot;*&quot; → cualquier usuario</em></li></ul></div></div></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80ba-b1f4-c79f7209d897" class="">Clases de almacenamiento S3</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-807e-9517-ce50dec0b344" class="bulleted-list"><li style="list-style-type:disc"><strong>S3 Standard:</strong> almacenamiento de acceso frecuente con alta disponibilidad y baja latencia, ideal para aplicaciones y contenido activo.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80f4-a584-f5920414289a" class="bulleted-list"><li style="list-style-type:disc"><strong>S3 Standard-Infrequent Access (Standard IA):</strong> almacenamiento más barato para datos poco accedidos pero que requieren acceso rápido cuando se necesiten.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80b8-9859-dd3b03f8bd74" class="bulleted-list"><li style="list-style-type:disc"><strong>S3 Intelligent-Tiering</strong>: mueve automáticamente los objetos entre niveles de acceso frecuente e infrecuente para optimizar costes.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80b6-a7c7-c4831dab6ffe" class="bulleted-list"><li style="list-style-type:disc"><strong>Glacier:</strong> almacenamiento de archivado de bajo coste para datos que no necesitan acceso inmediato.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80be-8cc4-d4a6459a52ed" class="bulleted-list"><li style="list-style-type:disc"><strong>Glacier Deep Archive:</strong> la opción más barata de archivado para retención a muy largo plazo con tiempos de recuperación lentos.</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-801c-81ba-f5dde05b6d20"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-801e-8971-ca426a9afa52" class="">🔵 AMAZON RDS</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-809a-8a89-e18a7ca22219" class=""><strong>Amazon RDS (</strong><em><strong>Relational Database Service</strong></em><strong>)</strong> es el servicio administrado de bases de datos relacionales de AWS. Soporta <em>PostgreSQL, MySQL, MariaDB, Oracle, SQL Server</em> y <em>Amazon Aurora</em>.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-800f-9a99-fbb7e874a3aa" class="">→ <em>Aurora es la base de datos propia de AWS compatible con MySQL y PostgreSQL.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8001-b730-ff61d2a4f080" class="">→ <em>Al crear una base de datos RDS debemos elegir varios elementos fundamentales: clase de instancia, almacenamiento y motor.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80db-9c5f-cc55c4ffa678" class="">→ <em>Por seguridad, las bases de datos RDS suelen colocarse en subredes privadas.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80b5-8ad4-e914a8a5a50a" class="">→ <em>RDS cobra principalmente mientras la base de datos está activa.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8012-92cd-e4095cb0f7f4" class="">Motores de bases de datos</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80d6-b685-c9e647e3854f" class="bulleted-list"><li style="list-style-type:disc"><strong>PostgreSQL</strong> → Open source avanzado</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8007-9880-e73e55d8a508" class="bulleted-list"><li style="list-style-type:disc"><strong>MySql </strong>→ Aplicaciones web</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-809d-a76f-d29e9fc28883" class="bulleted-list"><li style="list-style-type:disc"><strong>Aurora</strong> → Máximo rendimiento AWS</li></ul></div><div style="display:contents" dir="auto"><p id="36683986-e476-8032-9030-e7a454850747" class="">→ <em>También podemos instalar manualmente PostgreSQL dentro de una instancia EC2 Ubuntu. </em><em><code>systemctl enable --now postgresql</code></em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80f6-9773-c5abeb7a0811" class="">AWS Database Migration Service (DMS)</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-807e-9038-c62770f5e3d6" class="">Permite migrar bases de datos hacia AWS de forma rápida y segura, manteniendo la base de datos de origen operativa durante la migración.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8004-ae83-c1e8b851d512" class="">SQL básico</h4></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js" integrity="sha512-sijCOJblSCXYYmXdwvqV0tak8QJW5iy2yLB1wAbbLc3OOIueqymizRFWUS/mwKctnzPKpNdPJV3aK1zlDMJmXQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="36683986-e476-801f-871a-e6b7f0441e80" class="code code-wrap"><code class="language-sql" style="white-space:pre-wrap;word-break:break-all">#Crear base de datos
+CREATE DATABASE fp_prometeo;
+
+#Crear usuario
+CREATE USER alumno 
+WITH ENCRYPTED PASSWORD &#x27;Alumno123!&#x27;;
+
+#Permisos
+GRANT ALL PRIVILEGES ON DATABASE fp_prometeo TO alumno;
+
+#Crear tabla
+CREATE TABLE visitas (
+ id SERIAL PRIMARY KEY,
+ alumno TEXT NOT NULL,
+ momento TIMESTAMP NOT NULL DEFAULT now()
+);
+
+#Insertar datos
+INSERT INTO visitas (alumno)
+VALUES (&#x27;Ana&#x27;), (&#x27;Luis&#x27;);
+
+#Consultar datos
+SELECT * FROM visitas ORDER BY id;</code></pre></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8096-b675-f9a8f47cf0db"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-80bc-ae0c-ee09465ae331" class="">🔵 AWS DYNAMODB</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-8090-98a6-f28b112a70b3" class=""><strong>Amazon DynamoDB</strong> es una base de datos NoSQL completamente administrada por AWS. Está diseñada para aplicaciones que necesitan:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80f8-92cc-c8db66f1d1ee" class="bulleted-list"><li style="list-style-type:disc">Escalabilidad extrema</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-802e-8bcb-d79583fa555c" class="bulleted-list"><li style="list-style-type:disc">Baja latencia</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-802c-96d3-c2b40dab7e45" class="bulleted-list"><li style="list-style-type:disc">Alta disponibilidad</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80f3-bd50-f20fe8f11da9" class="bulleted-list"><li style="list-style-type:disc">Rendimiento constante</li></ul></div><div style="display:contents" dir="auto"><p id="36683986-e476-80bc-b656-efee5aa5d4be" class="">→ <em>DynamoDB utiliza principalmente modelo clave-valor y documentos.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-801d-ad30-e68b8317b9c7" class="">→ <em>Aunque DynamoDB sea NoSQL, sigue usando el concepto de tablas: tabla como contenedor principal, ítem como registro individual y atributo como dato concreto.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8016-80a0-eb0e2cd98917" class="">→ <em>DynamoDB + Lambda: DynamoDB se integra perfectamente con arquitecturas serverless. Lambda suele usar boto3 para conectarse a DynamoDB.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80df-98e8-ef57eebcf89b" class="">Claves DynamoDB</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8061-9fe3-f326bb305081" class="bulleted-list"><li style="list-style-type:disc"><strong>Partition Key</strong> → Es la clave principal usada para identificar y distribuir datos.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8032-b86e-ed6e4a44b34b" class="bulleted-list"><li style="list-style-type:disc"><strong>Sort Key → Permite ordenar múltiples registros relacionados.</strong></li></ul></div><div style="display:contents" dir="auto"><pre id="36683986-e476-80bb-b9b9-f5eb3942fa8b" class="code code-wrap"><code class="language-bash" style="white-space:pre-wrap;word-break:break-all">{
+ &quot;usuario&quot;:&quot;Ana&quot;, #Partition Key
+ &quot;fecha&quot;:&quot;2026-05-15&quot; #Sort Key
+}</code></pre></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-805e-9979-c3ae47ede914" class="">DynamoDB Streams</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-801b-8a7d-df9328e11b62" class="">DynamoDB Streams captura una secuencia temporal de las modificaciones de los elementos en una tabla, permitiendo disparar eventos (<em>ej. invocar una función Lambda al instante</em>).</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-809d-a25c-c6877d11a92e" class="">PartiQL</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-80c1-9ea9-cb5021e85e51" class="">PartiQL es un lenguaje de consultas compatible con SQL que facilita a los desarrolladores tradicionales hacer operaciones en tablas de DynamoDB.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80c4-86ab-c228fe0ed4b5" class="">Multi AZ</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8094-b6e9-efd4a08fdaa5" class="">Los despliegues Multi-AZ (Múltiples Zonas de Disponibilidad) mantienen una réplica síncrona en espera en otro centro de datos para asegurar el servicio en caso de fallo de infraestructura.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80e3-9790-c5c3502ca27e" class="">Query y Scan</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-805e-86f5-fb59762d1ae2" class="">Query busca datos usando claves y es muy rápido; Scan recorre toda la tabla y es más lento.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80c4-abfe-ff52532def08" class="">APIS y JSON</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-805e-9be9-c99d2c810fe2" class="">DynamoDB trabaja muchísimo con APIs y formato JSON. Una API es un intermediario que permite comunicación entre programas. Usa mucho JSON.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8058-888c-e7763e684770"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-8015-915d-dedb8822eb52" class="">🔵 AWS LAMBDA</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-80a0-b51e-d5b3068dbbd3" class="">AWS Lambda es el servicio serverless de AWS que permite ejecutar código sin administrar servidores. La función solo existe mientras se ejecuta.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-800f-acd3-d04e548a9d30" class="">En lugar de crear una máquina EC2 completa, simplemente subimos una función y AWS se encarga automáticamente de:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80e2-99bb-e7f58c3ecec8" class="bulleted-list"><li style="list-style-type:disc">Infraestructura</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80be-823a-e5430ce422f4" class="bulleted-list"><li style="list-style-type:disc">Escalado</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8077-9dc8-c4aeb79972f3" class="bulleted-list"><li style="list-style-type:disc">Disponibilidad</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8073-8660-c2ab93faf913" class="bulleted-list"><li style="list-style-type:disc">Ejecución</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80f2-97f6-d8f9e05aeee4" class="bulleted-list"><li style="list-style-type:disc">Monitorización básica</li></ul></div><div style="display:contents" dir="auto"><p id="36683986-e476-80a8-b8c2-cd00dc3b6c5d" class="">→ <em>Lambda revolucionó muchas arquitecturas modernas porque elimina gran parte de la administración de servidores.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8053-9b88-da37772da29e" class="">→ <em>Serverless NO significa que no existan servidores. Significa que los servidores son completamente administrados por AWS y nosotros no tenemos que preocuparnos por ellos.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8080-a5bf-c2eb46a5c8af" class="">→ <em>Lambda trabaja completamente mediante eventos. Una función Lambda no permanece activa permanentemente como EC2 (límite 15 minutos). La función principal suele llamarse lambda_handler.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8077-be1e-e5cc5d7a4fe6" class="">→ <em>Lambda soporta muchos lenguajes, principalmente Python, pero también Node.js, Java, C#, Java, Go y Ruby.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80c5-9ab1-c9d740af72b0" class="">→ <em>Lambda necesita permisos para interactuar con otros servicios AWS. Los permisos se obtienen mediante roles IAM.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80a7-b5e1-e3ff3ab7bdf2" class="">→ <em>Uno de los usos más comunes es encender y apagar servidores automáticamente, automatizando EC2.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-800b-b8a9-f44d4404c432" class="">→ <em>Lambda no sustituye completamente a EC2; ambos servicios se complementan.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-804e-bfda-d3631ffd6c83" class="">Amazon EC2 vs AWS Lambda</h4></div><div style="display:contents" dir="ltr"><table id="36683986-e476-808b-bebf-f46e5524a503" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36683986-e476-80ad-bbb9-fecb3d6b39e6"><th id="W_XR" class="simple-table-header-color simple-table-header">Amazon EC2</th><th id="x;yO" class="simple-table-header-color simple-table-header">AWS Lambda</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36683986-e476-80e9-9b67-d88d56ea7a94"><td id="W_XR" class="">Gestionas servidores</td><td id="x;yO" class="">AWS gestiona infraestructura</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-80cb-bc13-f223bd557075"><td id="W_XR" class="">Pago continuo</td><td id="x;yO" class="">Pago por ejecución</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-80be-bc1e-e5f1bf6ebf28"><td id="W_XR" class="">Escalado manual</td><td id="x;yO" class="">Escalado automático</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-8009-969b-e4c4bd995573"><td id="W_XR" class="">Aplicaciones largas</td><td id="x;yO" class="">Eventos rápidos</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="36683986-e476-803f-812f-cd6d55f66fe9" class="">Ejemplo de evento con S3:</p></div><div style="display:contents" dir="auto"><pre id="36683986-e476-80ac-b274-fd082656845e" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Usuario sube imagen
+↓
+S3 detecta evento
+↓
+Lambda procesa imagen</code></pre></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-802f-a205-c77ec8ab2113" class="">CloudWatch</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-804d-9418-fd7c55048b4d" class="">CloudWatch monitoriza funciones Lambda automáticamente (<em>logs, errores, tiempo de ejecución, invocaciones, uso de memoria…</em>) → <em>CloudWatch es fundamental para detectar errores en arquitecturas serverless.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80a9-bb43-c0267a3a2ba7" class="">API Gateway</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8035-895a-fa74dff9dfd4" class="">API Gateway permite exponer funciones Lambda mediante HTTP. → <em>API Gateway suele ser la puerta de entrada HTTP en arquitecturas serverless.</em></p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80c1-aea3-cd2dd6287607"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-806e-a7b0-fe324a65ad8f" class="">🔵 AWS EBS (Elastic Beanstalk)</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-80ba-91d5-d3534a721303" class="">AWS Elastic Beanstalk es un servicio administrado que permite desplegar aplicaciones web automáticamente sin configurar manualmente toda la infraestructura. El objetivo principal es simplificar el despliegue de aplicaciones.</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8056-a8ae-e57347488e58" class="bulleted-list"><li style="list-style-type:disc">Crea servidores EC2</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-809a-a208-fe898ae9d9ca" class="bulleted-list"><li style="list-style-type:disc">Configura balanceadores</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80c1-ba95-f8ed77590075" class="bulleted-list"><li style="list-style-type:disc">Gestiona Auto Scaling</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80ef-97bd-f10e21be347d" class="bulleted-list"><li style="list-style-type:disc">Configura monitoreo</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8020-bd34-ff0a7ee9785b" class="bulleted-list"><li style="list-style-type:disc">Despliega aplicaciones</li></ul></div><div style="display:contents" dir="auto"><p id="36683986-e476-80a9-97d1-ef5ceee5135c" class="">→ <em>Elastic Beanstalk permite centrarse en programar sin perder completamente el control de AWS.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8088-87d1-eaea3b7989d8" class="">→ <em>Cuando desplegamos una aplicación, Elastic Beanstalk crea automáticamente múltiples servicios AWS.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8035-a8bb-e3f8899aa99b" class="">→ <em>Elastic Beanstalk NO reemplaza EC2. Simplemente automatiza su administración. Si miramos la consola EC2 veremos servidores creados automáticamente por Beanstalk</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80f0-82e9-f9460889424e" class="">→ <em>Soporta servidores NGINX, Apache, IIS y Puma.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80ce-b3fc-f75498db5260" class="">→ <em>Elastic Beanstalk puede aumentar o reducir servidores automáticamente. Esto se conoce como Auto Scaling. Auto Scaling es fundamental en aplicaciones con tráfico variable.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8069-9263-d8793c625b9f" class="">→ <em>Elastic Beanstalk utiliza CloudWatch para monitorización.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-80cd-a4f5-d081664ae45e" class="">→ <em>Muchos alumnos creen que Beanstalk reemplaza costes EC2; realmente sigue usando recursos AWS normales.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-802f-bef2-d556913d29a3" class="">→ <em>Beanstalk es muy útil para aprender cloud antes de pasar a arquitecturas más avanzadas como Kubernetes o ECS.</em></p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80c7-9657-d5b1cc78d0fb" class="">Balanceadores de carga</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8059-b80c-ff4e571470cb" class="">El balanceador distribuye tráfico entre múltiples servidores para evitar saturación, ofrecer mayor disponibilidad y distribuir el tráfico.</p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80ac-a104-c5f6221eb6a2"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8068-b27e-fdc95c9dcf84" class="">Alta disponibilidad</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8052-92e7-c4c37f21c8fa" class=""><strong>La alta disponibilidad (</strong><em><strong>High Availability o HA</strong></em>) es un concepto fundamental en cloud computing. El objetivo es que una aplicación permanezca funcionando incluso cuando algo falla.</p></div><div style="display:contents" dir="auto"><p id="36683986-e476-8091-873d-e17c10837e18" class="">→ <em>Alta disponibilidad NO significa “nunca falla”, sino minimizar caídas.</em></p></div><div style="display:contents" dir="auto"><p id="36683986-e476-803a-826f-ee84251152c3" class="">→ <em>En arquitecturas modernas es importante no depender de un único servidor, ya que esto puede suponer un </em><em><strong>punto único de fallo</strong></em><em> e implicar la caída de todo el sistema.</em></p></div><div style="display:contents" dir="auto"><hr id="36683986-e476-80ca-a6a8-db5876b851b5"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-808d-be9b-deb81277ea0d" class="">🔵 AWS ELB</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-805d-a6d8-cf2c036c144c" class=""><strong>Elastic Load Balancing</strong> es el servicio AWS encargado del balanceo de carga. El balanceo de carga consiste en repartir tráfico entre varios servidores.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80ed-a55b-c23fa7f6be92" class="">Funcionamiento básico</h4></div><div style="display:contents" dir="auto"><pre id="36683986-e476-807b-83ae-d23e66da70d2" class="code code-wrap"><code class="language-bash" style="white-space:pre-wrap;word-break:break-all">Usuario entra web
+↓
+ELB recibe petición
+↓
+ELB decide servidor
+↓
+Servidor responde</code></pre></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80bf-9da6-f16b86580d99" class="">Health Checks</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8051-95ce-c0b401218cd3" class="">ELB comprueba constantemente si los servidores siguen vivos. ELB mejora disponibilidad porque evita enviar tráfico a servidores rotos.</p></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-807b-92b6-cfc7dba682ed" class="">Tipos de Load Balancers</h4></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80fb-9e88-d12608704a14" class="bulleted-list"><li style="list-style-type:disc"><strong>ALB (Application Load Balancer)</strong> → el más usado actualmente. Trabaja en la capa 7 (HTTP/HTTPS) distribuyendo el tráfico (<em>Recomendado para aplicaciones web modernas</em>)</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8012-8307-daca0f4d1869" class="bulleted-list"><li style="list-style-type:disc"><strong>NLB (Network Load Balancer)</strong> → distribuye tráfico TCP/UDP a muy alta velocidad y baja latencia a nivel de red (capa 4).</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-807b-89ac-fdad46c7cf46" class="bulleted-list"><li style="list-style-type:disc"><strong>CLB (Classic Load Balancer) </strong>→ es el modelo antiguo, trabaja en capas 4 y 7.</li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-8027-854a-f85d58507148"/></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80a6-8f3b-fc57ad5be0ed" class="">Auto Scaling</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-804b-b98f-e1f4eb91bb8c" class="">Auto Scaling permite crear o eliminar servidores automáticamente según demanda.</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8068-9306-fdc360396c2b" class="bulleted-list"><li style="list-style-type:disc"><strong>Scale Out (cuándo)</strong>: el escalado ascendente consiste en <strong>añadir más instancias o recursos</strong> cuando aumenta la demanda para repartir la carga de trabajo.<br/>→ <em>Una aplicación web pasa de 2 a 6 instancias EC2 durante el Black Friday para soportar más usuarios.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8061-a3dd-ed324a3107a6" class="bulleted-list"><li style="list-style-type:disc"><strong>Scale In (cuándo):</strong> el escalado descendente consiste en <strong>reducir la cantidad de instancias o recursos</strong> cuando baja la demanda, optimizando costos.<br/>→ <em>Por la noche, una aplicación reduce automáticamente de 6 a 2 instancias EC2 porque hay menos tráfico.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80b1-aa0b-c0defb6a5150" class="bulleted-list"><li style="list-style-type:disc"><strong>Vertical Scaling (cómo):</strong> implica <strong>aumentar la capacidad de una sola instancia</strong>, por ejemplo agregando más CPU, RAM o almacenamiento.<br/>→ <em>Cambiar una instancia EC2 de tipo </em><em><code>t3.medium</code></em><em> a </em><em><code>m5.large</code></em><em> para mejorar el rendimiento de una base de datos.</em></li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8056-a633-cbba25333199" class="bulleted-list"><li style="list-style-type:disc"><strong>Horizontal Scaling (cómo): </strong>consiste en <strong>agregar más servidores o instancias iguales</strong> para distribuir la carga entre varios nodos.<br/>→ <em>Un balanceador de carga distribuye usuarios entre 10 instancias EC2 idénticas en lugar de usar un solo servidor muy potente.</em></li></ul></div><div style="display:contents" dir="auto"><hr id="36683986-e476-808a-88f6-ca88371cffc1"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-804d-a2c2-c281f40dafae" class="">🔵 AMAZON ECS</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-80f3-ab7e-cfa417b0e8d9" class=""><strong>Amazon ECS (</strong><em><strong>Elastic Container Service</strong></em><strong>) </strong>es el servicio AWS para almacenar y ejecutar contenedores Docker.</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-807b-8507-f871a44f2336" class="bulleted-list"><li style="list-style-type:disc">Gestiona contenedores</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80bd-8714-db9e68bed190" class="bulleted-list"><li style="list-style-type:disc">Escala automáticamente</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8009-a757-d0dfc378cad2" class="bulleted-list"><li style="list-style-type:disc">Distribuye carga</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-809e-bb44-d85d5bd508dd" class="bulleted-list"><li style="list-style-type:disc">Coordina despliegues</li></ul></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-80fd-884a-cc5bf92ca2cb" class="">Docker</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-8036-a9fc-e305cad08982" class="">Docker es la plataforma más famosa para trabajar con contenedores. Algunos conceptos:</p></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80cd-93cc-e8ef3538876f" class="bulleted-list"><li style="list-style-type:disc">Imagen Docker → (<em>receta</em>)es como una plantilla que contiene aplicación, dependencias y configuración.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8000-9037-ccd57e4dd98e" class="bulleted-list"><li style="list-style-type:disc">Contenedor → (<em>comida preparada</em>) es la instancia en ejecución de una imagen.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-80d1-af68-d35baf79b882" class="bulleted-list"><li style="list-style-type:disc">Dockerfile → es un archivo con instrucciones para crear imágenes.</li></ul></div><div style="display:contents" dir="auto"><ul id="36683986-e476-8048-a414-fbaa9c64954b" class="bulleted-list"><li style="list-style-type:disc">Kubernetes → Es una plataforma para coordinar contenedores automáticamente. Docker ejecuta contenedores. Kubernetes coordina MUCHOS contenedores.</li></ul></div><div style="display:contents" dir="auto"><h4 id="36683986-e476-8098-9b4a-f74a68c21d7f" class="">Monolitos vs Microservicios</h4></div><div style="display:contents" dir="auto"><p id="36683986-e476-805f-a5fa-d9604f0dbd8c" class="">Una aplicación <strong>monolítica</strong> tiene todos sus componentes (frontend, backend, base de datos, lógica de negocio) dentro de un único proyecto o servicio.<br/><br/>Los <strong>microservicios</strong> dividen la aplicación en varios servicios pequeños e independientes, cada uno con una función específica.</p></div><div style="display:contents" dir="ltr"><table id="36683986-e476-80e7-b14c-ffd1df67076b" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36683986-e476-8016-b7e1-c14b3ce136e9"><th id="S[jJ" class="simple-table-header-color simple-table-header">Aspecto</th><th id="yVMq" class="simple-table-header-color simple-table-header">Monolito</th><th id="Wrx&gt;" class="simple-table-header-color simple-table-header">Microservicios</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36683986-e476-808d-bd9a-f17f8db837ec"><td id="S[jJ" class="">Estructura</td><td id="yVMq" class="">Una sola aplicación</td><td id="Wrx&gt;" class="">Múltiples servicios</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-80e1-9021-c013e5dd9974"><td id="S[jJ" class="">Despliegue</td><td id="yVMq" class="">Único despliegue</td><td id="Wrx&gt;" class="">Independiente por servicio</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-800e-b881-df6b41894f4d"><td id="S[jJ" class="">Escalabilidad</td><td id="yVMq" class="">Generalmente vertical</td><td id="Wrx&gt;" class="">Horizontal y granular</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-809c-8f3d-ed9369884056"><td id="S[jJ" class="">Complejidad</td><td id="yVMq" class="">Baja al inicio</td><td id="Wrx&gt;" class="">Más alta</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-809a-8df6-d28986f3c43f"><td id="S[jJ" class="">Mantenimiento</td><td id="yVMq" class="">Difícil al crecer</td><td id="Wrx&gt;" class="">Más modular</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-80a5-890e-e8f93f31412b"><td id="S[jJ" class="">Fallos</td><td id="yVMq" class="">Un fallo afecta todo</td><td id="Wrx&gt;" class="">Fallos aislados</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-8052-8777-c9e3b6166082"><td id="S[jJ" class="">Tecnologías</td><td id="yVMq" class="">Normalmente una sola</td><td id="Wrx&gt;" class="">Varias tecnologías posibles</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="36683986-e476-809f-b68f-ced5435f87cc"/></div><div style="display:contents" dir="auto"><h3 id="36683986-e476-8018-a2e8-c87bbfca8552" class="">🔵 AMAZON EKS</h3></div><div style="display:contents" dir="auto"><p id="36683986-e476-80b4-a40e-d03fa964c89a" class="">Amazon EKS es el servicio Kubernetes administrado de AWS. EKS usa Kubernetes real.</p></div><div style="display:contents" dir="ltr"><table id="36683986-e476-8088-8f07-c52f4359375d" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="36683986-e476-80f1-b809-ff65a0e1e48c"><th id="AzHL" class="simple-table-header-color simple-table-header">ECS</th><th id="^_rL" class="simple-table-header-color simple-table-header">EKS</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="36683986-e476-807f-9470-f593dce1731b"><td id="AzHL" class="">Tecnología AWS</td><td id="^_rL" class="">Kubernetes estándar</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-8045-839d-d65ecb55113b"><td id="AzHL" class="">Más sencillo</td><td id="^_rL" class="">Más complejo</td></tr></div><div style="display:contents" dir="ltr"><tr id="36683986-e476-8080-ab30-d2167122ace7"><td id="AzHL" class="">Más fácil aprender</td><td id="^_rL" class="">Más flexible</td></tr></div></tbody></table></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
